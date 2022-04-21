@@ -72,7 +72,7 @@ function RegisterForm() {
           borderRadius: 2,
         }}
       >
-        <Typography sx={{ fontSize: "20px" }}>REGISTER</Typography>
+        <Typography sx={{ fontSize: "20px" }}>회원가입</Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <TextField
             required
