@@ -40,7 +40,7 @@ class userAuthService {
     const correctPasswordHash = user.password;
     const isPasswordCorrect = await bcrypt.compare(
       password,
-      correctPasswordHash
+      correctPasswordHash,
     );
     if (!isPasswordCorrect) {
       const errorMessage =
@@ -55,23 +55,16 @@ class userAuthService {
     // 반환할 loginuser 객체를 위한 변수 설정
     const id = user.id;
     const name = user.name;
-    const description = user.description;
 
     const loginUser = {
       token,
       id,
       email,
       name,
-      description,
       errorMessage: null,
     };
 
     return loginUser;
-  }
-
-  static async getUsers() {
-    const users = await User.findAll();
-    return users;
   }
 
   static async setUser({ user_id, toUpdate }) {
@@ -80,8 +73,7 @@ class userAuthService {
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
-      const errorMessage =
-        "가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+      const errorMessage = "가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
 
@@ -100,13 +92,8 @@ class userAuthService {
 
     if (toUpdate.password) {
       const fieldToUpdate = "password";
-      const newValue = toUpdate.password;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
-    }
-
-    if (toUpdate.description) {
-      const fieldToUpdate = "description";
-      const newValue = toUpdate.description;
+      const hashedPassword = await bcrypt.hash(toUpdate.password, 10);
+      const newValue = hashedPassword;
       user = await User.update({ user_id, fieldToUpdate, newValue });
     }
 
@@ -123,6 +110,12 @@ class userAuthService {
       return { errorMessage };
     }
 
+    return user;
+  }
+
+  //추후에 북마크 리뷰 기능도 있으면 해당 데이터도 같이 지워주기
+  static async deleteUser({ user_id }) {
+    const user = await User.delete({ user_id });
     return user;
   }
 }
