@@ -29,9 +29,14 @@ class User {
     const updatedUser = await UserModel.findOneAndUpdate(
       filter,
       update,
-      option
+      option,
     );
     return updatedUser;
+  }
+
+  static async delete({ user_id }) {
+    const ret = await UserModel.findOneAndDelete({ id: user_id });
+    return ret;
   }
 }
 
