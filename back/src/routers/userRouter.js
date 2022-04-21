@@ -119,4 +119,22 @@ userAuthRouter.get(
   },
 );
 
+userAuthRouter.delete("/users", login_required, async (req, res, next) => {
+  try {
+    // 현재 로그인된 사용자 id를 추출함.
+    const user_id = req.currentUserId;
+
+    // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 삭제함.
+    const deletedUser = await userAuthService.deleteUser({ user_id });
+
+    if (deletedUser.errorMessage) {
+      throw new Error(deletedUser.errorMessage);
+    }
+
+    res.status(200).json(deletedUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
 export { userAuthRouter };

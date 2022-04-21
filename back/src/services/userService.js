@@ -112,6 +112,12 @@ class userAuthService {
 
     return user;
   }
+
+  //추후에 북마크 리뷰 기능도 있으면 해당 데이터도 같이 지워주기
+  static async deleteUser({ user_id }) {
+    const user = await User.delete({ user_id });
+    return user;
+  }
 }
 
 export { userAuthService };
