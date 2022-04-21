@@ -8,6 +8,7 @@ import { login } from "./redux/action/userAction";
 import LoginForm from "./components/user/LoginForm";
 import RegisterForm from "./components/user/RegisterForm";
 import MainPage from "./components/main/MainPage";
+import MapPage from "./components/map/MapPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" exact element={<MainPage />} />
+        <Route path="/map" exact element={<MapPage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
       </Routes>
