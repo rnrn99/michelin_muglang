@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import * as Api from "./api";
-import { login } from "./redux/action/userAction";
+import { login } from "./redux/userSlice";
 
 import LoginForm from "./components/user/LoginForm";
 import RegisterForm from "./components/user/RegisterForm";
