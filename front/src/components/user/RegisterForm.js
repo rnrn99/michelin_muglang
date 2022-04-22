@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import * as Api from "../../api";
 import {
   Button,
   TextField,
@@ -9,7 +10,6 @@ import {
   Box,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import * as Api from "../../api";
 
 function RegisterForm() {
   const navigate = useNavigate();
@@ -60,13 +60,22 @@ function RegisterForm() {
   };
 
   return (
-    <Box sx={{ height: "100vh" }}>
+    <Box
+      sx={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: -1,
+      }}
+    >
       <Container component="main" maxWidth="xs">
         <Card
           sx={{
             display: "flex",
             position: "absolute",
-            width: "25%",
+            width: "420px",
             top: "15%",
             flexDirection: "column",
             alignItems: "center",
