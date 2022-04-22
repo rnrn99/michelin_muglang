@@ -1,0 +1,128 @@
+[
+  {
+    "_id": {
+      "$oid": "626116cf6b7efeae70b8a02a"
+    },
+    "name": "Aqua",
+    "address": "Parkstra_e 1, Wolfsburg, 38440, Germany",
+    "location": "Wolfsburg",
+    "minPrice": 225,
+    "maxPrice": 225,
+    "currency": "EUR",
+    "cuisine": "Creative, Modern Cuisine",
+    "longitude": 10.789999,
+    "latitude": 52.4331722,
+    "phoneNumber": "+495361606056",
+    "url": "https://guide.michelin.com/en/niedersachsen/wolfsburg/restaurant/aqua79029",
+    "websiteUrl": "http://www.restaurant-aqua.com",
+    "award": "3 MICHELIN Stars"
+  },
+  {
+    "_id": {
+      "$oid": "626116cf6b7efeae70b8a02b"
+    },
+    "name": "The Table Kevin Fehling",
+    "address": "Shanghaiallee 15, Hamburg, 20457, Germany",
+    "location": "Hamburg",
+    "minPrice": 230,
+    "maxPrice": 230,
+    "currency": "EUR",
+    "cuisine": "Creative",
+    "longitude": 10.0029797,
+    "latitude": 53.5426229,
+    "phoneNumber": "+494022867422",
+    "url": "https://guide.michelin.com/en/hamburg-region/hamburg/restaurant/the-table-kevin-fehling",
+    "websiteUrl": "http://www.the-table-hamburg.de/",
+    "award": "3 MICHELIN Stars"
+  },
+  {
+    "_id": {
+      "$oid": "626116cf6b7efeae70b8a02c"
+    },
+    "name": "Restaurant _berfahrt Christian Jürgens",
+    "address": "_berfahrtstra_e 10, Rottach-Egern, 83700, Germany",
+    "location": "Rottach-Egern",
+    "minPrice": 259,
+    "maxPrice": 319,
+    "currency": "EUR",
+    "cuisine": "Creative",
+    "longitude": 11.7582292,
+    "latitude": 47.6966846,
+    "phoneNumber": "+4980226690",
+    "url": "https://guide.michelin.com/en/bayern/rottach-egern/restaurant/restaurant-uberfahrt-christian-jurgens",
+    "websiteUrl": "http://www.althoffcollection.com",
+    "award": "3 MICHELIN Stars"
+  },
+  {
+    "_id": {
+      "$oid": "626116cf6b7efeae70b8a02d"
+    },
+    "name": "Victor's Fine Dining by christian bau",
+    "address": "Schlossstra_e 27, Perl, 66706, Germany",
+    "location": "Perl",
+    "minPrice": 205,
+    "maxPrice": 295,
+    "currency": "EUR",
+    "cuisine": "Creative",
+    "longitude": 6.3872109,
+    "latitude": 49.5351732,
+    "phoneNumber": "+49686679118",
+    "url": "https://guide.michelin.com/en/saarland/perl/restaurant/victor-s-fine-dining-by-christian-bau",
+    "websiteUrl": "https://www.victors-fine-dining.de/",
+    "award": "3 MICHELIN Stars"
+  },
+  {
+    "_id": {
+      "$oid": "626116cf6b7efeae70b8a02e"
+    },
+    "name": "Rutz",
+    "address": "Chausseestra_e 8, Berlin, 10115, Germany",
+    "location": "Berlin",
+    "minPrice": 198,
+    "maxPrice": 245,
+    "currency": "EUR",
+    "cuisine": "Modern Cuisine, Creative",
+    "longitude": 13.3860867,
+    "latitude": 52.5283507,
+    "phoneNumber": "+493024628760",
+    "url": "https://guide.michelin.com/en/berlin-region/berlin/restaurant/rutz",
+    "websiteUrl": "https://www.rutz-restaurant.de/",
+    "award": "3 MICHELIN Stars"
+  },
+  {
+    "_id": {
+      "$oid": "626116cf6b7efeae70b8a039"
+    },
+    "name": "Sketch (The Lecture Room & Library)",
+    "address": "9 Conduit Street, London, W1S 2XG, United Kingdom",
+    "location": "London",
+    "minPrice": 125,
+    "maxPrice": 250,
+    "currency": "GBP",
+    "cuisine": "Modern French",
+    "longitude": -0.1415369,
+    "latitude": 51.5126775,
+    "phoneNumber": "+442076594500",
+    "url": "https://guide.michelin.com/en/greater-london/london/restaurant/sketch-the-lecture-room-library",
+    "websiteUrl": "https://www.sketch.london/",
+    "award": "3 MICHELIN Stars"
+  },
+  {
+    "_id": {
+      "$oid": "626116cf6b7efeae70b8a03e"
+    },
+    "name": "Jade Dragon",
+    "address": "Estrada do Istmo, Macau",
+    "location": "Macau",
+    "minPrice": 880,
+    "maxPrice": 2,
+    "currency": "MOP",
+    "cuisine": "Cantonese",
+    "longitude": 113.56715,
+    "latitude": 22.149137,
+    "phoneNumber": "+85388682822",
+    "url": "https://guide.michelin.com/en/macau-region/macau/restaurant/jade-dragon",
+    "websiteUrl": "https://www.cityofdreamsmacau.com/",
+    "award": "3 MICHELIN Stars"
+  }
+]

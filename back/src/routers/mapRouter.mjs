@@ -1,0 +1,26 @@
+import { mapService } from "../services/mapService.mjs";
+import { Router } from "express";
+
+const mapRouter = Router();
+
+//멀티 폴리곤으로 전세계 지도 주는데 프로퍼티에 국가 이름, 해당 국가의 미슐랭 음식점 수 있음
+mapRouter.get("/map", async (req, res, next) => {
+  try {
+    const ret = await mapService.getWorldMap();
+    res.status(200).json(ret);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//해당 국가의 모든 미슐랭 음식점 마커로 반환
+mapRouter.get("/map/:country", async (req, res, next) => {
+  try {
+    const ret = await mapService.getCountryMarker(req.params.country);
+    res.status(200).json(ret);
+  } catch (error) {
+    next(error);
+  }
+});
+
+export { mapRouter };
