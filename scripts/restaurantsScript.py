@@ -25,7 +25,7 @@ michelin.columns = ["name", "address", "location", "minPrice", "maxPrice", "curr
        "award"]
 
 # cuisine을 String에서 Array로 변환 
-michelin["cuisine"] = michelin["cuisine"].apply(lambda x:x.split(","))
+michelin["cuisine"] = michelin["cuisine"].apply(lambda x:x.replace(", ", ",").split(","))
 
 # 주소에서 국가 추출
 michelin["country"] = michelin["address"].apply(lambda x:x[x.rfind(",")+2:])
