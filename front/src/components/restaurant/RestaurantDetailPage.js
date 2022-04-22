@@ -4,6 +4,7 @@ import BookmarkOutlineIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Information from "./Information";
 import Review from "./Review";
+import NearbyRestaurant from "./NearbyRestaurant";
 
 const mock = {
   restaurantName: "The Table Kevin Fehling",
@@ -36,6 +37,7 @@ function RestaurantDetailPage() {
         </div>
         <Information mock={mock} />
         <Review />
+        <NearbyRestaurant />
       </div>
     </div>
   );
