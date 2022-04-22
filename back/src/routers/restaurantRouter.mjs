@@ -33,4 +33,24 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
   }
 });
 
+restaurantRouter.get(
+  "/restaurants/by/:country",
+  async function (req, res, next) {
+    try {
+      const restaurantCountry = req.params.country;
+      const restaurantsInfo = await restaurantService.getRestaurantsByCountry({
+        restaurantCountry,
+      });
+
+      if (restaurantsInfo.errorMessage) {
+        throw new Error(restaurantsInfo.errorMessage);
+      }
+
+      res.status(200).send(restaurantsInfo);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
 export { restaurantRouter };

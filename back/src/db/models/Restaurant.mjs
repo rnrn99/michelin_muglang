@@ -16,6 +16,11 @@ class Restaurant {
     return restaurant;
   }
 
+  static async findAllByCountry({ country }) {
+    const restaurants = await RestaurantModel.find({ country });
+    return restaurants;
+  }
+
   static async findAll() {
     const restaurants = await RestaurantModel.find({});
     return restaurants;
