@@ -1,0 +1,43 @@
+.container {
+  margin-top: 60px;
+}
+.title {
+  font-size: 34px;
+  color: #ff9f1c;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+}
+
+.left {
+  width: 55%;
+}
+
+.right {
+  width: 45%;
+}
+
+.information {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  color: #797979;
+}
+.information span {
+  margin-left: 10px;
+}
+
+.map {
+  background-color: bisque;
+  width: 490px;
+  height: 360px;
+}
+
+.review {
+  background-color: bisque;
+  width: 410px;
+  height: 570px;
+}
