@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../css/restaurant/RestaurantDetailPage.module.css";
+import styles from "../../css/restaurant/RestaurantDetailPage.module.css";
 import BookmarkOutlineIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Information from "./Information";

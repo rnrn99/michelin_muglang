@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../css/restaurant/Review.module.css";
+import styles from "../../css/restaurant/Review.module.css";
 
 let mock = [
   {

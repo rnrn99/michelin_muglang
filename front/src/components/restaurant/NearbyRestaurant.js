@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../css/restaurant/NearbyRestaurant.module.css";
+import styles from "../../css/restaurant/NearbyRestaurant.module.css";
 
 function NearbyRestaurant() {
   return (

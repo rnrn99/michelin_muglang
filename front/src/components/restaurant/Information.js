@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../css/restaurant/Information.module.css";
+import styles from "../../css/restaurant/Information.module.css";
 import StarIcon from "@mui/icons-material/StarBorderRounded";
 import FoodIcon from "@mui/icons-material/LocalDiningRounded";
 import MoneyIcon from "@mui/icons-material/AttachMoneyRounded";
