@@ -1,4 +1,4 @@
-import { Restaurant } from "../db";
+import { Restaurant } from "../db/index.mjs";
 
 class restaurantService {
   static async getRestaurants() {
