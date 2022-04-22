@@ -1,7 +1,7 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
-import { login_required } from "../middlewares/login_required";
-import { userAuthService } from "../services/userService";
+import { login_required } from "../middlewares/login_required.mjs";
+import { userAuthService } from "../services/userService.mjs";
 
 const userAuthRouter = Router();
 
