@@ -3,11 +3,11 @@ import { Schema, model } from "mongoose";
 const graphModel = model("graphitem", new Schema());
 
 class Graph {
-  static findCovidMonthly = async () => {
-    const covidMonthly = await graphModel.find({
-      type: "covid_monthly",
+  static findItems = async (type) => {
+    const items = await graphModel.find({
+      type,
     });
-    return covidMonthly;
+    return items;
   };
 }
 
