@@ -1,0 +1,53 @@
+a {
+  outline: 0;
+  text-decoration: none;
+}
+
+.menu__link {
+  display: block;
+  padding: 10px;
+}
+
+.menu__link:hover .menu__first_word,
+.menu__link:focus .menu__first_word {
+  transform: translate3d(0, -105%, 0);
+}
+
+.menu__link:hover .menu__second_word,
+.menu__link:focus .menu__second_word {
+  transform: translate3d(0, 105%, 0);
+}
+
+.menu__title {
+  display: inline-block;
+  overflow: hidden;
+  font-size: 17px;
+}
+
+.menu__first_word,
+.menu__second_word {
+  display: inline-block;
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.menu__first_word::before,
+.menu__second_word::before {
+  position: absolute;
+  content: attr(data-hover);
+}
+
+.menu__first_word,
+.menu__second_word {
+  color: black;
+}
+
+.menu__first_word::before {
+  top: 105%;
+  color: black;
+}
+
+.menu__second_word::before {
+  bottom: 105%;
+  color: black;
+}

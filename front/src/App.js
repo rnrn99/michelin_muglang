@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import * as Api from "./api";
 import { login } from "./redux/userSlice";
 
+import Header from "./components/Header";
 import LoginForm from "./components/user/LoginForm";
 import RegisterForm from "./components/user/RegisterForm";
 import MainPage from "./components/main/MainPage";
@@ -44,6 +45,7 @@ function App() {
 
   return (
     <Router>
+      <Header />
       <Routes>
         <Route path="/" exact element={<MainPage />} />
         <Route path="/login" element={<LoginForm />} />
