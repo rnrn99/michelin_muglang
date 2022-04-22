@@ -8,7 +8,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-
+import { styled } from "@mui/material/styles";
 import * as Api from "../../api";
 
 function RegisterForm() {
@@ -60,103 +60,150 @@ function RegisterForm() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Card
-        sx={{
-          marginTop: 15,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          backgroundColor: "white",
-          padding: 2,
-          borderRadius: 2,
-        }}
-      >
-        <Typography sx={{ fontSize: "20px" }}>회원가입</Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <TextField
-            required
-            name="email"
-            label="Email"
-            fullWidth
-            autoComplete="email"
-            margin="normal"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          {!isEmailValid && (
-            <p className="text-success">이메일 형식이 올바르지 않습니다.</p>
-          )}
-
-          <TextField
-            required
-            name="password"
-            label="비밀번호"
-            type="password"
-            fullWidth
-            autoComplete="off"
-            margin="normal"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          {!isPasswordValid && (
-            <p className="text-success">
-              비밀번호는 4글자 이상으로 설정해 주세요.
-            </p>
-          )}
-
-          <TextField
-            required
-            name="confirmpassword"
-            label="비밀번호 확인"
-            type="password"
-            fullWidth
-            autoComplete="off"
-            margin="normal"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-
-          {!isPasswordSame && (
-            <p className="text-success">비밀번호가 일치하지 않습니다.</p>
-          )}
-
-          <TextField
-            required
-            name="name"
-            label="이름"
-            type="text"
-            fullWidth
-            autoComplete="off"
-            margin="normal"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-
-          {!isNameValid && (
-            <p className="text-success">이름은 2글자 이상으로 설정해 주세요.</p>
-          )}
-          <Button
-            type="submit"
-            name="register"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 1 }}
-            disabled={!isFormValid}
-            onClick={handleSubmit}
+    <Box sx={{ height: "100vh" }}>
+      <Container component="main" maxWidth="xs">
+        <Card
+          sx={{
+            display: "flex",
+            position: "absolute",
+            width: "25%",
+            top: "15%",
+            flexDirection: "column",
+            alignItems: "center",
+            backgroundColor: "white",
+            padding: 2,
+            borderRadius: 2,
+          }}
+        >
+          <Typography sx={{ fontSize: "20px" }}>회원가입</Typography>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
           >
-            회원가입
-          </Button>
+            <StyledTextField
+              required
+              name="email"
+              label="Email"
+              fullWidth
+              autoComplete="email"
+              margin="normal"
+              variant="standard"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-          <Button variant="text" onClick={() => navigate("/login")}>
-            로그인하기
-          </Button>
-        </Box>
-      </Card>
-    </Container>
+            {!isEmailValid && (
+              <p style={{ color: "#FF9F1C" }}>
+                이메일 형식이 올바르지 않습니다.
+              </p>
+            )}
+
+            <StyledTextField
+              required
+              name="password"
+              label="비밀번호"
+              type="password"
+              fullWidth
+              autoComplete="off"
+              margin="normal"
+              variant="standard"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            {!isPasswordValid && (
+              <p style={{ color: "#FF9F1C" }}>
+                비밀번호는 4글자 이상으로 설정해 주세요.
+              </p>
+            )}
+
+            <StyledTextField
+              required
+              name="confirmpassword"
+              label="비밀번호 확인"
+              type="password"
+              fullWidth
+              autoComplete="off"
+              margin="normal"
+              variant="standard"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+
+            {!isPasswordSame && (
+              <p style={{ color: "#FF9F1C" }}>비밀번호가 일치하지 않습니다.</p>
+            )}
+
+            <StyledTextField
+              required
+              name="name"
+              label="이름"
+              type="text"
+              fullWidth
+              autoComplete="off"
+              margin="normal"
+              variant="standard"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+
+            {!isNameValid && (
+              <p style={{ color: "#FF9F1C" }}>
+                이름은 2글자 이상으로 설정해 주세요.
+              </p>
+            )}
+            <StyledButton
+              type="submit"
+              name="register"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 1 }}
+              disabled={!isFormValid}
+              onClick={handleSubmit}
+            >
+              회원가입
+            </StyledButton>
+
+            <Button
+              variant="text"
+              onClick={() => navigate("/login")}
+              sx={{ color: "#FF9F1C" }}
+            >
+              로그인하기
+            </Button>
+          </Box>
+        </Card>
+      </Container>
+      <img
+        src="registerbg.jpg"
+        alt="register_background"
+        style={{ width: "100%", height: "100%" }}
+      />
+    </Box>
   );
 }
 
 export default RegisterForm;
+
+const StyledTextField = styled(TextField)({
+  "& label.Mui-focused": {
+    color: "#FF9F1C",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#FF9F1C",
+  },
+  "& .MuiOutlinedInput-root": {
+    "&.Mui-focused fieldset": {
+      borderColor: "#FF9F1C",
+    },
+  },
+});
+
+const StyledButton = styled(Button)({
+  backgroundColor: "#FF9F1C",
+  "&:hover": {
+    backgroundColor: "#FFBF69",
+  },
+});
