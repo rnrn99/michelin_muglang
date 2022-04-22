@@ -94,7 +94,7 @@ function RegisterForm() {
             <StyledTextField
               required
               name="email"
-              label="Email"
+              label="이메일 주소"
               fullWidth
               autoComplete="email"
               margin="normal"
