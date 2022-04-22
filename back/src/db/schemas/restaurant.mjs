@@ -28,7 +28,7 @@ const RestaurantSchema = new Schema(
       required: false,
     },
     cuisine: {
-      type: String,
+      type: Array,
       required: true,
     },
     longitude: {
