@@ -1,4 +1,4 @@
-import { UserModel } from "../schemas/user";
+import { UserModel } from "../schemas/user.mjs";
 
 class User {
   static async create({ newUser }) {
@@ -29,7 +29,7 @@ class User {
     const updatedUser = await UserModel.findOneAndUpdate(
       filter,
       update,
-      option
+      option,
     );
     return updatedUser;
   }

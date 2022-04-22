@@ -1,4 +1,4 @@
-import { RestaurantModel } from "../schemas/restaurant";
+import { RestaurantModel } from "../schemas/restaurant.mjs";
 
 class Restaurant {
   static async create({ newRestaurant }) {

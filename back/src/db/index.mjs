@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { User } from "./models/User";
-import { Restaurant } from "./models/Restaurant";
+import { User } from "./models/User.mjs";
+import { Restaurant } from "./models/Restaurant.mjs";
 
 const DB_URL =
   process.env.MONGODB_URL ||

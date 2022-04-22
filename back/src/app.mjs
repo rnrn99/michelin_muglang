@@ -1,8 +1,8 @@
 import cors from "cors";
 import express from "express";
-import { userAuthRouter } from "./routers/userRouter";
-import { restaurantRouter } from "./routers/restaurantRouter";
-import { errorMiddleware } from "./middlewares/errorMiddleware";
+import { userAuthRouter } from "./routers/userRouter.mjs";
+import { restaurantRouter } from "./routers/restaurantRouter.mjs";
+import { errorMiddleware } from "./middlewares/errorMiddleware.mjs";
 
 const app = express();
 
