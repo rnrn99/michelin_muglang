@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/userSlice";
 
-import styles from "./css/header/Header.module.css";
+import styles from "../css/header/Header.module.css";
 import { AppBar, Toolbar, Typography, Link } from "@mui/material";
 
 function Header() {
