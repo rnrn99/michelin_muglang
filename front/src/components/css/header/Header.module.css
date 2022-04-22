@@ -1,6 +1,11 @@
-a {
+.title {
   outline: 0;
   text-decoration: none;
+  color: black;
+}
+
+.title:hover {
+  color: black;
 }
 
 .menu__link {
