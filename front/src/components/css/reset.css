@@ -125,3 +125,6 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+button {
+  font-family: "Elice Digital Baeum", sans-serif !important;
+}
