@@ -1,7 +1,7 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
-import { login_required } from "../middlewares/login_required";
-import { userAuthService } from "../services/userService";
+import { login_required } from "../middlewares/login_required.mjs";
+import { userAuthService } from "../services/userService.mjs";
 
 const userAuthRouter = Router();
 
@@ -9,7 +9,7 @@ userAuthRouter.post("/user/register", async function (req, res, next) {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
+        "headers의 Content-Type을 application/json으로 설정해주세요",
       );
     }
 
@@ -65,7 +65,7 @@ userAuthRouter.get(
     } catch (error) {
       next(error);
     }
-  }
+  },
 );
 
 userAuthRouter.get(
@@ -87,7 +87,7 @@ userAuthRouter.get(
     } catch (error) {
       next(error);
     }
-  }
+  },
 );
 
 userAuthRouter.put(
@@ -116,7 +116,7 @@ userAuthRouter.put(
     } catch (error) {
       next(error);
     }
-  }
+  },
 );
 
 userAuthRouter.get(
@@ -135,7 +135,7 @@ userAuthRouter.get(
     } catch (error) {
       next(error);
     }
-  }
+  },
 );
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
@@ -143,7 +143,7 @@ userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
   res
     .status(200)
     .send(
-      `안녕하세요 ${req.currentUserId}님, jwt 웹 토큰 기능 정상 작동 중입니다.`
+      `안녕하세요 ${req.currentUserId}님, jwt 웹 토큰 기능 정상 작동 중입니다.`,
     );
 });
 

@@ -1,7 +1,7 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
-import { login_required } from "../middlewares/login_required";
-import { Graph } from "../db";
+import { login_required } from "../middlewares/login_required.mjs";
+import { Graph } from "../db/index.mjs";
 
 const graphRouter = Router();
 

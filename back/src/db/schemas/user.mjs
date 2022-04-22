@@ -1,4 +1,5 @@
-import { Schema, model } from "mongoose";
+import pkg from "mongoose";
+const { Schema, model } = pkg;
 
 const UserSchema = new Schema(
   {
@@ -26,7 +27,7 @@ const UserSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const UserModel = model("User", UserSchema);
