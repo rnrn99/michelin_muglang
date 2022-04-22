@@ -71,7 +71,7 @@ function RegisterForm() {
             flexDirection: "column",
             alignItems: "center",
             backgroundColor: "white",
-            padding: 2,
+            padding: 4,
             borderRadius: 2,
           }}
         >
