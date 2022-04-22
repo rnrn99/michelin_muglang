@@ -1,0 +1,65 @@
+.container {
+  margin-top: 60px;
+}
+
+.title {
+  font-size: 34px;
+  color: #ff9f1c;
+  font-weight: bold;
+}
+
+.review_input {
+  margin-top: 10px;
+}
+
+.review_input input {
+  box-sizing: border-box;
+  border: #a7a7a7 solid 1px;
+  width: 82%;
+  height: 45px;
+}
+
+.review_input input:focus {
+  outline: none;
+}
+
+.review_input button {
+  cursor: pointer;
+  width: 8%;
+  height: 45px;
+  margin-left: 10px;
+  background-color: #ffbf69;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.review_list {
+  margin-top: 30px;
+  margin-left: 1%;
+  width: 81%;
+}
+
+.review {
+}
+
+.review .username {
+  font-size: 18px;
+}
+
+.review .date {
+  margin-left: 10px;
+  font-size: 15px;
+  color: #a7a7a7;
+}
+
+.review .content {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.review hr {
+  margin: 20px 0;
+  background-color: #a7a7a7;
+  height: 0.1px;
+}

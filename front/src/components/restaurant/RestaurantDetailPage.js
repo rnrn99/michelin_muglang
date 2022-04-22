@@ -3,6 +3,7 @@ import styles from "../css/restaurant/RestaurantDetailPage.module.css";
 import BookmarkOutlineIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Information from "./Information";
+import Review from "./Review";
 
 const mock = {
   restaurantName: "The Table Kevin Fehling",
@@ -34,6 +35,7 @@ function RestaurantDetailPage() {
           {mock.bookmark}번 북마크됨
         </div>
         <Information mock={mock} />
+        <Review />
       </div>
     </div>
   );
