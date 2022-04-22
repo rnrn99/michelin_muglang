@@ -10,7 +10,7 @@ import {
   Box,
 } from "@mui/material";
 import * as Api from "../../api";
-import { login } from "../../redux/action/userAction";
+import { login } from "../../redux/userSlice";
 
 function LoginForm() {
   const dispatch = useDispatch();
