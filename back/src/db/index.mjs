@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { User } from "./models/User.mjs";
 import { Restaurant } from "./models/Restaurant.mjs";
+import { Currency } from "./models/Currency.mjs";
 
 const DB_URL =
   process.env.MONGODB_URL ||
@@ -18,3 +19,4 @@ db.on("error", (error) =>
 
 export { User };
 export { Restaurant };
+export { Currency };
