@@ -16,7 +16,7 @@ load_dotenv(os.path.join(BASEDIR, 'back/.env'))
 file = os.path.join(BASEDIR, "data/michelin_my_maps.csv")
 mongodb = os.getenv("MONGODB_URL")
 client = MongoClient(mongodb)
-db = client.michelin_muglang
+db = client.michelinMuglang
 
 data = pd.read_csv(file)
 michelin = data
