@@ -1,0 +1,110 @@
+body {
+  transition: 0.3s ease-out;
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  overscroll-behavior: none;
+}
+
+section:not(#sectionPin) {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 2rem;
+  padding: 50px 10vw;
+  margin: auto;
+  place-items: center;
+  border: 1px solid red;
+}
+
+.greeting {
+  position: absolute;
+  top: 40vh;
+  left: 10vh;
+  z-index: 4;
+}
+
+.greeting h1 {
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 800;
+  margin-bottom: 2rem;
+}
+
+.greeting h1 span {
+  display: block;
+}
+
+.greeting p {
+  font-size: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.greeting a {
+  position: relative;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffbf69;
+  text-decoration: none;
+}
+
+.greeting div:hover {
+  --duration: 1000ms;
+  animation: movement var(--duration) cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes movement {
+  20% {
+    transform: scaleY(1.2) skew(10deg);
+  }
+  50% {
+    transform: scaleY(1) skew(0);
+  }
+  70% {
+    transform: scaleY(1.2) skew(-10deg);
+  }
+}
+
+.greeting_img {
+  position: absolute;
+  right: 0;
+}
+
+.greeting_img img {
+  width: 80%;
+  height: auto;
+  float: right;
+}
+
+h2 {
+  font-size: 2rem;
+  max-width: 400px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#sectionPin {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  left: 0;
+  background: var(--text-color);
+  color: var(--bg-color);
+}
+
+.pin_wrap {
+  height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 50px 10vw;
+}
+
+.pin_wrap > * {
+  min-width: 60vw;
+  padding: 0 5vw;
+}
