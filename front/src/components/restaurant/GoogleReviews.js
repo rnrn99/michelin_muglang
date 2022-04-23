@@ -22,7 +22,7 @@ const GoogleReviews = () => {
       </div>
       <div className={styles.reviews}>
         {reviews.map((review) => {
-          return <GoogleReview review={review} />;
+          return <GoogleReview review={review} key={review.time} />;
         })}
       </div>
     </div>
