@@ -7,9 +7,9 @@ import {
   ZoomableGroup,
 } from "react-simple-maps";
 import { useNavigate } from "react-router-dom";
+import WorldMapJson from "../../data/worldMap.json";
 
-const geoUrl =
-  "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
+const geoUrl = WorldMapJson;
 
 const countries = ["Russia", "China", "Germany", "United Kingdom"];
 
