@@ -46,11 +46,11 @@ class User {
     const option = { returnOriginal: false };
 
     const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
-    RestaurantModel.findOneAndUpdate(
-      { id: restaurantId },
-      { $inc: { bookmarkCount: 1 } },
-      option,
-    );
+    // RestaurantModel.findOneAndUpdate(
+    //   { id: restaurantId },
+    //   { $inc: { bookmarkCount: 1 } },
+    //   option,
+    // );
     return bookmarks;
   }
 
@@ -59,7 +59,7 @@ class User {
       "bookmarks",
     );
 
-    return bookmarks;
+    return bookmarks.bookmarks;
   }
 
   static async deleteBookmark({ user_id, restaurantId }) {
@@ -68,11 +68,11 @@ class User {
     const option = { returnOriginal: false };
 
     const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
-    RestaurantModel.findOneAndUpdate(
-      { id: restaurantId },
-      { $inc: { bookmarkCount: -1 } },
-      option,
-    );
+    // RestaurantModel.findOneAndUpdate(
+    //   { id: restaurantId },
+    //   { $inc: { bookmarkCount: -1 } },
+    //   option,
+    // );
     return bookmarks;
   }
 }
