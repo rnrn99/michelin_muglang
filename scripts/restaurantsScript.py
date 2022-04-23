@@ -48,4 +48,9 @@ michelin["phoneNumber"] = michelin["phoneNumber"].apply(lambda x:'+'+str(int(x))
 michelin["phoneNumber"] = michelin["phoneNumber"].replace("+-1", np.nan)
 
 dataJson = json.loads(michelin.to_json(orient="records"))
+
+if "restaurants" in db.list_collection_names():
+       db.restaurants.drop()
+       print("db has been droped")
+
 db.restaurants.insert_many(dataJson)
