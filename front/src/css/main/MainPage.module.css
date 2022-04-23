@@ -6,7 +6,7 @@ body {
   overscroll-behavior: none;
 }
 
-section:not(#sectionPin) {
+section {
   min-height: 100vh;
   width: 100%;
   position: relative;
@@ -16,12 +16,12 @@ section:not(#sectionPin) {
   padding: 50px 10vw;
   margin: auto;
   place-items: center;
-  border: 1px solid red;
 }
 
+/* section 1 greeting page */
 .greeting {
   position: absolute;
-  top: 40vh;
+  top: 35vh;
   left: 10vh;
   z-index: 4;
 }
@@ -44,31 +44,110 @@ section:not(#sectionPin) {
 
 .greeting a {
   position: relative;
+  display: inline-block;
   font-size: 2rem;
   font-weight: 600;
   color: #ffbf69;
   text-decoration: none;
+  cursor: pointer;
+  padding: 0.7em calc(0.7em * 1.2);
 }
 
-.greeting div:hover {
-  --duration: 1000ms;
-  animation: movement var(--duration) cubic-bezier(0.65, 0, 0.35, 1) infinite;
+.greeting a .text {
+  transform: translate3d(0, 0.7em, 0);
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1) 0.4s;
 }
 
-@keyframes movement {
-  20% {
-    transform: scaleY(1.2) skew(10deg);
-  }
-  50% {
-    transform: scaleY(1) skew(0);
-  }
-  70% {
-    transform: scaleY(1.2) skew(-10deg);
-  }
+.greeting a:after {
+  position: absolute;
+  content: "";
+  bottom: -3px;
+  left: calc(0.7em * 1.2);
+  right: calc(0.7em * 1.2);
+  height: 3px;
+  background: #ff9f1c;
+  transition: transform 0.8s cubic-bezier(1, 0, 0.37, 1) 0.2s,
+    right 0.2s cubic-bezier(0.04, 0.48, 0, 1) 0.6s,
+    left 0.4s cubic-bezier(0.04, 0.48, 0, 1) 0.6s;
+  transform-origin: left;
+}
+
+.line {
+  position: absolute;
+  background: #ff9f1c;
+}
+
+.line.top,
+.line.bottom {
+  height: 3px;
+  left: -3px;
+  right: -3px;
+  transform: scale3d(0, 1, 1);
+}
+
+.line.left,
+.line.right {
+  width: 3px;
+  bottom: -3px;
+  top: -3px;
+  transform: scale3d(1, 0, 1);
+}
+
+.line.left {
+  left: -3px;
+  transition: transform 0.08s linear 0.51s;
+  transform-origin: bottom;
+}
+
+.line.right {
+  right: -3px;
+  transition: transform 0.1s cubic-bezier(1, 0, 0.65, 1.01) 0.23s;
+  transform-origin: top;
+}
+
+.line.top {
+  top: -3px;
+  transition: transform 0.08s linear 0.43s;
+  transform-origin: left;
+}
+
+.line.bottom {
+  bottom: -3px;
+  transition: transform 0.3s cubic-bezier(1, 0, 0.65, 1.01);
+  transform-origin: right;
+}
+
+.greeting a:hover .text,
+.greeting a:active .text {
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.6s cubic-bezier(0.2, 0, 0, 1) 0.4s;
+}
+
+.greeting a:hover:after,
+.greeting a:active:after {
+  transform: scale3d(0, 1, 1);
+  right: -3px;
+  left: -3px;
+  transform-origin: right;
+  transition: transform 0.2s cubic-bezier(1, 0, 0.65, 1.01) 0.17s,
+    right 0.2s cubic-bezier(1, 0, 0.65, 1.01), left 0s 0.3s;
+}
+
+.greeting a:hover .line,
+.greeting a:active .line {
+  transform: scale3d(1, 1, 1);
+}
+
+.line .right {
+  right: -3px;
+  transition: transform 0.1s cubic-bezier(1, 0, 0.65, 1.01) 0.23s;
+  transform-origin: top;
 }
 
 .greeting_img {
   position: absolute;
+  top: 10%;
   right: 0;
 }
 
@@ -81,30 +160,4 @@ section:not(#sectionPin) {
 h2 {
   font-size: 2rem;
   max-width: 400px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-#sectionPin {
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  left: 0;
-  background: var(--text-color);
-  color: var(--bg-color);
-}
-
-.pin_wrap {
-  height: 100vh;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 50px 10vw;
-}
-
-.pin_wrap > * {
-  min-width: 60vw;
-  padding: 0 5vw;
 }
