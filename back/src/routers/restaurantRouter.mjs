@@ -50,4 +50,26 @@ restaurantRouter.get(
   },
 );
 
+restaurantRouter.get(
+  "/restaurants/:id/:currencyName",
+  async function (req, res, next) {
+    try {
+      const restaurant_id = req.params.id;
+      const currencyName = req.params.currencyName;
+      const prices = await restaurantService.getConvertedPrice({
+        restaurant_id,
+        currencyName,
+      });
+
+      if (prices.errorMessage) {
+        throw new Error(prices.errorMessage);
+      }
+
+      res.status(200).send(prices);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
 export { restaurantRouter };

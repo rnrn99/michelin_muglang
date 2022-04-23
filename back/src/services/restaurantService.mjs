@@ -32,9 +32,9 @@ class restaurantService {
     return restaurants;
   }
 
-  static async getConvertedPrice({ restaurant_id, currency }) {
-    const restaurant = await getRestaurantInfo({ restaurant_id });
-    const [minPrice, maxPrice, currentCurrency] = [
+  static async getConvertedPrice({ restaurant_id, currencyName }) {
+    const restaurant = await Restaurant.findById({ restaurant_id });
+    const [minPrice, maxPrice, currentCurrencyName] = [
       restaurant.minPrice,
       restaurant.maxPrice,
       restaurant.currency,
@@ -46,7 +46,10 @@ class restaurantService {
       return { errorMessage };
     }
 
-    const targetCurrency = await Currency.findByCode({ currency });
+    const targetCurrency = await Currency.findByCode({ currencyName });
+    const currentCurrency = await Currency.findByCode({
+      currencyName: currentCurrencyName,
+    });
 
     // db에서 해당 통화를 찾지 못한 경우, 에러 메시지 반환
     if (!targetCurrency) {
@@ -54,7 +57,7 @@ class restaurantService {
       return { errorMessage };
     }
 
-    if (currentCurrency == targetCurrency) {
+    if (currentCurrency.currency == targetCurrency.currency) {
       return { minPrice, maxPrice };
     }
 
@@ -63,7 +66,10 @@ class restaurantService {
       convertedMinPrice = minPrice * targetCurrency.value;
       convertedMaxPrice = maxPrice * targetCurrency.value;
     } else {
+      console.log("find!");
+      console.log(currentCurrency.value, targetCurrency.value);
       const ratio = targetCurrency.value / currentCurrency.value;
+      console.log(ratio);
       convertedMinPrice = minPrice * ratio;
       convertedMaxPrice = maxPrice * ratio;
     }
