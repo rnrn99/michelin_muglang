@@ -31,6 +31,11 @@ class restaurantService {
 
     return restaurants;
   }
+
+  static async countRestaurantByQuery(query) {
+    const ret = await Restaurant.count(query);
+    return ret;
+  }
 }
 
 export { restaurantService };

@@ -25,6 +25,11 @@ class Restaurant {
     const restaurants = await RestaurantModel.find({});
     return restaurants;
   }
+
+  static async count(query) {
+    const ret = await RestaurantModel.countDocuments(query);
+    return ret;
+  }
 }
 
 export { Restaurant };

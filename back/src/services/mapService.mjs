@@ -8,14 +8,20 @@ class mapService {
   static async getWorldGeoMarker() {
     let ret = await this.getCountryObj();
 
-    //응답 받을떄 까지 1176 ms정도 걸리네요
-    //밑에 연산을 매번 할 필요는 없을것 같아서 그냥 db에다 count를 추가하는게 나을거 같기도 하네요
-
     for (let i = 0; i < ret.length; i++) {
-      const c = await restaurantService.getRestaurantsByCountry({
-        restaurantCountry: ret[i].nation,
+      //응답 받을떄 까지 1176 ms정도 걸리네요
+      //밑에 연산을 매번 할 필요는 없을것 같아서 그냥 db에다 count를 추가하는게 나을거 같기도 하네요
+
+      // const c = await restaurantService.getRestaurantsByCountry({
+      //   restaurantCountry: ret[i].nation,
+      // });
+      // ret[i]["count"] = c.length;
+
+      //400ms 걸리는 버전
+      let c = await restaurantService.countRestaurantByQuery({
+        country: ret[i].nation,
       });
-      ret[i]["count"] = c.length;
+      ret[i]["count"] = c;
     }
 
     return GeoJSON.parse(ret, { Point: ["lat", "lng"] });
@@ -29,10 +35,16 @@ class mapService {
     //밑에 연산을 매번 할 필요는 없을것 같아서 그냥 db에다 count를 추가하는게 나을거 같기도 하네요
 
     for (let i = 0; i < ret.length; i++) {
-      const c = await restaurantService.getRestaurantsByCountry({
-        restaurantCountry: ret[i].nation,
+      // const c = await restaurantService.getRestaurantsByCountry({
+      //   restaurantCountry: ret[i].nation,
+      // });
+      // ret[i]["count"] = c.length;
+
+      //대충 400ms
+      let c = await restaurantService.countRestaurantByQuery({
+        country: ret[i].nation,
       });
-      ret[i]["count"] = c.length;
+      ret[i]["count"] = c;
     }
     return ret;
   }
