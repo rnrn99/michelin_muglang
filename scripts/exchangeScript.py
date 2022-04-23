@@ -30,6 +30,6 @@ dataJson = json.loads(currencyExchange.to_json(orient="records"))
 
 if "currencies" in db.list_collection_names():
        db.currencies.drop()
-       print("db has been droped")
+       print("collection has been dropped")
 
 db.currencies.insert_many(dataJson)

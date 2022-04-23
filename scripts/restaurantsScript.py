@@ -51,6 +51,6 @@ dataJson = json.loads(michelin.to_json(orient="records"))
 
 if "restaurants" in db.list_collection_names():
        db.restaurants.drop()
-       print("db has been droped")
+       print("collection has been dropped")
 
 db.restaurants.insert_many(dataJson)
