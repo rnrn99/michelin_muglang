@@ -17,7 +17,7 @@ class Restaurant {
   }
 
   static async findAllByCountry({ country }) {
-    const restaurants = await RestaurantModel.find({ country });
+    const restaurants = await RestaurantModel.find({ country }).lean();
     return restaurants;
   }
 

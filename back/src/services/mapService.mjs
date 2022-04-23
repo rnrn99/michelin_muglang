@@ -1,5 +1,6 @@
 import fs from "fs";
 import GeoJSON from "geojson";
+import { restaurantService } from "./restaurantService.mjs";
 
 class mapService {
   //래스토랑 mvp 끝나면 db에서 가져오는걸로 바꿀 예정 지금은 일단 그냥 목데이터
@@ -56,15 +57,10 @@ class mapService {
 
   // 국가 마커 geojson으로 반환
   static async getCountryMarker(country) {
-    let data = await this.getData();
-    const ret = [];
-    for (let i = 0; i < data.length; i++) {
-      const arr = data[i].address.split(", ");
-      const city = arr[arr.length - 1];
-      if (country === city) {
-        ret.push(data[i]);
-      }
-    }
+    let ret = await restaurantService.getRestaurantsByCountry({
+      restaurantCountry: country,
+    });
+    console.log(ret[0]);
     return GeoJSON.parse(ret, { Point: ["latitude", "longitude"] });
   }
 }
