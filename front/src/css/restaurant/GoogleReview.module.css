@@ -1,0 +1,46 @@
+.review {
+  padding-bottom: 20px;
+  border-bottom: #c7c7c7 1px solid;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.review_title {
+  display: flex;
+  align-items: center;
+}
+
+.review_title img {
+  width: 35px;
+  height: 35px;
+}
+
+.review_title span {
+  margin-left: 10px;
+}
+
+.review_rating {
+  margin-top: 15px;
+  display: flex;
+}
+
+.review_rating div {
+}
+
+.review_rating span {
+  margin-left: 10px;
+  font-size: 14px;
+  color: gray;
+}
+
+.review_content {
+  margin-top: 5px;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.review_content span {
+  cursor: pointer;
+  color: #ff9f1c;
+  font-size: 12px;
+}

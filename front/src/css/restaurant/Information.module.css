@@ -19,7 +19,7 @@
 }
 
 .right {
-  width: 40%;
+  width: 42%;
 }
 
 .information_list {
@@ -45,16 +45,4 @@
 }
 .information span {
   margin-left: 10px;
-}
-
-.map {
-  background-color: bisque;
-  width: 490px;
-  height: 360px;
-}
-
-.review {
-  background-color: bisque;
-  width: 410px;
-  height: 570px;
 }
