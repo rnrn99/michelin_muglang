@@ -118,6 +118,47 @@ class userAuthService {
     const user = await User.delete({ user_id });
     return user;
   }
+
+  static updateBookmark = async ({ user_id, restaurantId }) => {
+    // user db에 존재 여부 확인 & db에서 찾지 못한 경우, 에러 메시지 반환
+    const bookmarkInfo = await User.findById({ user_id });
+
+    if (!bookmarkInfo) {
+      const errorMessage =
+        "해당 id를 가진 사용자는 없습니다. 다시 한 번 확인해 주세요.";
+      return { errorMessage };
+    }
+
+    const bookmarks = await User.updateBookmark({ user_id, restaurantId });
+    return bookmarks;
+  };
+
+  static async getBookmarks({ user_id }) {
+    const bookmarks = await User.findBookmarks({ user_id });
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
+    if (!bookmarks) {
+      const errorMessage =
+        "해당 id은 북마크 내역이 없습니다. 다시 한 번 확인해 주세요.";
+      return { errorMessage };
+    }
+
+    return bookmarks;
+  }
+
+  static deleteBookmark = async ({ user_id, restaurantId }) => {
+    // user db에 존재 여부 확인 & db에서 찾지 못한 경우, 에러 메시지 반환
+    const bookmarkInfo = await User.findById({ user_id });
+
+    if (!bookmarkInfo) {
+      const errorMessage =
+        "해당 id를 가진 사용자는 없습니다. 다시 한 번 확인해 주세요.";
+      return { errorMessage };
+    }
+
+    const bookmarks = await User.deleteBookmark({ user_id, restaurantId });
+    return bookmarks;
+  };
 }
 
 export { userAuthService };

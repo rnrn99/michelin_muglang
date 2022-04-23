@@ -137,4 +137,82 @@ userAuthRouter.delete("/users", login_required, async (req, res, next) => {
   }
 });
 
+// 북마크를 추가함.
+userAuthRouter.put(
+  "/bookmarks/update/:id",
+  login_required,
+  async function (req, res, next) {
+    try {
+      // URI로부터 userId를 추출함.
+      const user_id = req.params.id;
+
+      // body data 로부터 북마크에 추가할 음식점 Id를 추출함.
+      const { restaurantId } = req.body ?? null;
+
+      // 위 추출된 정보를 이용하여 db의 데이터 수정함
+      const bookmarks = await userAuthService.updateBookmark({
+        user_id,
+        restaurantId,
+      });
+
+      if (bookmarks.errorMessage) {
+        throw new Error(bookmarks.errorMessage);
+      }
+
+      res.status(200).json(bookmarks);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+// 유저의 북마크 리스트를 가져옴.
+userAuthRouter.get(
+  "/bookmarks/:id",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const user_id = req.params.id;
+      const bookmarks = await userAuthService.getBookmarks({ user_id });
+
+      if (bookmarks.errorMessage) {
+        throw new Error(bookmarks.errorMessage);
+      }
+
+      res.status(200).send(bookmarks);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+// 북마크를 취소함 (북마크 리스트에서 삭제)
+userAuthRouter.put(
+  "/bookmarks/delete/:id",
+  login_required,
+  async function (req, res, next) {
+    try {
+      // URI로부터 userId를 추출함.
+      const user_id = req.params.id;
+
+      // body data 로부터 북마크에서 제거할 음식점 Id를 추출함.
+      const { restaurantId } = req.body ?? null;
+
+      // 위 추출된 정보를 이용하여 db의 데이터 수정함
+      const bookmarks = await userAuthService.deleteBookmark({
+        user_id,
+        restaurantId,
+      });
+
+      if (bookmarks.errorMessage) {
+        throw new Error(bookmarks.errorMessage);
+      }
+
+      res.status(200).json(bookmarks);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
 export { userAuthRouter };
