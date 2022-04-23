@@ -1,4 +1,5 @@
 import { UserModel } from "../schemas/user.mjs";
+import { RestaurantModel } from "../schemas/restaurant.mjs";
 
 class User {
   static async create({ newUser }) {
@@ -45,6 +46,11 @@ class User {
     const option = { returnOriginal: false };
 
     const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
+    RestaurantModel.findOneAndUpdate(
+      { id: restaurantId },
+      { $inc: { bookmarkCount: 1 } },
+      option,
+    );
     return bookmarks;
   }
 
@@ -62,6 +68,11 @@ class User {
     const option = { returnOriginal: false };
 
     const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
+    RestaurantModel.findOneAndUpdate(
+      { id: restaurantId },
+      { $inc: { bookmarkCount: -1 } },
+      option,
+    );
     return bookmarks;
   }
 }
