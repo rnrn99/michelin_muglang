@@ -7,7 +7,7 @@ const { Schema, model } = pkg;
 
 class Graph {
   static findItems = async (type) => {
-    const items = await db.collection("graphitems").find({ type }).toArray();
+    const items = await db.collection("graphItems").find({ type }).toArray();
     // .forEach((element) => items.push(element));
     return items;
   };
