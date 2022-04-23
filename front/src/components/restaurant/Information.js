@@ -1,4 +1,5 @@
 import React from "react";
+import Googlemap from "./Googlemap";
 import styles from "../../css/restaurant/Information.module.css";
 import StarIcon from "@mui/icons-material/StarBorderRounded";
 import FoodIcon from "@mui/icons-material/LocalDiningRounded";
@@ -42,11 +43,11 @@ function Information({ mock }) {
               <span>{mock.website}</span>
             </div>
           </div>
-          <div className={styles.map}>map</div>
+          <div className={styles.map}>
+            <Googlemap />
+          </div>
         </div>
-        <div className={styles.right}>
-          <div className={styles.review}>review</div>
-        </div>
+        <div className={styles.right}></div>
       </div>
     </div>
   );
