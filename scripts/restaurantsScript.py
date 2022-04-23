@@ -12,7 +12,7 @@ BASEDIR = BASEDIR[:BASEDIR.rfind('/')]
 # .env 파일 경로 설정
 load_dotenv(os.path.join(BASEDIR, 'back/.env'))
 
-# michelin_muglang db에 연결
+# michelinMuglang db에 연결
 file = os.path.join(BASEDIR, "data/michelin_my_maps.csv")
 mongodb = os.getenv("MONGODB_URL")
 client = MongoClient(mongodb)
