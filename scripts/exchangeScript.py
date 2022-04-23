@@ -18,7 +18,7 @@ client = MongoClient(mongodb)
 db = client.michelinMuglang
 
 data = pd.read_csv(file)
-currencyExchange = data
+currencyExchange = data.copy()
 
 # 불필요한 column들 제거 // ["Unnamed: 0", "Country/Currency"]
 currencyExchange = currencyExchange.drop(columns=["Unnamed: 0", "Country/Currency"])

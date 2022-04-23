@@ -19,7 +19,8 @@ client = MongoClient(mongodb)
 db = client.michelinMuglang
 
 data = pd.read_csv(file)
-michelin = data
+michelin = data.copy()
+
 michelin.columns = ["name", "address", "location", "minPrice", "maxPrice", "currency",
        "cuisine", "longitude", "latitude", "phoneNumber", "url", "websiteUrl",
        "award"]
