@@ -1,21 +1,17 @@
 body {
   transition: 0.3s ease-out;
   overflow-x: hidden;
-  max-width: 100%;
-  width: 100%;
   overscroll-behavior: none;
+  width: 100vw;
 }
 
 section {
+  margin-top: 64px;
   min-height: 100vh;
   width: 100%;
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 2rem;
-  padding: 50px 10vw;
-  margin: auto;
   place-items: center;
+  border: 1px solid red;
 }
 
 /* section 1 greeting page */
@@ -50,11 +46,11 @@ section {
   color: #ffbf69;
   text-decoration: none;
   cursor: pointer;
-  padding: 0.7em calc(0.7em * 1.2);
+  padding: 0.7em calc(0.5em * 1.2);
 }
 
 .greeting a .text {
-  transform: translate3d(0, 0.7em, 0);
+  transform: translate3d(0, 0.5em, 0);
   display: block;
   transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1) 0.4s;
 }
@@ -63,8 +59,8 @@ section {
   position: absolute;
   content: "";
   bottom: -3px;
-  left: calc(0.7em * 1.2);
-  right: calc(0.7em * 1.2);
+  left: calc(0.5em * 1.2);
+  right: calc(0.5em * 1.2);
   height: 3px;
   background: #ff9f1c;
   transition: transform 0.8s cubic-bezier(1, 0, 0.37, 1) 0.2s,
@@ -101,7 +97,7 @@ section {
 }
 
 .line.right {
-  right: -3px;
+  right: -4px;
   transition: transform 0.1s cubic-bezier(1, 0, 0.65, 1.01) 0.23s;
   transform-origin: top;
 }
@@ -151,7 +147,13 @@ section {
   float: right;
 }
 
-h2 {
-  font-size: 2rem;
-  max-width: 400px;
+.slider {
+  display: flex;
+  align-items: flex-start;
+  position: absolute;
+  height: 300px;
+  top: calc(50% - 150px);
+  left: 10vw;
+  background: #eee;
+  transition: transform 0.3s;
 }

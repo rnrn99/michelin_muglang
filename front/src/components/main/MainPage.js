@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../../css/main/MainPage.module.css";
+import SectionCovid from "./SectionCovid";
 
 function MainPage() {
   return (
@@ -24,6 +25,10 @@ function MainPage() {
           <img src="greeting.png" alt="main_img" />
         </div>
       </section>
+      <section>
+        <SectionCovid />
+      </section>
+      <section></section>
     </div>
   );
 }
