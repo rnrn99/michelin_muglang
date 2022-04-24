@@ -139,12 +139,6 @@ section {
   transform: scale3d(1, 1, 1);
 }
 
-.line .right {
-  right: -3px;
-  transition: transform 0.1s cubic-bezier(1, 0, 0.65, 1.01) 0.23s;
-  transform-origin: top;
-}
-
 .greeting_img {
   position: absolute;
   top: 10%;
