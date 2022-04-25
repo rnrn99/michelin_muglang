@@ -11,6 +11,45 @@
   color: #383838;
 }
 
+.rating {
+  margin-top: 20px;
+  display: flex;
+  align-items: flex-end;
+  color: #383838;
+}
+
+.rating_number {
+  font-size: 40px;
+}
+
+.star {
+  margin-left: 10px;
+  width: 120px;
+  height: 24px;
+  position: relative;
+}
+
+.star_gray {
+  color: #d8d8d8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 120px;
+  height: 24px;
+}
+
+.star_yellow {
+  color: #ffbf69;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 24px;
+  overflow: hidden;
+  display: flex;
+}
+
 .reviews {
   margin-top: 20px;
   padding: 20px 10px 0 10px;
