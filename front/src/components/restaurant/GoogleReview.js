@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "../../css/restaurant/GoogleReview.module.css";
-import StarIcon from "@mui/icons-material/Star";
 
 const GoogleReview = ({ review }) => {
   const [detail, setDetail] = useState(false);
