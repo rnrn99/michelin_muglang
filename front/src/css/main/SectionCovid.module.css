@@ -1,0 +1,12 @@
+.container {
+  background-color: #ff9f1c;
+  position: absolute;
+  width: 100vw;
+  height: 80%;
+}
+
+.chart {
+  top: 50%;
+  left: 10%;
+  transform: translate(-10%, -50%);
+}
