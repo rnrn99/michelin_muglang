@@ -1,8 +1,36 @@
 import { RestaurantModel } from "../schemas/restaurant.mjs";
 
 class Restaurant {
-  static async create({ newRestaurant }) {
-    const createdNewRestaurant = await RestaurantModel.create(newRestaurant);
+  static async create({
+    name,
+    address,
+    location,
+    minPrice,
+    maxPrice,
+    currency,
+    cuisine,
+    longitude,
+    latitude,
+    phoneNumber,
+    url,
+    websiteUrl,
+    award,
+  }) {
+    const createdNewRestaurant = await RestaurantModel.create({
+      name,
+      address,
+      location,
+      minPrice,
+      maxPrice,
+      currency,
+      cuisine,
+      longitude,
+      latitude,
+      phoneNumber,
+      url,
+      websiteUrl,
+      award,
+    });
     return createdNewRestaurant;
   }
 
