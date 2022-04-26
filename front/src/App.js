@@ -9,7 +9,7 @@ import LoginForm from "./components/user/LoginForm";
 import RegisterForm from "./components/user/RegisterForm";
 import MainPage from "./components/main/MainPage";
 import MapMainPage from "./components/map/MapMainPage";
-import DetailPage from "./components/map/DetailPage";
+import DetailPage from "./components/map/DetailPage/DetailPage";
 
 function App() {
   const dispatch = useDispatch();

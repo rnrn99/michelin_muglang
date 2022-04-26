@@ -3,14 +3,14 @@ import { useState } from "react";
 
 import ReactTooltip from "react-tooltip";
 
-import Header from "../header/Header";
-import CountryMap from "./CountryMap";
-import RestaurantCard from "./RestaurantCard/RestaurantCard";
+import Header from "../../header/Header";
+import CountryMap from "../CountryMap";
+import RestaurantCard from "../RestaurantCard/RestaurantCard";
 
-import Restaurants from "../../data/restaurants.json";
+import Restaurants from "../../../data/restaurants.json";
 
 import styles from "./DetailPage.module.css";
-import "../reset.css";
+import "../../reset.css";
 
 const DetailPage = () => {
   const location = useLocation();
@@ -31,10 +31,15 @@ const DetailPage = () => {
       <Header />
       <section className={styles.detail}>
         <div className={styles.detail_restaurantsList}>
-          {restaurants.map((r) => (
-            <RestaurantCard r={r} handleClick={handleClick} />
+          {restaurants.map((restaurant) => (
+            <RestaurantCard
+              key={restaurant._id}
+              restaurant={restaurant}
+              handleClick={handleClick}
+            />
           ))}
         </div>
+
         <CountryMap
           countryName={countryName}
           restaurants={restaurants}
