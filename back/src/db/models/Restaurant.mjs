@@ -20,11 +20,6 @@ class Restaurant {
     const restaurants = await RestaurantModel.find({ country });
     return restaurants;
   }
-
-  static async findAll() {
-    const restaurants = await RestaurantModel.find({});
-    return restaurants;
-  }
 }
 
 export { Restaurant };
