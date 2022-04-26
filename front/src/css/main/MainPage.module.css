@@ -21,11 +21,31 @@ section {
   z-index: 4;
 }
 
+@keyframes delay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes changeMovement {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .greeting h1 {
   font-size: 3rem;
   line-height: 1;
   font-weight: 800;
   margin-bottom: 2rem;
+  animation: changeMovement 1s ease-in-out;
 }
 
 .greeting h1 span {
@@ -35,6 +55,7 @@ section {
 .greeting p {
   font-size: 1.5rem;
   margin-bottom: 4rem;
+  animation: delay 0.5s, changeMovement 1s 0.5s ease-in-out;
 }
 
 .greeting a {
@@ -46,6 +67,7 @@ section {
   text-decoration: none;
   cursor: pointer;
   padding: 0.7em calc(0.5em * 1.2);
+  animation: delay 1s, changeMovement 1s 1s ease-in-out;
 }
 
 .greeting a .text {
@@ -146,7 +168,7 @@ section {
   float: right;
 }
 
-.slider {
+/* .slider {
   display: flex;
   align-items: flex-start;
   position: absolute;
@@ -155,4 +177,8 @@ section {
   left: 10vw;
   background: #eee;
   transition: transform 0.3s;
+} */
+
+.graph {
+  background-color: #ff9f1c;
 }
