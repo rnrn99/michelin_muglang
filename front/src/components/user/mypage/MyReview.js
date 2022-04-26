@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "./Slider";
-import styles from "../../../css/user/MyContent.module.css";
+import styles from "../../../css/user/MyReview.module.css";
 
 const mock = [
   {
@@ -41,7 +41,7 @@ const MyBookmark = () => {
       <div className={styles.title}>나의 리뷰</div>
       <Slider contenetLength={mock.length}>
         {mock.map((review) => (
-          <div>{review.date}</div>
+          <div className={styles.review}>{review.date}</div>
         ))}
       </Slider>
     </div>

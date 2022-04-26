@@ -24,13 +24,3 @@
   display: flex;
   transition: all 0.3s;
 }
-
-.slider .list div {
-  width: 250px;
-  height: 250px;
-  background-color: antiquewhite;
-}
-
-.slider .list div + div {
-  margin-left: 25px;
-}

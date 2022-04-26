@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "./Slider";
-import styles from "../../../css/user/MyContent.module.css";
+import styles from "../../../css/user/MyBookmark.module.css";
 const mock = [
   { name: "The Table Kevin Fehling", country: "Germany" },
   { name: "Aqua", country: "Germany" },
@@ -15,7 +15,7 @@ const MyBookmark = () => {
       <div className={styles.title}>나의 북마크</div>
       <Slider contenetLength={mock.length}>
         {mock.map((restaurant) => (
-          <div>{restaurant.name}</div>
+          <div className={styles.bookmark}>{restaurant.name}</div>
         ))}
       </Slider>
     </div>

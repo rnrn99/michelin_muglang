@@ -9,3 +9,13 @@
   font-size: 24px;
   font-weight: 500;
 }
+
+.review {
+  width: 250px;
+  height: 250px;
+  background-color: antiquewhite;
+}
+
+.review + .review {
+  margin-left: 25px;
+}
