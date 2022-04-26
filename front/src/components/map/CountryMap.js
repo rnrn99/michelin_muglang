@@ -9,44 +9,23 @@ import {
 import WorldMap from "../../data/worldMap.json";
 const geoUrl = WorldMap;
 
-const CountryMap = ({ countryName, restaurants, setTooltipContent }) => {
-  // const customMap = [
-  //   {
-  //     name: "China",
-  //     center_first: 90,
-  //     center_second: 35,
-  //     zoom: 5,
-  //     size: "10px",
-  //   },
-  //   {
-  //     name: "Germany",
-  //     center_first: 5,
-  //     center_second: 51,
-  //     zoom: 15,
-  //     size: "5px",
-  //   },
-  //   {
-  //     name: "United Kingdom",
-  //     center_first: -7,
-  //     center_second: 54,
-  //     zoom: 15,
-  //     size: "5px",
-  //   },
-  // ];
-
+const CountryMap = ({
+  countryName,
+  restaurants,
+  setTooltipContent,
+  handleClick,
+}) => {
   // const selectedCountry = customMap.filter(
   //   (map) => map.name === countryName,
   // )[0];
 
   return (
     <ComposableMap
-      width={800}
-      height={400}
       projection="geoMercator"
       projectionConfig={{ scale: 70 }}
       data-tip=""
     >
-      <ZoomableGroup center={[90, 35]} zoom={8}>
+      <ZoomableGroup center={[90, 25]} zoom={6}>
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
             geographies
@@ -66,6 +45,7 @@ const CountryMap = ({ countryName, restaurants, setTooltipContent }) => {
           <Marker
             key={_id}
             coordinates={[longitude, latitude]}
+            onClick={() => handleClick(_id)}
             onMouseEnter={() => setTooltipContent(name)}
             onMouseLeave={() => setTooltipContent("")}
           >
