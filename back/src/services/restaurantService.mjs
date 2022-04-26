@@ -67,7 +67,7 @@ class restaurantService {
     let convertedMinPrice, convertedMaxPrice;
 
     // exchange_rates가 EUR를 기준으로 value값이 설정 되어 있으므로 타겟 통화의 value로 계산
-    if (currentCurrency.code == "EUR") {
+    if (currentCurrency.code === "EUR") {
       convertedMinPrice = minPrice * targetCurrency.value;
       convertedMaxPrice = maxPrice * targetCurrency.value;
     } else {
