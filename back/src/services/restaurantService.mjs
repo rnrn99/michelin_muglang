@@ -6,6 +6,11 @@ class restaurantService {
     return restaurants;
   }
 
+  static async getRestaurantsPaging({ page, pageSize }) {
+    const restaurants = await Restaurant.findAllPaging({ page, pageSize });
+    return restaurants;
+  }
+
   static async getRestaurantInfo({ id }) {
     const restaurant = await Restaurant.findById({ id });
 
