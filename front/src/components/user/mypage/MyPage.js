@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "../../../css/user/MyPage.module.css";
+import MyBookmark from "./MyBookmark";
+import MyReview from "./MyReview";
 
 const MyPage = () => {
   return (
@@ -18,8 +20,8 @@ const MyPage = () => {
             <div className={styles.modify}>회원 정보 수정하기</div>
           </div>
         </div>
-        <div className={styles.my_bookmark}></div>
-        <div className={styles.my_review}></div>
+        <MyBookmark />
+        <MyReview />
       </div>
     </div>
   );
