@@ -22,12 +22,34 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
         try {
           // URI로부터 country(query)를 추출함
           const country = req.query.country;
-          console.log(country);
           const restaurants =
             await restaurantService.getRestaurantsByCountryPaging({
               page,
               pageSize,
               country,
+            });
+
+          if (restaurants.errorMessage) {
+            throw new Error(restaurants.errorMessage);
+          }
+
+          res.status(200).send(restaurants);
+          return;
+        } catch (error) {
+          next(error);
+        }
+      }
+
+      // 특정 국가에 있는 식당들의 정보를 얻음 (/restaurants?cuisine=${음식 분류})
+      else if (req.query.cuisine) {
+        try {
+          // URI로부터 cuisine(query)를 추출함
+          const cuisine = req.query.cuisine;
+          const restaurants =
+            await restaurantService.getRestaurantsByCuisinePaging({
+              page,
+              pageSize,
+              cuisine,
             });
 
           if (restaurants.errorMessage) {

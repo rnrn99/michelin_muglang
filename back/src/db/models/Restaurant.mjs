@@ -66,9 +66,23 @@ class Restaurant {
     }
   }
 
-  static async findAllPaging({ page, pageSize, country }) {
+  static async findAllPaging({ page, pageSize }) {
     try {
       const restaurants = await RestaurantModel.find({})
+        .sort({ _id: 1 })
+        .skip(page * pageSize)
+        .limit(pageSize);
+      return restaurants;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async findAllByCuisinePaging({ page, pageSize, cuisine }) {
+    try {
+      const restaurants = await RestaurantModel.find({
+        cuisine,
+      })
         .sort({ _id: 1 })
         .skip(page * pageSize)
         .limit(pageSize);
