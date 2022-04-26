@@ -55,21 +55,7 @@ userAuthRouter.post("/users/login", async function (req, res, next) {
 });
 
 userAuthRouter.get(
-  "/userlist",
-  login_required,
-  async function (req, res, next) {
-    try {
-      // 전체 사용자 목록을 얻음
-      const users = await userAuthService.getUsers();
-      res.status(200).send(users);
-    } catch (error) {
-      next(error);
-    }
-  },
-);
-
-userAuthRouter.get(
-  "/user/current",
+  "/users/current",
   login_required,
   async function (req, res, next) {
     try {
@@ -138,13 +124,22 @@ userAuthRouter.get(
   },
 );
 
-// jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
-userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
-  res
-    .status(200)
-    .send(
-      `안녕하세요 ${req.currentUserId}님, jwt 웹 토큰 기능 정상 작동 중입니다.`,
-    );
+userAuthRouter.delete("/users", login_required, async (req, res, next) => {
+  try {
+    // 현재 로그인된 사용자 id를 추출함.
+    const user_id = req.currentUserId;
+
+    // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 삭제함.
+    const deletedUser = await userAuthService.deleteUser({ user_id });
+
+    if (deletedUser.errorMessage) {
+      throw new Error(deletedUser.errorMessage);
+    }
+
+    res.status(200).json(deletedUser);
+  } catch (error) {
+    next(error);
+  }
 });
 
 export { userAuthRouter };

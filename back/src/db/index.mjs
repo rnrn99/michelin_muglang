@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 import { User } from "./models/User.mjs";
+import { Restaurant } from "./models/Restaurant.mjs";
+import { Currency } from "./models/Currency.mjs";
+import { Country } from "./models/Country.mjs";
 import { Graph } from "./models/Graph.mjs";
 
 const DB_URL =
@@ -17,4 +20,7 @@ db.on("error", (error) =>
 );
 
 export { User };
+export { Restaurant };
+export { Currency };
+export { Country };
 export { Graph };

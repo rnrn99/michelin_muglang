@@ -12,14 +12,15 @@ BASEDIR = BASEDIR[:BASEDIR.rfind('/')]
 # .env 파일 경로 설정
 load_dotenv(os.path.join(BASEDIR, 'back/.env'))
 
-# michelin_muglang db에 연결
+# michelinMuglang db에 연결
 file = os.path.join(BASEDIR, "data/michelin_my_maps.csv")
 mongodb = os.getenv("MONGODB_URL")
-connection = MongoClient(mongodb)
-db = connection.michelin_muglang
+client = MongoClient(mongodb)
+db = client.michelinMuglang
 
 data = pd.read_csv(file)
-michelin = data
+michelin = data.copy()
+
 michelin.columns = ["name", "address", "location", "minPrice", "maxPrice", "currency",
        "cuisine", "longitude", "latitude", "phoneNumber", "url", "websiteUrl",
        "award"]
@@ -48,4 +49,9 @@ michelin["phoneNumber"] = michelin["phoneNumber"].apply(lambda x:'+'+str(int(x))
 michelin["phoneNumber"] = michelin["phoneNumber"].replace("+-1", np.nan)
 
 dataJson = json.loads(michelin.to_json(orient="records"))
+
+if "restaurants" in db.list_collection_names():
+       db.restaurants.drop()
+       print("collection has been dropped")
+
 db.restaurants.insert_many(dataJson)
