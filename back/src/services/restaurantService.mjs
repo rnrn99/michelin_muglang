@@ -6,8 +6,8 @@ class restaurantService {
     return restaurants;
   }
 
-  static async getRestaurantInfo({ restaurant_id }) {
-    const restaurant = await Restaurant.findById({ restaurant_id });
+  static async getRestaurantInfo({ id }) {
+    const restaurant = await Restaurant.findById({ id });
 
     // db에서 해당 식당을 찾지 못한 경우, 에러 메시지 반환
     if (!restaurant) {
@@ -18,10 +18,8 @@ class restaurantService {
     return restaurant;
   }
 
-  static async getRestaurantsByCountry({ restaurantCountry }) {
-    const restaurants = await Restaurant.findAllByCountry({
-      country: restaurantCountry,
-    });
+  static async getRestaurantsByCountry({ country }) {
+    const restaurants = await Restaurant.findAllByCountry({ country });
 
     // db에서 해당 국가에 존재하는 식당을 찾지 못한 경우, 에러 메시지 반환
     if (!restaurants) {
@@ -32,8 +30,8 @@ class restaurantService {
     return restaurants;
   }
 
-  static async getConvertedPrice({ restaurant_id, currencyName }) {
-    const restaurant = await Restaurant.findById({ restaurant_id });
+  static async getConvertedPrice({ id, currencyCode }) {
+    const restaurant = await Restaurant.findById({ id });
 
     // db에서 해당 식당을 찾지 못한 경우, 에러 메시지 반환
     if (!restaurant) {
@@ -42,38 +40,34 @@ class restaurantService {
     }
 
     // 현재 식당의 최고가, 최저가, 통화를 확인
-    const [minPrice, maxPrice, currentCurrencyName] = [
-      restaurant.minPrice,
-      restaurant.maxPrice,
-      restaurant.currency,
-    ];
-
+    const { minPrice, maxPrice, currency: currentCurrencyCode } = restaurant;
     // 가격 정보를 제공하지 않는 식당의 경우, 에러 메시지 반환
     if (!minPrice) {
       const errorMessage = "해당 레스토랑은 가격 정보를 제공하지 않습니다.";
       return { errorMessage };
     }
 
-    const targetCurrency = await Currency.findByCode({ currencyName });
+    const targetCurrency = await Currency.findByCode({ code: currencyCode });
     const currentCurrency = await Currency.findByCode({
-      currencyName: currentCurrencyName,
+      code: currentCurrencyCode,
     });
 
     // db에서 해당 통화를 찾지 못한 경우, 에러 메시지 반환
     if (!targetCurrency) {
+      console.log(targetCurrency, currencyCode);
       const errorMessage = "해당 통화에 대한 정보가 존재하지 않습니다.";
       return { errorMessage };
     }
 
     // 현재 통화와 타켓 통화가 일치할 경우 기존 값을 반환
-    if (currentCurrency.currency == targetCurrency.currency) {
+    if (currentCurrency.code === targetCurrency.code) {
       return { minPrice, maxPrice };
     }
 
     let convertedMinPrice, convertedMaxPrice;
 
     // exchange_rates가 EUR를 기준으로 value값이 설정 되어 있으므로 타겟 통화의 value로 계산
-    if (currentCurrency == "EUR") {
+    if (currentCurrency.code == "EUR") {
       convertedMinPrice = minPrice * targetCurrency.value;
       convertedMaxPrice = maxPrice * targetCurrency.value;
     } else {
