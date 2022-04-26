@@ -12,10 +12,15 @@
   margin-top: 20px;
 }
 
+.review_input form {
+  display: flex;
+  align-items: center;
+}
+
 .review_input input {
   box-sizing: border-box;
   border: #a7a7a7 solid 1px;
-  width: 82%;
+  width: 890px;
   height: 45px;
 }
 
@@ -25,7 +30,7 @@
 
 .review_input button {
   cursor: pointer;
-  width: 8%;
+  width: 80px;
   height: 45px;
   margin-left: 10px;
   background-color: #ffbf69;
