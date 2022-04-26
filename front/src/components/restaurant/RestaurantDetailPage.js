@@ -9,11 +9,13 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Information from "./Information";
 import Review from "./Review";
 import NearbyRestaurant from "./NearbyRestaurant";
+import LoginRequestModal from "./LoginRequestModal";
 
 const mockBookmark = 16;
 
 function RestaurantDetailPage() {
   const [bookmark, setBookmark] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -30,23 +32,26 @@ function RestaurantDetailPage() {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.main}>
-        <span className={styles.title}>{restaurant.name}</span>
-        <div
-          className={styles.bookmark}
-          onClick={() => {
-            setBookmark((cur) => !cur);
-          }}
-        >
-          {bookmark ? <BookmarkIcon /> : <BookmarkOutlineIcon />} {mockBookmark}
-          번 북마크됨
+    <>
+      <div className={styles.container}>
+        <div className={styles.main}>
+          <span className={styles.title}>{restaurant.name}</span>
+          <div
+            className={styles.bookmark}
+            onClick={() => {
+              setBookmark((cur) => !cur);
+            }}
+          >
+            {bookmark ? <BookmarkIcon /> : <BookmarkOutlineIcon />}{" "}
+            {mockBookmark}번 북마크됨
+          </div>
+          <Information />
+          <Review setIsModalOpen={setIsModalOpen} />
+          <NearbyRestaurant />
         </div>
-        <Information />
-        <Review />
-        <NearbyRestaurant />
       </div>
-    </div>
+      {isModalOpen && <LoginRequestModal setIsModalOpen={setIsModalOpen} />}
+    </>
   );
 }
 

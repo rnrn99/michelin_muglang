@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styles from "../../css/restaurant/Review.module.css";
 
 let mock = [
@@ -16,12 +17,19 @@ let mock = [
   },
 ];
 
-function Review() {
+function Review({ setIsModalOpen }) {
   const [reviewText, setReviewText] = useState("");
   const [reviewList, setReviewList] = useState(mock);
 
+  const user = useSelector((state) => state.user.user);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!user) {
+      setIsModalOpen(true);
+      return;
+    }
 
     if (!reviewText) return;
 
@@ -37,6 +45,7 @@ function Review() {
     setReviewList((cur) => {
       return [...cur, { username: "김뚜떼", date, content: reviewText }];
     });
+    setReviewText("");
   };
 
   return (
