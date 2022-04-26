@@ -10,36 +10,33 @@ import WorldMap from "../../data/worldMap.json";
 const geoUrl = WorldMap;
 
 const CountryMap = ({ countryName, restaurants, setTooltipContent }) => {
-  const customMap = [
-    {
-      name: "China",
-      center_first: 90,
-      center_second: 35,
-      zoom: 5,
-    },
-    {
-      name: "Russia",
-      center_first: 70,
-      center_second: 65,
-      zoom: 2.5,
-    },
-    {
-      name: "Germany",
-      center_first: 5,
-      center_second: 51,
-      zoom: 15,
-    },
-    {
-      name: "United Kingdom",
-      center_first: -7,
-      center_second: 54,
-      zoom: 15,
-    },
-  ];
+  // const customMap = [
+  //   {
+  //     name: "China",
+  //     center_first: 90,
+  //     center_second: 35,
+  //     zoom: 5,
+  //     size: "10px",
+  //   },
+  //   {
+  //     name: "Germany",
+  //     center_first: 5,
+  //     center_second: 51,
+  //     zoom: 15,
+  //     size: "5px",
+  //   },
+  //   {
+  //     name: "United Kingdom",
+  //     center_first: -7,
+  //     center_second: 54,
+  //     zoom: 15,
+  //     size: "5px",
+  //   },
+  // ];
 
-  const selectedCountry = customMap.filter(
-    (map) => map.name === countryName,
-  )[0];
+  // const selectedCountry = customMap.filter(
+  //   (map) => map.name === countryName,
+  // )[0];
 
   return (
     <ComposableMap
@@ -49,10 +46,7 @@ const CountryMap = ({ countryName, restaurants, setTooltipContent }) => {
       projectionConfig={{ scale: 70 }}
       data-tip=""
     >
-      <ZoomableGroup
-        center={[selectedCountry.center_first, selectedCountry.center_second]}
-        zoom={selectedCountry.zoom}
-      >
+      <ZoomableGroup center={[90, 35]} zoom={8}>
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
             geographies
@@ -68,9 +62,9 @@ const CountryMap = ({ countryName, restaurants, setTooltipContent }) => {
               ))
           }
         </Geographies>
-        {restaurants.map(({ name, latitude, longitude }) => (
+        {restaurants.map(({ _id, name, latitude, longitude }) => (
           <Marker
-            key={name}
+            key={_id}
             coordinates={[longitude, latitude]}
             onMouseEnter={() => setTooltipContent(name)}
             onMouseLeave={() => setTooltipContent("")}
