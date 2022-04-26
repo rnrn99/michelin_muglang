@@ -5,27 +5,7 @@ const restaurantRouter = Router();
 
 // Path: /restaurants
 restaurantRouter.get("/restaurants", async function (req, res, next) {
-  // 특정 국가에 있는 식당들의 정보를 얻음 (/restaurants?country=${검색할 국가 이름})
-  // if (req.query.country) {
-  //   try {
-  //     // URI로부터 country(query)를 추출함
-  //     const country = req.query.country;
-  //     const restaurants = await restaurantService.getRestaurantsByCountry({
-  //       country,
-  //     });
-
-  //     if (restaurants.errorMessage) {
-  //       throw new Error(restaurants.errorMessage);
-  //     }
-
-  //     res.status(200).send(restaurants);
-  //     return;
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
-  // // pagenation 시도! (/restaurants?page=${페이지 시작 위치}&pageSize=${페이지 크기})
-  // else if (req.query.page && req.query.pageSize) {
+  // pagenation 시도! (/restaurants?page=${페이지 시작 위치}&pageSize=${페이지 크기})
   if (req.query.page && req.query.pageSize) {
     try {
       const { page, pageSize } = req.query;
@@ -36,6 +16,7 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
         throw error;
       }
 
+      // 특정 국가에 있는 식당들의 정보를 얻음 (/restaurants?country=${검색할 국가 이름})
       // 국가별 레스토랑 정보도 pagination 시도!
       if (req.query.country) {
         try {
@@ -60,6 +41,7 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
         }
       }
 
+      // 전체 식당 중 일부를 paging하여 얻음
       const restaurants = await restaurantService.getRestaurantsPaging({
         page: parseInt(page) - 1,
         pageSize: parseInt(pageSize),
