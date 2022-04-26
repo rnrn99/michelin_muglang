@@ -139,7 +139,7 @@ userAuthRouter.delete("/users", login_required, async (req, res, next) => {
 
 // 북마크를 추가함.
 userAuthRouter.put(
-  "/bookmarks/update/:id",
+  "/bookmarks/:id",
   login_required,
   async function (req, res, next) {
     try {
@@ -188,7 +188,7 @@ userAuthRouter.get(
 
 // 북마크를 취소함 (북마크 리스트에서 삭제)
 userAuthRouter.put(
-  "/bookmarks/delete/:id",
+  "/bookmarks/:id/undo",
   login_required,
   async function (req, res, next) {
     try {

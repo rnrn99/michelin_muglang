@@ -40,41 +40,41 @@ class User {
     return ret;
   }
 
-  static async updateBookmark({ user_id, restaurantId }) {
+  // 북마크 관련 모델
+  static updateBookmark = async ({ user_id, restaurantId }) => {
     const filter = { id: user_id };
     const update = { $push: { bookmarks: restaurantId } };
     const option = { returnOriginal: false };
 
     const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
-    // RestaurantModel.findOneAndUpdate(
-    //   { id: restaurantId },
-    //   { $inc: { bookmarkCount: 1 } },
-    //   option,
-    // );
+    RestaurantModel.findOneAndUpdate(
+      { id: restaurantId },
+      { $inc: { bookmarkCount: 1 } },
+      option,
+    );
     return bookmarks;
-  }
+  };
 
-  static async findBookmarks({ user_id }) {
+  static findBookmarks = async ({ user_id }) => {
     const bookmarks = await UserModel.findOne({ id: user_id }).populate(
       "bookmarks",
     );
-
     return bookmarks.bookmarks;
-  }
+  };
 
-  static async deleteBookmark({ user_id, restaurantId }) {
+  static deleteBookmark = async ({ user_id, restaurantId }) => {
     const filter = { id: user_id };
     const update = { $pull: { bookmarks: restaurantId } };
     const option = { returnOriginal: false };
 
     const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
-    // RestaurantModel.findOneAndUpdate(
-    //   { id: restaurantId },
-    //   { $inc: { bookmarkCount: -1 } },
-    //   option,
-    // );
+    RestaurantModel.findOneAndUpdate(
+      { id: restaurantId },
+      { $inc: { bookmarkCount: -1 } },
+      option,
+    );
     return bookmarks;
-  }
+  };
 }
 
 export { User };

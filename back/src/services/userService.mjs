@@ -119,6 +119,8 @@ class userAuthService {
     return user;
   }
 
+  // 북마크 관련 모델
+
   static updateBookmark = async ({ user_id, restaurantId }) => {
     // user db에 존재 여부 확인 & db에서 찾지 못한 경우, 에러 메시지 반환
     const bookmarkInfo = await User.findById({ user_id });
@@ -133,7 +135,7 @@ class userAuthService {
     return bookmarks;
   };
 
-  static async getBookmarks({ user_id }) {
+  static getBookmarks = async ({ user_id }) => {
     const bookmarks = await User.findBookmarks({ user_id });
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
@@ -144,7 +146,7 @@ class userAuthService {
     }
 
     return bookmarks;
-  }
+  };
 
   static deleteBookmark = async ({ user_id, restaurantId }) => {
     // user db에 존재 여부 확인 & db에서 찾지 못한 경우, 에러 메시지 반환
