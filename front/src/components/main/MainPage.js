@@ -85,12 +85,12 @@ function MainPage() {
       </section>
 
       {/* Covid Weekly Graph */}
-      <section className={styles.graph}>
+      <section>
         <SectionCovid />
       </section>
 
       {/* Vaccinated Ratio Graph */}
-      <section className={styles.graph}></section>
+      <section></section>
 
       {/* Service Info */}
       <section></section>
