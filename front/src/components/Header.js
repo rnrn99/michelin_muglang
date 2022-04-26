@@ -61,12 +61,17 @@ function Header() {
           <>
             <Link className={styles.menu__link}>
               <span className={styles.menu__title}>
-                <span className={styles.menu__first_word} data-hover="마이">
-                  마이
-                </span>
-                <span className={styles.menu__second_word} data-hover="페이지">
-                  페이지
-                </span>
+                <a href="/mypage">
+                  <span className={styles.menu__first_word} data-hover="마이">
+                    마이
+                  </span>
+                  <span
+                    className={styles.menu__second_word}
+                    data-hover="페이지"
+                  >
+                    페이지
+                  </span>
+                </a>
               </span>
             </Link>
 
