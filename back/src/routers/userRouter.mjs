@@ -139,12 +139,12 @@ userAuthRouter.delete("/users", login_required, async (req, res, next) => {
 
 // 북마크를 추가함.
 userAuthRouter.put(
-  "/bookmarks/:id",
+  "/bookmarks/do",
   login_required,
   async function (req, res, next) {
     try {
       // URI로부터 userId를 추출함.
-      const user_id = req.params.id;
+      const user_id = req.currentUserId;
 
       // body data 로부터 북마크에 추가할 음식점 Id를 추출함.
       const { restaurantId } = req.body ?? null;
@@ -188,12 +188,12 @@ userAuthRouter.get(
 
 // 북마크를 취소함 (북마크 리스트에서 삭제)
 userAuthRouter.put(
-  "/bookmarks/:id/undo",
+  "/bookmarks/undo",
   login_required,
   async function (req, res, next) {
     try {
       // URI로부터 userId를 추출함.
-      const user_id = req.params.id;
+      const user_id = req.currentUserId;
 
       // body data 로부터 북마크에서 제거할 음식점 Id를 추출함.
       const { restaurantId } = req.body ?? null;
