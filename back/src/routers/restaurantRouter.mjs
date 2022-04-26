@@ -12,7 +12,7 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
 
       if (page <= 0) {
         const error = new Error("페이지는 1부터 시작합니다.");
-        error.code = 500;
+        error.statusCode = 500;
         throw error;
       }
 
