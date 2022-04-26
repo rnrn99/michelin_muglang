@@ -3,10 +3,10 @@ import styles from "../../../css/user/Slider.module.css";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-const Slider = ({ children, contenetLength }) => {
+const Slider = ({ children, contentLength }) => {
   const [flag, setFlag] = useState(0);
-  const leftChevronValid = contenetLength > 4 && flag !== 0;
-  const rightCehvronValid = contenetLength > 4 && flag < contenetLength - 4;
+  const leftChevronValid = contentLength > 4 && flag !== 0;
+  const rightCehvronValid = contentLength > 4 && flag < contentLength - 4;
 
   return (
     <div className={styles.slider}>
@@ -23,8 +23,8 @@ const Slider = ({ children, contenetLength }) => {
         <div
           className={styles.list}
           style={{
-            width: contenetLength * 250 + (contenetLength - 1) * 25,
-            transform: `translateX(${-flag * 275}px)`,
+            width: contentLength * 250 + (contentLength - 1) * 25,
+            transform: `translateX(${-flag * 250}px)`,
           }}
         >
           {children}

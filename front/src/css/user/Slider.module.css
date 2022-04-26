@@ -1,5 +1,6 @@
 .slider {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-top: 20px;
   width: 100%;
@@ -15,7 +16,7 @@
 }
 
 .list_container {
-  width: 1075px;
+  width: 980px;
   overflow: hidden;
 }
 

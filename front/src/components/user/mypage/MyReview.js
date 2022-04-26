@@ -39,7 +39,7 @@ const MyBookmark = () => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>나의 리뷰</div>
-      <Slider contenetLength={mock.length}>
+      <Slider contentLength={mock.length}>
         {mock.map((review) => (
           <div className={styles.review}>{review.date}</div>
         ))}
