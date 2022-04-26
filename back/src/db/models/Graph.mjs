@@ -1,9 +1,4 @@
-import pkg from "mongoose";
 import { db } from "../index.mjs";
-const { Schema, model } = pkg;
-
-// const graphModel = model("graphitem", new Schema());
-// const graphModel = model("graphitem");
 
 class Graph {
   static findItems = async (type) => {
