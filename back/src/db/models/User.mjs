@@ -47,11 +47,12 @@ class User {
     const option = { returnOriginal: false };
 
     const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
-    RestaurantModel.findOneAndUpdate(
-      { id: restaurantId },
+    const result = await RestaurantModel.findOneAndUpdate(
+      { _id: restaurantId },
       { $inc: { bookmarkCount: 1 } },
       option,
     );
+    console.log(result); // 레스토랑 다큐먼트 확인
     return bookmarks;
   };
 
@@ -68,11 +69,12 @@ class User {
     const option = { returnOriginal: false };
 
     const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
-    RestaurantModel.findOneAndUpdate(
-      { id: restaurantId },
+    const result = await RestaurantModel.findOneAndUpdate(
+      { _id: restaurantId },
       { $inc: { bookmarkCount: -1 } },
       option,
     );
+    console.log(result); // 레스토랑 다큐먼트 확인
     return bookmarks;
   };
 }
