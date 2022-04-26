@@ -50,7 +50,7 @@ class userAuthService {
 
     // 로그인 성공 -> JWT 웹 토큰 생성
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
-    const token = jwt.sign({ user_id: user.id }, secretKey);
+    const token = jwt.sign({ id: user.id }, secretKey);
 
     // 반환할 loginuser 객체를 위한 변수 설정
     const id = user.id;
@@ -67,9 +67,9 @@ class userAuthService {
     return loginUser;
   }
 
-  static async setUser({ user_id, toUpdate }) {
+  static async setUser({ id, toUpdate }) {
     // 우선 해당 id 의 유저가 db에 존재하는지 여부 확인
-    let user = await User.findById({ user_id });
+    let user = await User.findById({ id });
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
@@ -77,36 +77,18 @@ class userAuthService {
       return { errorMessage };
     }
 
-    // 업데이트 대상에 name이 있다면, 즉 name 값이 null 이 아니라면 업데이트 진행
-    if (toUpdate.name) {
-      const fieldToUpdate = "name";
-      const newValue = toUpdate.name;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
-    }
-
-    if (toUpdate.email) {
-      const fieldToUpdate = "email";
-      const newValue = toUpdate.email;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
-    }
-
-    if (toUpdate.password) {
-      const fieldToUpdate = "password";
-      const hashedPassword = await bcrypt.hash(toUpdate.password, 10);
-      const newValue = hashedPassword;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
-    }
+    user = await User.update({ id, toUpdate });
 
     return user;
   }
 
-  static async getUserInfo({ user_id }) {
-    const user = await User.findById({ user_id });
+  static async getUserInfo({ id }) {
+    const user = await User.findById({ id });
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
       const errorMessage =
-        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+        "해당 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
 
@@ -114,8 +96,8 @@ class userAuthService {
   }
 
   //추후에 북마크 리뷰 기능도 있으면 해당 데이터도 같이 지워주기
-  static async deleteUser({ user_id }) {
-    const user = await User.delete({ user_id });
+  static async deleteUser({ id }) {
+    const user = await User.delete({ id });
     return user;
   }
 }

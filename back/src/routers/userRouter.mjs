@@ -60,9 +60,9 @@ userAuthRouter.get(
   async function (req, res, next) {
     try {
       // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
-      const user_id = req.currentUserId;
+      const id = req.currentUserId;
       const currentUserInfo = await userAuthService.getUserInfo({
-        user_id,
+        id,
       });
 
       if (currentUserInfo.errorMessage) {
@@ -79,16 +79,25 @@ userAuthRouter.get(
 userAuthRouter.put("/users", login_required, async function (req, res, next) {
   try {
     // 현재 로그인된 사용자 id를 추출함.
-    const user_id = req.currentUserId;
+    const id = req.currentUserId;
     // body data 로부터 업데이트할 사용자 정보를 추출함.
+    let toUpdate = {};
+
     const name = req.body.name ?? null;
+    if (name) {
+      toUpdate = { ...toUpdate, name };
+    }
     const email = req.body.email ?? null;
+    if (email) {
+      toUpdate = { ...toUpdate, email };
+    }
     const password = req.body.password ?? null;
+    if (password) {
+      toUpdate = { ...toUpdate, password };
+    }
 
-    const toUpdate = { name, email, password };
-
-    // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
-    const updatedUser = await userAuthService.setUser({ user_id, toUpdate });
+    // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함.
+    const updatedUser = await userAuthService.setUser({ id, toUpdate });
 
     if (updatedUser.errorMessage) {
       throw new Error(updatedUser.errorMessage);
@@ -105,8 +114,8 @@ userAuthRouter.get(
   login_required,
   async function (req, res, next) {
     try {
-      const user_id = req.params.id;
-      const currentUserInfo = await userAuthService.getUserInfo({ user_id });
+      const id = req.params.id;
+      const currentUserInfo = await userAuthService.getUserInfo({ id });
 
       if (currentUserInfo.errorMessage) {
         throw new Error(currentUserInfo.errorMessage);
@@ -122,10 +131,10 @@ userAuthRouter.get(
 userAuthRouter.delete("/users", login_required, async (req, res, next) => {
   try {
     // 현재 로그인된 사용자 id를 추출함.
-    const user_id = req.currentUserId;
+    const id = req.currentUserId;
 
     // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 삭제함.
-    const deletedUser = await userAuthService.deleteUser({ user_id });
+    const deletedUser = await userAuthService.deleteUser({ id });
 
     if (deletedUser.errorMessage) {
       throw new Error(deletedUser.errorMessage);

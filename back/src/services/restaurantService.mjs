@@ -86,8 +86,8 @@ class restaurantService {
     return { minPrice: convertedMinPrice, maxPrice: convertedMaxPrice };
   }
 
-  static async countRestaurantByQuery(query) {
-    const ret = await Restaurant.count(query);
+  static async countRestaurantByCountry(country) {
+    const ret = await Restaurant.countByCountry(country);
     return ret;
   }
 }
