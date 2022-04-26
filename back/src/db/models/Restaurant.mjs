@@ -11,8 +11,8 @@ class Restaurant {
     return restaurant;
   }
 
-  static async findById({ restaurant_id }) {
-    const restaurant = await RestaurantModel.findOne({ _id: restaurant_id });
+  static async findById({ id }) {
+    const restaurant = await RestaurantModel.findOne({ _id: id });
     return restaurant;
   }
 
