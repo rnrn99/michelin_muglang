@@ -143,7 +143,6 @@ userAuthRouter.put(
   login_required,
   async function (req, res, next) {
     try {
-      // URI로부터 userId를 추출함.
       const user_id = req.currentUserId;
 
       // body data 로부터 북마크에 추가할 음식점 Id를 추출함.
@@ -192,7 +191,6 @@ userAuthRouter.put(
   login_required,
   async function (req, res, next) {
     try {
-      // URI로부터 userId를 추출함.
       const user_id = req.currentUserId;
 
       // body data 로부터 북마크에서 제거할 음식점 Id를 추출함.
