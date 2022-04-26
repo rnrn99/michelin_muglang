@@ -38,10 +38,10 @@ const DetailPage = () => {
     {
       name: "Jingji",
       address: "83A Jianguo Road, Beijing, China Mainland",
-      location: "베이징 음식",
+      location: "Beijing",
       longitude: 116.4856,
       latitude: 39.910623,
-      cuisine: "Beijing Quisine",
+      cuisine: "베이징 음식",
       phoneNumber: "+861059695698",
     },
     {
@@ -54,7 +54,7 @@ const DetailPage = () => {
       phoneNumber: "+862038088885",
     },
     {
-      name: "Jiang by Chef Fei",
+      name: "Jiang by Chef Fe",
       address: "389 Tianhe Road, Guangzhou, China Mainland",
       location: "Guangzhou",
       longitude: 113.327867,
@@ -63,7 +63,7 @@ const DetailPage = () => {
       phoneNumber: "+862038088885",
     },
     {
-      name: "Jiang by Chef Fei",
+      name: "Jiang by Chef F",
       address: "389 Tianhe Road, Guangzhou, China Mainland",
       location: "Guangzhou",
       longitude: 113.327867,
@@ -79,7 +79,7 @@ const DetailPage = () => {
       <section className={styles.detail}>
         <div className={styles.detail_restaurantsList}>
           {restaurants.map((r) => (
-            <div className={styles.detail_restaurant}>
+            <div className={styles.detail_restaurant} key={r.name}>
               <div className={styles.restaurant_box}>
                 <h3 className={styles.name}>{r.name}</h3>
                 <span className={styles.cuisine}>{r.cuisine}</span>

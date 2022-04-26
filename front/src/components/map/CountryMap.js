@@ -7,11 +7,40 @@ import {
 } from "react-simple-maps";
 
 import WorldMap from "../../data/worldMap.json";
-import ChinaMap from "../../data/china.json";
-
 const geoUrl = WorldMap;
 
 const CountryMap = ({ countryName, restaurants, setTooltipContent }) => {
+  const customMap = [
+    {
+      name: "China",
+      center_first: 90,
+      center_second: 35,
+      zoom: 5,
+    },
+    {
+      name: "Russia",
+      center_first: 70,
+      center_second: 65,
+      zoom: 2.5,
+    },
+    {
+      name: "Germany",
+      center_first: 5,
+      center_second: 51,
+      zoom: 15,
+    },
+    {
+      name: "United Kingdom",
+      center_first: -7,
+      center_second: 54,
+      zoom: 15,
+    },
+  ];
+
+  const selectedCountry = customMap.filter(
+    (map) => map.name === countryName,
+  )[0];
+
   return (
     <ComposableMap
       width={800}
@@ -20,40 +49,25 @@ const CountryMap = ({ countryName, restaurants, setTooltipContent }) => {
       projectionConfig={{ scale: 70 }}
       data-tip=""
     >
-      <ZoomableGroup center={[90, 35]} zoom={5}>
-        {countryName === "China" ? (
-          <Geographies geography={ChinaMap}>
-            {({ geographies }) =>
-              geographies.map((geo) => {
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill="#FFF"
-                    stroke="#D6D6DA"
-                    strokeWidth="0.2"
-                  />
-                );
-              })
-            }
-          </Geographies>
-        ) : (
-          <Geographies geography={geoUrl}>
-            {({ geographies }) =>
-              geographies
-                .filter((d) => d.properties.name === countryName)
-                .map((geo) => (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill="#EAEAEC"
-                    stroke="#D6D6DA"
-                    strokeWidth="0.3"
-                  />
-                ))
-            }
-          </Geographies>
-        )}
+      <ZoomableGroup
+        center={[selectedCountry.center_first, selectedCountry.center_second]}
+        zoom={selectedCountry.zoom}
+      >
+        <Geographies geography={geoUrl}>
+          {({ geographies }) =>
+            geographies
+              .filter((d) => d.properties.name === countryName)
+              .map((geo) => (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  fill="#EAEAEC"
+                  stroke="#D6D6DA"
+                  strokeWidth="0.3"
+                />
+              ))
+          }
+        </Geographies>
         {restaurants.map(({ name, latitude, longitude }) => (
           <Marker
             key={name}
