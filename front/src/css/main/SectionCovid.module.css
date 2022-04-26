@@ -1,12 +1,41 @@
 .container {
+  position: relative;
   background-color: #ff9f1c;
-  position: absolute;
-  width: 100vw;
-  height: 80%;
+  width: 100%;
+  height: 100vh;
+  display: flex;
 }
 
-.chart {
-  top: 50%;
-  left: 10%;
-  transform: translate(-10%, -50%);
+.graphWrapper {
+  width: 30%;
+  height: 80%;
+  align-items: center;
+  margin: auto;
+}
+
+.textWrapper {
+  align-items: center;
+  margin: auto;
+  margin-left: 0;
+}
+
+.textWrapper h1 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
+.textWrapper p {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.underline {
+  background-image: linear-gradient(transparent calc(100% - 3px), red 3px);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  transition: background-size 1s;
+}
+
+.textWrapper:hover .underline {
+  background-size: 100% 100%;
 }

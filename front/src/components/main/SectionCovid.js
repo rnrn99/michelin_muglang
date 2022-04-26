@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import * as Api from "../../api";
-import { PieChart, Pie, Legend, Tooltip, Cell } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Legend,
+  Tooltip,
+  Cell,
+  ResponsiveContainer,
+} from "recharts";
 import styles from "../../css/main/SectionCovid.module.css";
 
 function SectionCovid() {
@@ -13,23 +20,33 @@ function SectionCovid() {
 
   return (
     <div className={styles.container}>
-      <PieChart width={600} height={600} className={styles.chart}>
-        <Pie
-          dataKey="percent"
-          data={graph}
-          cx="50%"
-          cy="50%"
-          innerRadius={150}
-          outerRadius={250}
-          label
-        >
-          {graph.map((e, i) => (
-            <Cell key={`cell-${i}`} fill={COLORS[i % COLORS.length]} />
-          ))}
-        </Pie>
-        <Legend />
-        <Tooltip />
-      </PieChart>
+      <div className={styles.graphWrapper}>
+        <ResponsiveContainer>
+          <PieChart>
+            <Pie dataKey="percent" data={graph} label>
+              {graph.map((e, i) => (
+                <Cell key={`cell-${i}`} fill={COLORS[i % COLORS.length]} />
+              ))}
+            </Pie>
+            <Legend />
+            <Tooltip />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+      <div className={styles.textWrapper}>
+        <h1>예전처럼 다시 여행갈 수 있을까요?</h1>
+        <p>
+          전 세계, 인구수 천만 명 이상인 나라 63국을 대상으로
+          <br />
+          코로나 확진자 수를조사한 결과 <br />
+          최근{" "}
+          <span className={styles.underline}>
+            2주간 코로나 확진자 수가 감소했다는 결과를 보인
+            <br />
+            국가가 무려 85%에 달하고 있어요.
+          </span>
+        </p>
+      </div>
     </div>
   );
 }
