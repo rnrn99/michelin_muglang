@@ -4,6 +4,7 @@ body {
   width: 100vw;
 }
 
+/* nav btn */
 .pointWrap {
   position: fixed;
   top: 45%;
@@ -26,6 +27,7 @@ body {
   background-color: #000;
 }
 
+/* section */
 section {
   min-height: 100vh;
   width: 100%;
@@ -49,6 +51,7 @@ section {
     opacity: 0;
   }
 }
+
 @keyframes changeMovement {
   from {
     opacity: 0;
@@ -188,17 +191,7 @@ section {
   float: right;
 }
 
-/* .slider {
-  display: flex;
-  align-items: flex-start;
-  position: absolute;
-  height: 300px;
-  top: calc(50% - 150px);
-  left: 10vw;
-  background: #eee;
-  transition: transform 0.3s;
-} */
-
+/* section 2, 3 */
 .graph {
   display: flex;
   align-items: center;
