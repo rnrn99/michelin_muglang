@@ -22,7 +22,6 @@ const MyBookmark = () => {
       <div className={styles.title}>나의 북마크</div>
       <div className={styles.slider}>
         <button
-          className={styles.slider_left_btn}
           disabled={!leftChevronValid}
           style={
             !leftChevronValid ? { color: "#d8d8d8" } : { cursor: "pointer" }
@@ -33,9 +32,9 @@ const MyBookmark = () => {
         >
           <ChevronLeftIcon fontSize="large" />
         </button>
-        <div className={styles.bookmark_list_container}>
+        <div className={styles.list_container}>
           <div
-            className={styles.bookmark_list}
+            className={styles.list}
             style={{
               width: bookmarkLength * 250 + (bookmarkLength - 1) * 25,
               transform: `translateX(${-flag * 275}px)`,
@@ -47,7 +46,6 @@ const MyBookmark = () => {
           </div>
         </div>
         <button
-          className={styles.slider_right_btn}
           disabled={!rightCehvronValid}
           style={
             !rightCehvronValid ? { color: "#d8d8d8" } : { cursor: "pointer" }

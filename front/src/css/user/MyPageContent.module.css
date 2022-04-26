@@ -26,23 +26,23 @@
   color: #ffbf69;
 }
 
-.bookmark_list_container {
+.list_container {
   width: 1075px;
   overflow: hidden;
 }
 
-.slider .bookmark_list {
+.slider .list {
   height: 100%;
   display: flex;
   transition: all 0.3s;
 }
 
-.slider .bookmark_list div {
+.slider .list div {
   width: 250px;
   height: 250px;
   background-color: antiquewhite;
 }
 
-.slider .bookmark_list div + div {
+.slider .list div + div {
   margin-left: 25px;
 }
