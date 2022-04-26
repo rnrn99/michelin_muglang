@@ -4,6 +4,28 @@ body {
   width: 100vw;
 }
 
+.pointWrap {
+  position: fixed;
+  top: 45%;
+  right: 3vw;
+  z-index: 100;
+}
+
+.pointWrap li {
+  list-style: none;
+  width: 12px;
+  height: 12px;
+  margin-top: 15px;
+  cursor: pointer;
+  background-color: #999;
+  border-radius: 50%;
+  transition: background 0.3s ease-out;
+}
+
+.pointWrap li.active {
+  background-color: #000;
+}
+
 section {
   min-height: 100vh;
   width: 100%;
@@ -180,11 +202,4 @@ section {
 .graph {
   display: flex;
   align-items: center;
-}
-
-.container {
-  position: absolute;
-  background-color: #ff9f1c;
-  width: 100vw;
-  height: 80%;
 }
