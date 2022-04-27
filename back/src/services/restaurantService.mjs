@@ -3,6 +3,14 @@ import { Restaurant, Currency } from "../db/index.mjs";
 class restaurantService {
   static async getRestaurants() {
     const restaurants = await Restaurant.findAll();
+
+    // 레스토랑 정보를 가져오는 데 실패한 경우, 에러 메시지 반환
+    if (Object.keys(restaurants).length === 0) {
+      const error = new Error("레스토랑 데이터를 가져오는 데 실패하였습니다.");
+      error.statusCode = 500;
+      throw error;
+    }
+
     return restaurants;
   }
 
@@ -70,7 +78,7 @@ class restaurantService {
     });
 
     // db에서 해당 국가에 존재하는 식당을 찾지 못한 경우, 에러 메시지 반환
-    if (!restaurants) {
+    if (!Object.keys(restaurants).length === 0) {
       const error = new Error(
         "해당 음식 카테고리로 분류되는 식당이 존재하지 않습니다.",
       );
@@ -104,11 +112,9 @@ class restaurantService {
       award,
     });
 
-    // db에서 해당 국가에 존재하는 식당을 찾지 못한 경우, 에러 메시지 반환
+    // db에서 해당 검색어를 포함하는 식당을 찾지 못한 경우, 에러 메시지 반환
     if (Object.keys(restaurants).length === 0) {
-      const error = new Error(
-        "해당 음식 카테고리로 분류되는 식당이 존재하지 않습니다.",
-      );
+      const error = new Error("검색 결과가 존재하지 않습니다.");
       error.statusCode = 400;
       throw error;
     }
@@ -120,7 +126,7 @@ class restaurantService {
     const restaurant = await Restaurant.findById({ id });
 
     // db에서 해당 식당을 찾지 못한 경우, 에러 메시지 반환
-    if (!restaurant) {
+    if (Object.keys(restaurant).length === 0) {
       const error = new Error("해당 레스토랑은 존재하지 않습니다.");
       error.statusCode = 400;
       throw error;
@@ -142,13 +148,13 @@ class restaurantService {
     });
 
     // db에서 해당 통화를 찾지 못한 경우, 에러 메시지 반환
-    if (!targetCurrency) {
+    if (Object.keys(targetCurrency).length === 0) {
       const error = new Error("해당 통화에 대한 정보가 존재하지 않습니다.");
       error.statusCode = 400;
       throw error;
     }
 
-    if (!currentCurrency) {
+    if (Object.keys(currentCurrency).length === 0) {
       const error = new Error("통화에 대한 정보를 가져오는 데 실패하였습니다.");
       error.statusCode = 500;
       throw error;
