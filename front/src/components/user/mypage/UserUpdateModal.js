@@ -107,12 +107,8 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
           </div>
 
           <button
+            className={!isFormValid && styles.invalid_button}
             disabled={!isFormValid}
-            style={
-              !isFormValid
-                ? { backgroundColor: "#e0e0e0", color: "#9c9c9c" }
-                : {}
-            }
           >
             수정
           </button>

@@ -114,11 +114,19 @@
   border: none;
   border-radius: 5px;
   color: white;
+  box-shadow: 0px 1px 2px gray;
 }
 
 .update_form button:hover {
   cursor: pointer;
   background-color: #ffbf69;
+}
+
+.update_form .invalid_button {
+  background-color: #e0e0e0;
+  color: #9c9c9c;
+  cursor: auto;
+  box-shadow: none;
 }
 
 .modal_buttons {
