@@ -4,12 +4,12 @@
   height: 100vh;
   margin: auto;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .graphWrapper {
   width: 40%;
   height: 50%;
-  align-items: center;
   background-color: #f2f2f2;
   border-radius: 2rem;
   margin: auto;
@@ -19,7 +19,7 @@
 }
 
 .textWrapper {
-  align-items: center;
+  align-content: center;
   margin: auto;
   margin-left: 0;
 }
@@ -36,7 +36,10 @@
 }
 
 .underline {
-  background-image: linear-gradient(transparent calc(100% - 3px), red 3px);
+  background-image: linear-gradient(
+    transparent calc(100% - 1.5rem),
+    #ffbf69 1.5rem
+  );
   background-repeat: no-repeat;
   background-size: 0% 100%;
   transition: background-size 1s;
@@ -44,4 +47,16 @@
 
 .textWrapper:hover .underline {
   background-size: 100% 100%;
+}
+
+@media (max-width: 1320px) {
+  .textWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-left: 0;
+  }
 }
