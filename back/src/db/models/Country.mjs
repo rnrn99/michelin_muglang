@@ -1,8 +1,9 @@
 import { CountryModel } from "../schemas/country.mjs";
 
 class Country {
-  static async findByQuery(query) {
-    const country = await CountryModel.find(query).lean();
+  //전체 국가 조회 (이름, 좌표)
+  static async getAllCountry() {
+    const country = await CountryModel.find({}).lean();
     return country;
   }
 }

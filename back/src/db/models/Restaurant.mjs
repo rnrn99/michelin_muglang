@@ -26,8 +26,8 @@ class Restaurant {
     return restaurants;
   }
 
-  static async count(query) {
-    const ret = await RestaurantModel.countDocuments(query);
+  static async countByCountry(country) {
+    const ret = await RestaurantModel.countDocuments({ country });
     return ret;
   }
 }
