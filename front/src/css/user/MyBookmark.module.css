@@ -10,12 +10,47 @@
   font-weight: 500;
 }
 
-.bookmark {
+.restaurant {
+  background-color: whitesmoke;
+  box-sizing: border-box;
   width: 230px;
   height: 230px;
-  background-color: whitesmoke;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.bookmark + .bookmark {
+.restaurant + .restaurant {
   margin-left: 20px;
+}
+
+.restaurant_name {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 22px;
+}
+
+.restaurant_country {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #969696;
+  font-size: 14px;
+}
+
+.icon_delete {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  color: #c2c2c2;
+}
+
+.icon_delete:hover {
+  cursor: pointer;
+  color: #ffbf69;
 }
