@@ -48,6 +48,10 @@
   width: 124px;
 }
 
+.detailPageBtn a:hover {
+  font-weight: bold;
+}
+
 .name {
   display: inline;
   font-size: 20px;
@@ -57,4 +61,33 @@
 .cuisine {
   margin-left: 5px;
   color: #ff9f1c;
+}
+.container_returnBtn {
+  position: relative;
+}
+
+.returnBtn {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.returnBtn:before {
+  content: "";
+  position: absolute;
+  background-color: #ff9f1c;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+.returnBtn:hover:before {
+  width: 168px;
+}
+
+.returnBtn:hover {
+  color: #000;
+  cursor: pointer;
 }

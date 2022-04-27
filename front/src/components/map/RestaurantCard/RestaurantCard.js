@@ -8,9 +8,22 @@ import {
   faMoneyBill1Wave,
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
+import { faShareFromSquare } from "@fortawesome/free-regular-svg-icons";
 import styles from "./RestaurantCard.module.css";
 
-const RestaurantCard = ({ restaurant, handleClick, clicked, setClicked }) => {
+const RestaurantCard = ({
+  restaurant,
+  handleClick,
+  clicked,
+  countryRestaurants,
+  setClicked,
+  setRestaurants,
+}) => {
+  const goToList = () => {
+    setRestaurants(countryRestaurants);
+    setClicked(false);
+  };
+
   return (
     <div className={!clicked ? styles.restaurant : styles.restaurant_clicked}>
       {!clicked && (
@@ -18,7 +31,7 @@ const RestaurantCard = ({ restaurant, handleClick, clicked, setClicked }) => {
           className={styles.detailBtn}
           onClick={() => handleClick(restaurant._id)}
         >
-          <FontAwesomeIcon icon={faUpRightFromSquare} size="2x" />
+          <FontAwesomeIcon icon={faShareFromSquare} size="2x" />
         </div>
       )}
 
@@ -71,8 +84,14 @@ const RestaurantCard = ({ restaurant, handleClick, clicked, setClicked }) => {
           </a>
         </div>
       )}
-
       <p style={{ color: "green" }}>영업 중</p>
+      {clicked && (
+        <div className={styles.container_returnBtn}>
+          <a className={styles.returnBtn} onClick={goToList}>
+            음식점 리스트로 돌아가기
+          </a>
+        </div>
+      )}
     </div>
   );
 };

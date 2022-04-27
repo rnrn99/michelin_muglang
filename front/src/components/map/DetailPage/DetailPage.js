@@ -16,9 +16,10 @@ const DetailPage = () => {
   const location = useLocation();
   const { countryName } = location.state;
 
-  const [restaurants, setRestaurants] = useState(
-    Restaurants.filter((r) => r.country === countryName),
+  const countryRestaurants = Restaurants.filter(
+    (r) => r.country === countryName,
   );
+  const [restaurants, setRestaurants] = useState(countryRestaurants);
   const [content, setContent] = useState("");
   const [clicked, setClicked] = useState(false);
 
@@ -39,7 +40,9 @@ const DetailPage = () => {
               restaurant={restaurant}
               handleClick={handleClick}
               clicked={clicked}
-              setContent={setClicked}
+              countryRestaurants={countryRestaurants}
+              setClicked={setClicked}
+              setRestaurants={setRestaurants}
             />
           ))}
         </div>
