@@ -10,7 +10,7 @@ class restaurantService {
     const restaurants = await Restaurant.findAllPaging({ page, pageSize });
 
     // 페이징 과정 중 실패한 경우, 에러 메시지 반환
-    if (!restaurants) {
+    if (Object.keys(restaurants).length === 0) {
       const error = new Error("레스토랑을 페이징하지 못하였습니다.");
       error.statusCode = 500;
       throw error;
@@ -23,7 +23,7 @@ class restaurantService {
     const restaurant = await Restaurant.findById({ id });
 
     // db에서 해당 식당을 찾지 못한 경우, 에러 메시지 반환
-    if (!restaurant) {
+    if (Object.keys(restaurant).length === 0) {
       const error = new Error("해당 레스토랑은 존재하지 않습니다.");
       error.statusCode = 400;
       throw error;
@@ -36,7 +36,7 @@ class restaurantService {
     const restaurants = await Restaurant.findAllByCountry({ country });
 
     // db에서 해당 국가에 존재하는 식당을 찾지 못한 경우, 에러 메시지 반환
-    if (!restaurants) {
+    if (Object.keys(restaurants).length === 0) {
       const error = new Error("해당 국가에 식당이 존재하지 않습니다.");
       error.statusCode = 400;
       throw error;
@@ -53,7 +53,7 @@ class restaurantService {
     });
 
     // db에서 해당 국가에 존재하는 식당을 찾지 못한 경우, 에러 메시지 반환
-    if (!restaurants) {
+    if (Object.keys(restaurants).length === 0) {
       const error = new Error("해당 국가에 식당이 존재하지 않습니다.");
       error.statusCode = 400;
       throw error;
@@ -71,6 +71,41 @@ class restaurantService {
 
     // db에서 해당 국가에 존재하는 식당을 찾지 못한 경우, 에러 메시지 반환
     if (!restaurants) {
+      const error = new Error(
+        "해당 음식 카테고리로 분류되는 식당이 존재하지 않습니다.",
+      );
+      error.statusCode = 400;
+      throw error;
+    }
+
+    return restaurants;
+  }
+
+  static async getRestaruantsByQuery({
+    page,
+    pageSize,
+    name,
+    address,
+    location,
+    minPrice,
+    maxPrice,
+    cuisine,
+    award,
+  }) {
+    const restaurants = await Restaurant.findAllByQuery({
+      page,
+      pageSize,
+      name,
+      address,
+      location,
+      minPrice,
+      maxPrice,
+      cuisine,
+      award,
+    });
+
+    // db에서 해당 국가에 존재하는 식당을 찾지 못한 경우, 에러 메시지 반환
+    if (Object.keys(restaurants).length === 0) {
       const error = new Error(
         "해당 음식 카테고리로 분류되는 식당이 존재하지 않습니다.",
       );
