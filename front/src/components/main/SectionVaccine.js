@@ -7,6 +7,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
 import styles from "../../css/main/Graph.module.css";
@@ -17,7 +18,6 @@ function SectionVaccine() {
   useEffect(() => {
     Api.get("graphs/vaccinated-ratio").then((res) => {
       setGraph(res.data);
-      console.log(res.data);
     });
   }, []);
   return (
@@ -32,9 +32,10 @@ function SectionVaccine() {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" stroke="#000" />
-            <YAxis dataKey="percent" stroke="#000" />
+            <YAxis dataKey="percent" stroke="#000" unit="%" />
             <Tooltip />
             <Bar dataKey="percent" fill="#8884d8" />
+            <ReferenceLine y={50} stroke="red" />
           </BarChart>
         </ResponsiveContainer>
       </div>
