@@ -1,11 +1,26 @@
-import { Review } from "../db/models/Review.mjs";
+import { Review, Restaurant, User } from "../db/index.mjs";
 import { v4 as uuidv4 } from "uuid";
 
 class reviewService {
-  static createReview = async ({ restaurantId, userId, userName, text }) => {
+  static createReview = async ({ restaurantId, userId, text }) => {
     // id 는 유니크 값 부여
     const id = uuidv4();
-    const newReview = { id, restaurantId, userId, userName, text };
+    const restaurant = await Restaurant.findById({ restaurantId });
+    if (!restaurant) {
+      const error = new Error("해당 id와 일치하는 음식점이 없습니다.");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const user = await User.findById({ userId });
+    const newReview = {
+      id,
+      restaurantId,
+      restaurantName: restaurant.name,
+      userId,
+      userName: user.name,
+      text,
+    };
 
     // db에 저장
     const createdNewReview = await Review.createReview({ newReview });
@@ -17,9 +32,9 @@ class reviewService {
   static updateReview = async ({ id, toUpdate }) => {
     let reviewInfo = await Review.findByReviewId({ id });
     if (!reviewInfo) {
-      const errorMessage =
-        "해당 id를 가진 리뷰 데이터는 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
+      const error = new Error("해당 id를 가진 리뷰 데이터는 없습니다.");
+      error.statusCode = 400;
+      throw error;
     }
 
     const updatedReview = await Review.updateReview({
@@ -32,9 +47,9 @@ class reviewService {
   static deleteReview = async ({ id }) => {
     const isDataDeleted = await Review.deleteReview({ id });
     if (!isDataDeleted) {
-      const errorMessage =
-        "해당 id를 가진 리뷰 데이터는 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
+      const error = new Error("해당 id를 가진 리뷰 데이터는 없습니다.");
+      error.statusCode = 400;
+      throw error;
     }
 
     return { status: "ok" };
@@ -42,11 +57,23 @@ class reviewService {
 
   static findByUserId = async ({ userId }) => {
     const reviewlist = await Review.findByUserId({ userId });
+    if (!reviewlist) {
+      const error = new Error("해당 id를 가진 사용자를 찾을 수 없습니다.");
+      error.statusCode = 400;
+      throw error;
+    }
+
     return reviewlist;
   };
 
   static findByRestaurantId = async ({ restaurantId }) => {
     const reviewlist = await Review.findByRestaurantId({ restaurantId });
+    if (!reviewlist) {
+      const error = new Error("해당 id를 가진 음식점을 찾을 수 없습니다.");
+      error.statusCode = 400;
+      throw error;
+    }
+
     return reviewlist;
   };
 }
