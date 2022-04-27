@@ -8,11 +8,11 @@ import {
   Cell,
   ResponsiveContainer,
 } from "recharts";
-import styles from "../../css/main/SectionCovid.module.css";
+import styles from "../../css/main/Graph.module.css";
 
 function SectionCovid() {
   const [graph, setGraph] = useState([]); // graph 그릴 data를 저장할 상태
-  const COLORS = ["#1300ff", "#ff5e5e"];
+  const COLORS = ["#039EFF", "#FF550F"];
 
   useEffect(() => {
     Api.get("graphs/covid-weekly").then((res) => setGraph(res.data));
@@ -38,7 +38,7 @@ function SectionCovid() {
         <p>
           전 세계, 미슐랭 레스토랑을 보유하고 있는 국가 37국을 대상으로
           <br />
-          코로나 확진자 수를조사한 결과 <br />
+          코로나 확진자 수를 조사한 결과 <br />
           최근{" "}
           <span className={styles.underline}>
             2주간 코로나 확진자 수가 감소했다는 결과를 보인
