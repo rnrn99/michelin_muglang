@@ -77,6 +77,19 @@ class userAuthService {
       return { errorMessage };
     }
 
+    // email 중복 확인
+    if (toUpdate.email) {
+      if (toUpdate.email && user.email !== toUpdate.email) {
+        //이메일 변경됨
+        let isDup = await User.findByEmail({ email: toUpdate.email });
+        if (isDup) {
+          const errorMessage =
+            "사용중인 이메일 입니다. 다시 한 번 확인해 주세요.";
+          return { errorMessage };
+        }
+      }
+    }
+
     user = await User.update({ id, toUpdate });
 
     return user;
@@ -93,7 +106,6 @@ class userAuthService {
     }
 
     delete user.password;
-    console.log(user);
 
     return user;
   }

@@ -24,7 +24,6 @@ class User {
   static async update({ id, toUpdate }) {
     const filter = { id };
     const update = toUpdate;
-    console.log(update);
     const option = { returnOriginal: false };
 
     const updatedUser = await UserModel.findOneAndUpdate(
