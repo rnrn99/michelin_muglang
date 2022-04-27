@@ -95,37 +95,27 @@ class Restaurant {
   static async findAllByQuery({
     page,
     pageSize,
-    name,
-    address,
-    location,
-    minPrice,
-    maxPrice,
-    cuisine,
-    award,
+    name = "",
+    address = "",
+    location = "",
+    minPrice = 0,
+    maxPrice = Infinity,
+    cuisine = "",
+    award = "",
   }) {
     try {
-      console.log("before find");
       const restaurants = await RestaurantModel.find({
-        name: { $search: name },
+        name: { $regex: name, $options: "i" },
+        address: { $regex: address, $options: "i" },
+        location: { $regex: location, $options: "i" },
+        minPrice: { $gte: parseInt(minPrice) },
+        maxPrice: { $lte: parseInt(maxPrice) },
+        cuisine: { $regex: cuisine, $options: "i" },
+        award: { $regex: award, $options: "i" },
       })
         .sort({ _id: 1 })
         .skip(page * pageSize)
         .limit(pageSize);
-      // const restaurants = await RestaurantModel.find({
-      //   page,
-      //   pageSize,
-      //   name,
-      //   address,
-      //   location,
-      //   minPrice: { $gte: parseInt(minPrice) },
-      //   maxPrice: { $lte: parseInt(maxPrice) },
-      //   cuisine,
-      //   award,
-      // })
-      //   .sort({ _id: 1 })
-      //   .skip(page * pageSize)
-      //   .limit(pageSize);
-      console.log("after find");
       return restaurants;
     } catch (error) {
       return error;
