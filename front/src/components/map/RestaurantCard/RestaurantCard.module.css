@@ -1,10 +1,14 @@
+.restaurant_common {
+  background: white;
+  width: 90%;
+  border-radius: 25px;
+  box-shadow: 5px 5px 12px 0px #e2e1e1;
+}
 .restaurant {
   position: relative;
-  background: white;
-  width: 100%;
-  height: 200px;
-  padding: 18px;
-  border-bottom: 1px solid #e0e0e0;
+  height: 220px;
+  padding: 30px;
+  margin: 30px 10px;
 }
 
 .restaurant:hover {
@@ -12,17 +16,17 @@
 }
 
 .restaurant_clicked {
-  width: 100%;
   height: 500px;
-  padding: 15px 25px;
+  padding: 35px;
+  margin: 50px 10px;
 }
 
 .detailBtn {
   position: absolute;
-  right: 7px;
-  top: 8px;
+  right: 15px;
+  top: 20px;
   cursor: pointer;
-  color: #b3b3b3;
+  color: #ff9f1c;
 }
 
 .restaurant_box {

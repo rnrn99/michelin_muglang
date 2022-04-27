@@ -3,12 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationArrow,
   faPhone,
-  faUpRightFromSquare,
+  faSquareArrowUpRight,
   faStar,
   faMoneyBill1Wave,
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
-import { faShareFromSquare } from "@fortawesome/free-regular-svg-icons";
 import styles from "./RestaurantCard.module.css";
 
 const RestaurantCard = ({
@@ -25,13 +24,17 @@ const RestaurantCard = ({
   };
 
   return (
-    <div className={!clicked ? styles.restaurant : styles.restaurant_clicked}>
+    <div
+      className={`${styles.restaurant_common} ${
+        !clicked ? styles.restaurant : styles.restaurant_clicked
+      }`}
+    >
       {!clicked && (
         <div
           className={styles.detailBtn}
           onClick={() => handleClick(restaurant._id)}
         >
-          <FontAwesomeIcon icon={faShareFromSquare} size="2x" />
+          <FontAwesomeIcon icon={faSquareArrowUpRight} size="2x" />
         </div>
       )}
 
