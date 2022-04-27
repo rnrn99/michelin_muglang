@@ -52,7 +52,7 @@ class User {
       { $inc: { bookmarkCount: 1 } },
       option,
     );
-    console.log(result); // 레스토랑 다큐먼트 확인
+
     return bookmarks;
   };
 
@@ -74,7 +74,7 @@ class User {
       { $inc: { bookmarkCount: -1 } },
       option,
     );
-    console.log(result); // 레스토랑 다큐먼트 확인
+
     return bookmarks;
   };
 }

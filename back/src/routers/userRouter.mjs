@@ -152,9 +152,6 @@ userAuthRouter.patch(
           user_id,
           restaurantId,
         });
-        if (bookmarks.errorMessage) {
-          throw new Error(bookmarks.errorMessage);
-        }
 
         res.status(200).json(bookmarks);
       } else if (req.params.behavior == "undo") {
@@ -162,9 +159,6 @@ userAuthRouter.patch(
           user_id,
           restaurantId,
         });
-        if (bookmarks.errorMessage) {
-          throw new Error(bookmarks.errorMessage);
-        }
 
         res.status(200).json(bookmarks);
       }
