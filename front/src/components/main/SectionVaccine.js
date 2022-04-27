@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import styles from "../../css/main/Graph.module.css";
 
-function SectionVaccine() {
+function SectionVaccine({ active }) {
   const [graph, setGraph] = useState([]); // graph 그릴 data를 저장할 상태
 
   useEffect(() => {
@@ -20,6 +20,7 @@ function SectionVaccine() {
       setGraph(res.data);
     });
   }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.graphWrapper}>
@@ -34,7 +35,12 @@ function SectionVaccine() {
             <XAxis dataKey="name" stroke="#000" />
             <YAxis dataKey="percent" stroke="#000" unit="%" />
             <Tooltip />
-            <Bar dataKey="percent" fill="#8884d8" />
+            <Bar
+              dataKey="percent"
+              fill="#8884d8"
+              isAnimationActive={active}
+              animationDuration={2000}
+            />
             <ReferenceLine y={50} stroke="red" />
           </BarChart>
         </ResponsiveContainer>

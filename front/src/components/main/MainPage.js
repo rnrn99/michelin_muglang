@@ -92,7 +92,7 @@ function MainPage() {
 
       {/* Vaccinated Ratio Graph */}
       <section>
-        <SectionVaccine />
+        <SectionVaccine active={activeBtn === 2} />
       </section>
 
       {/* Service Info */}

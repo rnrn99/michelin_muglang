@@ -10,9 +10,9 @@ import {
 } from "recharts";
 import styles from "../../css/main/Graph.module.css";
 
-function SectionCovid() {
+function SectionCovid({ active }) {
   const [graph, setGraph] = useState([]); // graph 그릴 data를 저장할 상태
-  const COLORS = ["#3B46BF", "#E8B754"];
+  const COLORS = ["#8884d8", "#E8B754"];
 
   useEffect(() => {
     Api.get("graphs/covid-weekly").then((res) => setGraph(res.data));
@@ -23,7 +23,13 @@ function SectionCovid() {
       <div className={styles.graphWrapper}>
         <ResponsiveContainer>
           <PieChart>
-            <Pie dataKey="percent" data={graph} label innerRadius={80}>
+            <Pie
+              dataKey="percent"
+              data={graph}
+              label
+              innerRadius={80}
+              isAnimationActive={active}
+            >
               {graph.map((e, i) => (
                 <Cell key={`cell-${i}`} fill={COLORS[i % COLORS.length]} />
               ))}
