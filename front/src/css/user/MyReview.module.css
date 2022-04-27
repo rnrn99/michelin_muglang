@@ -48,7 +48,12 @@
   right: 15px;
   bottom: 15px;
   color: #c2c2c2;
-  transition: color 0.2s;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.review:hover .icon_delete {
+  opacity: 1;
 }
 
 .icon_delete:hover {
