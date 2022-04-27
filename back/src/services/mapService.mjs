@@ -57,8 +57,20 @@ class MapService {
   // 국가 마커 geojson으로 반환
   static async getCountryMarker(country) {
     let ret = await restaurantService.getRestaurantsByCountry({
-      restaurantCountry: country,
+      country,
     });
+    console.log(ret);
+    return GeoJSON.parse(ret, { Point: ["latitude", "longitude"] });
+  }
+
+  //국가 마커 페이지네이션
+  static async getCountryMarkerPage({ country, page, pageSize }) {
+    let ret = await restaurantService.getRestaurantsByCountryPaging({
+      country,
+      page,
+      pageSize,
+    });
+    console.log(ret);
     return GeoJSON.parse(ret, { Point: ["latitude", "longitude"] });
   }
 }

@@ -64,7 +64,8 @@ class Restaurant {
       const restaurants = await RestaurantModel.find({ country })
         .sort({ _id: 1 })
         .skip(page * pageSize)
-        .limit(pageSize);
+        .limit(pageSize)
+        .lean();
       return restaurants;
     } catch (error) {
       return error;
