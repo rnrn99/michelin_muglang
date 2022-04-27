@@ -38,19 +38,17 @@ function MainPage() {
   // 스크롤 이벤트 핸들러
   window.addEventListener("scroll", function (event) {
     let yOffset = this.scrollY;
-    let height = window.innerHeight / 3;
-    let pageNum = 0;
+    let height = window.innerHeight / 1.5;
 
-    for (var i = 0; i < section.length; i++) {
+    for (let i = 0; i < section.length; i++) {
       if (
-        yOffset > section[i].offsetTop + height &&
-        yOffset <= section[i].offsetTop + height + section[i].offsetHeight
+        yOffset > section[i].offsetTop - height &&
+        yOffset <= section[i].offsetTop - height + section[i].offsetHeight
       ) {
-        pageNum = i + 1;
+        setActiveBtn(i);
         break;
       }
     }
-    setActiveBtn(pageNum);
   });
 
   return (
@@ -87,7 +85,7 @@ function MainPage() {
 
       {/* Covid Weekly Graph */}
       <section>
-        <SectionCovid />
+        <SectionCovid active={activeBtn === 1} />
       </section>
 
       {/* Vaccinated Ratio Graph */}
