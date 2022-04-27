@@ -63,13 +63,9 @@
 }
 
 .update_form div {
-  /* border: green 2px solid; */
   position: relative;
   width: 100%;
   height: 60px;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-between; */
 }
 
 .update_form div input {
