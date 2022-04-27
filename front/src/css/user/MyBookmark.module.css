@@ -48,6 +48,7 @@
   right: 15px;
   bottom: 15px;
   color: #c2c2c2;
+  transition: color 0.2s;
 }
 
 .icon_delete:hover {

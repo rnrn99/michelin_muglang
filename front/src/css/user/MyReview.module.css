@@ -12,11 +12,46 @@
 }
 
 .review {
+  background-color: whitesmoke;
+  box-sizing: border-box;
   width: 230px;
   height: 230px;
-  background-color: antiquewhite;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
 }
 
 .review + .review {
   margin-left: 20px;
+}
+
+.review_date {
+  font-size: 12px;
+  color: #969696;
+}
+
+.restaurant_name {
+  margin-top: 5px;
+  font-size: 13px;
+  line-height: 16px;
+  color: #5c5c5c;
+}
+
+.review_text {
+  margin-top: 15px;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+.icon_delete {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  color: #c2c2c2;
+  transition: color 0.2s;
+}
+
+.icon_delete:hover {
+  cursor: pointer;
+  color: #ffbf69;
 }
