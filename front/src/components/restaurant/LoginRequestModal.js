@@ -20,8 +20,12 @@ const LoginRequestModal = ({ setIsModalOpen }) => {
         </div>
         <div className={styles.buttons}>
           <div className={styles.left_btn}>
-            <button>로그인</button>
-            <button>회원가입</button>
+            <button>
+              <a href="/login">로그인</a>
+            </button>
+            <button>
+              <a href="/register">회원가입</a>
+            </button>
           </div>
           <div className={styles.right_btn}>
             <button

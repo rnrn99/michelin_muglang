@@ -65,9 +65,10 @@
   justify-content: space-between;
 }
 
-.left_btn button {
+.left_btn button a {
   color: #ff9f1c;
   font-size: 15px;
+  text-decoration: none;
 }
 
 .left_btn button:last-child {
