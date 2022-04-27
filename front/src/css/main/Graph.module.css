@@ -7,12 +7,15 @@
 }
 
 .graphWrapper {
-  width: 30%;
-  height: 60%;
+  width: 40%;
+  height: 50%;
   align-items: center;
   background-color: #f2f2f2;
   border-radius: 2rem;
   margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .textWrapper {

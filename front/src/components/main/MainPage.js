@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../css/main/MainPage.module.css";
 import SectionCovid from "./SectionCovid";
+import SectionVaccine from "./SectionVaccine";
 
 function MainPage() {
   const [section, setSection] = useState([]); // section을 저장할 상태
@@ -90,7 +91,9 @@ function MainPage() {
       </section>
 
       {/* Vaccinated Ratio Graph */}
-      <section></section>
+      <section>
+        <SectionVaccine />
+      </section>
 
       {/* Service Info */}
       <section></section>
