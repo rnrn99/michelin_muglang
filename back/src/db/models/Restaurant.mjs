@@ -91,6 +91,46 @@ class Restaurant {
       return error;
     }
   }
+
+  static async findAllByQuery({
+    page,
+    pageSize,
+    name,
+    address,
+    location,
+    minPrice,
+    maxPrice,
+    cuisine,
+    award,
+  }) {
+    try {
+      console.log("before find");
+      const restaurants = await RestaurantModel.find({
+        name: { $search: name },
+      })
+        .sort({ _id: 1 })
+        .skip(page * pageSize)
+        .limit(pageSize);
+      // const restaurants = await RestaurantModel.find({
+      //   page,
+      //   pageSize,
+      //   name,
+      //   address,
+      //   location,
+      //   minPrice: { $gte: parseInt(minPrice) },
+      //   maxPrice: { $lte: parseInt(maxPrice) },
+      //   cuisine,
+      //   award,
+      // })
+      //   .sort({ _id: 1 })
+      //   .skip(page * pageSize)
+      //   .limit(pageSize);
+      console.log("after find");
+      return restaurants;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export { Restaurant };

@@ -10,8 +10,8 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
     try {
       const { page, pageSize } = req.query;
 
-      if (page <= 0) {
-        const error = new Error("페이지는 1부터 시작합니다.");
+      if (page <= 0 || pageSize <= 0) {
+        const error = new Error("잘못된 페이지를 입력하셨습니다.");
         error.statusCode = 500;
         throw error;
       }
@@ -38,10 +38,8 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
         } catch (error) {
           next(error);
         }
-      }
-
-      // 특정 국가에 있는 식당들의 정보를 얻음 (/restaurants?cuisine=${음식 분류})
-      else if (req.query.cuisine) {
+      } else if (req.query.cuisine) {
+        // 특정 국가에 있는 식당들의 정보를 얻음 (/restaurants?cuisine=${음식 분류})
         try {
           // URI로부터 cuisine(query)를 추출함
           const cuisine = req.query.cuisine;
@@ -69,10 +67,6 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
         pageSize: parseInt(pageSize),
       });
 
-      if (restaurants.errorMessage) {
-        throw new Error(restaurants.errorMessage);
-      }
-
       res.status(200).send(restaurants);
       return;
     } catch (error) {
@@ -86,6 +80,57 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
     res.status(200).send(restaurants);
   } catch (error) {
     next(error);
+  }
+});
+
+// Path: /restaurants/search
+restaurantRouter.get("/restaurants/search", async function (req, res, next) {
+  // pagenation (/restaurants/search?page=${페이지 시작 위치}&pageSize=${페이지 크기})
+  if (req.query.page && req.query.pageSize) {
+    const { page, pageSize } = req.query;
+
+    if (page <= 0 || pageSize <= 0) {
+      const error = new Error("잘못된 페이지를 입력하셨습니다.");
+      error.statusCode = 500;
+      throw error;
+    }
+
+    // 검색할 내용이 없음 -> 전체 레스토랑 반환(검색하는 필드 입력하지 않았을 때)
+    if (Object.keys(req.query).length == 2) {
+      try {
+        const restaurants = await restaurantService.getRestaurantsPaging({
+          page: parseInt(page) - 1,
+          pageSize: parseInt(pageSize),
+        });
+
+        res.status(200).send(restaurants);
+        return;
+      } catch (error) {
+        next(error);
+      }
+    }
+
+    try {
+      const { name, address, location, minPrice, maxPrice, cuisine, award } =
+        req.query;
+
+      const restaurants = await restaurantService.getRestaruantsByQuery({
+        page: parseInt(page) - 1,
+        pageSize: parseInt(pageSize),
+        name,
+        address,
+        location,
+        minPrice,
+        maxPrice,
+        cuisine,
+        award,
+      });
+
+      res.status(200).send(restaurants);
+      return;
+    } catch (error) {
+      next(error);
+    }
   }
 });
 
