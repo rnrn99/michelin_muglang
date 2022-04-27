@@ -19,7 +19,16 @@ function RestaurantDetailPage() {
 
   const { id } = useParams();
   const dispatch = useDispatch();
-  const restaurant = useSelector((state) => state.restaurant.restaurant);
+  const { user, restaurant } = useSelector((state) => state);
+
+  const handleBookmarkClick = () => {
+    if (!user.user) {
+      setIsModalOpen(true);
+      return;
+    }
+
+    setBookmark((cur) => !cur);
+  };
 
   const getRestaurantInfo = async () => {
     const res = await get("restaurants", id);
@@ -35,13 +44,8 @@ function RestaurantDetailPage() {
     <>
       <div className={styles.container}>
         <div className={styles.main}>
-          <span className={styles.title}>{restaurant.name}</span>
-          <div
-            className={styles.bookmark}
-            onClick={() => {
-              setBookmark((cur) => !cur);
-            }}
-          >
+          <span className={styles.title}>{restaurant.restaurant.name}</span>
+          <div className={styles.bookmark} onClick={handleBookmarkClick}>
             {bookmark ? <BookmarkIcon /> : <BookmarkOutlineIcon />}{" "}
             {mockBookmark}번 북마크됨
           </div>

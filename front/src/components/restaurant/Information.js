@@ -53,6 +53,8 @@ function Information() {
                       ? restaurant.websiteUrl
                       : restaurant.url
                   }
+                  alt="website"
+                  rel="noreferrer"
                 >
                   Restaurant Website
                 </a>
