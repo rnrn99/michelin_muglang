@@ -2,6 +2,7 @@ import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required.mjs";
 import { userAuthService } from "../services/userService.mjs";
+import { body, validationResult } from "express-validator";
 
 const userAuthRouter = Router();
 
@@ -141,11 +142,18 @@ userAuthRouter.delete("/users", login_required, async (req, res, next) => {
 userAuthRouter.patch(
   "/bookmarks/:behavior",
   login_required,
+  body("restaurantId").notEmpty(),
   async function (req, res, next) {
     try {
-      const user_id = req.currentUserId;
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        const error = new Error("요청 내용이 비어 있습니다.");
+        error.statusCode = 400;
+        throw error;
+      }
 
-      const { restaurantId } = req.body ?? null;
+      const user_id = req.currentUserId;
+      const { restaurantId } = req.body;
 
       if (req.params.behavior == "do") {
         const bookmarks = await userAuthService.updateBookmark({
@@ -176,10 +184,6 @@ userAuthRouter.get(
     try {
       const user_id = req.params.id;
       const bookmarks = await userAuthService.getBookmarks({ user_id });
-
-      if (bookmarks.errorMessage) {
-        throw new Error(bookmarks.errorMessage);
-      }
 
       res.status(200).send(bookmarks);
     } catch (error) {
