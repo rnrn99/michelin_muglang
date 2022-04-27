@@ -29,10 +29,6 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
               country,
             });
 
-          if (restaurants.errorMessage) {
-            throw new Error(restaurants.errorMessage);
-          }
-
           res.status(200).send(restaurants);
           return;
         } catch (error) {
@@ -49,10 +45,6 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
               pageSize,
               cuisine,
             });
-
-          if (restaurants.errorMessage) {
-            throw new Error(restaurants.errorMessage);
-          }
 
           res.status(200).send(restaurants);
           return;
@@ -149,10 +141,6 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
         currencyCode,
       });
 
-      if (prices.errorMessage) {
-        throw new Error(prices.errorMessage);
-      }
-
       res.status(200).send(prices);
       return;
     } catch (error) {
@@ -165,10 +153,6 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
     // URI로부터 restaurant_id를 추출함
     const id = req.params.id;
     const restaurant = await restaurantService.getRestaurantInfo({ id });
-
-    if (restaurant.errorMessage) {
-      throw new Error(restaurant.errorMessage);
-    }
 
     res.status(200).send(restaurant);
   } catch (error) {
