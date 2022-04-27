@@ -44,4 +44,14 @@ mapRouter.get("/map/:country", async (req, res, next) => {
   }
 });
 
+//국가별 국경선 geojson 반환
+mapRouter.get("/map/border/:country", async (req, res, next) => {
+  try {
+    const ret = await MapService.getCountryBorder(req.params.country);
+    res.status(200).json(ret);
+  } catch (error) {
+    next(error);
+  }
+});
+
 export { mapRouter };
