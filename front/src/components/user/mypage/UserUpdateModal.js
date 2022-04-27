@@ -39,26 +39,34 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
         <form className={styles.update_form}>
           <div>
             <input
-              type="email"
-              placeholder="이메일 주소 *"
+              id="updated-email"
+              type="text"
+              required
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
             />
+            <label htmlFor="updated-email">
+              <span>이메일 주소 *</span>
+            </label>
             {!isEmailValid && <p>이메일 형식이 올바르지 않습니다.</p>}
           </div>
 
           <div>
             <input
+              id="updated-password"
               type="password"
-              placeholder="비밀번호 *"
-              autoComplete="on"
+              required
+              autoComplete="off"
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
             />
+            <label htmlFor="updated-password">
+              <span>비밀번호 *</span>
+            </label>
             {!isPasswordValid && (
               <p>비밀번호는 4글자 이상으로 설정해 주세요.</p>
             )}
@@ -66,26 +74,35 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
 
           <div>
             <input
+              id="comfirm-password"
               type="password"
-              placeholder="비밀번호 확인 *"
-              autoComplete="on"
+              required
+              autoComplete="off"
               value={confirmPassword}
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
               }}
             />
+            <label htmlFor="comfirm-password">
+              <span>비밀번호 확인 *</span>
+            </label>
             {!isPasswordSame && <p>비밀번호가 일치하지 않습니다.</p>}
           </div>
 
           <div>
             <input
+              id="updated-name"
               type="text"
-              placeholder="이름 *"
+              required
+              autocomplete="off"
               value={name}
               onChange={(e) => {
                 setName(e.target.value);
               }}
             />
+            <label htmlFor="updated-name">
+              <span>이름 *</span>
+            </label>
             {!isNameValid && <p>이름은 2글자 이상으로 설정해 주세요.</p>}
           </div>
 
