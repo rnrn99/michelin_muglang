@@ -48,6 +48,9 @@ michelin["phoneNumber"] = michelin["phoneNumber"].fillna(-1)
 michelin["phoneNumber"] = michelin["phoneNumber"].apply(lambda x:'+'+str(int(x)))
 michelin["phoneNumber"] = michelin["phoneNumber"].replace("+-1", np.nan)
 
+# longitude와 latitude로 coordinate(좌표) 생성
+michelin["coordinate"] = michelin.apply(lambda row: [row["longitude"], row["latitude"]], axis=1)
+
 dataJson = json.loads(michelin.to_json(orient="records"))
 
 if "restaurants" in db.list_collection_names():
