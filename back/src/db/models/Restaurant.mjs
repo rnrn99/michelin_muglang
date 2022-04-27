@@ -123,6 +123,32 @@ class Restaurant {
       return error;
     }
   }
+
+  static async findRestaurantsNearById({ id }) {
+    const targetRestaurant = await RestaurantModel.findOne({ _id: id });
+
+    const restaurantsNear = await RestaurantModel.aggregate([
+      {
+        $geoNear: {
+          spherical: true,
+          $limit: 5, // 효과는 없는듯하다..(기본값으로 100개 받음)
+          near: {
+            type: "Point",
+            coordinates: [
+              parseFloat(targetRestaurant.longitude),
+              parseFloat(targetRestaurant.latitude),
+            ],
+          },
+          query: { country: targetRestaurant.country },
+          maxDistance: 100000, // 최대 거리를 100km로 제한(개수 제한 방법..임시)
+          distanceField: "distance", // 미터(m) 단위로 표현,
+          distanceMultiplier: 0.001, // m => km로 변환
+        },
+      },
+    ]);
+
+    return restaurantsNear;
+  }
 }
 
 export { Restaurant };

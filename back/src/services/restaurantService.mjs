@@ -180,6 +180,20 @@ class restaurantService {
 
     return { minPrice: convertedMinPrice, maxPrice: convertedMaxPrice };
   }
+
+  static async getRestaurantsNear({ id }) {
+    // 해당 식당에서 가까운 식당들 확인
+    const restaurantsNear = await Restaurant.findRestaurantsNearById({ id });
+
+    // db에서 가까운 식당을 찾지 못한 경우, 에러 메시지 반환
+    if (Object.keys(restaurantsNear).length === 0) {
+      const error = new Error("가까운 레스토랑이 존재하지 않습니다.");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    return restaurantsNear;
+  }
 }
 
 export { restaurantService };

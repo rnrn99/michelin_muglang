@@ -131,7 +131,7 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
   // 특정 식당의 가격에 대한 환전 결과를 얻음 (/restaurants/:id?currency=${환전할 통화 코드})
   if (req.query.currency) {
     try {
-      // URI로부터 restaurant_id(params)와 currency(query)를 추출함
+      // URI로부터 id(params)와 currency(query)를 추출함
       const id = req.params.id;
       const currencyCode = req.query.currency;
 
@@ -155,6 +155,20 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
     const restaurant = await restaurantService.getRestaurantInfo({ id });
 
     res.status(200).send(restaurant);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Path: /restaurants/:id/near (RESTful하지 않은 것 같은데 마땅한 게 생각나지 않음..)
+restaurantRouter.get("/restaurants/:id/near", async function (req, res, next) {
+  // 특정 식당과 가까운 식당 목록을 얻음
+  try {
+    // URI로부터 id를 추출함
+    const id = req.params.id;
+    const restaurantsNear = await restaurantService.getRestaurantsNear({ id });
+
+    res.status(200).send(restaurantsNear);
   } catch (error) {
     next(error);
   }
