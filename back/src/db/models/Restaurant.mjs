@@ -15,6 +15,7 @@ class Restaurant {
     url,
     websiteUrl,
     award,
+    country,
   }) {
     const createdNewRestaurant = await RestaurantModel.create({
       name,
@@ -30,6 +31,7 @@ class Restaurant {
       url,
       websiteUrl,
       award,
+      country,
     });
     return createdNewRestaurant;
   }
