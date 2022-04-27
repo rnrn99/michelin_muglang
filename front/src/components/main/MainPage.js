@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "../../css/main/MainPage.module.css";
 import SectionCovid from "./SectionCovid";
 import SectionVaccine from "./SectionVaccine";
 
 function MainPage() {
+  const sectionRef = useRef(null);
+  const pointRef = useRef(null);
   const [section, setSection] = useState([]); // section을 저장할 상태
   const [activeBtn, setActiveBtn] = useState(0); // 활성화된 nav btn 저장할 상태
 
   // section 세팅
   useEffect(() => {
-    const s = document.getElementsByTagName("section");
+    const s = sectionRef.current.getElementsByTagName("section");
     setSection(s);
   }, []);
 
   // nav btn 활성화
   useEffect(() => {
-    const pointBtn = document.getElementsByTagName("li");
+    const pointBtn = pointRef.current.getElementsByTagName("li");
 
     for (var i = 0; i < pointBtn.length; i++) {
       pointBtn[i].classList.remove(styles.active);
@@ -52,9 +54,9 @@ function MainPage() {
   });
 
   return (
-    <>
+    <div ref={sectionRef}>
       {/* nav btn */}
-      <ul className={styles.pointWrap} onClick={clickPointBtn}>
+      <ul className={styles.pointWrap} onClick={clickPointBtn} ref={pointRef}>
         <li id="0"></li>
         <li id="1"></li>
         <li id="2"></li>
@@ -95,7 +97,7 @@ function MainPage() {
 
       {/* Service Info */}
       <section></section>
-    </>
+    </div>
   );
 }
 
