@@ -92,6 +92,9 @@ class userAuthService {
       return { errorMessage };
     }
 
+    delete user.password;
+    console.log(user);
+
     return user;
   }
 
