@@ -137,28 +137,37 @@ userAuthRouter.delete("/users", login_required, async (req, res, next) => {
   }
 });
 
-// 북마크를 추가함.
-userAuthRouter.put(
-  "/bookmarks/do",
+// 북마크 추가(do)/취소(undo)
+userAuthRouter.patch(
+  "/bookmarks/:behavior",
   login_required,
   async function (req, res, next) {
     try {
       const user_id = req.currentUserId;
 
-      // body data 로부터 북마크에 추가할 음식점 Id를 추출함.
       const { restaurantId } = req.body ?? null;
 
-      // 위 추출된 정보를 이용하여 db의 데이터 수정함
-      const bookmarks = await userAuthService.updateBookmark({
-        user_id,
-        restaurantId,
-      });
+      if (req.params.behavior == "do") {
+        const bookmarks = await userAuthService.updateBookmark({
+          user_id,
+          restaurantId,
+        });
+        if (bookmarks.errorMessage) {
+          throw new Error(bookmarks.errorMessage);
+        }
 
-      if (bookmarks.errorMessage) {
-        throw new Error(bookmarks.errorMessage);
+        res.status(200).json(bookmarks);
+      } else if (req.params.behavior == "undo") {
+        const bookmarks = await userAuthService.deleteBookmark({
+          user_id,
+          restaurantId,
+        });
+        if (bookmarks.errorMessage) {
+          throw new Error(bookmarks.errorMessage);
+        }
+
+        res.status(200).json(bookmarks);
       }
-
-      res.status(200).json(bookmarks);
     } catch (error) {
       next(error);
     }
@@ -179,34 +188,6 @@ userAuthRouter.get(
       }
 
       res.status(200).send(bookmarks);
-    } catch (error) {
-      next(error);
-    }
-  },
-);
-
-// 북마크를 취소함 (북마크 리스트에서 삭제)
-userAuthRouter.put(
-  "/bookmarks/undo",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const user_id = req.currentUserId;
-
-      // body data 로부터 북마크에서 제거할 음식점 Id를 추출함.
-      const { restaurantId } = req.body ?? null;
-
-      // 위 추출된 정보를 이용하여 db의 데이터 수정함
-      const bookmarks = await userAuthService.deleteBookmark({
-        user_id,
-        restaurantId,
-      });
-
-      if (bookmarks.errorMessage) {
-        throw new Error(bookmarks.errorMessage);
-      }
-
-      res.status(200).json(bookmarks);
     } catch (error) {
       next(error);
     }
