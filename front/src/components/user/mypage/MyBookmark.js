@@ -45,7 +45,7 @@ const MyBookmark = () => {
         <div className={styles.title}>나의 북마크</div>
         <Slider contentLength={mock.length}>
           {mock.map((restaurant) => (
-            <div className={styles.restaurant}>
+            <div className={styles.restaurant} key={restaurant._id}>
               <span className={styles.restaurant_name}>{restaurant.name}</span>
               <span className={styles.restaurant_country}>
                 {restaurant.country}

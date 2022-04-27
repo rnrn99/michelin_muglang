@@ -59,19 +59,14 @@ function Header() {
 
         {isLogin ? (
           <>
-            <Link className={styles.menu__link}>
+            <Link className={styles.menu__link} href="/mypage">
               <span className={styles.menu__title}>
-                <a href="/mypage">
-                  <span className={styles.menu__first_word} data-hover="마이">
-                    마이
-                  </span>
-                  <span
-                    className={styles.menu__second_word}
-                    data-hover="페이지"
-                  >
-                    페이지
-                  </span>
-                </a>
+                <span className={styles.menu__first_word} data-hover="마이">
+                  마이
+                </span>
+                <span className={styles.menu__second_word} data-hover="페이지">
+                  페이지
+                </span>
               </span>
             </Link>
 

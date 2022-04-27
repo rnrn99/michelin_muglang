@@ -66,7 +66,7 @@ const MyBookmark = () => {
         <div className={styles.title}>나의 리뷰</div>
         <Slider contentLength={mock.length}>
           {mock.map((review) => (
-            <div className={styles.review}>
+            <div className={styles.review} key={review._id}>
               <div className={styles.review_date}>
                 {review.createdAt.slice(0, 10)}
               </div>
