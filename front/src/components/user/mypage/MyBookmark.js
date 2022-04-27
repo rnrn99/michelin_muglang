@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "./Slider";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import styles from "../../../css/user/MyBookmark.module.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 const mock = [
@@ -36,23 +37,38 @@ const mock = [
 ];
 
 const MyBookmark = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-    <div className={styles.container}>
-      <div className={styles.title}>나의 북마크</div>
-      <Slider contentLength={mock.length}>
-        {mock.map((restaurant) => (
-          <div className={styles.restaurant}>
-            <span className={styles.restaurant_name}>{restaurant.name}</span>
-            <span className={styles.restaurant_country}>
-              {restaurant.country}
-            </span>
-            <div className={styles.icon_delete}>
-              <DeleteIcon />
+    <>
+      <div className={styles.container}>
+        <div className={styles.title}>나의 북마크</div>
+        <Slider contentLength={mock.length}>
+          {mock.map((restaurant) => (
+            <div className={styles.restaurant}>
+              <span className={styles.restaurant_name}>{restaurant.name}</span>
+              <span className={styles.restaurant_country}>
+                {restaurant.country}
+              </span>
+              <div
+                className={styles.icon_delete}
+                onClick={() => {
+                  setIsModalOpen(true);
+                }}
+              >
+                <DeleteIcon />
+              </div>
             </div>
-          </div>
-        ))}
-      </Slider>
-    </div>
+          ))}
+        </Slider>
+      </div>
+      {isModalOpen && (
+        <DeleteConfirmationModal
+          setIsModalOpen={setIsModalOpen}
+          modalContent={"북마크를"}
+        />
+      )}
+    </>
   );
 };
 

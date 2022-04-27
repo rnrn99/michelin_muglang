@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "./Slider";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import styles from "../../../css/user/MyReview.module.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -57,30 +58,45 @@ const mock = [
 ];
 
 const MyBookmark = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-    <div className={styles.container}>
-      <div className={styles.title}>나의 리뷰</div>
-      <Slider contentLength={mock.length}>
-        {mock.map((review) => (
-          <div className={styles.review}>
-            <div className={styles.review_date}>
-              {review.createdAt.slice(0, 10)}
+    <>
+      <div className={styles.container}>
+        <div className={styles.title}>나의 리뷰</div>
+        <Slider contentLength={mock.length}>
+          {mock.map((review) => (
+            <div className={styles.review}>
+              <div className={styles.review_date}>
+                {review.createdAt.slice(0, 10)}
+              </div>
+              <div className={styles.restaurant_name}>
+                {review.restaurantName}
+              </div>
+              <div className={styles.review_text}>
+                {review.text.length < 65
+                  ? review.text
+                  : `${review.text.slice(0, 65)}..`}
+              </div>
+              <div
+                className={styles.icon_delete}
+                onClick={() => {
+                  setIsModalOpen(true);
+                }}
+              >
+                <DeleteIcon />
+              </div>
             </div>
-            <div className={styles.restaurant_name}>
-              {review.restaurantName}
-            </div>
-            <div className={styles.review_text}>
-              {review.text.length < 65
-                ? review.text
-                : `${review.text.slice(0, 65)}..`}
-            </div>
-            <div className={styles.icon_delete}>
-              <DeleteIcon />
-            </div>
-          </div>
-        ))}
-      </Slider>
-    </div>
+          ))}
+        </Slider>
+      </div>
+      {isModalOpen && (
+        <DeleteConfirmationModal
+          setIsModalOpen={setIsModalOpen}
+          modalContent={"리뷰를"}
+        />
+      )}
+    </>
   );
 };
 

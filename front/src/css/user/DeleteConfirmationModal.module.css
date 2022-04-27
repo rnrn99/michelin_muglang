@@ -1,0 +1,84 @@
+.container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  background-color: rgba(100, 100, 100, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mount {
+  animation: modal-show 0.3s;
+}
+
+@keyframes modal-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.unmount {
+  animation: modal-unshow 0.4s;
+}
+
+@keyframes modal-unshow {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.container section {
+  padding: 30px;
+  width: 320px;
+  height: 120px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.content {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content span {
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.left_btn button a {
+  color: #ff9f1c;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.right_btn button {
+  color: #aaaaaa;
+  font-size: 15px;
+}
+
+.left_btn button,
+.right_btn button {
+  cursor: pointer;
+  background-color: white;
+  border: none;
+}
