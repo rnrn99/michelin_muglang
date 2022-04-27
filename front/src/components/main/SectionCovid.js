@@ -36,7 +36,7 @@ function SectionCovid() {
       <div className={styles.textWrapper}>
         <h1>예전처럼 다시 여행갈 수 있을까요?</h1>
         <p>
-          전 세계, 인구수 천만 명 이상인 나라 63국을 대상으로
+          전 세계, 미슐랭 레스토랑을 보유하고 있는 국가 37국을 대상으로
           <br />
           코로나 확진자 수를조사한 결과 <br />
           최근{" "}
