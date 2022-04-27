@@ -20,7 +20,7 @@
 .review_input input {
   box-sizing: border-box;
   border: #a7a7a7 solid 1px;
-  width: 890px;
+  width: 950px;
   height: 45px;
 }
 
@@ -41,11 +41,8 @@
 
 .review_list {
   margin-top: 30px;
-  margin-left: 1%;
-  width: 81%;
-}
-
-.review {
+  margin-left: 10px;
+  width: 930px;
 }
 
 .review .username {
