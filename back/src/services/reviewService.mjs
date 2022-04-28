@@ -32,7 +32,7 @@ class reviewService {
   static updateReview = async ({ id, toUpdate }) => {
     let reviewInfo = await Review.findByReviewId({ id });
     if (!reviewInfo) {
-      const error = new Error("해당 id를 가진 리뷰 데이터는 없습니다.");
+      const error = new Error("해당 id를 가진 리뷰 데이터를 찾을 수 없습니다.");
       error.statusCode = 400;
       throw error;
     }
@@ -47,7 +47,7 @@ class reviewService {
   static deleteReview = async ({ id }) => {
     const isDataDeleted = await Review.deleteReview({ id });
     if (!isDataDeleted) {
-      const error = new Error("해당 id를 가진 리뷰 데이터는 없습니다.");
+      const error = new Error("해당 id를 가진 리뷰 데이터를 찾을 수 없습니다.");
       error.statusCode = 400;
       throw error;
     }
