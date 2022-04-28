@@ -3,7 +3,7 @@ const { Schema, model } = pkg;
 
 const CurrencySchema = new Schema(
   {
-    currency: {
+    code: {
       type: String,
       required: true,
     },

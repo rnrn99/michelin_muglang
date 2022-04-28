@@ -1,8 +1,8 @@
 import { CurrencyModel } from "../schemas/currency.mjs";
 
 class Currency {
-  static async findByCode({ currencyName }) {
-    const currency = await CurrencyModel.findOne({ currency: currencyName });
+  static async findByCode({ code }) {
+    const currency = await CurrencyModel.findOne({ code });
     return currency;
   }
 }

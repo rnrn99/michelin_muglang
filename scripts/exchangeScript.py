@@ -26,6 +26,8 @@ currencyExchange = currencyExchange.drop(columns=["Unnamed: 0", "Country/Currenc
 # 가장 최신 데이터만 남기고 나머지 제거
 currencyExchange = currencyExchange.drop_duplicates(["currency"], keep="last")
 
+currencyExchange = currencyExchange.rename(columns = {"currency":"code"})
+
 dataJson = json.loads(currencyExchange.to_json(orient="records"))
 
 if "currencies" in db.list_collection_names():
