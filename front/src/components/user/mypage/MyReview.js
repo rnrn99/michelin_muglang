@@ -53,7 +53,7 @@ const MyBookmark = () => {
         <DeleteConfirmationModal
           setIsModalOpen={setIsModalOpen}
           modalContent={"리뷰를"}
-          api={{ endpoint: "reviews", params: reviewId }}
+          api={{ method: "del", endpoint: "reviews", params: reviewId }}
           action={deleteReview(reviewId)}
         />
       )}

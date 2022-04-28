@@ -22,7 +22,13 @@ const DeleteConfirmationModal = ({
   };
 
   const handleDelete = () => {
-    Api.delete(api.endpoint, api.params);
+    if (api.method === "del") {
+      Api.delete(api.endpoint, api.params);
+    } else if (api.method === "patch") {
+      console.log(api.data);
+      Api.patch(api.endpoint, api.params, api.data);
+    }
+
     dispatch(action);
     handleCancel();
   };

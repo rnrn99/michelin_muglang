@@ -22,7 +22,12 @@ export const userSlice = createSlice({
     setupReviews: (state, action) => {
       return { ...state, reviews: action.payload };
     },
-    deleteBookmark: (state, action) => {},
+    deleteBookmark: (state, action) => {
+      const newBookmarks = state.bookmarks.filter(
+        (bookmark) => bookmark._id !== action.payload,
+      );
+      return { ...state, bookmarks: newBookmarks };
+    },
     deleteReview: (state, action) => {
       const newReviews = state.reviews.filter(
         (review) => review.id !== action.payload,
