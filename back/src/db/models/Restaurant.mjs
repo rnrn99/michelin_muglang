@@ -101,7 +101,7 @@ class Restaurant {
     address = "",
     location = "",
     minPrice = 0,
-    maxPrice = Infinity,
+    maxPrice = Number.MAX_SAFE_INTEGER,
     cuisine = "",
     award = "",
   }) {
@@ -140,7 +140,7 @@ class Restaurant {
             ],
           },
           query: { country: targetRestaurant.country },
-          maxDistance: 100000, // 최대 거리를 100km로 제한(개수 제한 방법..임시)
+          maxDistance: 3000, // 최대 거리를 100km로 제한(개수 제한 방법..임시)
           distanceField: "distance", // 미터(m) 단위로 표현,
           distanceMultiplier: 0.001, // m => km로 변환
         },
