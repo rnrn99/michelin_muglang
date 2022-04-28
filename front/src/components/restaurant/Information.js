@@ -11,7 +11,7 @@ import CallIcon from "@mui/icons-material/Call";
 import LinkIcon from "@mui/icons-material/Link";
 
 function Information() {
-  const restaurant = useSelector((state) => state.restaurant.restaurant);
+  const { restaurantInfo } = useSelector((state) => state.restaurant);
 
   return (
     <div className={styles.container}>
@@ -21,29 +21,29 @@ function Information() {
           <div className={styles.information_list}>
             <div className={styles.information}>
               <StarIcon />
-              <span>{restaurant.award}</span>
+              <span>{restaurantInfo.award}</span>
             </div>
             <div className={styles.information}>
               <FoodIcon />
-              <span>{restaurant.cuisine.join(", ")}</span>
+              <span>{restaurantInfo.cuisine?.join(", ")}</span>
             </div>
             <div className={styles.information}>
               <MoneyIcon />
               {/* 환전을 어떻게 하지 */}
               <span>
-                {restaurant.minPrice === restaurant.maxPrice
-                  ? restaurant.minPrice
-                  : `${restaurant.minPrice} - ${restaurant.maxPrice}`}{" "}
-                ({restaurant.currency})
+                {restaurantInfo.minPrice === restaurantInfo.maxPrice
+                  ? restaurantInfo.minPrice
+                  : `${restaurantInfo.minPrice} - ${restaurantInfo.maxPrice}`}{" "}
+                ({restaurantInfo.currency})
               </span>
             </div>
             <div className={styles.information}>
               <LocationIcon />
-              <span>{restaurant.address}</span>
+              <span>{restaurantInfo.address}</span>
             </div>
             <div className={styles.information}>
               <CallIcon />
-              <span>{restaurant.phoneNumber}</span>
+              <span>{restaurantInfo.phoneNumber}</span>
             </div>
             <div className={styles.information}>
               <LinkIcon />
@@ -51,9 +51,9 @@ function Information() {
                 <a
                   target="_blank"
                   href={
-                    restaurant.websiteUrl
-                      ? restaurant.websiteUrl
-                      : restaurant.url
+                    restaurantInfo.websiteUrl
+                      ? restaurantInfo.websiteUrl
+                      : restaurantInfo.url
                   }
                   alt="website"
                   rel="noreferrer"

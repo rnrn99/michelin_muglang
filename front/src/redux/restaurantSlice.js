@@ -1,35 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  restaurant: {
-    _id: "",
-    name: "",
-    address: "",
-    location: "",
-    minPrice: "",
-    maxPrice: "",
-    currency: "",
-    cuisine: [],
-    longitude: "",
-    latitude: "",
-    phoneNumber: "",
-    url: "",
-    websiteUrl: "",
-    award: "",
-    country: "",
-  },
+  restaurantInfo: {},
+  restaurantReviews: [],
 };
 
 export const restaurantSlice = createSlice({
   name: "restaurant",
   initialState,
   reducers: {
-    setup: (state, action) => {
-      return { restaurant: action.payload };
+    setupInfo: (state, action) => {
+      return { ...state, restaurantInfo: action.payload };
+    },
+    setupReviews: (state, action) => {
+      return { ...state, restaurantReviews: action.payload };
+    },
+    addReview: (state, action) => {
+      return {
+        ...state,
+        restaurantReviews: [...state.restaurantReviews, action.payload],
+      };
     },
   },
 });
 
-export const { setup } = restaurantSlice.actions;
+export const { setupInfo, setupReviews, addReview } = restaurantSlice.actions;
 
 export default restaurantSlice.reducer;
