@@ -115,6 +115,29 @@ class userAuthService {
     const user = await User.delete({ id });
     return user;
   }
+
+  // 북마크 관련 모델
+  static updateBookmark = async ({ id, restaurantId }) => {
+    const bookmarks = await User.updateBookmark({ id, restaurantId });
+    return bookmarks;
+  };
+
+  static getBookmarks = async ({ id }) => {
+    const bookmarkInfo = await User.findById({ id });
+    if (!bookmarkInfo) {
+      const error = new Error("해당 id를 가진 사용자를 찾을 수 없습니다.");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const bookmarks = await User.findBookmarks({ id });
+    return bookmarks;
+  };
+
+  static deleteBookmark = async ({ id, restaurantId }) => {
+    const bookmarks = await User.deleteBookmark({ id, restaurantId });
+    return bookmarks;
+  };
 }
 
 export { userAuthService };

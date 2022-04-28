@@ -1,6 +1,7 @@
 import GeoJSON from "geojson";
 import { restaurantService } from "./restaurantService.mjs";
 import { Country } from "../db/index.mjs";
+import fs from "fs";
 
 class MapService {
   //geojson 세계지도 국가별 마커
@@ -54,12 +55,35 @@ class MapService {
     return ret;
   }
 
-  // 국가 마커 geojson으로 반환
+  //특정 국가 마커 geojson으로 반환
   static async getCountryMarker(country) {
     let ret = await restaurantService.getRestaurantsByCountry({
-      restaurantCountry: country,
+      country,
     });
+    console.log(ret);
     return GeoJSON.parse(ret, { Point: ["latitude", "longitude"] });
+  }
+
+  //특정 국가 마커 페이지네이션
+  static async getCountryMarkerPage({ country, page, pageSize }) {
+    let ret = await restaurantService.getRestaurantsByCountryPaging({
+      country,
+      page,
+      pageSize,
+    });
+    console.log(ret);
+    return GeoJSON.parse(ret, { Point: ["latitude", "longitude"] });
+  }
+
+  //국가 국경선
+  static async getCountryBorder(country) {
+    const jsonFile = await fs.promises.readFile("world_geo.json");
+    const data = JSON.parse(jsonFile);
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].properties.name === country) {
+        return data[i];
+      }
+    }
   }
 }
 
