@@ -12,13 +12,26 @@
 }
 
 .review {
+  cursor: pointer;
   background-color: whitesmoke;
+  width: 230px;
+  height: 230px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.review_link {
+  width: 230px;
+  height: 230px;
+  text-decoration: none;
+  color: black;
+}
+
+.review_link > div {
   box-sizing: border-box;
   width: 230px;
   height: 230px;
   padding: 20px;
-  border-radius: 10px;
-  position: relative;
 }
 
 .review + .review {

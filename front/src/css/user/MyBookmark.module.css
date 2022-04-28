@@ -13,19 +13,28 @@
 .restaurant {
   cursor: pointer;
   background-color: whitesmoke;
-  box-sizing: border-box;
   width: 230px;
   height: 230px;
   border-radius: 10px;
   position: relative;
+}
+
+.restaurant_link {
+  width: 230px;
+  height: 230px;
+  text-decoration: none;
+  color: black;
+}
+
+.restaurant_link > div {
+  box-sizing: border-box;
+  width: 230px;
+  height: 230px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.restaurant > .restaurant {
-  padding: 20px;
 }
 
 .restaurant + .restaurant {
