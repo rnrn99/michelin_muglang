@@ -19,7 +19,7 @@ const MyBookmark = () => {
           {bookmarks.map((restaurant) => (
             <div className={styles.restaurant} key={restaurant._id}>
               <a
-                href={`/restaurant/${restaurant._id}`}
+                href={`/restaurants/${restaurant._id}`}
                 className={styles.restaurant_link}
               >
                 <div>

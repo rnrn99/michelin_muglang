@@ -19,7 +19,7 @@ const MyBookmark = () => {
           {reviews.map((review) => (
             <div className={styles.review} key={review._id}>
               <a
-                href={`/restaurant/${review.restaurantId}`}
+                href={`/restaurants/${review.restaurantId}`}
                 className={styles.review_link}
               >
                 <div className={styles.review}>
