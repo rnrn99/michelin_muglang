@@ -7,7 +7,7 @@ class restaurantService {
     // 레스토랑 정보를 가져오는 데 실패한 경우, 에러 메시지 반환
     if (Object.keys(restaurants).length === 0) {
       const error = new Error("레스토랑 데이터를 가져오는 데 실패하였습니다.");
-      error.statusCode = 500;
+      error.statusCode = 400;
       throw error;
     }
 
@@ -19,8 +19,10 @@ class restaurantService {
 
     // 페이징 과정 중 실패한 경우, 에러 메시지 반환
     if (Object.keys(restaurants).length === 0) {
-      const error = new Error("레스토랑을 페이징하지 못하였습니다.");
-      error.statusCode = 500;
+      const error = new Error(
+        "해당 페이지는 조회할 수 있는 페이지 수보다 큽니다.",
+      );
+      error.statusCode = 400;
       throw error;
     }
 
@@ -78,7 +80,7 @@ class restaurantService {
     });
 
     // db에서 해당 국가에 존재하는 식당을 찾지 못한 경우, 에러 메시지 반환
-    if (!Object.keys(restaurants).length === 0) {
+    if (Object.keys(restaurants).length === 0) {
       const error = new Error(
         "해당 음식 카테고리로 분류되는 식당이 존재하지 않습니다.",
       );
