@@ -3,12 +3,14 @@ import { useSelector } from "react-redux";
 import Googlemap from "./Googlemap";
 import GoogleReviews from "./GoogleReviews";
 import styles from "../../css/restaurant/Information.module.css";
-import StarIcon from "@mui/icons-material/StarBorderRounded";
-import FoodIcon from "@mui/icons-material/LocalDiningRounded";
-import MoneyIcon from "@mui/icons-material/AttachMoneyRounded";
-import LocationIcon from "@mui/icons-material/LocationOnOutlined";
-import CallIcon from "@mui/icons-material/Call";
-import LinkIcon from "@mui/icons-material/Link";
+import {
+  StarBorderRounded as StarIcon,
+  LocalDiningRounded as FoodIcon,
+  AttachMoneyRounded as MoneyIcon,
+  LocationOnOutlined as LocationIcon,
+  Call as CallIcon,
+  Link as LinkIcon,
+} from "@mui/icons-material";
 
 function Information() {
   const { restaurantInfo } = useSelector((state) => state.restaurant);

@@ -2,7 +2,7 @@ import React from "react";
 import GoogleReview from "./GoogleReview";
 import styles from "../../css/restaurant/GoogleReviews.module.css";
 import data from "./googleReviewMock.json";
-import StarIcon from "@mui/icons-material/Star";
+import { Star as StarIcon } from "@mui/icons-material";
 
 const GoogleReviews = () => {
   const result = JSON.parse(JSON.stringify(data));
