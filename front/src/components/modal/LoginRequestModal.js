@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styles from "../../css/modal/LoginRequestModal.module.css";
 
-const LoginRequestModal = ({ setIsModalOpen }) => {
+const LoginRequestModal = ({ setLoginRequestModal }) => {
   const [effect, setEffect] = useState(styles.mount);
 
   const handleClick = () => {
     setEffect(styles.unmount);
     setTimeout(() => {
-      setIsModalOpen(false);
+      setLoginRequestModal(false);
     }, 300);
   };
 

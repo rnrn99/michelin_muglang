@@ -39,10 +39,22 @@ export const restaurantSlice = createSlice({
         restaurantReviews: [...state.restaurantReviews, action.payload],
       };
     },
+    deleteReview: (state, action) => {
+      const newReviews = state.restaurantReviews.filter(
+        (review) => review.id !== action.payload,
+      );
+      return { ...state, restaurantReviews: newReviews };
+    },
   },
 });
 
-export const { setupInfo, addBookmark, subBookmark, setupReviews, addReview } =
-  restaurantSlice.actions;
+export const {
+  setupInfo,
+  addBookmark,
+  subBookmark,
+  setupReviews,
+  addReview,
+  deleteReview,
+} = restaurantSlice.actions;
 
 export default restaurantSlice.reducer;

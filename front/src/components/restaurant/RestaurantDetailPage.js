@@ -24,14 +24,14 @@ function RestaurantDetailPage() {
     shallowEqual,
   );
   const [bookmark, setBookmark] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loginRequestModal, setLoginRequestModal] = useState(false);
 
   const restaurantId = useParams().id;
   const dispatch = useDispatch();
 
   const handleBookmarkClick = () => {
     if (!user) {
-      setIsModalOpen(true);
+      setLoginRequestModal(true);
       return;
     }
 
@@ -85,11 +85,13 @@ function RestaurantDetailPage() {
             {restaurantInfo.bookmarkCount}번 북마크됨
           </div>
           <Information />
-          <Review setIsModalOpen={setIsModalOpen} />
+          <Review setLoginRequestModal={setLoginRequestModal} />
           <NearbyRestaurant />
         </div>
       </div>
-      {isModalOpen && <LoginRequestModal setIsModalOpen={setIsModalOpen} />}
+      {loginRequestModal && (
+        <LoginRequestModal setLoginRequestModal={setLoginRequestModal} />
+      )}
     </>
   );
 }
