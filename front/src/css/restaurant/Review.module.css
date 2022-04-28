@@ -87,3 +87,22 @@
   margin-top: 18px;
   font-size: 16px;
 }
+
+.no_review {
+  margin-top: 15px;
+  width: 950px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.no_review span:first-child {
+  font-size: 30px;
+}
+
+.no_review span:last-child {
+  margin-top: 15px;
+  font-size: 18px;
+}

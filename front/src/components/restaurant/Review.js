@@ -89,6 +89,12 @@ function Review({ setLoginRequestModal }) {
             );
           })}
         </div>
+        {restaurantReviews.length === 0 && (
+          <div className={styles.no_review}>
+            <span>작성된 리뷰가 없습니다.</span>
+            <span>이 레스토랑을 이용해보셨다면 첫 리뷰를 남겨보세요 :)</span>
+          </div>
+        )}
       </div>
       {deleteConfirmModal && (
         <DeleteConfirmationModal
