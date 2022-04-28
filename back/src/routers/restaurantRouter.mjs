@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { restaurantService } from "../services/restaurantService.mjs";
+import axios from "axios";
 
 const restaurantRouter = Router();
 
@@ -173,5 +174,43 @@ restaurantRouter.get("/restaurants/:id/near", async function (req, res, next) {
     next(error);
   }
 });
+
+//placeId 반환용
+restaurantRouter.get(
+  "/restaurants/placeId/:id",
+  async function (req, res, next) {
+    try {
+      // URI로부터 restaurant_id를 추출함
+      const id = req.params.id;
+
+      const restaurant = await restaurantService.getRestaurantInfo({ id });
+
+      const q = restaurant.name + " " + restaurant.address;
+      const googleApiKey = process.env.GOOGLE_API_KEY;
+
+      const query = {
+        key: googleApiKey,
+        type: "restaurant",
+        query: q,
+      };
+      const ret = await axios.get(
+        "https://maps.googleapis.com/maps/api/place/textsearch/json",
+        {
+          params: query,
+        },
+      );
+
+      let placeId = "ㅈㅅ.. ㅎㅎ";
+
+      if (ret.data.results.length !== 0) {
+        placeId = ret.data.results[0].place_id;
+      }
+
+      res.status(200).send(placeId);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 export { restaurantRouter };
