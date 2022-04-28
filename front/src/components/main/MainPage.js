@@ -81,7 +81,7 @@ function MainPage() {
           </a>
         </div>
         <div className={styles.greeting_img}>
-          <img src="greeting.png" alt="main_img" />
+          <img src="images/greeting.png" alt="main_img" />
         </div>
       </section>
 
