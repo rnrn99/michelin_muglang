@@ -11,19 +11,24 @@ class Restaurant {
     return restaurant;
   }
 
-  static async findById({ restaurant_id }) {
-    const restaurant = await RestaurantModel.findOne({ _id: restaurant_id });
+  static async findById({ restaurantId }) {
+    const restaurant = await RestaurantModel.findOne({ _id: restaurantId });
     return restaurant;
   }
 
   static async findAllByCountry({ country }) {
-    const restaurants = await RestaurantModel.find({ country });
+    const restaurants = await RestaurantModel.find({ country }).lean();
     return restaurants;
   }
 
   static async findAll() {
     const restaurants = await RestaurantModel.find({});
     return restaurants;
+  }
+
+  static async countByCountry(country) {
+    const ret = await RestaurantModel.countDocuments({ country });
+    return ret;
   }
 }
 
