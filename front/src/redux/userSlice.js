@@ -22,10 +22,23 @@ export const userSlice = createSlice({
     setupReviews: (state, action) => {
       return { ...state, reviews: action.payload };
     },
+    deleteBookmark: (state, action) => {},
+    deleteReview: (state, action) => {
+      const newReviews = state.reviews.filter(
+        (review) => review.id !== action.payload,
+      );
+      return { ...state, reviews: newReviews };
+    },
   },
 });
 
-export const { login, logout, setupBookmarks, setupReviews } =
-  userSlice.actions;
+export const {
+  login,
+  logout,
+  setupBookmarks,
+  setupReviews,
+  deleteBookmark,
+  deleteReview,
+} = userSlice.actions;
 
 export default userSlice.reducer;

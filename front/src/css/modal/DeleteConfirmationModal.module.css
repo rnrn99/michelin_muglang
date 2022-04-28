@@ -25,7 +25,7 @@
 }
 
 .unmount {
-  animation: modal-unshow 0.4s;
+  animation: modal-unshow 0.3s;
 }
 
 @keyframes modal-unshow {
@@ -65,10 +65,9 @@
   justify-content: space-around;
 }
 
-.left_btn button a {
+.left_btn button {
   color: #ff9f1c;
   font-size: 15px;
-  text-decoration: none;
 }
 
 .right_btn button {

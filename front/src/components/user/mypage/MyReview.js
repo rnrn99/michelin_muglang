@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { deleteReview } from "../../../redux/userSlice";
 import Slider from "./Slider";
 import DeleteConfirmationModal from "../../modal/DeleteConfirmationModal";
 import styles from "../../../css/user/MyReview.module.css";
@@ -8,6 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 const MyBookmark = () => {
   const { reviews } = useSelector((state) => state.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [reviewId, setReviewId] = useState("");
 
   return (
     <>
@@ -38,6 +40,7 @@ const MyBookmark = () => {
                 className={styles.icon_delete}
                 onClick={() => {
                   setIsModalOpen(true);
+                  setReviewId(review.id);
                 }}
               >
                 <DeleteIcon />
@@ -50,6 +53,8 @@ const MyBookmark = () => {
         <DeleteConfirmationModal
           setIsModalOpen={setIsModalOpen}
           modalContent={"리뷰를"}
+          api={{ endpoint: "reviews", params: reviewId }}
+          action={deleteReview(reviewId)}
         />
       )}
     </>

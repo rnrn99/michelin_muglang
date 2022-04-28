@@ -1,14 +1,30 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import * as Api from "../../api";
 import styles from "../../css/modal/DeleteConfirmationModal.module.css";
 
-const DeleteConfirmationModal = ({ setIsModalOpen, modalContent }) => {
+const DeleteConfirmationModal = ({
+  setIsModalOpen,
+  modalContent,
+  api,
+  action,
+}) => {
   const [effect, setEffect] = useState(styles.mount);
 
-  const handleClick = () => {
+  const dispatch = useDispatch();
+
+  const handleCancel = () => {
     setEffect(styles.unmount);
     setTimeout(() => {
       setIsModalOpen(false);
-    }, 300);
+    }, 200);
+  };
+
+  const handleDelete = () => {
+    Api.delete(api.endpoint, api.params);
+    dispatch(action);
+    handleCancel();
   };
 
   return (
@@ -19,14 +35,12 @@ const DeleteConfirmationModal = ({ setIsModalOpen, modalContent }) => {
         </div>
         <div className={styles.buttons}>
           <div className={styles.left_btn}>
-            <button>
-              <a href="#">삭제</a>
-            </button>
+            <button onClick={handleDelete}>삭제</button>
           </div>
           <div className={styles.right_btn}>
             <button
               onClick={() => {
-                handleClick();
+                handleCancel();
               }}
             >
               닫기
