@@ -38,6 +38,9 @@ section {
 section:nth-child(2) {
   height: calc(100vh - 64px);
 }
+section:nth-child(5) {
+  height: calc(100vh - 64px);
+}
 
 /* section 1 greeting page */
 .greeting {
@@ -45,26 +48,6 @@ section:nth-child(2) {
   top: 35vh;
   left: 10vh;
   z-index: 4;
-}
-
-@keyframes delay {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes changeMovement {
-  from {
-    opacity: 0;
-    transform: translateY(2rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .greeting h1 {
@@ -193,4 +176,54 @@ section:nth-child(2) {
   width: 80%;
   height: auto;
   float: right;
+}
+
+/* section 4 Service Info */
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.info h1 {
+  font-size: 3rem;
+  margin-bottom: 3rem;
+}
+
+.info h1 span,
+.info p span {
+  color: #ff9f1c;
+}
+
+.info_img {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.info p {
+  font-size: 1.5rem;
+  line-height: 2;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* animation */
+@keyframes delay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes changeMovement {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
