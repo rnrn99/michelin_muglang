@@ -49,7 +49,7 @@ function SectionVaccine({ active }) {
         <h1>예전처럼 다시 여행갈 수 있을까요?</h1>
         <p>
           미슐랭 가이드에 등록된{" "}
-          <span className={styles.underline}>
+          <span className={active ? styles.underline : ""}>
             36개국의 백신 접종률은 평균 75.66%
           </span>
           에요. <br />

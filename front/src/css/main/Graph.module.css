@@ -41,12 +41,16 @@
     #ffbf69 1.5rem
   );
   background-repeat: no-repeat;
-  background-size: 0% 100%;
-  transition: background-size 1s;
+  animation: underlineAnim 2s ease-in-out;
 }
 
-.textWrapper:hover .underline {
-  background-size: 100% 100%;
+@keyframes underlineAnim {
+  from {
+    background-size: 0% 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
 }
 
 @media (max-width: 1320px) {

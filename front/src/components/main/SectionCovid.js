@@ -46,7 +46,7 @@ function SectionCovid({ active }) {
           <br />
           코로나 확진자 수를 조사한 결과 <br />
           최근{" "}
-          <span className={styles.underline}>
+          <span className={active ? styles.underline : ""}>
             2주간 코로나 확진자 수가 감소했다는 결과를 보인
             <br />
             국가가 무려 85%에 달하고 있어요.
