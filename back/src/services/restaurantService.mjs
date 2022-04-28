@@ -51,6 +51,22 @@ class restaurantService {
     return restaurants;
   }
 
+  static async getRestaurantsByCuisinePaging({ page, pageSize, cuisine }) {
+    const restaurants = await Restaurant.findAllByCuisinePaging({
+      page,
+      pageSize,
+      cuisine,
+    });
+
+    // db에서 해당 국가에 존재하는 식당을 찾지 못한 경우, 에러 메시지 반환
+    if (!restaurants) {
+      const errorMessage = "해당 국가에 식당이 존재하지 않습니다.";
+      return { errorMessage };
+    }
+
+    return restaurants;
+  }
+
   static async getConvertedPrice({ id, currencyCode }) {
     const restaurant = await Restaurant.findById({ id });
 
