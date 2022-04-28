@@ -1,0 +1,153 @@
+.container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  background-color: rgba(100, 100, 100, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mount {
+  animation: modal-show 0.3s;
+}
+
+@keyframes modal-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.unmount {
+  animation: modal-unshow 0.4s;
+}
+
+@keyframes modal-unshow {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.container section {
+  box-sizing: border-box;
+  padding: 35px 55px;
+  width: 480px;
+  height: 560px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal_title {
+  font-size: 20px;
+}
+
+.update_form {
+  margin-top: 50px;
+  width: 100%;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.update_form div {
+  position: relative;
+  width: 100%;
+  height: 60px;
+}
+
+.update_form div input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 30px;
+  border: none;
+  border-bottom: #797979 solid 1px;
+  font-size: 16px;
+}
+
+.update_form div input:focus {
+  outline: none;
+}
+
+.update_form div label {
+  position: absolute;
+  top: 8px;
+  left: 2px;
+  color: #797979;
+  transition: all 0.2s;
+}
+
+.update_form div input:valid + label {
+  top: -14px;
+  font-size: 12px;
+  color: #797979;
+}
+
+.update_form div input:focus + label {
+  top: -14px;
+  font-size: 12px;
+  color: #2ec4b6;
+}
+
+.update_form div p {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #ff9f1c;
+}
+
+.update_form button {
+  width: 100%;
+  height: 35px;
+  background-color: #ff9f1c;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  box-shadow: 0px 1px 2px gray;
+}
+
+.update_form button:hover {
+  cursor: pointer;
+  background-color: #ffbf69;
+}
+
+.update_form .invalid_button {
+  background-color: #e0e0e0;
+  color: #9c9c9c;
+  cursor: auto;
+  box-shadow: none;
+}
+
+.update_form .invalid_button:hover {
+  cursor: auto;
+  background-color: #e0e0e0;
+}
+
+.modal_buttons {
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+}
+
+.modal_buttons span:first-child {
+  cursor: pointer;
+  color: #ff9f1c;
+}
+
+.modal_buttons span:last-child {
+  cursor: pointer;
+  color: #797979;
+}

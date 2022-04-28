@@ -59,7 +59,7 @@ function Header() {
 
         {isLogin ? (
           <>
-            <Link className={styles.menu__link}>
+            <Link className={styles.menu__link} href="/mypage">
               <span className={styles.menu__title}>
                 <span className={styles.menu__first_word} data-hover="마이">
                   마이

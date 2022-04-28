@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import LoginForm from "./components/user/LoginForm";
 import RegisterForm from "./components/user/RegisterForm";
 import MainPage from "./components/main/MainPage";
+import MyPage from "./components/user/mypage/MyPage";
 import RestaurantDetailPage from "./components/restaurant/RestaurantDetailPage";
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
         <Route path="/" exact element={<MainPage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
+        <Route path="/mypage" element={<MyPage />} />
         <Route path="/restaurant/:id" element={<RestaurantDetailPage />} />
       </Routes>
     </Router>

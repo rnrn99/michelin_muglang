@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../../css/restaurant/LoginRequestModal.module.css";
+import styles from "../../css/modal/LoginRequestModal.module.css";
 
 const LoginRequestModal = ({ setIsModalOpen }) => {
   const [effect, setEffect] = useState(styles.mount);
