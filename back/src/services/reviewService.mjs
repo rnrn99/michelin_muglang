@@ -5,14 +5,17 @@ class reviewService {
   static createReview = async ({ restaurantId, userId, text }) => {
     // id 는 유니크 값 부여
     const id = uuidv4();
-    const restaurant = await Restaurant.findById({ restaurantId });
+    const restaurant = await Restaurant.findById({
+      restaurant_id: restaurantId,
+    });
     if (!restaurant) {
       const error = new Error("해당 id와 일치하는 음식점이 없습니다.");
       error.statusCode = 400;
       throw error;
     }
 
-    const user = await User.findById({ userId });
+    const user = await User.findById({ id: userId });
+
     const newReview = {
       id,
       restaurantId,
