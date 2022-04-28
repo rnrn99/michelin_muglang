@@ -12,7 +12,7 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
 
       if (page <= 0 || pageSize <= 0) {
         const error = new Error("잘못된 페이지를 입력하셨습니다.");
-        error.statusCode = 500;
+        error.statusCode = 400;
         throw error;
       }
 
@@ -55,8 +55,8 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
 
       // 전체 식당 중 일부를 paging하여 얻음
       const restaurants = await restaurantService.getRestaurantsPaging({
-        page: parseInt(page) - 1,
-        pageSize: parseInt(pageSize),
+        page,
+        pageSize,
       });
 
       res.status(200).send(restaurants);
@@ -64,13 +64,11 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
     } catch (error) {
       next(error);
     }
-  }
-
-  // 전체 식당의 목록을 얻음
-  try {
-    const restaurants = await restaurantService.getRestaurants();
-    res.status(200).send(restaurants);
-  } catch (error) {
+  } else {
+    const error = new Error(
+      "조회할 페이지(page)와 페이지의 크기(pageSize)를 지정해주세요.",
+    );
+    error.statusCode = 400;
     next(error);
   }
 });
@@ -83,7 +81,7 @@ restaurantRouter.get("/restaurants/search", async function (req, res, next) {
 
     if (page <= 0 || pageSize <= 0) {
       const error = new Error("잘못된 페이지를 입력하셨습니다.");
-      error.statusCode = 500;
+      error.statusCode = 400;
       throw error;
     }
 
@@ -91,8 +89,8 @@ restaurantRouter.get("/restaurants/search", async function (req, res, next) {
     if (Object.keys(req.query).length == 2) {
       try {
         const restaurants = await restaurantService.getRestaurantsPaging({
-          page: parseInt(page) - 1,
-          pageSize: parseInt(pageSize),
+          page,
+          pageSize,
         });
 
         res.status(200).send(restaurants);
@@ -107,8 +105,8 @@ restaurantRouter.get("/restaurants/search", async function (req, res, next) {
         req.query;
 
       const restaurants = await restaurantService.getRestaruantsByQuery({
-        page: parseInt(page) - 1,
-        pageSize: parseInt(pageSize),
+        page,
+        pageSize,
         name,
         address,
         location,
@@ -123,6 +121,12 @@ restaurantRouter.get("/restaurants/search", async function (req, res, next) {
     } catch (error) {
       next(error);
     }
+  } else {
+    const error = new Error(
+      "조회할 페이지(page)와 페이지의 크기(pageSize)를 지정해주세요.",
+    );
+    error.statusCode = 400;
+    next(error);
   }
 });
 
