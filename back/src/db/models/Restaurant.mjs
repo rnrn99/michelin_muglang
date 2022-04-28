@@ -39,13 +39,8 @@ class Restaurant {
     return restaurant;
   }
 
-<<<<<<< HEAD
-  static async findById({ restaurantId }) {
-    const restaurant = await RestaurantModel.findOne({ _id: restaurantId });
-=======
   static async findById({ id }) {
     const restaurant = await RestaurantModel.findOne({ _id: id });
->>>>>>> restaurant-back
     return restaurant;
   }
 
