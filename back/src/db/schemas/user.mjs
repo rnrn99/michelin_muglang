@@ -19,6 +19,12 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    bookmarks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Restaurant",
+      },
+    ],
   },
   {
     timestamps: true,
