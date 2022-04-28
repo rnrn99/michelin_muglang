@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import * as Api from "../../api";
+
 import {
   ComposableMap,
   Geographies,
@@ -6,7 +9,6 @@ import {
 } from "react-simple-maps";
 import { useNavigate } from "react-router-dom";
 import WorldMapJson from "../../data/worldMap.json";
-import WorldMarkder from "../../data/worldMarker.json";
 
 const geoUrl = WorldMapJson;
 
@@ -52,11 +54,19 @@ const countries = [
 
 const WorldMap = ({ setTooltipContent }) => {
   const navigate = useNavigate();
-  const markers = WorldMarkder.features;
+  const [markers, setMarkers] = useState([]);
+
+  useEffect(() => {
+    const fetchWorldMap = async () => {
+      const res = await Api.get("map/world/geojson");
+      const { features } = res.data;
+      setMarkers(features);
+    };
+    fetchWorldMap();
+  }, []);
 
   return (
     <ComposableMap
-      width="900"
       projectionConfig={{
         scale: 180,
       }}
@@ -87,7 +97,7 @@ const WorldMap = ({ setTooltipContent }) => {
             onMouseEnter={() => setTooltipContent(`${nation}:${count}`)}
             onMouseLeave={() => setTooltipContent("")}
             onClick={() =>
-              navigate("/detail", { state: { countryName: nation } })
+              navigate(`/detail`, { state: { countryName: nation } })
             }
           >
             <g

@@ -6,8 +6,8 @@
 }
 .restaurant {
   position: relative;
-  height: 220px;
-  padding: 30px;
+  height: 130px;
+  padding: 30px 0 20px 18px;
   margin: 30px 10px;
 }
 
@@ -17,8 +17,9 @@
 
 .restaurant_clicked {
   height: 500px;
-  padding: 35px;
-  margin: 50px 10px;
+  padding: 35px 0px 35px 20px;
+  margin: 50px 0px;
+  line-height: 2;
 }
 
 .detailBtn {
@@ -30,6 +31,7 @@
 }
 
 .restaurant_box {
+  width: 300px;
   margin-bottom: 10px;
   position: relative;
 }

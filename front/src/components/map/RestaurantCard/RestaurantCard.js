@@ -1,4 +1,3 @@
-import "../../reset.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationArrow,
@@ -14,12 +13,12 @@ const RestaurantCard = ({
   restaurant,
   handleClick,
   clicked,
-  countryRestaurants,
+  restaurantList,
   setClicked,
   setRestaurants,
 }) => {
   const goToList = () => {
-    setRestaurants(countryRestaurants);
+    setRestaurants(restaurantList);
     setClicked(false);
   };
 
