@@ -23,7 +23,7 @@ function Header() {
   };
 
   return (
-    <AppBar position="static" sx={{ flexGrow: 1 }}>
+    <AppBar position="fixed" sx={{ flexGrow: 1 }}>
       <Toolbar sx={{ bgcolor: "#ffbf69" }}>
         <Typography
           variant="h5"

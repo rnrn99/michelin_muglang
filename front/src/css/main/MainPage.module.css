@@ -1,0 +1,241 @@
+body {
+  overflow-x: hidden;
+  overscroll-behavior: none;
+  width: 100vw;
+}
+
+/* nav btn */
+.pointWrap {
+  position: fixed;
+  top: 45%;
+  right: 3vw;
+  z-index: 100;
+}
+
+.pointWrap li {
+  list-style: none;
+  width: 12px;
+  height: 12px;
+  margin-top: 15px;
+  cursor: pointer;
+  background-color: #999;
+  border-radius: 50%;
+  transition: background-color 0.3s ease-out;
+}
+
+.pointWrap li.active {
+  background-color: #000;
+}
+
+/* section */
+section {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  place-items: center;
+}
+
+section:nth-child(2) {
+  height: calc(100vh - 64px);
+}
+section:nth-child(5) {
+  height: calc(100vh - 64px);
+}
+
+/* section 1 greeting page */
+.greeting {
+  position: absolute;
+  top: 35vh;
+  left: 10vh;
+  z-index: 4;
+}
+
+.greeting h1 {
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  animation: changeMovement 1s ease-in-out;
+}
+
+.greeting h1 span {
+  display: block;
+}
+
+.greeting p {
+  font-size: 1.5rem;
+  margin-bottom: 4rem;
+  animation: delay 0.5s, changeMovement 1s 0.5s ease-in-out;
+}
+
+.greeting a {
+  position: relative;
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffbf69;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0.7em calc(0.5em * 1.2);
+  animation: delay 1s, changeMovement 1s 1s ease-in-out;
+}
+
+.greeting a .text {
+  transform: translate3d(0, 0.5em, 0);
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1) 0.4s;
+}
+
+.greeting a:after {
+  position: absolute;
+  content: "";
+  bottom: -3px;
+  left: calc(0.5em * 1.2);
+  right: calc(0.5em * 1.2);
+  height: 3px;
+  background: #ff9f1c;
+  transition: transform 0.8s cubic-bezier(1, 0, 0.37, 1) 0.2s,
+    right 0.2s cubic-bezier(0.04, 0.48, 0, 1) 0.6s,
+    left 0.4s cubic-bezier(0.04, 0.48, 0, 1) 0.6s;
+  transform-origin: left;
+}
+
+.line {
+  position: absolute;
+  background: #ff9f1c;
+}
+
+.line.top,
+.line.bottom {
+  height: 3px;
+  left: -3px;
+  right: -3px;
+  transform: scale3d(0, 1, 1);
+}
+
+.line.left,
+.line.right {
+  width: 3px;
+  bottom: -3px;
+  top: -3px;
+  transform: scale3d(1, 0, 1);
+}
+
+.line.left {
+  left: -3px;
+  transition: transform 0.08s linear 0.51s;
+  transform-origin: bottom;
+}
+
+.line.right {
+  right: -4px;
+  transition: transform 0.1s cubic-bezier(1, 0, 0.65, 1.01) 0.23s;
+  transform-origin: top;
+}
+
+.line.top {
+  top: -3px;
+  transition: transform 0.08s linear 0.43s;
+  transform-origin: left;
+}
+
+.line.bottom {
+  bottom: -3px;
+  transition: transform 0.3s cubic-bezier(1, 0, 0.65, 1.01);
+  transform-origin: right;
+}
+
+.greeting a:hover .text,
+.greeting a:active .text {
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.6s cubic-bezier(0.2, 0, 0, 1) 0.4s;
+}
+
+.greeting a:hover:after,
+.greeting a:active:after {
+  transform: scale3d(0, 1, 1);
+  right: -3px;
+  left: -3px;
+  transform-origin: right;
+  transition: transform 0.2s cubic-bezier(1, 0, 0.65, 1.01) 0.17s,
+    right 0.2s cubic-bezier(1, 0, 0.65, 1.01), left 0s 0.3s;
+}
+
+.greeting a:hover .line,
+.greeting a:active .line {
+  transform: scale3d(1, 1, 1);
+}
+
+.greeting_img {
+  position: absolute;
+  top: 10%;
+  right: 0;
+}
+
+.greeting_img img {
+  width: 80%;
+  height: auto;
+  float: right;
+}
+
+/* section 4 Service Info */
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.info h1 {
+  font-size: 3rem;
+  margin-bottom: 3rem;
+}
+
+.info h1 span,
+.info p span {
+  color: #ff9f1c;
+}
+
+.info_img {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.info_img img {
+  margin: 0 2rem;
+}
+
+.info p {
+  font-size: 1.5rem;
+  line-height: 2;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* animation */
+@keyframes delay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes changeMovement {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.info_img img:nth-child(1).active {
+  animation: changeMovement 1s ease-in-out;
+}
+
+.info_img img:nth-child(2).active {
+  animation: delay 0.5s, changeMovement 1s 0.5s ease-in-out;
+}
