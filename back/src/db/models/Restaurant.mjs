@@ -140,7 +140,7 @@ class Restaurant {
             ],
           },
           query: { country: targetRestaurant.country },
-          maxDistance: 3000, // 최대 거리를 100km로 제한(개수 제한 방법..임시)
+          maxDistance: 30000, // 최대 거리를 30km로 제한(개수 제한 방법..임시)
           distanceField: "distance", // 미터(m) 단위로 표현,
           distanceMultiplier: 0.001, // m => km로 변환
         },
