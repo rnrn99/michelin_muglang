@@ -1,5 +1,5 @@
 {
-  "name": "cafe-server",
+  "name": "michelin_muglang",
   "version": "1.0.0",
   "description": "",
   "main": "index.mjs",
@@ -23,6 +23,7 @@
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-validator": "^6.14.0",
     "geojson": "^0.5.0",
     "jest": "^27.3.1",
     "jsonwebtoken": "^8.5.1",

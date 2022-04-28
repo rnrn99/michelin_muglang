@@ -1,27 +1,30 @@
-import fs from "fs";
 import GeoJSON from "geojson";
 import { restaurantService } from "./restaurantService.mjs";
 import { Country } from "../db/index.mjs";
+import fs from "fs";
 
-class mapService {
+class MapService {
   //geojson 세계지도 국가별 마커
   static async getWorldGeoMarker() {
-    let ret = await this.getCountryObj();
+    let ret = await Country.getAllCountry();
 
-    for (let i = 0; i < ret.length; i++) {
-      //응답 받을떄 까지 1176 ms정도 걸리네요
-      //밑에 연산을 매번 할 필요는 없을것 같아서 그냥 db에다 count를 추가하는게 나을거 같기도 하네요
-
-      // const c = await restaurantService.getRestaurantsByCountry({
-      //   restaurantCountry: ret[i].nation,
-      // });
-      // ret[i]["count"] = c.length;
-
-      //400ms 걸리는 버전
-      let c = await restaurantService.countRestaurantByQuery({
-        country: ret[i].nation,
-      });
-      ret[i]["count"] = c;
+    //오 20ms 로 줄어듬 promise all을 잘 써먹자..
+    //for문 너무 어지럽게 써서 깔끔하게 줄이고 싶네요
+    for (let i = 0; i + 10 < ret.lengt; i += 10) {
+      let arr = [];
+      for (let j = 0; j < 10; j++) {
+        if (i + j < ret.length) {
+          arr.push(
+            restaurantService.countRestaurantByCountry(ret[i + j].nation),
+          );
+        }
+      }
+      let c = await Promise.all(arr);
+      for (let j = 0; j < 10; j++) {
+        if (i + j < ret.length) {
+          ret[i + j]["count"] = c[j];
+        }
+      }
     }
 
     return GeoJSON.parse(ret, { Point: ["lat", "lng"] });
@@ -29,38 +32,59 @@ class mapService {
 
   //그냥 json으로
   static async getWorldMarker() {
-    let ret = await this.getCountryObj();
+    let ret = await Country.getAllCountry();
 
-    //응답 받을떄 까지 1430 ms 정도 걸리네요
-    //밑에 연산을 매번 할 필요는 없을것 같아서 그냥 db에다 count를 추가하는게 나을거 같기도 하네요
-
-    for (let i = 0; i < ret.length; i++) {
-      // const c = await restaurantService.getRestaurantsByCountry({
-      //   restaurantCountry: ret[i].nation,
-      // });
-      // ret[i]["count"] = c.length;
-
-      //대충 400ms
-      let c = await restaurantService.countRestaurantByQuery({
-        country: ret[i].nation,
-      });
-      ret[i]["count"] = c;
+    //오 20ms 로 줄어듬 promise all을 잘 써먹자..
+    for (let i = 0; i + 10 < ret.lengt; i += 10) {
+      let arr = [];
+      for (let j = 0; j < 10; j++) {
+        if (i + j < ret.length) {
+          arr.push(
+            restaurantService.countRestaurantByCountry(ret[i + j].nation),
+          );
+        }
+      }
+      let c = await Promise.all(arr);
+      for (let j = 0; j < 10; j++) {
+        if (i + j < ret.length) {
+          ret[i + j]["count"] = c[j];
+        }
+      }
     }
+
     return ret;
   }
 
-  //전체 국가 객체 반환
-  static async getCountryObj() {
-    return Country.findByQuery({});
-  }
-
-  // 국가 마커 geojson으로 반환
+  //특정 국가 마커 geojson으로 반환
   static async getCountryMarker(country) {
     let ret = await restaurantService.getRestaurantsByCountry({
-      restaurantCountry: country,
+      country,
     });
+    console.log(ret);
     return GeoJSON.parse(ret, { Point: ["latitude", "longitude"] });
+  }
+
+  //특정 국가 마커 페이지네이션
+  static async getCountryMarkerPage({ country, page, pageSize }) {
+    let ret = await restaurantService.getRestaurantsByCountryPaging({
+      country,
+      page,
+      pageSize,
+    });
+    console.log(ret);
+    return GeoJSON.parse(ret, { Point: ["latitude", "longitude"] });
+  }
+
+  //국가 국경선
+  static async getCountryBorder(country) {
+    const jsonFile = await fs.promises.readFile("world_geo.json");
+    const data = JSON.parse(jsonFile);
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].properties.name === country) {
+        return data[i];
+      }
+    }
   }
 }
 
-export { mapService };
+export { MapService };
