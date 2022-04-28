@@ -197,7 +197,11 @@ section:nth-child(5) {
 .info_img {
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+}
+
+.info_img img {
+  margin: 0 2rem;
 }
 
 .info p {
@@ -226,4 +230,12 @@ section:nth-child(5) {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.info_img img:nth-child(1).active {
+  animation: changeMovement 1s ease-in-out;
+}
+
+.info_img img:nth-child(2).active {
+  animation: delay 0.5s, changeMovement 1s 0.5s ease-in-out;
 }

@@ -101,8 +101,16 @@ function MainPage() {
           잠깐! 짐 싸기 전에 <span>맛집 체크</span> 하셨나요?
         </h1>
         <div className={styles.info_img}>
-          <img src="images/window.png" alt="service_info_1" />
-          <img src="images/window.png" alt="service_info_2" />
+          <img
+            src="images/window.png"
+            alt="service_info_1"
+            className={activeBtn === 3 ? styles.active : ""}
+          />
+          <img
+            src="images/window.png"
+            alt="service_info_2"
+            className={activeBtn === 3 ? styles.active : ""}
+          />
         </div>
         <p>
           전세계 미슐랭 레스토랑 <strong>위치</strong>부터{" "}
