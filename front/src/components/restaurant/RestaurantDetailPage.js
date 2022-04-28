@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
-import { setupInfo, setupReviews } from "../../redux/restaurantSlice";
-import { get } from "../../api";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import {
+  setupInfo,
+  setupReviews,
+  addBookmark,
+  subBookmark,
+} from "../../redux/restaurantSlice";
+import { get, patch } from "../../api";
 import styles from "../../css/restaurant/RestaurantDetailPage.module.css";
 import Information from "./Information";
 import Review from "./Review";
@@ -14,37 +19,52 @@ import {
 } from "@mui/icons-material";
 
 function RestaurantDetailPage() {
+  const [{ user }, { restaurantInfo }] = useSelector(
+    (state) => [state.user, state.restaurant],
+    shallowEqual,
+  );
   const [bookmark, setBookmark] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [{ user }, { restaurantInfo }] = useSelector((state) => [
-    state.user,
-    state.restaurant,
-  ]);
 
-  const { id } = useParams();
+  const restaurantId = useParams().id;
   const dispatch = useDispatch();
 
   const handleBookmarkClick = () => {
-    if (!user.user) {
+    if (!user) {
       setIsModalOpen(true);
       return;
     }
 
-    setBookmark((cur) => !cur);
+    if (bookmark) {
+      patch("bookmarks", "undo", { restaurantId });
+      dispatch(subBookmark());
+      setBookmark(false);
+    } else {
+      patch("bookmarks", "do", { restaurantId });
+      dispatch(addBookmark());
+      setBookmark(true);
+    }
   };
 
   const getRestaurantDetail = async () => {
-    const getRestaurantInfo = get("restaurants", id);
-    const getRestaurantReviews = get("reviewlist/restaurant", id);
+    const getRestaurantInfo = get("restaurants", restaurantId);
+    const getRestaurantReviews = get("reviewlist/restaurant", restaurantId);
+    const getUserBookmarks = get("bookmarks", user.id);
 
     try {
-      const [restaurantInfo, restaurantReviews] = await Promise.all([
-        getRestaurantInfo,
-        getRestaurantReviews,
-      ]);
+      const [restaurantInfo, restaurantReviews, userBookmarks] =
+        await Promise.all([
+          getRestaurantInfo,
+          getRestaurantReviews,
+          getUserBookmarks,
+        ]);
 
       dispatch(setupInfo(restaurantInfo.data));
       dispatch(setupReviews(restaurantReviews.data));
+      const isBookmarked = userBookmarks.data.some(
+        (restaurant) => restaurant._id === restaurantId,
+      );
+      setBookmark(isBookmarked);
     } catch (e) {
       // 에러처리 어떻게 해야할까
       console.log(e);

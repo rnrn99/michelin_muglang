@@ -12,6 +12,24 @@ export const restaurantSlice = createSlice({
     setupInfo: (state, action) => {
       return { ...state, restaurantInfo: action.payload };
     },
+    addBookmark: (state, action) => {
+      return {
+        ...state,
+        restaurantInfo: {
+          ...state.restaurantInfo,
+          bookmarkCount: state.restaurantInfo.bookmarkCount + 1,
+        },
+      };
+    },
+    subBookmark: (state, action) => {
+      return {
+        ...state,
+        restaurantInfo: {
+          ...state.restaurantInfo,
+          bookmarkCount: state.restaurantInfo.bookmarkCount - 1,
+        },
+      };
+    },
     setupReviews: (state, action) => {
       return { ...state, restaurantReviews: action.payload };
     },
@@ -24,6 +42,7 @@ export const restaurantSlice = createSlice({
   },
 });
 
-export const { setupInfo, setupReviews, addReview } = restaurantSlice.actions;
+export const { setupInfo, addBookmark, subBookmark, setupReviews, addReview } =
+  restaurantSlice.actions;
 
 export default restaurantSlice.reducer;
