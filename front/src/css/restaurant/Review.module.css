@@ -22,6 +22,7 @@
   border: #a7a7a7 solid 1px;
   width: 950px;
   height: 45px;
+  box-shadow: 2px 2px 5px rgb(200, 200, 200);
 }
 
 .review_input input:focus {
@@ -37,12 +38,18 @@
   border: none;
   border-radius: 5px;
   font-size: 18px;
+  box-shadow: 2px 2px 5px rgb(200, 200, 200);
 }
 
 .review_list {
-  margin-top: 30px;
+  margin-top: 10px;
   margin-left: 10px;
   width: 930px;
+}
+
+.review {
+  border-bottom: 1px solid #9c9c9c;
+  padding: 25px 0;
 }
 
 .review .username {
@@ -56,12 +63,6 @@
 }
 
 .review .content {
-  margin-top: 10px;
+  margin-top: 15px;
   font-size: 15px;
-}
-
-.review hr {
-  margin: 20px 0;
-  background-color: #a7a7a7;
-  height: 0.1px;
 }

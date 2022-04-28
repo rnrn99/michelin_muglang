@@ -64,7 +64,6 @@ function Review({ setIsModalOpen }) {
                 </span>
               </div>
               <div className={styles.content}>{review.text}</div>
-              <hr />
             </div>
           );
         })}
