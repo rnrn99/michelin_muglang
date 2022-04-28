@@ -1,5 +1,9 @@
 import React from "react";
 
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/userSlice";
+
 import styles from "../../css/header/Header.module.css";
 import { AppBar, Toolbar, Typography, useMediaQuery } from "@mui/material";
 
@@ -7,6 +11,20 @@ import NavLinks from "./NavLinks";
 import Menu from "./Menu";
 
 function Header() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userState = useSelector((state) => state.user);
+
+  // 전역상태에서 user가 null이 아니라면 로그인 성공 상태
+  const isLogin = !!userState.user;
+
+  // 로그아웃 핸들러
+  const logoutHandler = () => {
+    sessionStorage.removeItem("userToken");
+    dispatch(logout(userState));
+    navigate("/");
+  };
+
   // menu button visible 여부
   const menuVisible = useMediaQuery("(max-width:800px)");
 
@@ -23,7 +41,11 @@ function Header() {
           </a>
         </Typography>
 
-        {!menuVisible ? <NavLinks /> : <Menu />}
+        {!menuVisible ? (
+          <NavLinks isLogin={isLogin} logout={logoutHandler} />
+        ) : (
+          <Menu isLogin={isLogin} logout={logoutHandler} />
+        )}
       </Toolbar>
     </AppBar>
   );
