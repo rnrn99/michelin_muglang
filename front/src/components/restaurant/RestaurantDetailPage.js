@@ -12,7 +12,7 @@ import styles from "../../css/restaurant/RestaurantDetailPage.module.css";
 import Information from "./Information";
 import Review from "./Review";
 import NearbyRestaurant from "./NearbyRestaurant";
-import LoginRequestModal from "./LoginRequestModal";
+import LoginRequestModal from "../modal/LoginRequestModal";
 import {
   BookmarkBorderOutlined as BookmarkOutlineIcon,
   Bookmark as BookmarkIcon,

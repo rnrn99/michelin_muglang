@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import styles from "../../../css/user/UserUpdateModal.module.css";
+import styles from "../../css/modal/UserUpdateModal.module.css";
 
 const UserUpdateModal = ({ setIsModalOpen }) => {
   const { user } = useSelector((state) => state.user);

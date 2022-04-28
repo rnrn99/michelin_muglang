@@ -6,7 +6,7 @@ import { get } from "../../../api";
 import styles from "../../../css/user/MyPage.module.css";
 import MyBookmark from "./MyBookmark";
 import MyReview from "./MyReview";
-import UserUpdateModal from "./UserUpdateModal";
+import UserUpdateModal from "../../modal/UserUpdateModal";
 
 const MyPage = () => {
   const { user } = useSelector((state) => state.user);

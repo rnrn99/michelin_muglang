@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import Slider from "./Slider";
-import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import DeleteConfirmationModal from "../../modal/DeleteConfirmationModal";
 import styles from "../../../css/user/MyReview.module.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const MyBookmark = () => {
   const { reviews } = useSelector((state) => state.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(reviews);
-
-  const navigate = useNavigate();
 
   return (
     <>
