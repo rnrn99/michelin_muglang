@@ -49,6 +49,7 @@
 
 .information span {
   margin-left: 10px;
+  margin-top: -3px;
 }
 
 .information:last-child span a {

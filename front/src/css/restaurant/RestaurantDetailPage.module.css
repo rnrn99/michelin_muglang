@@ -10,12 +10,14 @@
   width: 1080px;
 }
 
-.title {
+.restaurant_name {
   font-size: 50px;
   font-weight: bold;
+  line-height: 60px;
 }
 
 .bookmark {
+  margin-top: 10px;
   width: 120px;
   display: flex;
   align-items: center;

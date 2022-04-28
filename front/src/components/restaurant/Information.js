@@ -31,8 +31,10 @@ function Information() {
               <MoneyIcon />
               {/* 환전을 어떻게 하지 */}
               <span>
-                {restaurant.minPrice} - {restaurant.maxPrice} (
-                {restaurant.currency})
+                {restaurant.minPrice === restaurant.maxPrice
+                  ? restaurant.minPrice
+                  : `${restaurant.minPrice} - ${restaurant.maxPrice}`}{" "}
+                ({restaurant.currency})
               </span>
             </div>
             <div className={styles.information}>

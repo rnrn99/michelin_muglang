@@ -44,7 +44,9 @@ function RestaurantDetailPage() {
     <>
       <div className={styles.container}>
         <div className={styles.main}>
-          <span className={styles.title}>{restaurant.restaurant.name}</span>
+          <span className={styles.restaurant_name}>
+            {restaurant.restaurant.name}
+          </span>
           <div className={styles.bookmark} onClick={handleBookmarkClick}>
             {bookmark ? <BookmarkIcon /> : <BookmarkOutlineIcon />}{" "}
             {mockBookmark}번 북마크됨
