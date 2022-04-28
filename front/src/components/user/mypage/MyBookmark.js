@@ -34,6 +34,18 @@ const mock = [
     country: "Thailand",
     bookmarkCount: 1,
   },
+  {
+    _id: "626370999dcb2f0f3041e88d",
+    name: "The Table Kevin Fehling",
+    country: "Germany",
+    bookmarkCount: 1,
+  },
+  {
+    _id: "626370999dcb2f0f3041e88e",
+    name: "Fried Banana Rama 5",
+    country: "Thailand",
+    bookmarkCount: 1,
+  },
 ];
 
 const MyBookmark = () => {

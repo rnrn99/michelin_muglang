@@ -129,6 +129,11 @@
   box-shadow: none;
 }
 
+.update_form .invalid_button:hover {
+  cursor: auto;
+  background-color: #e0e0e0;
+}
+
 .modal_buttons {
   margin-top: 15px;
   width: 100%;
