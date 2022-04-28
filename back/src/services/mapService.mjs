@@ -71,8 +71,10 @@ class MapService {
       page,
       pageSize,
     });
-    console.log(ret);
-    return GeoJSON.parse(ret, { Point: ["latitude", "longitude"] });
+    const lastPage = ret.lastPage;
+    ret = GeoJSON.parse(ret, { Point: ["latitude", "longitude"] });
+    ret.lastPage = lastPage;
+    return ret;
   }
 
   //국가 국경선

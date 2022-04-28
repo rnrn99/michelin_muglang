@@ -66,6 +66,9 @@ class Restaurant {
         .skip(page * pageSize)
         .limit(pageSize)
         .lean();
+
+      const len = await RestaurantModel.countDocuments({ country });
+      restaurants.lastPage = Math.ceil(len / pageSize) - 1;
       return restaurants;
     } catch (error) {
       return error;
