@@ -1,21 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setupBookmarks, setupReviews } from "../../../redux/userSlice";
+import { get } from "../../../api";
 import styles from "../../../css/user/MyPage.module.css";
 import MyBookmark from "./MyBookmark";
 import MyReview from "./MyReview";
 import UserUpdateModal from "./UserUpdateModal";
 
 const MyPage = () => {
-  const navigate = useNavigate();
-
   const { user } = useSelector((state) => state.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const getMyPageInfo = async () => {
+    const getBookmarks = get("bookmarks", user.id);
+    const getReviews = get("reviewlist/user", user.id);
+
+    try {
+      const [userBookmarks, userReviews] = await Promise.all([
+        getBookmarks,
+        getReviews,
+      ]);
+
+      dispatch(setupBookmarks(userBookmarks.data));
+      dispatch(setupReviews(userReviews.data));
+    } catch (e) {
+      // 에러처리 어떻게 해야할까
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
     if (!user) {
       navigate("/", { replace: true });
     }
+
+    getMyPageInfo();
   }, []);
 
   return (

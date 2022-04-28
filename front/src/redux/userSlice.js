@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
+  bookmarks: [],
+  reviews: [],
 };
 
 export const userSlice = createSlice({
@@ -9,16 +11,21 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      console.log("%c로그인!", "color: #d93d1a;");
-      return { user: action.payload };
+      return { ...state, user: action.payload };
     },
     logout: (state, action) => {
-      console.log("%c로그아웃!", "color: #d93d1a;");
-      return { user: null };
+      return initialState;
+    },
+    setupBookmarks: (state, action) => {
+      return { ...state, bookmarks: action.payload };
+    },
+    setupReviews: (state, action) => {
+      return { ...state, reviews: action.payload };
     },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, setupBookmarks, setupReviews } =
+  userSlice.actions;
 
 export default userSlice.reducer;

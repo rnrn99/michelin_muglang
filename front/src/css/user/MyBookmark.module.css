@@ -11,17 +11,21 @@
 }
 
 .restaurant {
+  cursor: pointer;
   background-color: whitesmoke;
   box-sizing: border-box;
   width: 230px;
   height: 230px;
-  padding: 20px;
   border-radius: 10px;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.restaurant > .restaurant {
+  padding: 20px;
 }
 
 .restaurant + .restaurant {
