@@ -3,6 +3,7 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { addReview } from "../../redux/restaurantSlice";
 import { post } from "../../api";
 import styles from "../../css/restaurant/Review.module.css";
+import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
 
 function Review({ setIsModalOpen }) {
   const [reviewText, setReviewText] = useState("");
@@ -57,11 +58,21 @@ function Review({ setIsModalOpen }) {
         {restaurantReviews.map((review) => {
           return (
             <div className={styles.review} key={review._id}>
-              <div>
+              <div className={styles.review_title}>
                 <span className={styles.username}>{review.userName}</span>
                 <span className={styles.date}>
                   {review.createdAt.slice(0, 10)}
                 </span>
+                {user.id === review.userId && (
+                  <>
+                    <span className={styles.icon_edit}>
+                      <EditIcon fontSize="small" />
+                    </span>
+                    <span className={styles.icon_delete}>
+                      <DeleteIcon fontSize="small" />
+                    </span>
+                  </>
+                )}
               </div>
               <div className={styles.content}>{review.text}</div>
             </div>
