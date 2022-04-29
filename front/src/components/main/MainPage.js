@@ -27,14 +27,16 @@ function MainPage() {
 
   // nav 버튼 클릭 핸들러
   const clickPointBtn = (e) => {
-    const pageNum = e.target.id;
+    if (e.target.id) {
+      const pageNum = e.target.id;
 
-    window.scrollTo({
-      top: section[pageNum].offsetTop - 32,
-      behavior: "smooth",
-    });
+      window.scrollTo({
+        top: section[pageNum].offsetTop - 32,
+        behavior: "smooth",
+      });
 
-    setActiveBtn(pageNum);
+      setActiveBtn(pageNum);
+    }
   };
 
   // 스크롤 이벤트 핸들러
