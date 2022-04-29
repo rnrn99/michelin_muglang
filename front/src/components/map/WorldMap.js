@@ -57,12 +57,12 @@ const WorldMap = ({ setTooltipContent }) => {
   const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
-    const fetchWorldMap = async () => {
+    const fetchWorldMapMarker = async () => {
       const res = await Api.get("map/world/geojson");
       const { features } = res.data;
       setMarkers(features);
     };
-    fetchWorldMap();
+    fetchWorldMapMarker();
   }, []);
 
   return (
