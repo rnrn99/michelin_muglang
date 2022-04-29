@@ -9,19 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../css/map/RestaurantCard.module.css";
 
-const RestaurantCard = ({
-  restaurant,
-  handleClick,
-  clicked,
-  restaurantList,
-  setClicked,
-  setRestaurants,
-}) => {
-  const goToList = () => {
-    setRestaurants(restaurantList);
-    setClicked(false);
-  };
-
+const RestaurantCard = ({ restaurant, handleClick, clicked, goToList }) => {
   return (
     <div
       className={`${styles.restaurant_common} ${

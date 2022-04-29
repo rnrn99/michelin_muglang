@@ -8,13 +8,13 @@
 }
 
 .prevBtn {
-  left: 10px;
-  top: 300px;
+  left: 40px;
+  top: 400px;
 }
 
 .nextBtn {
-  left: 470px;
-  top: 300px;
+  left: 500px;
+  top: 400px;
 }
 
 .prevBtn:hover,
@@ -50,6 +50,7 @@
 .searchForm {
   height: 100px;
   position: relative;
+  margin-top: 30px;
 }
 
 .searchForm_select {
