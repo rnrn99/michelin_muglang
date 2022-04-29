@@ -1,0 +1,99 @@
+.restaurant_common {
+  background: white;
+  width: 90%;
+  border-radius: 25px;
+  box-shadow: 5px 5px 12px 0px #e2e1e1;
+}
+.restaurant {
+  position: relative;
+  height: 130px;
+  padding: 30px 0 20px 18px;
+  margin: 30px 10px;
+}
+
+.restaurant:hover {
+  background-color: #cbf3f0;
+}
+
+.restaurant_clicked {
+  height: 500px;
+  padding: 35px 0px 35px 20px;
+  margin: 50px 0px;
+  line-height: 2;
+}
+
+.detailBtn {
+  position: absolute;
+  right: 15px;
+  top: 20px;
+  cursor: pointer;
+  color: #ff9f1c;
+}
+
+.restaurant_box {
+  width: 300px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.detailPageBtn {
+  cursor: pointer;
+}
+
+.detailPageBtn a:before {
+  content: "";
+  position: absolute;
+  background-color: #ff9f1c;
+  height: 2px;
+  width: 0;
+  bottom: 0;
+  transition: 0.7s;
+}
+
+.detailPageBtn a:hover:before {
+  width: 124px;
+}
+
+.detailPageBtn a:hover {
+  font-weight: bold;
+}
+
+.name {
+  display: inline;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.cuisine {
+  margin-left: 5px;
+  color: #ff9f1c;
+}
+.container_returnBtn {
+  position: relative;
+}
+
+.returnBtn {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.returnBtn:before {
+  content: "";
+  position: absolute;
+  background-color: #ff9f1c;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+.returnBtn:hover:before {
+  width: 168px;
+}
+
+.returnBtn:hover {
+  color: #000;
+  cursor: pointer;
+}

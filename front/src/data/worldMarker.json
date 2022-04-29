@@ -1,0 +1,449 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.6, 42.55]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6658",
+        "nation": "Andorra",
+        "count": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.2, 47.2]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6659",
+        "nation": "Austria",
+        "count": 30
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [4, 50.5]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b665a",
+        "nation": "Belgium",
+        "count": 266
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-55, -10]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b665b",
+        "nation": "Brazil",
+        "count": 53
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [105, 35]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b665c",
+        "nation": "China",
+        "count": 190
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.3, 45.1]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b665d",
+        "nation": "Croatia",
+        "count": 23
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10, 56]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b665e",
+        "nation": "Denmark",
+        "count": 42
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [25.48828125, 65.07213008560697]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b665f",
+        "nation": "Finland",
+        "count": 9
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.39501953125, 47.08508535995383]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6660",
+        "nation": "France",
+        "count": 1119
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9, 51]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6661",
+        "nation": "Germany",
+        "count": 623
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [22, 39]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6662",
+        "nation": "Greece",
+        "count": 9
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.13421630859375, 22.43134015636061]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6663",
+        "nation": "Hong Kong",
+        "count": 135
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [19.039306640625, 47.37603463349758]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6664",
+        "nation": "Hungary",
+        "count": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-18, 65]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6665",
+        "nation": "Iceland",
+        "count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-7.734375, 53.45534913802113]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6666",
+        "nation": "Ireland",
+        "count": 37
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.5, 42.5]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6667",
+        "nation": "Italy",
+        "count": 628
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [138, 36]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6668",
+        "nation": "Japan",
+        "count": 843
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.10015869140625, 49.822037122094414]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6669",
+        "nation": "Luxembourg",
+        "count": 20
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [113.56155395507812, 22.17214491738175]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b666a",
+        "nation": "Macau",
+        "count": 22
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [14.39208984375, 35.93798832265393]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b666b",
+        "nation": "Malta",
+        "count": 9
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.45, 52.3]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b666c",
+        "nation": "Netherlands",
+        "count": 226
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8, 61]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b666d",
+        "nation": "Norway",
+        "count": 13
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [20, 52]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b666e",
+        "nation": "Poland",
+        "count": 6
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8, 39.50404070558415]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b666f",
+        "nation": "Portugal",
+        "count": 69
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.458152770996094, 43.94141717295212]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6670",
+        "nation": "San Marino",
+        "count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [21, 44]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6671",
+        "nation": "Serbia",
+        "count": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.84346008300781, 1.3587440869100178]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6672",
+        "nation": "Singapore",
+        "count": 118
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [14.49, 46.07]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6673",
+        "nation": "Slovenia",
+        "count": 13
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [127.3, 37]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6674",
+        "nation": "South Korea",
+        "count": 91
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-4, 40]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6675",
+        "nation": "Spain",
+        "count": 474
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15, 62]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6676",
+        "nation": "Sweden",
+        "count": 31
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.28369140625, 46.90149244734082]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6677",
+        "nation": "Switzerland",
+        "count": 252
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [121, 23.3]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6678",
+        "nation": "Taiwan",
+        "count": 124
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [100, 15]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b6679",
+        "nation": "Thailand",
+        "count": 165
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2, 54]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b667a",
+        "nation": "United Kingdom",
+        "count": 279
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-97, 38]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b667b",
+        "nation": "United States",
+        "count": 564
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.3, 49.45]
+      },
+      "properties": {
+        "_id": "626390717ccb59620d0b667c",
+        "nation": "Czech Republic",
+        "count": 7
+      }
+    }
+  ]
+}
