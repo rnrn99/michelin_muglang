@@ -1,0 +1,36 @@
+.container {
+  width: 100%;
+  height: 250px;
+  background-color: #454545;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.content {
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.left div:first-child {
+  font-size: 60px;
+  font-weight: bold;
+  color: white;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.right div:first-child {
+  font-size: 30px;
+  color: white;
+}
+
+.left div:last-child,
+.right:last-child {
+  font-size: 20px;
+  color: #a5a5a5;
+}

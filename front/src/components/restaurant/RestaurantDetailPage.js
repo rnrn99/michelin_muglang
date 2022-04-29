@@ -12,6 +12,7 @@ import styles from "../../css/restaurant/RestaurantDetailPage.module.css";
 import Information from "./Information";
 import Reviews from "./Reviews";
 import NearbyRestaurants from "./NearbyRestaurants";
+import Footer from "../Footer";
 import LoginRequestModal from "../modal/LoginRequestModal";
 import {
   BookmarkBorderOutlined as BookmarkOutlineIcon,
@@ -92,6 +93,7 @@ function RestaurantDetailPage() {
       {loginRequestModal && (
         <LoginRequestModal setLoginRequestModal={setLoginRequestModal} />
       )}
+      <Footer />
     </>
   );
 }
