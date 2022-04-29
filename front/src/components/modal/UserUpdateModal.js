@@ -128,7 +128,7 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
               id="updated-name"
               type="text"
               required
-              autocomplete="off"
+              autoComplete="off"
               value={name}
               onChange={(e) => {
                 setName(e.target.value);
