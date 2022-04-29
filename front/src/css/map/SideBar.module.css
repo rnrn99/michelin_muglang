@@ -1,9 +1,3 @@
-.detail {
-  background-color: #f5f5f5;
-  height: 100%;
-  position: relative;
-}
-
 .prevBtn,
 .nextBtn {
   position: absolute;
@@ -34,6 +28,25 @@
   background: transparent;
 }
 
+.detail_restaurantsList {
+  background: transparent;
+  width: 400px;
+  height: 100vh;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  margin-left: 100px;
+  margin-top: 30px;
+}
+
+.detail_restaurantsList::-webkit-scrollbar {
+  display: none;
+}
+
 .searchForm_input {
   background-color: white;
   border-radius: 12px;
@@ -61,23 +74,4 @@
   border-radius: 12px;
   box-shadow: 5px 5px 12px -5px #e2e1e1;
   padding-right: 10px;
-}
-
-.detail_restaurantsList {
-  background: transparent;
-  width: 400px;
-  height: 100vh;
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  margin-left: 100px;
-  margin-top: 30px;
-}
-
-.detail_restaurantsList::-webkit-scrollbar {
-  display: none;
 }

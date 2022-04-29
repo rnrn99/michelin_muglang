@@ -7,7 +7,7 @@ import {
   faMoneyBill1Wave,
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
-import styles from "./RestaurantCard.module.css";
+import styles from "../../css/map/RestaurantCard.module.css";
 
 const RestaurantCard = ({
   restaurant,

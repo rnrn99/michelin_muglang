@@ -1,35 +1,30 @@
-import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import ReactTooltip from "react-tooltip";
 import {
   faMagnifyingGlass,
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-
-import axios from "axios";
-import CountryMap from "../CountryMap";
-import RestaurantCard from "../RestaurantCard/RestaurantCard";
-
-import Restaurants from "../../../data/restaurants.json";
-
-import styles from "./DetailPage.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+
+import RestaurantCard from "./RestaurantCard";
+import styles from "../../css/map/SideBar.module.css";
 
 const backendPortNumber = "5000";
 const serverUrl =
   "http://" + window.location.hostname + ":" + backendPortNumber + "/";
 const perPage = 10;
 
-const DetailPage = () => {
-  const location = useLocation();
-  const { countryName } = location.state;
-
+const SideBar = ({
+  countryName,
+  restaurants,
+  clicked,
+  handleClick,
+  setRestaurants,
+  setClicked,
+}) => {
   const [restaurantList, setRestaurantList] = useState([]);
-  const [restaurants, setRestaurants] = useState([]);
-  const [content, setContent] = useState("");
-  const [clicked, setClicked] = useState(false);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -44,14 +39,8 @@ const DetailPage = () => {
     fetchRestaurants();
   }, [page]);
 
-  const handleClick = (id) => {
-    const restaurant = restaurants.filter((r) => r._id === id);
-    setRestaurants(restaurant);
-    setClicked(true);
-  };
-
   return (
-    <section className={styles.detail}>
+    <>
       {!clicked && (
         <>
           <button
@@ -97,16 +86,8 @@ const DetailPage = () => {
           />
         ))}
       </div>
-
-      <CountryMap
-        countryName={countryName}
-        restaurants={restaurants}
-        setTooltipContent={setContent}
-        handleClick={handleClick}
-      />
-      <ReactTooltip>{content}</ReactTooltip>
-    </section>
+    </>
   );
 };
 
-export default DetailPage;
+export default SideBar;
