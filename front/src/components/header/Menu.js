@@ -16,17 +16,21 @@ function Menu({ isLogin, logout }) {
       <Drawer anchor="right" open={open} onClose={() => setOpen(false)}>
         <Box role="presentation" onClick={() => setOpen(false)}>
           <List>
-            <ListItem button>미슐랭 찾아보기</ListItem>
+            <ListItem button onClick={() => navigate("/map")}>
+              미슐랭 찾아보기
+            </ListItem>
             <ListItem button>팀 소개</ListItem>
             {!isLogin ? (
               <ListItem button onClick={() => navigate("/login")}>
-                LOG IN
+                LOGIN
               </ListItem>
             ) : (
               <>
-                <ListItem button>마이페이지</ListItem>
+                <ListItem button onClick={() => navigate("/mypage")}>
+                  마이페이지
+                </ListItem>
                 <ListItem button onClick={logout}>
-                  LOG OUT
+                  LOGOUT
                 </ListItem>
               </>
             )}

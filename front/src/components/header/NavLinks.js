@@ -6,7 +6,7 @@ import styles from "../../css/header/Header.module.css";
 function NavLinks({ isLogin, logout }) {
   return (
     <>
-      <Link className={styles.menu__link}>
+      <Link className={styles.menu__link} href="/map">
         <span className={styles.menu__title}>
           <span className={styles.menu__first_word} data-hover="미슐랭">
             미슐랭
@@ -41,7 +41,7 @@ function NavLinks({ isLogin, logout }) {
         </Link>
       ) : (
         <>
-          <Link className={styles.menu__link}>
+          <Link className={styles.menu__link} href="/mypage">
             <span className={styles.menu__title}>
               <span className={styles.menu__first_word} data-hover="마이">
                 마이
