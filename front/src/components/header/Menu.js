@@ -19,7 +19,9 @@ function Menu({ isLogin, logout }) {
             <ListItem button onClick={() => navigate("/map")}>
               미슐랭 찾아보기
             </ListItem>
-            <ListItem button>팀 소개</ListItem>
+            <ListItem button onClick={() => navigate("/team-craft")}>
+              팀 소개
+            </ListItem>
             {!isLogin ? (
               <ListItem button onClick={() => navigate("/login")}>
                 LOGIN

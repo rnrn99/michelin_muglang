@@ -17,7 +17,7 @@ function NavLinks({ isLogin, logout }) {
         </span>
       </Link>
 
-      <Link className={styles.menu__link}>
+      <Link className={styles.menu__link} href="/team-craft">
         <span className={styles.menu__title}>
           <span className={styles.menu__first_word} data-hover="팀">
             팀
