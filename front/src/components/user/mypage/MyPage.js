@@ -6,6 +6,7 @@ import { get } from "../../../api";
 import styles from "../../../css/user/MyPage.module.css";
 import MyBookmark from "./MyBookmark";
 import MyReview from "./MyReview";
+import Footer from "../../Footer";
 import UserUpdateModal from "../../modal/UserUpdateModal";
 
 const MyPage = () => {
@@ -69,6 +70,7 @@ const MyPage = () => {
           <MyReview />
         </div>
       </div>
+      <Footer />
       {isModalOpen && <UserUpdateModal setIsModalOpen={setIsModalOpen} />}
     </>
   );
