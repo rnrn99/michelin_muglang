@@ -39,7 +39,7 @@
 
 .container section {
   padding: 30px;
-  width: 440px;
+  width: 400px;
   height: 140px;
   background-color: white;
   border-radius: 5px;
@@ -62,7 +62,6 @@
 
 .buttons {
   display: flex;
-  justify-content: space-between;
 }
 
 .left_btn button a {
@@ -78,6 +77,7 @@
 .right_btn button {
   color: #aaaaaa;
   font-size: 15px;
+  margin-left: 180px;
 }
 
 .left_btn button,
