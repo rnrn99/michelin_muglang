@@ -39,7 +39,7 @@ const SideBar = ({
       if (onSearch) {
         const res = await axios.get(
           serverUrl +
-            `restaurants/search?page=${searchPage}&pageSize=${perPage}&${selectedCategory}=${searchKeyword}`,
+            `restaurants/search?page=${searchPage}&pageSize=${perPage}&country=${countryName}&${selectedCategory}=${searchKeyword}`,
         );
         setRestaurants(res.data);
       } else {
@@ -59,7 +59,7 @@ const SideBar = ({
     try {
       const res = await axios.get(
         serverUrl +
-          `restaurants/search?page=1&pageSize=${perPage}&${selectedCategory}=${inputRef.current.value}`,
+          `restaurants/search?page=1&pageSize=${perPage}&country=${countryName}&${selectedCategory}=${inputRef.current.value}`,
       );
       setSearchKeyword(inputRef.current.value);
       setRestaurants(res.data);
@@ -76,6 +76,8 @@ const SideBar = ({
     setClicked(false);
     setOnSearch(false);
     setSearchKeyword("");
+    setPage(1);
+    setSearchPage(1);
   };
 
   // 이전 페이지로 넘기는 함수
