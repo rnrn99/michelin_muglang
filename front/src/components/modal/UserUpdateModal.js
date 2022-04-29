@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { update } from "../../redux/userSlice";
+import { put } from "../../api";
 import styles from "../../css/modal/UserUpdateModal.module.css";
 
 const UserUpdateModal = ({ setIsModalOpen }) => {
@@ -9,6 +11,8 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState(user.name);
+
+  const dispatch = useDispatch();
 
   const validateEmail = (email) => {
     return email
@@ -30,6 +34,12 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
     setTimeout(() => {
       setIsModalOpen(false);
     }, 300);
+  };
+
+  const handleUpdate = async () => {
+    const updatedUser = await put("users", { name, email, password });
+    dispatch(update(updatedUser));
+    handleCancelClick();
   };
 
   useEffect(() => {
@@ -125,6 +135,7 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
           <button
             className={!isFormValid && styles.invalid_button}
             disabled={!isFormValid}
+            onClick={handleUpdate}
           >
             수정
           </button>

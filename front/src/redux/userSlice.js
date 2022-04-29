@@ -16,6 +16,9 @@ export const userSlice = createSlice({
     logout: (state, action) => {
       return initialState;
     },
+    update: (state, action) => {
+      return { ...state, user: action.payload };
+    },
     setupBookmarks: (state, action) => {
       return { ...state, bookmarks: action.payload };
     },
@@ -40,6 +43,7 @@ export const userSlice = createSlice({
 export const {
   login,
   logout,
+  update,
   setupBookmarks,
   setupReviews,
   deleteBookmark,
