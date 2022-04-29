@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import {
   faMagnifyingGlass,
@@ -26,7 +26,9 @@ const SideBar = ({
 }) => {
   const [restaurantList, setRestaurantList] = useState([]);
   const [page, setPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("음식점 이름");
+  const [selectedCategory, setSelectedCategory] = useState("name");
+
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -43,9 +45,15 @@ const SideBar = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const res = await axios.get(
+        serverUrl +
+          `restaurants/search?page=1&pageSize=${perPage}&${selectedCategory}=${inputRef.current.value}`,
+      );
+      console.log(res.data);
     } catch (err) {
       console.log(err.message);
     }
+    inputRef.current.value = "";
   };
 
   return (
@@ -72,8 +80,11 @@ const SideBar = ({
       <div className={styles.detail_restaurantsList}>
         {!clicked && (
           <div className={styles.searchForm}>
-            <form>
-              <select className={styles.searchForm_select}>
+            <form onSubmit={handleSubmit}>
+              <select
+                className={styles.searchForm_select}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+              >
                 <option value="name">음식점 이름</option>
                 <option value="address">주소</option>
                 <option value="location">{"지역(도시)"}</option>
@@ -81,7 +92,9 @@ const SideBar = ({
                 <option value="award">미슐랭 등급</option>
               </select>
               <input
-                placeholder="음식점을 검색해보세요"
+                type="text"
+                ref={inputRef}
+                placeholder="다양한 키워드로 검색해보세요"
                 className={styles.searchForm_container_input}
               />
               <button
