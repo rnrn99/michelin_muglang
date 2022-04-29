@@ -68,6 +68,10 @@ const RestaurantSchema = new Schema(
       type: Array,
       required: false,
     },
+    placeId: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,
