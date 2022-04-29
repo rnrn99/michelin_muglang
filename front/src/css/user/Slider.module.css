@@ -25,3 +25,19 @@
   display: flex;
   transition: all 0.3s;
 }
+
+.no_content {
+  background-color: whitesmoke;
+  width: 230px;
+  height: 230px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  color: #969696;
+}
+
+div + .no_content {
+  margin-left: 20px;
+}

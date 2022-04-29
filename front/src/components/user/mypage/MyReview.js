@@ -15,7 +15,7 @@ const MyBookmark = () => {
     <>
       <div className={styles.container}>
         <div className={styles.title}>나의 리뷰</div>
-        <Slider contentLength={reviews.length}>
+        <Slider contentNum={reviews.length} noContentText={"No Review"}>
           {reviews.map((review) => (
             <div className={styles.review} key={review._id}>
               <a

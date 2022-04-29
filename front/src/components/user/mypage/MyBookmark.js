@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { deleteBookmark } from "../../../redux/userSlice";
 import Slider from "./Slider";
@@ -11,13 +11,11 @@ const MyBookmark = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bookmarkId, setBookmarkId] = useState("");
 
-  console.log(bookmarks);
-
   return (
     <>
       <div className={styles.container}>
         <div className={styles.title}>나의 북마크</div>
-        <Slider contentLength={bookmarks.length}>
+        <Slider contentNum={bookmarks.length} noContentText={"No Bookmark"}>
           {bookmarks.map((restaurant) => (
             <div
               className={styles.restaurant}

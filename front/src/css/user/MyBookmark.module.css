@@ -19,6 +19,10 @@
   background-size: 230px;
 }
 
+.restaurant + .restaurant {
+  margin-left: 20px;
+}
+
 .restaurant_link {
   box-sizing: border-box;
   width: 230px;
@@ -36,10 +40,6 @@
 .restaurant_link > div {
   width: 230px;
   height: 230px;
-}
-
-.restaurant + .restaurant {
-  margin-left: 20px;
 }
 
 .restaurant_name {
