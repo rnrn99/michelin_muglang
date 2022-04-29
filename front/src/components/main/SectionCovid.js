@@ -12,11 +12,19 @@ import styles from "../../css/main/Graph.module.css";
 
 function SectionCovid({ active }) {
   const [graph, setGraph] = useState([]); // graph 그릴 data를 저장할 상태
+  const [labelVisible, setLabelVisible] = useState(false);
   const COLORS = ["#8884d8", "#E8B754"];
 
   useEffect(() => {
     Api.get("graphs/covid-weekly").then((res) => setGraph(res.data));
+    const visible = window.innerWidth <= 800;
+    setLabelVisible(visible);
   }, []);
+
+  window.addEventListener("resize", () => {
+    const visible = window.innerWidth <= 800;
+    setLabelVisible(visible);
+  });
 
   return (
     <div className={styles.container}>
@@ -26,7 +34,7 @@ function SectionCovid({ active }) {
             <Pie
               dataKey="percent"
               data={graph}
-              label
+              label={!labelVisible}
               innerRadius={80}
               isAnimationActive={active}
             >

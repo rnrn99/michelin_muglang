@@ -5,6 +5,18 @@
   align-items: center;
 }
 
+.restaurant_image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-size: 100%;
+  background-position: center;
+}
+
+.restaurant_image img {
+  width: 33.3%;
+}
+
 .main {
   margin-top: 100px;
   width: 1080px;
