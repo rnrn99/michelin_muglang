@@ -66,9 +66,7 @@ class Restaurant {
       .limit(pageSize)
       .lean();
 
-    restaurants.lastPage = lastPage;
-
-    return restaurants;
+    return { restaurants, lastPage, len };
   }
 
   static async findAllPaging({ page, pageSize }) {
@@ -81,7 +79,7 @@ class Restaurant {
       .limit(pageSize)
       .lean();
 
-    return { restaurants, lastPage };
+    return { restaurants, lastPage, len };
   }
 
   static async findAllByCuisinePaging({ page, pageSize, cuisine }) {
@@ -96,9 +94,7 @@ class Restaurant {
       .limit(pageSize)
       .lean();
 
-    restaurants.lastPage = lastPage;
-
-    return restaurants;
+    return { restaurants, lastPage, len };
   }
 
   static async findAllByQuery({
@@ -138,9 +134,7 @@ class Restaurant {
       .limit(pageSize)
       .lean();
 
-    restaurants.lastPage = lastPage;
-
-    return restaurants;
+    return { restaurants, lastPage, len };
   }
 
   static async findRestaurantsNearById({ id }) {
