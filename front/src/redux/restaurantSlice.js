@@ -45,6 +45,15 @@ export const restaurantSlice = createSlice({
       );
       return { ...state, restaurantReviews: newReviews };
     },
+    editReview: (state, action) => {
+      const newReviews = state.restaurantReviews.map((review) => {
+        if (review.id === action.payload.id) {
+          return action.payload;
+        }
+        return review;
+      });
+      return { ...state, restaurantReviews: newReviews };
+    },
   },
 });
 
@@ -55,6 +64,7 @@ export const {
   setupReviews,
   addReview,
   deleteReview,
+  editReview,
 } = restaurantSlice.actions;
 
 export default restaurantSlice.reducer;

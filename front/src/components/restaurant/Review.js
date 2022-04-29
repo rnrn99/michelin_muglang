@@ -1,99 +1,80 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { addReview, deleteReview } from "../../redux/restaurantSlice";
-import { post } from "../../api";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteReview, editReview } from "../../redux/restaurantSlice";
+import { patch } from "../../api";
 import DeleteConfirmationModal from "../modal/DeleteConfirmationModal";
 import styles from "../../css/restaurant/Review.module.css";
 import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
 
-function Review({ setLoginRequestModal }) {
-  const [reviewText, setReviewText] = useState("");
-  const [reviewId, setReviewId] = useState("");
+const Review = ({ review }) => {
+  const [reviewText, setReviewText] = useState(review.text);
+  const [isEditing, setIsEditing] = useState(false);
   const [deleteConfirmModal, setDeleteConfirmModal] = useState(false);
-  const [{ user }, restaurantId, { restaurantReviews }] = useSelector(
-    (state) => [
-      state.user,
-      state.restaurant.restaurantInfo._id,
-      state.restaurant,
-    ],
-    shallowEqual,
-  );
+  const [reviewId, setReviewId] = useState("");
+  const [{ user }] = useSelector((state) => [state.user]);
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleEdit = async (e) => {
     e.preventDefault();
-
-    if (!user) {
-      setLoginRequestModal(true);
-      return;
-    }
 
     if (!reviewText) return;
 
-    try {
-      post("reviews", {
-        restaurantId,
-        text: reviewText,
-      }).then((res) => dispatch(addReview(res.data)));
-    } catch (e) {}
-
-    setReviewText("");
+    const editedReview = await patch("reviews", review.id, {
+      text: reviewText,
+    });
+    dispatch(editReview(editedReview.data));
+    setIsEditing(false);
   };
 
   return (
     <>
-      <div className={styles.container}>
-        <span className={styles.title}>Review</span>
-        <div className={styles.review_input}>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="리뷰를 입력해주세요."
+      <div className={styles.review}>
+        <div className={styles.review_title}>
+          <span className={styles.username}>{review.userName}</span>
+          <span className={styles.date}>{review.createdAt.slice(0, 10)}</span>
+          {user?.id === review.userId && (
+            <>
+              <span
+                className={styles.icon_edit}
+                onClick={() => {
+                  setIsEditing(true);
+                }}
+              >
+                <EditIcon fontSize="small" />
+              </span>
+              <span
+                className={styles.icon_delete}
+                onClick={() => {
+                  setDeleteConfirmModal(true);
+                  setReviewId(review.id);
+                }}
+              >
+                <DeleteIcon fontSize="small" />
+              </span>
+            </>
+          )}
+        </div>
+        {isEditing ? (
+          <form onSubmit={handleEdit} className={styles.edit_form}>
+            <textarea
               value={reviewText}
               onChange={(e) => {
                 setReviewText(e.target.value);
               }}
-            />
-            <button type="submit">등록</button>
+            ></textarea>
+            <button type="submit">수정</button>
+            <button
+              type="button"
+              onClick={() => {
+                setIsEditing(false);
+              }}
+            >
+              닫기
+            </button>
           </form>
-        </div>
-        <div className={styles.review_list}>
-          {restaurantReviews.map((review) => {
-            return (
-              <div className={styles.review} key={review._id}>
-                <div className={styles.review_title}>
-                  <span className={styles.username}>{review.userName}</span>
-                  <span className={styles.date}>
-                    {review.createdAt.slice(0, 10)}
-                  </span>
-                  {user?.id === review.userId && (
-                    <>
-                      <span className={styles.icon_edit}>
-                        <EditIcon fontSize="small" />
-                      </span>
-                      <span
-                        className={styles.icon_delete}
-                        onClick={() => {
-                          setDeleteConfirmModal(true);
-                          setReviewId(review.id);
-                        }}
-                      >
-                        <DeleteIcon fontSize="small" />
-                      </span>
-                    </>
-                  )}
-                </div>
-                <div className={styles.content}>{review.text}</div>
-              </div>
-            );
-          })}
-        </div>
-        {restaurantReviews.length === 0 && (
-          <div className={styles.no_review}>
-            <span>작성된 리뷰가 없습니다.</span>
-            <span>이 레스토랑을 이용해보셨다면 첫 리뷰를 남겨보세요 :)</span>
-          </div>
+        ) : (
+          <div className={styles.content}>{review.text}</div>
         )}
       </div>
       {deleteConfirmModal && (
@@ -106,6 +87,6 @@ function Review({ setLoginRequestModal }) {
       )}
     </>
   );
-}
+};
 
 export default Review;

@@ -10,8 +10,8 @@ import {
 import { get, patch } from "../../api";
 import styles from "../../css/restaurant/RestaurantDetailPage.module.css";
 import Information from "./Information";
-import Review from "./Review";
-import NearbyRestaurant from "./NearbyRestaurant";
+import Reviews from "./Reviews";
+import NearbyRestaurants from "./NearbyRestaurants";
 import LoginRequestModal from "../modal/LoginRequestModal";
 import {
   BookmarkBorderOutlined as BookmarkOutlineIcon,
@@ -85,8 +85,8 @@ function RestaurantDetailPage() {
             {restaurantInfo.bookmarkCount}번 북마크됨
           </div>
           <Information />
-          <Review setLoginRequestModal={setLoginRequestModal} />
-          <NearbyRestaurant />
+          <Reviews setLoginRequestModal={setLoginRequestModal} />
+          <NearbyRestaurants />
         </div>
       </div>
       {loginRequestModal && (
