@@ -3,6 +3,7 @@ import { Router } from "express";
 import { login_required } from "../middlewares/login_required.mjs";
 import { userAuthService } from "../services/userService.mjs";
 import { body, validationResult } from "express-validator";
+import axios from "axios";
 
 const userAuthRouter = Router();
 
@@ -52,6 +53,22 @@ userAuthRouter.post("/users/login", async function (req, res, next) {
     res.status(200).send(user);
   } catch (error) {
     next(error);
+  }
+});
+
+userAuthRouter.get("/users/login/kakao", async (req, res, next) => {
+  try {
+    const code = req.query.code;
+    const KAKAO_CLIENT_id = "917b9ed78684b8588577e8aced2a84d2";
+    const KAKAO_REDIRECT_URL = "http://localhost:5000/users/login/kakao";
+    console.log(code);
+    const ret = await axios.post(
+      `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${KAKAO_CLIENT_id}&redirect_uri=${KAKAO_REDIRECT_URL}&code=${code}`,
+    );
+    console.log(ret.data);
+    res.status(200).send(ret.data);
+  } catch (err) {
+    next(err);
   }
 });
 
