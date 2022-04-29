@@ -52,7 +52,7 @@ function NavLinks({ isLogin, logout }) {
             </span>
           </Link>
 
-          <Link className={styles.menu__link} href="#" onClick={logout}>
+          <Link className={styles.menu__link} onClick={logout}>
             <span className={styles.menu__title}>
               <span className={styles.menu__first_word} data-hover="LOG">
                 LOG
