@@ -2,7 +2,6 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  margin: auto;
   display: flex;
   flex-wrap: wrap;
 }
@@ -53,14 +52,39 @@
   }
 }
 
-@media (max-width: 1320px) {
+@media screen and (min-width: 750px) and (max-width: 1320px) {
+  .graphWrapper {
+    width: 60%;
+    height: 40%;
+  }
+  .textWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .graphWrapper {
+    width: 100%;
+    height: 40%;
+    margin: 7rem auto 0;
+  }
   .textWrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    margin: auto;
-    margin-left: 0;
+    margin: -4rem 1rem 2rem;
+  }
+  .textWrapper h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .textWrapper p {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
   }
 }
