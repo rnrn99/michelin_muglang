@@ -12,10 +12,10 @@
 }
 
 .mount {
-  animation: modal-show 0.3s;
+  animation: show 0.3s;
 }
 
-@keyframes modal-show {
+@keyframes show {
   from {
     opacity: 0;
   }
@@ -25,10 +25,10 @@
 }
 
 .unmount {
-  animation: modal-unshow 0.3s;
+  animation: unshow 0.3s;
 }
 
-@keyframes modal-unshow {
+@keyframes unshow {
   from {
     opacity: 1;
   }

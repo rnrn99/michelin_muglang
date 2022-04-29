@@ -13,6 +13,7 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState(user.name);
   const [errorMessage, setErrorMessage] = useState("");
+  const [confirmUnregister, setConfirmUnregister] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -81,10 +82,23 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
 
   return (
     <div className={`${styles.container} ${effect}`}>
-      {errorMessage && (
-        <div className={styles.error_message}>{errorMessage}</div>
-      )}
       <section>
+        {errorMessage && (
+          <div className={styles.error_message}>{errorMessage}</div>
+        )}
+        {confirmUnregister && (
+          <div className={styles.unregister_confirmation}>
+            <span>정말 탈퇴하시겠습니까?</span>
+            <span onClick={handleUnregister}>탈퇴</span>
+            <span
+              onClick={() => {
+                setConfirmUnregister(false);
+              }}
+            >
+              취소
+            </span>
+          </div>
+        )}
         <span className={styles.modal_title}>회원 정보 수정</span>
         <form className={styles.update_form}>
           <div>
@@ -165,7 +179,13 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
           </button>
         </form>
         <div className={styles.modal_buttons}>
-          <span onClick={handleUnregister}>회원탈퇴</span>
+          <span
+            onClick={() => {
+              setConfirmUnregister(true);
+            }}
+          >
+            회원탈퇴
+          </span>
           <span onClick={handleCancelClick}>닫기</span>
         </div>
       </section>
