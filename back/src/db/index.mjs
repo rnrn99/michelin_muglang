@@ -5,6 +5,7 @@ import { Currency } from "./models/Currency.mjs";
 import { Country } from "./models/Country.mjs";
 import { Graph } from "./models/Graph.mjs";
 import { Review } from "./models/Review.mjs";
+import { Comment } from "./models/Comment.mjs";
 
 const DB_URL =
   process.env.MONGODB_URL ||
@@ -26,3 +27,4 @@ export { Currency };
 export { Country };
 export { Graph };
 export { Review };
+export { Comment };

@@ -1,7 +1,7 @@
 import { Review, Restaurant, User } from "../db/index.mjs";
 import { v4 as uuidv4 } from "uuid";
 
-class reviewService {
+class ReviewService {
   static createReview = async ({ restaurantId, userId, text }) => {
     // id 는 유니크 값 부여
     const id = uuidv4();
@@ -81,4 +81,4 @@ class reviewService {
   };
 }
 
-export { reviewService };
+export { ReviewService };

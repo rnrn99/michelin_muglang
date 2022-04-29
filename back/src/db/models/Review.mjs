@@ -35,7 +35,10 @@ class Review {
   };
 
   static findByRestaurantId = async ({ restaurantId }) => {
-    const reviewlist = await ReviewModel.find({ restaurantId });
+    const reviewlist = await ReviewModel.find({ restaurantId }).populate(
+      "comments",
+    );
+    // const bookmarks = await UserModel.findOne({ id }).populate("bookmarks");
     return reviewlist;
   };
 }

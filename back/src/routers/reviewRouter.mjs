@@ -1,7 +1,7 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required.mjs";
-import { reviewService } from "../services/reviewService.mjs";
+import { ReviewService } from "../services/reviewService.mjs";
 import { body, validationResult } from "express-validator";
 
 const reviewRouter = Router();
@@ -19,7 +19,7 @@ reviewRouter.post("/reviews", login_required, async function (req, res, next) {
     const userId = req.currentUserId;
     const { restaurantId, text } = req.body;
 
-    const createdNewReview = await reviewService.createReview({
+    const createdNewReview = await ReviewService.createReview({
       restaurantId,
       userId,
       text,
@@ -45,10 +45,10 @@ reviewRouter.patch(
       }
 
       const id = req.params.reviewId;
-      const { text } = req.body;
-      const toUpdate = { text };
+      // const { text } = req.body;
+      const toUpdate = { text: req.body.text };
 
-      const updatedReview = await reviewService.updateReview({
+      const updatedReview = await ReviewService.updateReview({
         id,
         toUpdate,
       });
@@ -66,7 +66,7 @@ reviewRouter.delete(
   async function (req, res, next) {
     try {
       const id = req.params.reviewId;
-      const result = await reviewService.deleteReview({ id });
+      const result = await ReviewService.deleteReview({ id });
       res.status(200).send(result);
     } catch (error) {
       next(error);
@@ -80,7 +80,7 @@ reviewRouter.get(
   async function (req, res, next) {
     try {
       const userId = req.params.userId;
-      const reviewlist = await reviewService.findByUserId({ userId });
+      const reviewlist = await ReviewService.findByUserId({ userId });
       res.status(200).send(reviewlist);
     } catch (error) {
       next(error);
@@ -93,7 +93,7 @@ reviewRouter.get(
   async function (req, res, next) {
     try {
       const restaurantId = req.params.restaurantId;
-      const reviewlist = await reviewService.findByRestaurantId({
+      const reviewlist = await ReviewService.findByRestaurantId({
         restaurantId,
       });
 
