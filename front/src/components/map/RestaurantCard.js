@@ -69,24 +69,26 @@ const RestaurantCard = ({
         <FontAwesomeIcon icon={faLocationArrow} />
         <span style={{ marginLeft: "5px" }}>{restaurant.address}</span>
       </div>
-      <div className={styles.restaurant_box}>
-        <FontAwesomeIcon icon={faPhone} />
-        <span style={{ marginLeft: "5px" }}>{restaurant.phoneNumber}</span>
-      </div>
 
       {clicked && (
-        <div className={styles.restaurant_box}>
-          <FontAwesomeIcon icon={faLink} />
-          <a
-            style={{ marginLeft: "5px" }}
-            href={restaurant.websiteUrl}
-            target="_blank"
-          >
-            {restaurant.websiteUrl}
-          </a>
-        </div>
+        <>
+          <div className={styles.restaurant_box}>
+            <FontAwesomeIcon icon={faPhone} />
+            <span style={{ marginLeft: "5px" }}>{restaurant.phoneNumber}</span>
+          </div>
+          <div className={styles.restaurant_box}>
+            <FontAwesomeIcon icon={faLink} />
+            <a
+              style={{ marginLeft: "5px" }}
+              href={restaurant.websiteUrl}
+              target="_blank"
+            >
+              {restaurant.websiteUrl}
+            </a>
+          </div>
+        </>
       )}
-      <p style={{ color: "green" }}>영업 중</p>
+      <p style={{ color: "green", marginTop: "20px" }}>영업 중</p>
       {clicked && (
         <div className={styles.container_returnBtn}>
           <a className={styles.returnBtn} onClick={goToList}>

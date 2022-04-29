@@ -26,6 +26,7 @@ const SideBar = ({
 }) => {
   const [restaurantList, setRestaurantList] = useState([]);
   const [page, setPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState("음식점 이름");
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -38,6 +39,14 @@ const SideBar = ({
     };
     fetchRestaurants();
   }, [page]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   return (
     <>
@@ -62,17 +71,27 @@ const SideBar = ({
 
       <div className={styles.detail_restaurantsList}>
         {!clicked && (
-          <>
+          <div className={styles.searchForm}>
             <form>
+              <select className={styles.searchForm_select}>
+                <option value="name">음식점 이름</option>
+                <option value="address">주소</option>
+                <option value="location">{"지역(도시)"}</option>
+                <option value="cuisine">요리 종류</option>
+                <option value="award">미슐랭 등급</option>
+              </select>
               <input
                 placeholder="음식점을 검색해보세요"
-                className={styles.searchForm_input}
+                className={styles.searchForm_container_input}
               />
-              <button type="submit" className={styles.searchForm_submitBtn}>
+              <button
+                type="submit"
+                className={styles.searchForm_container_submitBtn}
+              >
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
               </button>
             </form>
-          </>
+          </div>
         )}
         {restaurants.map((restaurant) => (
           <RestaurantCard
