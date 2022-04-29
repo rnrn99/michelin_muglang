@@ -11,25 +11,31 @@ const MyBookmark = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bookmarkId, setBookmarkId] = useState("");
 
+  console.log(bookmarks);
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.title}>나의 북마크</div>
         <Slider contentLength={bookmarks.length}>
           {bookmarks.map((restaurant) => (
-            <div className={styles.restaurant} key={restaurant._id}>
+            <div
+              className={styles.restaurant}
+              key={restaurant._id}
+              style={{
+                backgroundImage: `linear-gradient( rgba(100, 100, 100, 0.3), rgba(100, 100, 100, 0.3) ), url(${restaurant.imageUrl[0]})`,
+              }}
+            >
               <a
                 href={`/restaurants/${restaurant._id}`}
                 className={styles.restaurant_link}
               >
-                <div>
-                  <span className={styles.restaurant_name}>
-                    {restaurant.name}
-                  </span>
-                  <span className={styles.restaurant_country}>
-                    {restaurant.country}
-                  </span>
-                </div>
+                <span className={styles.restaurant_name}>
+                  {restaurant.name}
+                </span>
+                <span className={styles.restaurant_country}>
+                  {restaurant.country}
+                </span>
               </a>
               <div
                 className={styles.icon_delete}

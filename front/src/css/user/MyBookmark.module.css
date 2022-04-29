@@ -12,21 +12,14 @@
 
 .restaurant {
   cursor: pointer;
-  background-color: whitesmoke;
   width: 230px;
   height: 230px;
   border-radius: 10px;
   position: relative;
+  background-size: 230px;
 }
 
 .restaurant_link {
-  width: 230px;
-  height: 230px;
-  text-decoration: none;
-  color: black;
-}
-
-.restaurant_link > div {
   box-sizing: border-box;
   width: 230px;
   height: 230px;
@@ -35,6 +28,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px rgb(60, 60, 60);
+  color: white;
+}
+
+.restaurant_link > div {
+  width: 230px;
+  height: 230px;
 }
 
 .restaurant + .restaurant {
@@ -42,7 +43,7 @@
 }
 
 .restaurant_name {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   text-align: center;
   line-height: 22px;
@@ -52,7 +53,8 @@
   position: absolute;
   top: 20px;
   left: 20px;
-  color: #969696;
+  color: white;
+  text-shadow: 1px 1px 1px rgb(60, 60, 60);
   font-size: 14px;
 }
 
@@ -60,7 +62,7 @@
   position: absolute;
   right: 15px;
   bottom: 15px;
-  color: #c2c2c2;
+  color: white;
   opacity: 0;
   transition: all 0.2s;
 }
