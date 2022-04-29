@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import * as Api from "./api";
 import { login } from "./redux/userSlice";
 
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 import LoginForm from "./components/user/LoginForm";
 import RegisterForm from "./components/user/RegisterForm";
 import MainPage from "./components/main/MainPage";

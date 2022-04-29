@@ -4,6 +4,8 @@ import numpy as np
 import json
 from pymongo import MongoClient
 from dotenv import load_dotenv
+from urllib.request import urlopen, HTTPError
+from bs4 import BeautifulSoup
 
 # 상위 폴더를 base directory로 설정
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
@@ -50,6 +52,28 @@ michelin["phoneNumber"] = michelin["phoneNumber"].replace("+-1", np.nan)
 
 # longitude와 latitude로 coordinate(좌표) 생성
 michelin["coordinate"] = michelin.apply(lambda row: [row["longitude"], row["latitude"]], axis=1)
+
+# imgUrl parsing
+html = urlopen("https://guide.michelin.com/en/auvergne-rhone-alpes/valence/restaurant/pic")  
+soup = BeautifulSoup(html, "html.parser")
+
+michelin["imageUrl"] = np.nan
+
+lenData = michelin.shape[0]
+
+for i in range(lenData):
+       try:
+              html = urlopen(michelin["url"][i])
+              soup = BeautifulSoup(html, "html.parser") 
+
+              print(i)
+
+              lstLen = len(list(soup.find_all("div", {"data-target":"#js-gallery-masthead"})))
+              lst = [soup.find_all("div", {"data-target":"#js-gallery-masthead"})[j].get("data-bg") for j in range(lstLen)]
+              michelin["imageUrl"][i] = lst
+       except HTTPError as e:
+              print(f"{i} page not found")
+              michelin["imageUrl"][i] = []
 
 dataJson = json.loads(michelin.to_json(orient="records"))
 

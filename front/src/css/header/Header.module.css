@@ -11,6 +11,7 @@
 .menu__link {
   display: block;
   padding: 10px;
+  cursor: pointer;
 }
 
 .menu__link:hover .menu__first_word,

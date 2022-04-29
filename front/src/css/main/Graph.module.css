@@ -1,0 +1,66 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.graphWrapper {
+  width: 40%;
+  height: 50%;
+  background-color: #f2f2f2;
+  border-radius: 2rem;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.textWrapper {
+  align-content: center;
+  margin: auto;
+  margin-left: 0;
+}
+
+.textWrapper h1 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  color: #ff9f1c;
+}
+
+.textWrapper p {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.underline {
+  background-image: linear-gradient(
+    transparent calc(100% - 1.5rem),
+    #ffbf69 1.5rem
+  );
+  background-repeat: no-repeat;
+  animation: underlineAnim 2s ease-in-out;
+}
+
+@keyframes underlineAnim {
+  from {
+    background-size: 0% 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+@media (max-width: 1320px) {
+  .textWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-left: 0;
+  }
+}

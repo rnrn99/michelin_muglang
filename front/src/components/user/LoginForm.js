@@ -147,7 +147,7 @@ function LoginForm() {
         </Card>
       </Container>
       <img
-        src="loginbg.jpg"
+        src="images/loginbg.jpg"
         alt="login_background"
         style={{ width: "100%", height: "100%" }}
       />
