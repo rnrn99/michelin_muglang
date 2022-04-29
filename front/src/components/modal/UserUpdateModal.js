@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { update } from "../../redux/userSlice";
-import { put } from "../../api";
+import { update, logout } from "../../redux/userSlice";
+import * as Api from "../../api";
 import styles from "../../css/modal/UserUpdateModal.module.css";
+import { useNavigate } from "react-router-dom";
 
 const UserUpdateModal = ({ setIsModalOpen }) => {
   const { user } = useSelector((state) => state.user);
@@ -13,6 +14,7 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
   const [name, setName] = useState(user.name);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const validateEmail = (email) => {
     return email
@@ -37,9 +39,15 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
   };
 
   const handleUpdate = async () => {
-    const updatedUser = await put("users", { name, email, password });
+    const updatedUser = await Api.put("users", { name, email, password });
     dispatch(update(updatedUser));
     handleCancelClick();
+  };
+
+  const handleUnregister = () => {
+    Api.delete("users");
+    dispatch(logout());
+    navigate("/unregister");
   };
 
   useEffect(() => {
@@ -141,7 +149,7 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
           </button>
         </form>
         <div className={styles.modal_buttons}>
-          <span>회원탈퇴</span>
+          <span onClick={handleUnregister}>회원탈퇴</span>
           <span onClick={handleCancelClick}>닫기</span>
         </div>
       </section>

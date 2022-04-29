@@ -11,6 +11,7 @@ import RegisterForm from "./components/user/RegisterForm";
 import MainPage from "./components/main/MainPage";
 import MyPage from "./components/user/mypage/MyPage";
 import RestaurantDetailPage from "./components/restaurant/RestaurantDetailPage";
+import UnregisterConfirmationPage from "./components/user/UnregisterConfirmationPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/unregister" element={<UnregisterConfirmationPage />} />
         <Route path="/restaurants/:id" element={<RestaurantDetailPage />} />
       </Routes>
     </Router>
