@@ -12,6 +12,7 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState(user.name);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,23 +32,36 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
   const isFormValid =
     isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
 
-  const handleCancelClick = () => {
+  const handleCancelClick = (e) => {
     setEffect(styles.unmount);
     setTimeout(() => {
       setIsModalOpen(false);
     }, 300);
   };
 
-  const handleUpdate = async () => {
-    const updatedUser = await Api.put("users", { name, email, password });
-    dispatch(update(updatedUser));
-    handleCancelClick();
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    try {
+      const updatedUser = await Api.put("users", { name, email, password });
+      dispatch(update(updatedUser.data));
+      handleCancelClick();
+    } catch (e) {
+      setErrorMessage(e.response.data.msg);
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3800);
+    }
   };
 
   const handleUnregister = () => {
-    Api.delete("users");
-    dispatch(logout());
-    navigate("/unregister");
+    try {
+      Api.delete("users");
+      dispatch(logout());
+      navigate("/unregister");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
@@ -68,6 +82,9 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
 
   return (
     <div className={`${styles.container} ${effect}`}>
+      {errorMessage && (
+        <div className={styles.error_message}>{errorMessage}</div>
+      )}
       <section>
         <span className={styles.modal_title}>회원 정보 수정</span>
         <form className={styles.update_form}>
@@ -141,7 +158,7 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
           </div>
 
           <button
-            className={!isFormValid && styles.invalid_button}
+            className={!isFormValid ? styles.invalid_button : ""}
             disabled={!isFormValid}
             onClick={handleUpdate}
           >
