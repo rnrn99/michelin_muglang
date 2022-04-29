@@ -37,22 +37,22 @@ class Restaurant {
   }
 
   static async findByName({ name }) {
-    const restaurant = await RestaurantModel.findOne({ name });
+    const restaurant = await RestaurantModel.findOne({ name }).lean();
     return restaurant;
   }
 
   static async findById({ id }) {
-    const restaurant = await RestaurantModel.findOne({ _id: id });
+    const restaurant = await RestaurantModel.findOne({ _id: id }).lean();
     return restaurant;
   }
 
   static async findAllByCountry({ country }) {
-    const restaurants = await RestaurantModel.find({ country });
+    const restaurants = await RestaurantModel.find({ country }).lean();
     return restaurants;
   }
 
   static async findAll() {
-    const restaurants = await RestaurantModel.find({});
+    const restaurants = await RestaurantModel.find({}).lean();
     return restaurants;
   }
 
@@ -68,7 +68,8 @@ class Restaurant {
       const restaurants = await RestaurantModel.find({ country })
         .sort({ _id: 1 })
         .skip((page - 1) * pageSize)
-        .limit(pageSize);
+        .limit(pageSize)
+        .lean();
 
       restaurants.lastPage = lastPage;
 
@@ -90,7 +91,8 @@ class Restaurant {
       const restaurants = await RestaurantModel.find({})
         .sort({ _id: 1 })
         .skip((page - 1) * pageSize)
-        .limit(pageSize);
+        .limit(pageSize)
+        .lean();
 
       restaurants.lastPage = lastPage;
 
@@ -114,7 +116,8 @@ class Restaurant {
       })
         .sort({ _id: 1 })
         .skip((page - 1) * pageSize)
-        .limit(pageSize);
+        .limit(pageSize)
+        .lean();
 
       restaurants.lastPage = lastPage;
 
@@ -163,7 +166,8 @@ class Restaurant {
       })
         .sort({ _id: 1 })
         .skip((page - 1) * pageSize)
-        .limit(pageSize);
+        .limit(pageSize)
+        .lean();
 
       restaurants.lastPage = lastPage;
 
