@@ -77,6 +77,12 @@ class userAuthService {
       return { errorMessage };
     }
 
+    if (toUpdate.password) {
+      // 비밀번호 해쉬화
+      const hashedPassword = await bcrypt.hash(toUpdate.password, 10);
+      toUpdate.password = hashedPassword;
+    }
+
     // email 중복 확인
     if (toUpdate.email) {
       if (toUpdate.email && user.email !== toUpdate.email) {

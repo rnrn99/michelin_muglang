@@ -1,5 +1,6 @@
 import { UserModel } from "../schemas/user.mjs";
 import { RestaurantModel } from "../schemas/restaurant.mjs";
+import { ReviewModel } from "../schemas/review.mjs";
 
 class User {
   static async create({ newUser }) {
@@ -36,7 +37,24 @@ class User {
   }
 
   static async delete({ id }) {
+    // 회원 탈퇴 시, 북마크한 것들을 다 취소하고자 함. (for문이 적절한 건지 잘 모르겠습니다)
+    const userInfo = await UserModel.findOne({ id }).lean();
+    console.log(userInfo.name);
+    for (let i = 0; i < userInfo.bookmarks.length; i++) {
+      restaurantId = userInfo.bookmarks[i];
+      const unbookmark = await RestaurantModel.findOneAndUpdate(
+        { _id: restaurantId },
+        { $inc: { bookmarkCount: -1 } },
+        { returnOriginal: false },
+      );
+    }
+
+    // 회원 탈퇴 시, 리뷰 데이터 삭제
+    const deleteReviews = await ReviewModel.deleteMany({ userId: id });
+    console.log(deleteReviews); // 리뷰 삭제 확인용
+
     const ret = await UserModel.findOneAndDelete({ id });
+
     return ret;
   }
 
@@ -47,12 +65,12 @@ class User {
     const option = { returnOriginal: false };
 
     const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
-    const result = await RestaurantModel.findOneAndUpdate(
+    const bookmark = await RestaurantModel.findOneAndUpdate(
       { _id: restaurantId },
       { $inc: { bookmarkCount: 1 } },
       option,
     );
-    // console.log(result); // 레스토랑 다큐먼트 확인용
+    // console.log(bookmark); // 레스토랑 다큐먼트 확인용
     return bookmarks;
   };
 
@@ -67,12 +85,12 @@ class User {
     const option = { returnOriginal: false };
 
     const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
-    const result = await RestaurantModel.findOneAndUpdate(
+    const unbookmark = await RestaurantModel.findOneAndUpdate(
       { _id: restaurantId },
       { $inc: { bookmarkCount: -1 } },
       option,
     );
-    // console.log(result); // 레스토랑 다큐먼트 확인용
+    // console.log(unbookmark); // 레스토랑 다큐먼트 확인용
     return bookmarks;
   };
 }

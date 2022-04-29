@@ -186,7 +186,7 @@ function RegisterForm() {
         </Card>
       </Container>
       <img
-        src="registerbg.jpg"
+        src="images/registerbg.jpg"
         alt="register_background"
         style={{ width: "100%", height: "100%" }}
       />

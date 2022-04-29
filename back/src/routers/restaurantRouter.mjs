@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { restaurantService } from "../services/restaurantService.mjs";
+import axios from "axios";
 
 const restaurantRouter = Router();
 
@@ -10,8 +11,8 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
     try {
       const { page, pageSize } = req.query;
 
-      if (page <= 0) {
-        const error = new Error("페이지는 1부터 시작합니다.");
+      if (page <= 0 || pageSize <= 0) {
+        const error = new Error("잘못된 페이지를 입력하셨습니다.");
         error.statusCode = 500;
         throw error;
       }
@@ -29,19 +30,13 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
               country,
             });
 
-          if (restaurants.errorMessage) {
-            throw new Error(restaurants.errorMessage);
-          }
-
           res.status(200).send(restaurants);
           return;
         } catch (error) {
           next(error);
         }
-      }
-
-      // 특정 국가에 있는 식당들의 정보를 얻음 (/restaurants?cuisine=${음식 분류})
-      else if (req.query.cuisine) {
+      } else if (req.query.cuisine) {
+        // 특정 국가에 있는 식당들의 정보를 얻음 (/restaurants?cuisine=${음식 분류})
         try {
           // URI로부터 cuisine(query)를 추출함
           const cuisine = req.query.cuisine;
@@ -51,10 +46,6 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
               pageSize,
               cuisine,
             });
-
-          if (restaurants.errorMessage) {
-            throw new Error(restaurants.errorMessage);
-          }
 
           res.status(200).send(restaurants);
           return;
@@ -68,10 +59,6 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
         page: parseInt(page) - 1,
         pageSize: parseInt(pageSize),
       });
-
-      if (restaurants.errorMessage) {
-        throw new Error(restaurants.errorMessage);
-      }
 
       res.status(200).send(restaurants);
       return;
@@ -89,12 +76,63 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
   }
 });
 
+// Path: /restaurants/search
+restaurantRouter.get("/restaurants/search", async function (req, res, next) {
+  // pagenation (/restaurants/search?page=${페이지 시작 위치}&pageSize=${페이지 크기})
+  if (req.query.page && req.query.pageSize) {
+    const { page, pageSize } = req.query;
+
+    if (page <= 0 || pageSize <= 0) {
+      const error = new Error("잘못된 페이지를 입력하셨습니다.");
+      error.statusCode = 500;
+      throw error;
+    }
+
+    // 검색할 내용이 없음 -> 전체 레스토랑 반환(검색하는 필드 입력하지 않았을 때)
+    if (Object.keys(req.query).length == 2) {
+      try {
+        const restaurants = await restaurantService.getRestaurantsPaging({
+          page: parseInt(page) - 1,
+          pageSize: parseInt(pageSize),
+        });
+
+        res.status(200).send(restaurants);
+        return;
+      } catch (error) {
+        next(error);
+      }
+    }
+
+    try {
+      const { name, address, location, minPrice, maxPrice, cuisine, award } =
+        req.query;
+
+      const restaurants = await restaurantService.getRestaruantsByQuery({
+        page: parseInt(page) - 1,
+        pageSize: parseInt(pageSize),
+        name,
+        address,
+        location,
+        minPrice,
+        maxPrice,
+        cuisine,
+        award,
+      });
+
+      res.status(200).send(restaurants);
+      return;
+    } catch (error) {
+      next(error);
+    }
+  }
+});
+
 // Path: /restaurants/:id
 restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
   // 특정 식당의 가격에 대한 환전 결과를 얻음 (/restaurants/:id?currency=${환전할 통화 코드})
   if (req.query.currency) {
     try {
-      // URI로부터 restaurant_id(params)와 currency(query)를 추출함
+      // URI로부터 id(params)와 currency(query)를 추출함
       const id = req.params.id;
       const currencyCode = req.query.currency;
 
@@ -103,10 +141,6 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
         id,
         currencyCode,
       });
-
-      if (prices.errorMessage) {
-        throw new Error(prices.errorMessage);
-      }
 
       res.status(200).send(prices);
       return;
@@ -121,14 +155,62 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
     const id = req.params.id;
     const restaurant = await restaurantService.getRestaurantInfo({ id });
 
-    if (restaurant.errorMessage) {
-      throw new Error(restaurant.errorMessage);
-    }
-
     res.status(200).send(restaurant);
   } catch (error) {
     next(error);
   }
 });
+
+// Path: /restaurants/:id/near (RESTful하지 않은 것 같은데 마땅한 게 생각나지 않음..)
+restaurantRouter.get("/restaurants/:id/near", async function (req, res, next) {
+  // 특정 식당과 가까운 식당 목록을 얻음
+  try {
+    // URI로부터 id를 추출함
+    const id = req.params.id;
+    const restaurantsNear = await restaurantService.getRestaurantsNear({ id });
+
+    res.status(200).send(restaurantsNear);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//placeId 반환용
+restaurantRouter.get(
+  "/restaurants/placeId/:id",
+  async function (req, res, next) {
+    try {
+      // URI로부터 restaurant_id를 추출함
+      const id = req.params.id;
+
+      const restaurant = await restaurantService.getRestaurantInfo({ id });
+
+      const q = restaurant.name + " " + restaurant.address;
+      const googleApiKey = process.env.GOOGLE_API_KEY;
+
+      const query = {
+        key: googleApiKey,
+        type: "restaurant",
+        query: q,
+      };
+      const ret = await axios.get(
+        "https://maps.googleapis.com/maps/api/place/textsearch/json",
+        {
+          params: query,
+        },
+      );
+
+      let placeId = "ㅈㅅ.. ㅎㅎ";
+
+      if (ret.data.results.length !== 0) {
+        placeId = ret.data.results[0].place_id;
+      }
+
+      res.status(200).send(placeId);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 export { restaurantRouter };
