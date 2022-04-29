@@ -195,12 +195,13 @@ section:nth-child(5) {
 }
 
 .info_img {
-  width: 100%;
+  max-width: 50%;
   display: flex;
   justify-content: center;
 }
 
 .info_img img {
+  max-width: 80%;
   margin: 0 2rem;
 }
 
