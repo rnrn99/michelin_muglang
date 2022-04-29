@@ -67,7 +67,7 @@ function Review({ setLoginRequestModal }) {
                   <span className={styles.date}>
                     {review.createdAt.slice(0, 10)}
                   </span>
-                  {user.id === review.userId && (
+                  {user?.id === review.userId && (
                     <>
                       <span className={styles.icon_edit}>
                         <EditIcon fontSize="small" />

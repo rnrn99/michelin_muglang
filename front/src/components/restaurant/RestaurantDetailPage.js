@@ -49,7 +49,7 @@ function RestaurantDetailPage() {
   const getRestaurantDetail = async () => {
     const getRestaurantInfo = get("restaurants", restaurantId);
     const getRestaurantReviews = get("reviewlist/restaurant", restaurantId);
-    const getUserBookmarks = get("bookmarks", user.id);
+    const getUserBookmarks = user ? get("bookmarks", user.id) : null;
 
     try {
       const [restaurantInfo, restaurantReviews, userBookmarks] =
@@ -61,7 +61,7 @@ function RestaurantDetailPage() {
 
       dispatch(setupInfo(restaurantInfo.data));
       dispatch(setupReviews(restaurantReviews.data));
-      const isBookmarked = userBookmarks.data.some(
+      const isBookmarked = userBookmarks?.data.some(
         (restaurant) => restaurant._id === restaurantId,
       );
       setBookmark(isBookmarked);
