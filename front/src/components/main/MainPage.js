@@ -39,9 +39,8 @@ function MainPage() {
     }
   };
 
-  // 스크롤 이벤트 핸들러
-  window.addEventListener("scroll", function (event) {
-    let yOffset = this.scrollY;
+  const handleScrollEvent = () => {
+    let yOffset = window.scrollY;
     let height = window.innerHeight / 1.5;
 
     for (let i = 0; i < section.length; i++) {
@@ -53,7 +52,16 @@ function MainPage() {
         break;
       }
     }
-  });
+  }
+
+  useEffect(() => {
+    // 스크롤 이벤트 핸들러
+    window.addEventListener("scroll", handleScrollEvent);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollEvent);
+    }
+  }, [])
 
   return (
     <div ref={sectionRef}>
