@@ -93,3 +93,31 @@
   padding-right: 10px;
   box-shadow: 5px 5px 5px -5px #e2e1e1;
 }
+
+.searchResult_container {
+  margin-top: 60px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.searchResult_message {
+  font-size: 25px;
+  font-weight: bold;
+  padding: 5px 0;
+}
+
+.searchResult_button {
+  background-color: transparent;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 10px;
+  font-size: 25px;
+  color: #2fc4b6;
+}
+
+.searchResult_button:hover {
+  cursor: pointer;
+  background-color: #2fc4b6;
+  color: white;
+}

@@ -4,6 +4,8 @@ import {
   faMagnifyingGlass,
   faChevronLeft,
   faChevronRight,
+  faRotateLeft,
+  faR,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
@@ -141,12 +143,12 @@ const SideBar = ({
           </div>
         )}
         {/* 검색 결과 안내 메세지 & 돌아가기 버튼 */}
-        {onSearch && (
-          <div style={{ marginTop: "40px" }}>
-            <span>검색 결과</span>
-            <a onClick={goToList} style={{ pointer: "cursor" }}>
-              전체 리스트로 돌아가기
-            </a>
+        {onSearch && !clicked && (
+          <div className={styles.searchResult_container}>
+            <p className={styles.searchResult_message}>검색 결과</p>
+            <button onClick={goToList} className={styles.searchResult_button}>
+              <FontAwesomeIcon icon={faRotateLeft} />
+            </button>
           </div>
         )}
         {/* 레스토랑 리스트 */}
