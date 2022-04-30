@@ -11,10 +11,7 @@ import axios from "axios";
 import RestaurantCard from "./RestaurantCard";
 import styles from "../../css/map/SideBar.module.css";
 
-const backendPortNumber = "5000";
-const serverUrl =
-  "http://" + window.location.hostname + ":" + backendPortNumber + "/";
-const perPage = 10;
+import { serverUrl, perPage } from "../../data/MapConstant";
 
 const SideBar = ({
   countryName,
@@ -32,27 +29,6 @@ const SideBar = ({
   const [searchKeyword, setSearchKeyword] = useState(""); //검색 키워드 저장 state
 
   const inputRef = useRef(null);
-
-  useEffect(() => {
-    const fetchRestaurants = async () => {
-      // 검색 결과 리스트를 보고 있을 때와 전체 음식점 리스트를 보고 있을 때를 구분해줘야 함
-      if (onSearch) {
-        const res = await axios.get(
-          serverUrl +
-            `restaurants/search?page=${searchPage}&pageSize=${perPage}&country=${countryName}&${selectedCategory}=${searchKeyword}`,
-        );
-        setRestaurants(res.data);
-      } else {
-        const res = await axios.get(
-          serverUrl +
-            `restaurants?country=${countryName}&page=${page}&pageSize=${perPage}`,
-        );
-        setRestaurantList(res.data);
-        setRestaurants(res.data);
-      }
-    };
-    fetchRestaurants();
-  }, [page, searchPage]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,6 +73,27 @@ const SideBar = ({
       setPage((prev) => prev + 1);
     }
   };
+
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      // 검색 결과 리스트를 보고 있을 때와 전체 음식점 리스트를 보고 있을 때를 구분해줘야 함
+      if (onSearch) {
+        const res = await axios.get(
+          serverUrl +
+            `restaurants/search?page=${searchPage}&pageSize=${perPage}&country=${countryName}&${selectedCategory}=${searchKeyword}`,
+        );
+        setRestaurants(res.data);
+      } else {
+        const res = await axios.get(
+          serverUrl +
+            `restaurants?country=${countryName}&page=${page}&pageSize=${perPage}`,
+        );
+        setRestaurantList(res.data);
+        setRestaurants(res.data);
+      }
+    };
+    fetchRestaurants();
+  }, [page, searchPage]);
 
   return (
     <>

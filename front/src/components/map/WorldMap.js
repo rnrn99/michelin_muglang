@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import * as Api from "../../api";
+import { countries } from "../../data/MapConstant";
 
 import {
   ComposableMap,
@@ -11,46 +12,6 @@ import { useNavigate } from "react-router-dom";
 import WorldMapJson from "../../data/worldMap.json";
 
 const geoUrl = WorldMapJson;
-
-const countries = [
-  "Germany",
-  "United Kingdom",
-  "Austria",
-  "China",
-  "Macao",
-  "Hong Kong",
-  "Spain",
-  "Japan",
-  "South Korea",
-  "Italy",
-  "United States",
-  "Sweden",
-  "Norway",
-  "Denmark",
-  "Singapore",
-  "Taiwan",
-  "Netherlands",
-  "Switzerland",
-  "France",
-  "Belgium",
-  "Ireland",
-  "Thailand",
-  "Portugal",
-  "Greece",
-  "Slovenia",
-  "Luxembourg",
-  "Brazil",
-  "Malta",
-  "Andorra",
-  "San Marino",
-  "Czechia",
-  "Iceland",
-  "Finland",
-  "Croatia",
-  "Hungary",
-  "Poland",
-  "Serbia",
-];
 
 const WorldMap = ({ setTooltipContent }) => {
   const navigate = useNavigate();
@@ -68,9 +29,10 @@ const WorldMap = ({ setTooltipContent }) => {
   return (
     <ComposableMap
       projectionConfig={{
-        scale: 180,
+        scale: 150,
       }}
       data-tip=""
+      viewBox="30 60 800 600"
     >
       <Geographies geography={geoUrl} style={{ pointerEvents: "none" }}>
         {({ geographies }) =>
@@ -106,7 +68,7 @@ const WorldMap = ({ setTooltipContent }) => {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              transform="translate(-5, -10)"
+              transform="translate(-5, -13)"
             >
               <svg width="60px" height="60px" viewBox="0 0 100 100">
                 <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
