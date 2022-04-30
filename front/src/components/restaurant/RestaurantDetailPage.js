@@ -54,20 +54,20 @@ function RestaurantDetailPage() {
     const getUserBookmarks = user ? get("bookmarks", user.id) : null;
 
     try {
-      const [restaurantInfo, restaurantReviews, userBookmarks] =
+      const [restaurantInformation, restaurantReviews, userBookmarks] =
         await Promise.all([
           getRestaurantInfo,
           getRestaurantReviews,
           getUserBookmarks,
         ]);
 
-      dispatch(setupInfo(restaurantInfo.data.data));
+      dispatch(setupInfo(restaurantInformation.data.data));
       dispatch(setupReviews(restaurantReviews.data));
       const isBookmarked = userBookmarks?.data.some(
         (restaurant) => restaurant._id === restaurantId,
       );
       setBookmark(isBookmarked);
-      setBgImageUrl(restaurantInfo.data.imageUrl[0]);
+      setBgImageUrl(restaurantInformation.data.imageUrl[0]);
     } catch (e) {
       // 에러처리 어떻게 해야할까
       console.log(e);
