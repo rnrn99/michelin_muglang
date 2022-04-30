@@ -61,7 +61,7 @@ function RestaurantDetailPage() {
           getUserBookmarks,
         ]);
 
-      dispatch(setupInfo(restaurantInfo.data));
+      dispatch(setupInfo(restaurantInfo.data.data));
       dispatch(setupReviews(restaurantReviews.data));
       const isBookmarked = userBookmarks?.data.some(
         (restaurant) => restaurant._id === restaurantId,
