@@ -5,7 +5,6 @@ import {
   faChevronLeft,
   faChevronRight,
   faRotateLeft,
-  faR,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
@@ -73,9 +72,9 @@ const SideBar = ({
 
   //다음 페이지로 넘기는 함수(total page를 아직 받지 못해서 임시로 3페이를 마지막페이지로 해둠)
   const goToNextPage = () => {
-    if (onSearch && searchPage <= searchTotalPage) {
+    if (onSearch && searchPage < searchTotalPage) {
       setSearchPage((prev) => prev + 1);
-    } else if (!onSearch && page <= totalPage) {
+    } else if (!onSearch && page < totalPage) {
       setPage((prev) => prev + 1);
     }
   };
