@@ -39,7 +39,7 @@ reviewRouter.patch(
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        const error = new Error("요청 내용이 비어 있습니다.");
+        const error = new Error("수정하려는 리뷰 내용이 비어 있습니다.");
         error.statusCode = 400;
         throw error;
       }

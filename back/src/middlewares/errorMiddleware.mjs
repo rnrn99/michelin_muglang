@@ -1,13 +1,14 @@
 function errorMiddleware(error, req, res, next) {
   if (error.statusCode < 500) {
-    // 로깅... Help
+    req.log.info(error);
   } else if (error.name == "ValidationError") {
-    // 로깅... Help
+    req.log.error(error);
     error.statusCode = 422;
   } else {
+    req.log.error(error);
     error.statusCode = 500;
   }
-  console.log("\x1b[33m%s\x1b[0m", error);
+  // console.log("\x1b[33m%s\x1b[0m", error);
 
   res.status(error.statusCode).send({
     msg: error.message,
