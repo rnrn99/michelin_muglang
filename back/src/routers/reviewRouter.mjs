@@ -45,8 +45,7 @@ reviewRouter.patch(
       }
 
       const id = req.params.reviewId;
-      const { text } = req.body;
-      const toUpdate = { text };
+      const toUpdate = { text: req.body.text };
 
       const updatedReview = await reviewService.updateReview({
         id,

@@ -3,8 +3,7 @@ function errorMiddleware(error, req, res, next) {
     // 로깅... Help
   } else if (error.name == "ValidationError") {
     // 로깅... Help
-    error.message = "빈 요청이 포함되어 있습니다.";
-    error.statusCode = 400;
+    error.statusCode = 422;
   } else {
     error.statusCode = 500;
   }

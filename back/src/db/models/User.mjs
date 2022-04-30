@@ -33,6 +33,16 @@ class User {
       update,
       option,
     );
+
+    if (toUpdate.name !== null) {
+      const updatedReview = await ReviewModel.updateMany(
+        { userId: id },
+        { userName: toUpdate.name },
+        option,
+      );
+      // console.log(updatedReview);
+    }
+
     return updatedUser;
   }
 
