@@ -26,6 +26,8 @@ const SideBar = ({
   const [restaurantList, setRestaurantList] = useState([]); //항상 해당 국가의 전체 음식점 리스트를 저장하는 state
   const [page, setPage] = useState(1); //전체 음식점 리스트 pagination을 담당하는 state
   const [searchPage, setSearchPage] = useState(1); //검색 시 나오는 음식점 리스트의 pagination을 담당하는 state
+  const [totalPage, setTotalPage] = useState(1);
+  const [searchTotalPage, setSearchTotalPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("name"); //검색 필터링 조건 state
   const [onSearch, setOnSearch] = useState(false); //검색 결과를 보고 있는지 여부를 나타내는 state
   const [searchKeyword, setSearchKeyword] = useState(""); //검색 키워드 저장 state
@@ -39,8 +41,10 @@ const SideBar = ({
         serverUrl +
           `restaurants/search?page=1&pageSize=${perPage}&country=${countryName}&${selectedCategory}=${inputRef.current.value}`,
       );
+      const { data, last } = res.data;
       setSearchKeyword(inputRef.current.value);
-      setRestaurants(res.data);
+      setRestaurants(data);
+      setSearchTotalPage(last);
     } catch (err) {
       console.log(err.message);
     }
@@ -69,9 +73,9 @@ const SideBar = ({
 
   //다음 페이지로 넘기는 함수(total page를 아직 받지 못해서 임시로 3페이를 마지막페이지로 해둠)
   const goToNextPage = () => {
-    if (onSearch && searchPage <= 3) {
+    if (onSearch && searchPage <= searchTotalPage) {
       setSearchPage((prev) => prev + 1);
-    } else if (!onSearch && page <= 3) {
+    } else if (!onSearch && page <= totalPage) {
       setPage((prev) => prev + 1);
     }
   };
@@ -84,14 +88,18 @@ const SideBar = ({
           serverUrl +
             `restaurants/search?page=${searchPage}&pageSize=${perPage}&country=${countryName}&${selectedCategory}=${searchKeyword}`,
         );
-        setRestaurants(res.data);
+        const { data, last } = res.data;
+        setRestaurants(data);
+        setSearchTotalPage(last);
       } else {
         const res = await axios.get(
           serverUrl +
             `restaurants?country=${countryName}&page=${page}&pageSize=${perPage}`,
         );
-        setRestaurantList(res.data);
-        setRestaurants(res.data);
+        const { data, last } = res.data;
+        setRestaurantList(data);
+        setRestaurants(data);
+        setTotalPage(last);
       }
     };
     fetchRestaurants();

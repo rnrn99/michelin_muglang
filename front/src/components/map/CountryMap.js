@@ -53,28 +53,29 @@ const CountryMap = ({
             ))
           }
         </Geographies>
-        {restaurants.map(({ _id, name, latitude, longitude }) => (
-          <Marker
-            key={_id}
-            coordinates={[longitude, latitude]}
-            onClick={() => handleClick(_id)}
-            onMouseEnter={() => setTooltipContent(name)}
-            onMouseLeave={() => setTooltipContent("")}
-          >
-            <g
-              fill="#2EC4B6"
-              stroke="none"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              transform="translate(-0.5, -4.3)"
+        {restaurants &&
+          restaurants.map(({ _id, name, latitude, longitude }) => (
+            <Marker
+              key={_id}
+              coordinates={[longitude, latitude]}
+              onClick={() => handleClick(_id)}
+              onMouseEnter={() => setTooltipContent(name)}
+              onMouseLeave={() => setTooltipContent("")}
             >
-              <svg width={size} height="10px" viewBox="0 0 100 100">
-                <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
-              </svg>
-            </g>
-          </Marker>
-        ))}
+              <g
+                fill="#2EC4B6"
+                stroke="none"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                transform="translate(-0.5, -4.3)"
+              >
+                <svg width={size} height="10px" viewBox="0 0 100 100">
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                </svg>
+              </g>
+            </Marker>
+          ))}
       </ZoomableGroup>
     </ComposableMap>
   );
