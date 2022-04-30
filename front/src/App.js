@@ -9,9 +9,15 @@ import Header from "./components/header/Header";
 import LoginForm from "./components/user/LoginForm";
 import RegisterForm from "./components/user/RegisterForm";
 import MainPage from "./components/main/MainPage";
+<<<<<<< HEAD
 import MapMainPage from "./components/map/MapMainPage";
 import DetailPage from "./components/map/DetailPage";
 import TeamPage from "./components/team/TeamPage";
+=======
+import MyPage from "./components/user/mypage/MyPage";
+import RestaurantDetailPage from "./components/restaurant/RestaurantDetailPage";
+import UnregisterConfirmationPage from "./components/user/UnregisterConfirmationPage";
+>>>>>>> mypage-front
 
 function App() {
   const dispatch = useDispatch();
@@ -56,6 +62,9 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/team-craft" element={<TeamPage />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/unregister" element={<UnregisterConfirmationPage />} />
+        <Route path="/restaurants/:id" element={<RestaurantDetailPage />} />
       </Routes>
     </Router>
   );

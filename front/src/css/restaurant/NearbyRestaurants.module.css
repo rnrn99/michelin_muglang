@@ -1,0 +1,24 @@
+.container {
+  margin: 150px 0;
+}
+
+.title {
+  font-size: 34px;
+  color: #ff9f1c;
+  font-weight: bold;
+}
+
+.restaurants {
+  width: 96%;
+  margin: 0 2%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.restaurant {
+  background-color: antiquewhite;
+  width: 240px;
+  height: 240px;
+  border-radius: 5px;
+}
