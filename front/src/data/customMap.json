@@ -25,7 +25,9 @@
     "center_first": -145,
     "center_second": 39,
     "zoom": 3.5,
-    "size": "10px"
+    "size": "10px",
+    "tx": 0.3,
+    "ty": -2.3
   },
   {
     "name": "Brazil",
@@ -39,35 +41,44 @@
     "center_first": -27,
     "center_second": 64,
     "zoom": 15,
-    "size": "10px"
+    "size": "5px",
+    "tx": 0.1,
+    "ty": -3.5
   },
   {
     "name": "Ireland",
     "center_first": -15,
     "center_second": 52,
     "zoom": 18,
-    "size": "5px"
+    "size": "7px",
+    "ty": -3.5
   },
   {
     "name": "Portugal",
     "center_first": -22,
     "center_second": 35,
     "zoom": 15,
-    "size": "5px"
+    "size": "5px",
+    "tx": 0.02,
+    "ty": -3.5
   },
   {
     "name": "Spain",
     "center_first": -10,
     "center_second": 35,
     "zoom": 13,
-    "size": "5px"
+    "size": "5px",
+    "tx": -0.5,
+    "ty": -3.6
   },
   {
     "name": "France",
     "center_first": -4,
     "center_second": 42,
     "zoom": 13,
-    "size": "5px"
+    "size": "3px",
+    "tx": 0.1,
+    "ty": -4.1
   },
   {
     "name": "Andorra",
@@ -109,7 +120,9 @@
     "center_first": 12,
     "center_second": 43.4,
     "zoom": 100,
-    "size": "5px"
+    "size": "0.5px",
+    "tx": 0.005,
+    "ty": -4.8
   },
   {
     "name": "Slovenia",
@@ -141,7 +154,9 @@
     "center_first": 10,
     "center_second": 48,
     "zoom": 13,
-    "size": "5px"
+    "size": "5px",
+    "tx": 0.1,
+    "ty": -4
   },
   {
     "name": "Sweden",
@@ -189,7 +204,8 @@
     "center_first": 18,
     "center_second": 62,
     "zoom": 9,
-    "size": "5px"
+    "size": "5px",
+    "ty": -3
   },
   {
     "name": "Switzerland",
@@ -208,9 +224,9 @@
     "size": "5px"
   },
   {
-    "name": "Czech Repbulic",
-    "center_first": -4,
-    "center_second": 42,
+    "name": "Czech Republic",
+    "center_first": 8,
+    "center_second": 46,
     "zoom": 13,
     "size": "5px",
     "tx": -0.6,
@@ -284,7 +300,7 @@
     "center_first": 125,
     "center_second": 30,
     "zoom": 10,
-    "size": "3px",
+    "size": "5px",
     "tx": -0.5,
     "ty": -4.3
   }

@@ -83,7 +83,7 @@ function MainPage() {
           <div>
             <p>미슐랭 먹을랭과 함께 전세계 맛집을 탐방해요!</p>
 
-            <a href="/">
+            <a href="/map">
               <span className={styles.text}>미슐랭 찾아보기 →</span>
               <span className={`${styles.line} ${styles.right}`}></span>
               <span className={`${styles.line} ${styles.top}`}></span>
