@@ -64,10 +64,10 @@
   display: flex;
 }
 
-.left_btn button a {
+.left_btn button {
+  cursor: pointer;
   color: #ff9f1c;
   font-size: 15px;
-  text-decoration: none;
 }
 
 .left_btn button:last-child {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/userSlice";
 import * as Api from "../../api";
@@ -8,11 +8,12 @@ import { styled } from "@mui/material/styles";
 import styles from "../../css/account/Account.module.css";
 
 function LoginForm() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState(""); // email 저장할 상태
   const [password, setPassword] = useState(""); // password 저장할 상태
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email) => {
@@ -45,7 +46,12 @@ function LoginForm() {
       sessionStorage.setItem("userToken", jwtToken);
 
       dispatch(login(user));
-      navigate("/", { replace: true });
+
+      if (location.state) {
+        navigate(location.state.pathname);
+      } else {
+        navigate("/", { replace: true });
+      }
     } catch (err) {
       console.log("로그인 실패\n", err);
     }
@@ -120,7 +126,15 @@ function LoginForm() {
 
           <Button
             variant="text"
-            onClick={() => navigate("/register")}
+            onClick={() => {
+              if (location.state) {
+                navigate("/register", {
+                  state: { pathname: location.state.pathname },
+                });
+              } else {
+                navigate("/register");
+              }
+            }}
             sx={{ color: "#FF9F1C" }}
           >
             회원가입하기

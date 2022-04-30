@@ -5,7 +5,7 @@
 
 .review_title {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .review .username {

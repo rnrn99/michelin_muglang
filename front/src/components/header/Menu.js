@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { IconButton, Drawer, Box, List, ListItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-function Menu({ isLogin, logout }) {
+function Menu({ isLogin, logout, pathname }) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -23,7 +23,10 @@ function Menu({ isLogin, logout }) {
               팀 소개
             </ListItem>
             {!isLogin ? (
-              <ListItem button onClick={() => navigate("/login")}>
+              <ListItem
+                button
+                onClick={() => navigate("/login", { state: { pathname } })}
+              >
                 LOGIN
               </ListItem>
             ) : (
