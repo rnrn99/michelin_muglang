@@ -116,6 +116,24 @@ class userAuthService {
     return user;
   }
 
+  static async getUserByEmail({ email }) {
+    const user = await User.findByEmail({ email });
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
+    if (!user) {
+      const error = new Error(
+        "해당 가입 내역이 없습니다. 다시 한 번 확인해 주세요.",
+      );
+      error.statusCode = 400;
+      throw error;
+    }
+
+    delete user.password;
+
+    return user;
+  }
+
+  //추후에 북마크 리뷰 기능도 있으면 해당 데이터도 같이 지워주기
   static async deleteUser({ id }) {
     const user = await User.delete({ id });
     return user;

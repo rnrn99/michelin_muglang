@@ -3,6 +3,8 @@ import { Router } from "express";
 import { login_required } from "../middlewares/login_required.mjs";
 import { userAuthService } from "../services/userService.mjs";
 import { body, validationResult } from "express-validator";
+import { setMailOptions, send } from "../utils/mail.mjs";
+import { generatePassword } from "../utils/password.mjs";
 
 const userAuthRouter = Router();
 
@@ -195,6 +197,44 @@ userAuthRouter.get(
       const bookmarks = await userAuthService.getBookmarks({ id });
 
       res.status(200).send(bookmarks);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+userAuthRouter.post(
+  "/password-reset",
+  body("email").notEmpty(),
+  async function (req, res, next) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        const error = new Error("요청 내용이 비어 있습니다.");
+        error.statusCode = 400;
+        throw error;
+      }
+
+      // req (request) 에서 데이터 가져오기
+      const email = req.body.email;
+
+      // 위 데이터를 이용하여 유저 db에서 유저 찾기
+      const user = await userAuthService.getUserByEmail({ email });
+      const { id, name } = user;
+      const password = generatePassword();
+      const toUpdate = { password };
+
+      const updatedUser = await userAuthService.setUser({ id, toUpdate });
+      const { to, subject, html } = setMailOptions({ email, name, password });
+
+      const { msg } = send({ to, subject, html });
+
+      const response = {
+        code: 200,
+        data: { msg, updatedUser },
+      };
+
+      res.status(200).send(response);
     } catch (error) {
       next(error);
     }
