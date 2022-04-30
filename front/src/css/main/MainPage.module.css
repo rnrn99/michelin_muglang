@@ -195,20 +195,13 @@ section:nth-child(5) {
 }
 
 .info_img {
-<<<<<<< HEAD
-  width: 100%;
-=======
   max-width: 50%;
->>>>>>> 13b3c19100e81e5a3703d7a6bb77ce47d1c8af94
   display: flex;
   justify-content: center;
 }
 
 .info_img img {
-<<<<<<< HEAD
-=======
   max-width: 80%;
->>>>>>> 13b3c19100e81e5a3703d7a6bb77ce47d1c8af94
   margin: 0 2rem;
 }
 
@@ -247,8 +240,6 @@ section:nth-child(5) {
 .info_img img:nth-child(2).active {
   animation: delay 0.5s, changeMovement 1s 0.5s ease-in-out;
 }
-<<<<<<< HEAD
-=======
 
 @media screen and (min-width: 820px) and (max-width: 1050px) {
   .greeting {
@@ -299,4 +290,3 @@ section:nth-child(5) {
     margin: 0 1rem;
   }
 }
->>>>>>> 13b3c19100e81e5a3703d7a6bb77ce47d1c8af94
