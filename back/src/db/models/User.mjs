@@ -34,7 +34,7 @@ class User {
       option,
     );
 
-    if (toUpdate.name !== null) {
+    if (toUpdate.name !== undefined) {
       const updatedReview = await ReviewModel.updateMany(
         { userId: id },
         { userName: toUpdate.name },
