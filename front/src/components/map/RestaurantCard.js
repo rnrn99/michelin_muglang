@@ -34,7 +34,7 @@ const RestaurantCard = ({ restaurant, handleClick, clicked, goToList }) => {
         </span>
         {clicked && (
           <div className={styles.detailPageBtn}>
-            <a>상세 정보 바로가기</a>
+            <a href={`/restaurants/${restaurant._id}`}>상세 정보 바로가기</a>
           </div>
         )}
       </div>
