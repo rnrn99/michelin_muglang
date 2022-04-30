@@ -73,6 +73,7 @@ reviewRouter.delete(
   },
 );
 
+// 마이페이지에서 유저의 리뷰리스트를 가져옴
 reviewRouter.get(
   "/reviewlist/user/:userId",
   login_required,
@@ -87,6 +88,7 @@ reviewRouter.get(
   },
 );
 
+// 음식점 상세페이지에서 음식점의 리뷰리스트를 가져옴
 reviewRouter.get(
   "/reviewlist/restaurant/:restaurantId",
   async function (req, res, next) {

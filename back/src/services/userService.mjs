@@ -116,13 +116,12 @@ class userAuthService {
     return user;
   }
 
-  //추후에 북마크 리뷰 기능도 있으면 해당 데이터도 같이 지워주기
   static async deleteUser({ id }) {
     const user = await User.delete({ id });
     return user;
   }
 
-  // 북마크 관련 모델
+  // 북마크
   static updateBookmark = async ({ id, restaurantId }) => {
     const bookmarks = await User.updateBookmark({ id, restaurantId });
     return bookmarks;

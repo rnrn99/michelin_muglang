@@ -34,13 +34,14 @@ class User {
       option,
     );
 
+    // 유저 이름 수정 시, 리뷰 데이터도 업데이트
     if (toUpdate.name !== undefined) {
       const updatedReview = await ReviewModel.updateMany(
         { userId: id },
         { userName: toUpdate.name },
         option,
       );
-      // console.log(updatedReview);
+      // console.log(updatedReview); // 업데이트 확인용
     }
 
     return updatedUser;
@@ -49,7 +50,7 @@ class User {
   static async delete({ id }) {
     // 회원 탈퇴 시, 북마크한 것들을 다 취소하고자 함. (for문이 적절한 건지 잘 모르겠습니다)
     const userInfo = await UserModel.findOne({ id }).lean();
-    console.log(userInfo.name);
+
     for (let i = 0; i < userInfo.bookmarks.length; i++) {
       restaurantId = userInfo.bookmarks[i];
       const unbookmark = await RestaurantModel.findOneAndUpdate(
@@ -61,7 +62,7 @@ class User {
 
     // 회원 탈퇴 시, 리뷰 데이터 삭제
     const deleteReviews = await ReviewModel.deleteMany({ userId: id });
-    console.log(deleteReviews); // 리뷰 삭제 확인용
+    // console.log(deleteReviews); // 리뷰 삭제 확인용
 
     const ret = await UserModel.findOneAndDelete({ id });
 
