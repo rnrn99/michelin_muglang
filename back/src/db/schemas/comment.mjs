@@ -15,6 +15,10 @@ const CommentSchema = new Schema(
       type: String,
       required: true,
     },
+    mentionName: {
+      type: String,
+      required: false,
+    },
     text: {
       type: String,
       required: true,

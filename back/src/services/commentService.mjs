@@ -1,7 +1,7 @@
 import { Comment, Review, User } from "../db/index.mjs";
 
 class CommentService {
-  static createComment = async ({ reviewId, userId, text }) => {
+  static createComment = async ({ reviewId, userId, mentionName, text }) => {
     const review = await Review.findByReviewId({
       id: reviewId,
     });
@@ -17,6 +17,7 @@ class CommentService {
       reviewId,
       userId,
       userName: user.name,
+      mentionName,
       text,
     };
 

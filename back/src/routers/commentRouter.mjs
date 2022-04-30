@@ -20,11 +20,12 @@ commentRouter.post(
       }
 
       const userId = req.currentUserId;
-      const { reviewId, text } = req.body;
+      const { reviewId, mentionName, text } = req.body ?? null;
 
       const createdNewComment = await CommentService.createComment({
         reviewId,
         userId,
+        mentionName,
         text,
       });
 
