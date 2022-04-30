@@ -2,6 +2,7 @@ import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required.mjs";
 import { userAuthService } from "../services/userService.mjs";
+import { body, validationResult } from "express-validator";
 
 const userAuthRouter = Router();
 
@@ -60,9 +61,9 @@ userAuthRouter.get(
   async function (req, res, next) {
     try {
       // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
-      const user_id = req.currentUserId;
+      const id = req.currentUserId;
       const currentUserInfo = await userAuthService.getUserInfo({
-        user_id,
+        id,
       });
 
       if (currentUserInfo.errorMessage) {
@@ -79,16 +80,25 @@ userAuthRouter.get(
 userAuthRouter.put("/users", login_required, async function (req, res, next) {
   try {
     // 현재 로그인된 사용자 id를 추출함.
-    const user_id = req.currentUserId;
+    const id = req.currentUserId;
     // body data 로부터 업데이트할 사용자 정보를 추출함.
+    let toUpdate = {};
+
     const name = req.body.name ?? null;
+    if (name) {
+      toUpdate = { ...toUpdate, name };
+    }
     const email = req.body.email ?? null;
+    if (email) {
+      toUpdate = { ...toUpdate, email };
+    }
     const password = req.body.password ?? null;
+    if (password) {
+      toUpdate = { ...toUpdate, password };
+    }
 
-    const toUpdate = { name, email, password };
-
-    // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
-    const updatedUser = await userAuthService.setUser({ user_id, toUpdate });
+    // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함.
+    const updatedUser = await userAuthService.setUser({ id, toUpdate });
 
     if (updatedUser.errorMessage) {
       throw new Error(updatedUser.errorMessage);
@@ -105,8 +115,8 @@ userAuthRouter.get(
   login_required,
   async function (req, res, next) {
     try {
-      const user_id = req.params.id;
-      const currentUserInfo = await userAuthService.getUserInfo({ user_id });
+      const id = req.params.id;
+      const currentUserInfo = await userAuthService.getUserInfo({ id });
 
       if (currentUserInfo.errorMessage) {
         throw new Error(currentUserInfo.errorMessage);
@@ -122,10 +132,10 @@ userAuthRouter.get(
 userAuthRouter.delete("/users", login_required, async (req, res, next) => {
   try {
     // 현재 로그인된 사용자 id를 추출함.
-    const user_id = req.currentUserId;
+    const id = req.currentUserId;
 
     // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 삭제함.
-    const deletedUser = await userAuthService.deleteUser({ user_id });
+    const deletedUser = await userAuthService.deleteUser({ id });
 
     if (deletedUser.errorMessage) {
       throw new Error(deletedUser.errorMessage);
@@ -136,5 +146,59 @@ userAuthRouter.delete("/users", login_required, async (req, res, next) => {
     next(error);
   }
 });
+
+// 북마크 추가(do)/취소(undo)
+userAuthRouter.patch(
+  "/bookmarks/:behavior",
+  login_required,
+  body("restaurantId").notEmpty(),
+  async function (req, res, next) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        const error = new Error("요청 내용이 비어 있습니다.");
+        error.statusCode = 400;
+        throw error;
+      }
+
+      const id = req.currentUserId;
+      const { restaurantId } = req.body;
+
+      if (req.params.behavior == "do") {
+        const bookmarks = await userAuthService.updateBookmark({
+          id,
+          restaurantId,
+        });
+
+        res.status(200).json(bookmarks);
+      } else if (req.params.behavior == "undo") {
+        const bookmarks = await userAuthService.deleteBookmark({
+          id,
+          restaurantId,
+        });
+
+        res.status(200).json(bookmarks);
+      }
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+// 유저의 북마크 리스트를 가져옴.
+userAuthRouter.get(
+  "/bookmarks/:id",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const id = req.params.id;
+      const bookmarks = await userAuthService.getBookmarks({ id });
+
+      res.status(200).send(bookmarks);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 export { userAuthRouter };

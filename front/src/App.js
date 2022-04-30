@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import * as Api from "./api";
 import { login } from "./redux/userSlice";
 
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 import LoginForm from "./components/user/LoginForm";
 import RegisterForm from "./components/user/RegisterForm";
 import MainPage from "./components/main/MainPage";
+import MapMainPage from "./components/map/MapMainPage";
+import DetailPage from "./components/map/DetailPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,7 +19,7 @@ function App() {
   // 아래 코드를 보면 isFetchCompleted 가 true여야 컴포넌트가 구현됨.
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
 
-  const fetchCurrentUser = async () => {
+  const fetchCurrentUser = useCallback(async () => {
     try {
       // 이전에 발급받은 토큰이 있다면, 이를 가지고 유저 정보를 받아옴.
       const res = await Api.get("users/current");
@@ -32,7 +34,7 @@ function App() {
     }
     // fetchCurrentUser 과정이 끝났으므로, isFetchCompleted 상태를 true로 바꿔줌
     setIsFetchCompleted(true);
-  };
+  }, []);
 
   // useEffect함수를 통해 fetchCurrentUser 함수를 실행함.
   useEffect(() => {
@@ -48,6 +50,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" exact element={<MainPage />} />
+        <Route path="/map" exact element={<MapMainPage />} />
+        <Route path="/detail" exact element={<DetailPage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
       </Routes>

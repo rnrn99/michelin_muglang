@@ -13,7 +13,7 @@ BASEDIR = BASEDIR[:BASEDIR.rfind('/')]
 load_dotenv(os.path.join(BASEDIR, 'back/.env'))
 
 # michelinMuglang db에 연결
-file = os.path.join(BASEDIR, "data/michelin_my_maps.csv")
+file = os.path.join(BASEDIR, "raw_data/michelin_my_maps.csv")
 mongodb = os.getenv("MONGODB_URL")
 client = MongoClient(mongodb)
 db = client.michelinMuglang
@@ -47,6 +47,9 @@ michelin["maxPrice"] = michelin["maxPrice"].replace(-1, np.nan)
 michelin["phoneNumber"] = michelin["phoneNumber"].fillna(-1)
 michelin["phoneNumber"] = michelin["phoneNumber"].apply(lambda x:'+'+str(int(x)))
 michelin["phoneNumber"] = michelin["phoneNumber"].replace("+-1", np.nan)
+
+# longitude와 latitude로 coordinate(좌표) 생성
+michelin["coordinate"] = michelin.apply(lambda row: [row["longitude"], row["latitude"]], axis=1)
 
 dataJson = json.loads(michelin.to_json(orient="records"))
 

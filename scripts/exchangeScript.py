@@ -12,7 +12,7 @@ BASEDIR = BASEDIR[:BASEDIR.rfind('/')]
 load_dotenv(os.path.join(BASEDIR, 'back/.env'))
 
 # michelinMuglang db에 연결
-file = os.path.join(BASEDIR, "data/exchange_rates.csv")
+file = os.path.join(BASEDIR, "raw_data/exchange_rates.csv")
 mongodb = os.getenv("MONGODB_URL")
 client = MongoClient(mongodb)
 db = client.michelinMuglang
@@ -25,6 +25,8 @@ currencyExchange = currencyExchange.drop(columns=["Unnamed: 0", "Country/Currenc
 
 # 가장 최신 데이터만 남기고 나머지 제거
 currencyExchange = currencyExchange.drop_duplicates(["currency"], keep="last")
+
+currencyExchange = currencyExchange.rename(columns = {"currency":"code"})
 
 dataJson = json.loads(currencyExchange.to_json(orient="records"))
 

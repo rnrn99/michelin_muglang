@@ -59,6 +59,11 @@ const RestaurantSchema = new Schema(
       type: String,
       required: true,
     },
+    bookmarkCount: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
   },
   {
     timestamps: true,
