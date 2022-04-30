@@ -9,7 +9,7 @@ class MapService {
     let ret = await Country.getAllCountry();
 
     //for문 너무 어지럽게 써서 깔끔하게 줄이고 싶네요
-    for (let i = 0; i + 10 < ret.length; i += 10) {
+    for (let i = 0; i < ret.length; i += 10) {
       let arr = [];
       for (let j = 0; j < 10; j++) {
         if (i + j < ret.length) {
@@ -25,7 +25,6 @@ class MapService {
         }
       }
     }
-
     return GeoJSON.parse(ret, { Point: ["lat", "lng"] });
   }
 
@@ -33,7 +32,7 @@ class MapService {
   static async getWorldMarker() {
     let ret = await Country.getAllCountry();
 
-    for (let i = 0; i + 10 < ret.length; i += 10) {
+    for (let i = 0; i < ret.length; i += 10) {
       let arr = [];
       for (let j = 0; j < 10; j++) {
         if (i + j < ret.length) {
