@@ -59,7 +59,7 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
     try {
       Api.delete("users");
       dispatch(logout());
-      navigate("/unregister");
+      navigate("/unregister", { replace: true });
     } catch (e) {
       console.log(e);
     }
