@@ -24,18 +24,14 @@ const CountryMap = ({
 
   React.useEffect(() => {
     (async () => {
-      const res = await Api.get("map/border/China");
-      const data = 
-        {
-          "type": "FeatureCollection",
-          "features": [
-            res.data
-          ]
-        }
+      const res = await Api.get(`map/border/${countryName}`);
+      const data = {
+        type: "FeatureCollection",
+        features: [res.data],
+      };
       setGeoData(data);
-    })()
-    
-  }, [])
+    })();
+  }, []);
 
   return (
     <ComposableMap
@@ -52,9 +48,9 @@ const CountryMap = ({
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  fill="#EAEAEC"
-                  stroke="#D6D6DA"
-                  strokeWidth="0.3"
+                  fill="#ff9f1c"
+                  stroke="#ff9f1c"
+                  strokeWidth="0.15"
                 />
               ))
           }
