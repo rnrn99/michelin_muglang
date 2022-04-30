@@ -3,16 +3,30 @@ import nodemailer from "nodemailer";
 function setMailOptions({ email, name, password }) {
   return {
     to: email,
-    subject: "[미슐랭 먹을랭] 회원님의 임시 비밀번호 입니다.",
-    html: `<h1>임시 비빌번호</h1>
-          <div>
-            안녕하세요. ${name} 님.
-            아래의 비밀번호는 회원님께 발급된 임시 비밀번호입니다.
+    subject: `[미슐랭 먹을랭] ${name} 님의 임시 비밀번호 입니다.`,
+    html: `    
+    <div>
+      <h1>임시 비밀번호</h1>
+      <div>
+        안녕하세요. ${name} 님. 아래의 비밀번호는 회원님께 발급된
+        <b> 임시 비밀번호 </b>입니다.
 
-            <p style="font-weight: bold; background-color: powderblue;">${password}</p>
+        <p
+          style="
+            font-weight: bold;
+            background-color: #8884d7;
+            width: 200px;
+            text-align: center;
+            padding: 5px;
+            border-radius: 5px;
+          "
+        >
+          ${password}
+        </p>
 
-            로그인 후, 새로운 비밀번호로 변경해주세요.
-          </div>`,
+        로그인 후, 새로운 비밀번호로 변경해주세요.
+      </div>
+  </div>`,
   };
 }
 
