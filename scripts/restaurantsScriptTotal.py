@@ -2,7 +2,11 @@ import os
 import pandas as pd
 import numpy as np
 import json
+<<<<<<< HEAD
 from pymongo import MongoClient
+=======
+from pymongo import MongoClient, GEOSPHERE
+>>>>>>> 13b3c19100e81e5a3703d7a6bb77ce47d1c8af94
 from dotenv import load_dotenv
 from urllib.request import urlopen, HTTPError
 from bs4 import BeautifulSoup
@@ -81,4 +85,9 @@ if "restaurants" in db.list_collection_names():
        db.restaurants.drop()
        print("collection has been dropped")
 
+<<<<<<< HEAD
 db.restaurants.insert_many(dataJson)
+=======
+db.restaurants.insert_many(dataJson)
+db.restaurants.create_index([("coordinate", GEOSPHERE)])
+>>>>>>> 13b3c19100e81e5a3703d7a6bb77ce47d1c8af94

@@ -13,7 +13,7 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
 
       if (page <= 0 || pageSize <= 0) {
         const error = new Error("잘못된 페이지를 입력하셨습니다.");
-        error.statusCode = 500;
+        error.statusCode = 400;
         throw error;
       }
 
@@ -23,14 +23,24 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
         try {
           // URI로부터 country(query)를 추출함
           const country = req.query.country;
-          const restaurants =
-            await restaurantService.getRestaurantsByCountryPaging({
-              page,
-              pageSize,
-              country,
-            });
+          const {
+            restaurants,
+            lastPage,
+            len,
+          } = await restaurantService.getRestaurantsByCountryPaging({
+            page,
+            pageSize,
+            country,
+          });
 
-          res.status(200).send(restaurants);
+          const response = {
+            code: 200,
+            total: len,
+            data: restaurants,
+            last: lastPage,
+          };
+
+          res.status(200).send(response);
           return;
         } catch (error) {
           next(error);
@@ -40,14 +50,24 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
         try {
           // URI로부터 cuisine(query)를 추출함
           const cuisine = req.query.cuisine;
-          const restaurants =
-            await restaurantService.getRestaurantsByCuisinePaging({
-              page,
-              pageSize,
-              cuisine,
-            });
+          const {
+            restaurants,
+            lastPage,
+            len,
+          } = await restaurantService.getRestaurantsByCuisinePaging({
+            page,
+            pageSize,
+            cuisine,
+          });
 
-          res.status(200).send(restaurants);
+          const response = {
+            code: 200,
+            total: len,
+            data: restaurants,
+            last: lastPage,
+          };
+
+          res.status(200).send(response);
           return;
         } catch (error) {
           next(error);
@@ -55,23 +75,32 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
       }
 
       // 전체 식당 중 일부를 paging하여 얻음
-      const restaurants = await restaurantService.getRestaurantsPaging({
-        page: parseInt(page) - 1,
-        pageSize: parseInt(pageSize),
+      const {
+        restaurants,
+        lastPage,
+        len,
+      } = await restaurantService.getRestaurantsPaging({
+        page,
+        pageSize,
       });
 
-      res.status(200).send(restaurants);
+      const response = {
+        code: 200,
+        total: len,
+        data: restaurants,
+        last: lastPage,
+      };
+
+      res.status(200).send(response);
       return;
     } catch (error) {
       next(error);
     }
-  }
-
-  // 전체 식당의 목록을 얻음
-  try {
-    const restaurants = await restaurantService.getRestaurants();
-    res.status(200).send(restaurants);
-  } catch (error) {
+  } else {
+    const error = new Error(
+      "조회할 페이지(page)와 페이지의 크기(pageSize)를 지정해주세요.",
+    );
+    error.statusCode = 400;
     next(error);
   }
 });
@@ -84,19 +113,30 @@ restaurantRouter.get("/restaurants/search", async function (req, res, next) {
 
     if (page <= 0 || pageSize <= 0) {
       const error = new Error("잘못된 페이지를 입력하셨습니다.");
-      error.statusCode = 500;
+      error.statusCode = 400;
       throw error;
     }
 
     // 검색할 내용이 없음 -> 전체 레스토랑 반환(검색하는 필드 입력하지 않았을 때)
     if (Object.keys(req.query).length == 2) {
       try {
-        const restaurants = await restaurantService.getRestaurantsPaging({
-          page: parseInt(page) - 1,
-          pageSize: parseInt(pageSize),
+        const {
+          restaurants,
+          lastPage,
+          len,
+        } = await restaurantService.getRestaurantsPaging({
+          page,
+          pageSize,
         });
 
-        res.status(200).send(restaurants);
+        const response = {
+          code: 200,
+          total: len,
+          data: restaurants,
+          last: lastPage,
+        };
+
+        res.status(200).send(response);
         return;
       } catch (error) {
         next(error);
@@ -104,12 +144,23 @@ restaurantRouter.get("/restaurants/search", async function (req, res, next) {
     }
 
     try {
-      const { name, address, location, minPrice, maxPrice, cuisine, award } =
-        req.query;
+      const {
+        name,
+        address,
+        location,
+        minPrice,
+        maxPrice,
+        cuisine,
+        award,
+      } = req.query;
 
-      const restaurants = await restaurantService.getRestaruantsByQuery({
-        page: parseInt(page) - 1,
-        pageSize: parseInt(pageSize),
+      const {
+        restaurants,
+        lastPage,
+        len,
+      } = await restaurantService.getRestaruantsByQuery({
+        page,
+        pageSize,
         name,
         address,
         location,
@@ -119,11 +170,24 @@ restaurantRouter.get("/restaurants/search", async function (req, res, next) {
         award,
       });
 
-      res.status(200).send(restaurants);
+      const response = {
+        code: 200,
+        total: len,
+        data: restaurants,
+        last: lastPage,
+      };
+
+      res.status(200).send(response);
       return;
     } catch (error) {
       next(error);
     }
+  } else {
+    const error = new Error(
+      "조회할 페이지(page)와 페이지의 크기(pageSize)를 지정해주세요.",
+    );
+    error.statusCode = 400;
+    next(error);
   }
 });
 
@@ -142,7 +206,12 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
         currencyCode,
       });
 
-      res.status(200).send(prices);
+      const response = {
+        code: 200,
+        data: prices,
+      };
+
+      res.status(200).send(response);
       return;
     } catch (error) {
       next(error);
@@ -155,7 +224,12 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
     const id = req.params.id;
     const restaurant = await restaurantService.getRestaurantInfo({ id });
 
-    res.status(200).send(restaurant);
+    const response = {
+      code: 200,
+      data: restaurant,
+    };
+
+    res.status(200).send(response);
   } catch (error) {
     next(error);
   }
@@ -169,7 +243,12 @@ restaurantRouter.get("/restaurants/:id/near", async function (req, res, next) {
     const id = req.params.id;
     const restaurantsNear = await restaurantService.getRestaurantsNear({ id });
 
-    res.status(200).send(restaurantsNear);
+    const response = {
+      code: 200,
+      data: restaurantsNear,
+    };
+
+    res.status(200).send(response);
   } catch (error) {
     next(error);
   }

@@ -37,12 +37,12 @@ class Restaurant {
   }
 
   static async findByName({ name }) {
-    const restaurant = await RestaurantModel.findOne({ name });
+    const restaurant = await RestaurantModel.findOne({ name }).lean();
     return restaurant;
   }
 
   static async findById({ id }) {
-    const restaurant = await RestaurantModel.findOne({ _id: id });
+    const restaurant = await RestaurantModel.findOne({ _id: id }).lean();
     return restaurant;
   }
 
@@ -52,7 +52,7 @@ class Restaurant {
   }
 
   static async findAll() {
-    const restaurants = await RestaurantModel.find({});
+    const restaurants = await RestaurantModel.find({}).lean();
     return restaurants;
   }
 
@@ -62,45 +62,44 @@ class Restaurant {
   }
 
   static async findAllByCountryPaging({ page, pageSize, country }) {
-    try {
-      const restaurants = await RestaurantModel.find({ country })
-        .sort({ _id: 1 })
-        .skip(page * pageSize)
-        .limit(pageSize)
-        .lean();
+    const len = await RestaurantModel.countDocuments({ country });
+    const lastPage = Math.ceil(len / pageSize);
 
-      const len = await RestaurantModel.countDocuments({ country });
-      restaurants.lastPage = Math.ceil(len / pageSize) - 1;
-      return restaurants;
-    } catch (error) {
-      return error;
-    }
+    const restaurants = await RestaurantModel.find({ country })
+      .sort({ _id: 1 })
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
+      .lean();
+
+    return { restaurants, lastPage, len };
   }
 
   static async findAllPaging({ page, pageSize }) {
-    try {
-      const restaurants = await RestaurantModel.find({})
-        .sort({ _id: 1 })
-        .skip(page * pageSize)
-        .limit(pageSize);
-      return restaurants;
-    } catch (error) {
-      return error;
-    }
+    const len = await RestaurantModel.countDocuments({});
+    const lastPage = Math.ceil(len / pageSize);
+
+    const restaurants = await RestaurantModel.find({})
+      .sort({ _id: 1 })
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
+      .lean();
+
+    return { restaurants, lastPage, len };
   }
 
   static async findAllByCuisinePaging({ page, pageSize, cuisine }) {
-    try {
-      const restaurants = await RestaurantModel.find({
-        cuisine,
-      })
-        .sort({ _id: 1 })
-        .skip(page * pageSize)
-        .limit(pageSize);
-      return restaurants;
-    } catch (error) {
-      return error;
-    }
+    const len = await RestaurantModel.countDocuments({ cuisine });
+    const lastPage = Math.ceil(len / pageSize);
+
+    const restaurants = await RestaurantModel.find({
+      cuisine,
+    })
+      .sort({ _id: 1 })
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
+      .lean();
+
+    return { restaurants, lastPage, len };
   }
 
   static async findAllByQuery({
@@ -114,23 +113,33 @@ class Restaurant {
     cuisine = "",
     award = "",
   }) {
-    try {
-      const restaurants = await RestaurantModel.find({
-        name: { $regex: name, $options: "i" },
-        address: { $regex: address, $options: "i" },
-        location: { $regex: location, $options: "i" },
-        minPrice: { $gte: parseInt(minPrice) },
-        maxPrice: { $lte: parseInt(maxPrice) },
-        cuisine: { $regex: cuisine, $options: "i" },
-        award: { $regex: award, $options: "i" },
-      })
-        .sort({ _id: 1 })
-        .skip(page * pageSize)
-        .limit(pageSize);
-      return restaurants;
-    } catch (error) {
-      return error;
-    }
+    const len = await RestaurantModel.countDocuments({
+      name: { $regex: name, $options: "i" },
+      address: { $regex: address, $options: "i" },
+      location: { $regex: location, $options: "i" },
+      minPrice: { $gte: parseInt(minPrice) },
+      maxPrice: { $lte: parseInt(maxPrice) },
+      cuisine: { $regex: cuisine, $options: "i" },
+      award: { $regex: award, $options: "i" },
+    });
+
+    const lastPage = Math.ceil(len / pageSize);
+
+    const restaurants = await RestaurantModel.find({
+      name: { $regex: name, $options: "i" },
+      address: { $regex: address, $options: "i" },
+      location: { $regex: location, $options: "i" },
+      minPrice: { $gte: parseInt(minPrice) },
+      maxPrice: { $lte: parseInt(maxPrice) },
+      cuisine: { $regex: cuisine, $options: "i" },
+      award: { $regex: award, $options: "i" },
+    })
+      .sort({ _id: 1 })
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
+      .lean();
+
+    return { restaurants, lastPage, len };
   }
 
   static async findRestaurantsNearById({ id }) {

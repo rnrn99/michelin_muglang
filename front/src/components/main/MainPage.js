@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "../../css/main/MainPage.module.css";
 import SectionCovid from "./SectionCovid";
 import SectionVaccine from "./SectionVaccine";
@@ -9,37 +9,22 @@ function MainPage() {
   const [section, setSection] = useState([]); // section을 저장할 상태
   const [activeBtn, setActiveBtn] = useState(0); // 활성화된 nav btn 저장할 상태
 
-  // section 세팅
-  useEffect(() => {
-    const s = sectionRef.current.getElementsByTagName("section");
-    setSection(s);
-  }, []);
-
-  // nav btn 활성화
-  useEffect(() => {
-    const pointBtn = pointRef.current.getElementsByTagName("li");
-
-    for (var i = 0; i < pointBtn.length; i++) {
-      pointBtn[i].classList.remove(styles.active);
-    }
-    pointBtn[activeBtn].classList.add(styles.active);
-  }, [activeBtn]);
-
   // nav 버튼 클릭 핸들러
   const clickPointBtn = (e) => {
-    const pageNum = e.target.id;
+    if (e.target.id) {
+      const pageNum = e.target.id;
 
-    window.scrollTo({
-      top: section[pageNum].offsetTop - 32,
-      behavior: "smooth",
-    });
+      window.scrollTo({
+        top: section[pageNum].offsetTop - 32,
+        behavior: "smooth",
+      });
 
-    setActiveBtn(pageNum);
+      setActiveBtn(pageNum);
+    }
   };
 
-  // 스크롤 이벤트 핸들러
-  window.addEventListener("scroll", function (event) {
-    let yOffset = this.scrollY;
+  const handleScrollEvent = useCallback(() => {
+    let yOffset = window.scrollY;
     let height = window.innerHeight / 1.5;
 
     for (let i = 0; i < section.length; i++) {
@@ -51,7 +36,32 @@ function MainPage() {
         break;
       }
     }
-  });
+  }, [section]);
+
+  // section 세팅
+  useEffect(() => {
+    const s = sectionRef.current.getElementsByTagName("section");
+    setSection([...s]);
+  }, []);
+
+  useEffect(() => {
+    // 스크롤 이벤트 핸들러
+    window.addEventListener("scroll", handleScrollEvent);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollEvent);
+    };
+  }, [handleScrollEvent, section]);
+
+  // nav btn 활성화
+  useEffect(() => {
+    const pointBtn = pointRef.current.getElementsByTagName("li");
+
+    for (var i = 0; i < pointBtn.length; i++) {
+      pointBtn[i].classList.remove(styles.active);
+    }
+    pointBtn[activeBtn].classList.add(styles.active);
+  }, [activeBtn]);
 
   return (
     <div ref={sectionRef}>
@@ -70,15 +80,17 @@ function MainPage() {
             <span>끝나가는 코로나!</span>{" "}
             <span>이제는 맛집을 찾으러 여행할 타이밍.</span>
           </h1>
-          <p>미슐랭 먹을랭과 함께 전세계 맛집을 탐방해요!</p>
+          <div>
+            <p>미슐랭 먹을랭과 함께 전세계 맛집을 탐방해요!</p>
 
-          <a href="/">
-            <span className={styles.text}>미슐랭 찾아보기 →</span>
-            <span className={`${styles.line} ${styles.right}`}></span>
-            <span className={`${styles.line} ${styles.top}`}></span>
-            <span className={`${styles.line} ${styles.left}`}></span>
-            <span className={`${styles.line} ${styles.bottom}`}></span>
-          </a>
+            <a href="/">
+              <span className={styles.text}>미슐랭 찾아보기 →</span>
+              <span className={`${styles.line} ${styles.right}`}></span>
+              <span className={`${styles.line} ${styles.top}`}></span>
+              <span className={`${styles.line} ${styles.left}`}></span>
+              <span className={`${styles.line} ${styles.bottom}`}></span>
+            </a>
+          </div>
         </div>
         <div className={styles.greeting_img}>
           <img src="images/greeting.png" alt="main_img" />

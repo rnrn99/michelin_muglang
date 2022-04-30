@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+  min-height: calc(100vh - 64px);
+  margin-top: 64px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container.login {
+  background-image: url("../../../public/images/loginbg.jpg");
+}
+
+.container.register {
+  background-image: url("../../../public/images/registerbg.jpg");
+}
