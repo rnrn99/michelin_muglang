@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 import json
-from pymongo import MongoClient
+from pymongo import MongoClient, GEOSPHERE
 from dotenv import load_dotenv
 
 # 상위 폴더를 base directory로 설정
@@ -58,3 +58,4 @@ if "restaurants" in db.list_collection_names():
        print("collection has been dropped")
 
 db.restaurants.insert_many(dataJson)
+db.restaurants.create_index([("coordinate", GEOSPHERE)])
