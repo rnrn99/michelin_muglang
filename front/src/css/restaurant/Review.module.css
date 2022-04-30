@@ -1,0 +1,78 @@
+.review {
+  border-bottom: 1px solid #9c9c9c;
+  padding: 30px 0;
+}
+
+.review_title {
+  display: flex;
+  align-items: center;
+}
+
+.review .username {
+  font-size: 20px;
+}
+
+.review .date {
+  margin-left: 11px;
+  font-size: 15px;
+  color: #a7a7a7;
+}
+
+.review .icon_edit {
+  margin-left: 10px;
+}
+
+.review .icon_edit,
+.review .icon_delete {
+  color: #a7a7a7;
+  transition: color 0.3s;
+}
+
+.review .icon_edit:hover,
+.review .icon_delete:hover {
+  cursor: pointer;
+  color: #ff9f1c;
+}
+
+.review .content {
+  margin-top: 18px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.edit_form {
+  position: relative;
+  margin-top: 10px;
+}
+
+.edit_form textarea {
+  resize: none;
+  width: 99%;
+  height: 80px;
+  font-size: 16px;
+}
+
+.edit_form button {
+  position: absolute;
+  font-size: 14px;
+  width: 45px;
+  height: 40px;
+  top: 20px;
+  border: none;
+  border-radius: 10px;
+  transition: background-color 0.2s;
+}
+
+.edit_form button:hover {
+  cursor: pointer;
+  background-color: #ff9f1c;
+  color: whitesmoke;
+}
+
+.edit_form button:nth-child(2) {
+  right: -50px;
+}
+
+.edit_form button:nth-child(3) {
+  right: -100px;
+}

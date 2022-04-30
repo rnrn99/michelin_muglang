@@ -3,15 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/userSlice";
 import * as Api from "../../api";
-import {
-  Button,
-  TextField,
-  Card,
-  Container,
-  Typography,
-  Box,
-} from "@mui/material";
+import { Button, TextField, Card, Typography, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import styles from "../../css/account/Account.module.css";
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -58,100 +52,82 @@ function LoginForm() {
   };
 
   return (
-    <Box
-      sx={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        zIndex: -1,
-      }}
-    >
-      <Container component="main" maxWidth="xs">
-        <Card
-          sx={{
-            display: "flex",
-            position: "absolute",
-            width: "420px",
-            top: "25%",
-            flexDirection: "column",
-            alignItems: "center",
-            backgroundColor: "white",
-            padding: 4,
-            borderRadius: 2,
-          }}
+    <div className={`${styles.container} ${styles.login}`}>
+      <Card
+        sx={{
+          display: "flex",
+          position: "absolute",
+          width: "420px",
+          top: "25%",
+          flexDirection: "column",
+          alignItems: "center",
+          backgroundColor: "white",
+          padding: 4,
+          borderRadius: 2,
+        }}
+      >
+        <Typography sx={{ fontSize: "20px" }}>로그인</Typography>
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit}
+          sx={{ mt: 3, width: "100%" }}
         >
-          <Typography sx={{ fontSize: "20px" }}>로그인</Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3, width: "100%" }}
+          <StyledTextField
+            required
+            name="email"
+            label="이메일 주소"
+            fullWidth
+            autoComplete="email"
+            margin="normal"
+            variant="standard"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          {!isEmailValid && (
+            <p style={{ color: "#FF9F1C" }}>이메일 형식이 올바르지 않습니다.</p>
+          )}
+
+          <StyledTextField
+            required
+            name="password"
+            label="비밀번호"
+            type="password"
+            fullWidth
+            autoComplete="current-password"
+            margin="normal"
+            variant="standard"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          {!isPasswordValid && (
+            <p style={{ color: "#FF9F1C" }}>비밀번호는 4글자 이상입니다.</p>
+          )}
+
+          <StyledButton
+            type="submit"
+            name="LOGIN"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 1 }}
+            disabled={!isFormValid}
+            onClick={handleSubmit}
           >
-            <StyledTextField
-              required
-              name="email"
-              label="이메일 주소"
-              fullWidth
-              autoComplete="email"
-              margin="normal"
-              variant="standard"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            로그인
+          </StyledButton>
 
-            {!isEmailValid && (
-              <p style={{ color: "#FF9F1C" }}>
-                이메일 형식이 올바르지 않습니다.
-              </p>
-            )}
-
-            <StyledTextField
-              required
-              name="password"
-              label="비밀번호"
-              type="password"
-              fullWidth
-              autoComplete="current-password"
-              margin="normal"
-              variant="standard"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            {!isPasswordValid && (
-              <p style={{ color: "#FF9F1C" }}>비밀번호는 4글자 이상입니다.</p>
-            )}
-
-            <StyledButton
-              type="submit"
-              name="LOGIN"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 1 }}
-              disabled={!isFormValid}
-              onClick={handleSubmit}
-            >
-              로그인
-            </StyledButton>
-
-            <Button
-              variant="text"
-              onClick={() => navigate("/register")}
-              sx={{ color: "#FF9F1C" }}
-            >
-              회원가입하기
-            </Button>
-          </Box>
-        </Card>
-      </Container>
-      <img
-        src="images/loginbg.jpg"
-        alt="login_background"
-        style={{ width: "100%", height: "100%" }}
-      />
-    </Box>
+          <Button
+            variant="text"
+            onClick={() => navigate("/register")}
+            sx={{ color: "#FF9F1C" }}
+          >
+            회원가입하기
+          </Button>
+        </Box>
+      </Card>
+    </div>
   );
 }
 

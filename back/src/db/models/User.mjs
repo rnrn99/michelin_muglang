@@ -50,7 +50,6 @@ class User {
   static async delete({ id }) {
     // 회원 탈퇴 시, 북마크한 것들을 다 취소하고자 함. (for문이 적절한 건지 잘 모르겠습니다)
     const userInfo = await UserModel.findOne({ id }).lean();
-
     for (let i = 0; i < userInfo.bookmarks.length; i++) {
       restaurantId = userInfo.bookmarks[i];
       const unbookmark = await RestaurantModel.findOneAndUpdate(

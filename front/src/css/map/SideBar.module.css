@@ -1,0 +1,123 @@
+.prevBtn,
+.nextBtn {
+  position: absolute;
+  border: none;
+  background: transparent;
+  font-size: 80px;
+  color: lightgray;
+}
+
+.prevBtn {
+  left: 40px;
+  top: 490px;
+}
+
+.nextBtn {
+  left: 500px;
+  top: 490px;
+}
+
+.prevBtn:hover,
+.nextBtn:hover {
+  color: #ff9f1c;
+}
+
+.nextBtn {
+  position: absolute;
+  border: none;
+  background: transparent;
+}
+
+.detail_restaurantsList {
+  background: transparent;
+  width: 400px;
+  height: 100vh;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  margin-left: 100px;
+  margin-top: 30px;
+}
+
+.detail_restaurantsList::-webkit-scrollbar {
+  display: none;
+}
+
+.searchForm {
+  height: 100px;
+  position: relative;
+  margin-top: 30px;
+}
+
+.searchForm_select {
+  position: absolute;
+  top: 30px;
+  left: 310px;
+  border: none;
+  height: 60px;
+  width: 85px;
+  background-color: transparent;
+}
+
+.searchForm_container_input {
+  position: absolute;
+  top: 30px;
+  background-color: white;
+  border-radius: 50px;
+  width: 250px;
+  height: 40px;
+  border: none;
+  padding: 10px 10px 10px 15px;
+  margin-left: 10px;
+  box-shadow: 5px 5px 12px 0px #e2e1e1;
+}
+
+.searchForm_container_input:focus,
+.searchForm_select:focus {
+  outline: none;
+}
+
+.searchForm_container_submitBtn {
+  background-color: white;
+  position: absolute;
+  border: none;
+  margin-top: 30px;
+  left: 230px;
+  width: 70px;
+  height: 60px;
+  border-radius: 50px;
+  padding-right: 10px;
+  box-shadow: 5px 5px 5px -5px #e2e1e1;
+}
+
+.searchResult_container {
+  margin-top: 60px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.searchResult_message {
+  font-size: 25px;
+  font-weight: bold;
+  padding: 5px 0;
+}
+
+.searchResult_button {
+  background-color: transparent;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 10px;
+  font-size: 25px;
+  color: #2fc4b6;
+}
+
+.searchResult_button:hover {
+  cursor: pointer;
+  background-color: #2fc4b6;
+  color: white;
+}

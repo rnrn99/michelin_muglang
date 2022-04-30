@@ -117,6 +117,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-button {
+button,
+input {
   font-family: "Elice Digital Baeum", sans-serif !important;
 }
