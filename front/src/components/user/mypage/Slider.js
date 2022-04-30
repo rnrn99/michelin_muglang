@@ -23,7 +23,7 @@ const Slider = ({ children, contentNum, noContentText }) => {
         <div
           className={styles.list}
           style={{
-            width: contentNum * 230 + (contentNum - 1) * 20 + 980,
+            width: contentNum * 230 + (contentNum - 1) * 20 + 1000,
             transform: `translateX(${-flag * 250}px)`,
           }}
         >
