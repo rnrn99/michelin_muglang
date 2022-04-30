@@ -1,3 +1,4 @@
+import React from "react";
 import {
   ComposableMap,
   Geographies,
@@ -5,6 +6,7 @@ import {
   ZoomableGroup,
   Marker,
 } from "react-simple-maps";
+import * as Api from "../../api";
 
 import WorldMap from "../../data/worldMap.json";
 const geoUrl = WorldMap;
@@ -18,6 +20,22 @@ const CountryMap = ({
   // const selectedCountry = customMap.filter(
   //   (map) => map.name === countryName,
   // )[0];
+  const [geoData, setGeoData] = React.useState(null);
+
+  React.useEffect(() => {
+    (async () => {
+      const res = await Api.get("map/border/China");
+      const data = 
+        {
+          "type": "FeatureCollection",
+          "features": [
+            res.data
+          ]
+        }
+      setGeoData(data);
+    })()
+    
+  }, [])
 
   return (
     <ComposableMap
@@ -26,7 +44,7 @@ const CountryMap = ({
       data-tip=""
     >
       <ZoomableGroup center={[90, 25]} zoom={6}>
-        <Geographies geography={geoUrl}>
+        <Geographies geography={geoData}>
           {({ geographies }) =>
             geographies
               .filter((d) => d.properties.name === countryName)
