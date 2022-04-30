@@ -1,20 +1,20 @@
 import nodemailer from "nodemailer";
 
-const mailOptions = {
-  from: process.env.NODEMAILERL_ID,
-  to: email,
-  subject: "[미슐랭 먹을랭] 회원님의 임시 비밀번호 입니다.",
-  html: `<h1>임시 비빌번호</h1>
+function setMailOptions({ email, name, password }) {
+  return {
+    to: email,
+    subject: "[미슐랭 먹을랭] 회원님의 임시 비밀번호 입니다.",
+    html: `<h1>임시 비빌번호</h1>
           <div>
-            안녕하세요. ${user.name} 님.
+            안녕하세요. ${name} 님.
             아래의 비밀번호는 회원님께 발급된 임시 비밀번호입니다.
 
-            <p style="font-weight: bold"></p>
+            <p style="font-weight: bold; background-color: powderblue;">${password}</p>
 
-            임시 비밀번호로 로그인하신 후, 비밀번호를 변경해주세요.
+            로그인 후, 새로운 비밀번호로 변경해주세요.
           </div>`,
-  text: "임시 비밀번호 입니다.",
-};
+  };
+}
 
 function send({ to, subject, html }) {
   try {
@@ -26,16 +26,16 @@ function send({ to, subject, html }) {
       },
     });
 
-    const info = await transporter.sendMail({
-        from: process.env.NODEMAILERL_ID,
-        to: to,
-        subject: subject,
-        html: html
+    transporter.sendMail({
+      from: process.env.NODEMAILERL_ID,
+      to,
+      subject,
+      html,
     });
-    console.log(info);
+    return { msg: "임시 비밀번호를 전송하는 데 성공하였습니다." };
   } catch (error) {
-      console.log(error);
+    throw error;
   }
 }
 
-export { send };
+export { setMailOptions, send };
