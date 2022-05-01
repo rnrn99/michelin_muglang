@@ -35,9 +35,9 @@ function Information() {
     get("restaurants", restaurantInfo._id, { currency: e.target.value }).then(
       (res) => {
         setExchangePrice(res.data.data);
+        setShowSelectBox(false);
       },
     );
-    setShowSelectBox(false);
   };
 
   const SelectBox = () => {
@@ -139,7 +139,9 @@ function Information() {
               </span>
             </div>
           </div>
-          <div className={styles.map}>{/* <Googlemap /> */}</div>
+          <div className={styles.map}>
+            <Googlemap />
+          </div>
         </div>
         <div className={styles.right}>
           <GoogleReviews />
