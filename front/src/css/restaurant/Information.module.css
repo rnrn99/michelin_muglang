@@ -72,12 +72,6 @@
 .check_btn {
   cursor: pointer;
   color: #2ec4b6;
-  transition: all 0.25s;
-}
-
-.exchange_btn:hover,
-.check_btn:hover {
-  color: #cbf3f0;
 }
 
 .information select {
