@@ -67,7 +67,7 @@ function RestaurantDetailPage() {
         (restaurant) => restaurant._id === restaurantId,
       );
       setBookmark(isBookmarked);
-      setBgImageUrl(restaurantInformation.data.imageUrl[0]);
+      setBgImageUrl(restaurantInformation.data.data.imageUrl[0]);
     } catch (e) {
       // 에러처리 어떻게 해야할까
       console.log(e);

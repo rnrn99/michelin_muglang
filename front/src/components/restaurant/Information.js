@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { get } from "../../api";
 import Googlemap from "./Googlemap";
 import GoogleReviews from "./GoogleReviews";
+import { currencyList } from "./currency";
 import styles from "../../css/restaurant/Information.module.css";
 import {
   StarBorderRounded as StarIcon,
@@ -10,10 +12,55 @@ import {
   LocationOnOutlined as LocationIcon,
   Call as CallIcon,
   Link as LinkIcon,
+  ArrowRightOutlined as ArrowIcon,
+  CurrencyExchangeOutlined as ExchangeIcon,
+  CheckCircleOutlineOutlined as CheckIcon,
 } from "@mui/icons-material";
 
 function Information() {
   const { restaurantInfo } = useSelector((state) => state.restaurant);
+  const [showSelectBox, setShowSelectBox] = useState(false);
+  const [currency, setCurrency] = useState("KRW");
+  const [exchangePrice, setExchangePrice] = useState({
+    minPrice: 0,
+    maxPrice: 0,
+  });
+
+  const onClickExchangeBtn = () => {
+    setShowSelectBox((cur) => !cur);
+  };
+
+  const changeCurrency = (e) => {
+    setCurrency(e.target.value);
+    get("restaurants", restaurantInfo._id, { currency: e.target.value }).then(
+      (res) => {
+        setExchangePrice(res.data.data);
+      },
+    );
+    setShowSelectBox(false);
+  };
+
+  const SelectBox = () => {
+    return (
+      <select value={currency} onChange={changeCurrency}>
+        {currencyList.map(([cur, country]) => (
+          <option key={cur} value={cur}>
+            {country}
+          </option>
+        ))}
+      </select>
+    );
+  };
+
+  useEffect(() => {
+    if (restaurantInfo._id) {
+      get("restaurants", restaurantInfo._id, { currency: "KRW" }).then(
+        (res) => {
+          setExchangePrice(res.data.data);
+        },
+      );
+    }
+  }, [restaurantInfo._id]);
 
   return (
     <div className={styles.container}>
@@ -31,13 +78,40 @@ function Information() {
             </div>
             <div className={styles.information}>
               <MoneyIcon />
-              {/* 환전을 어떻게 하지 */}
               <span>
                 {restaurantInfo.minPrice === restaurantInfo.maxPrice
                   ? restaurantInfo.minPrice
                   : `${restaurantInfo.minPrice} - ${restaurantInfo.maxPrice}`}{" "}
                 ({restaurantInfo.currency})
               </span>
+              <ArrowIcon />
+              {showSelectBox && (
+                <>
+                  <SelectBox />
+                  <CheckIcon
+                    className={styles.check_btn}
+                    onClick={() => {
+                      setShowSelectBox(false);
+                    }}
+                  />
+                </>
+              )}
+              {!showSelectBox && (
+                <>
+                  <span>
+                    {exchangePrice.minPrice === exchangePrice.maxPrice
+                      ? Math.round(exchangePrice.minPrice)
+                      : `${Math.round(exchangePrice.minPrice)} - ${Math.round(
+                          exchangePrice.maxPrice,
+                        )}`}{" "}
+                    ({currency})
+                  </span>
+                  <ExchangeIcon
+                    className={styles.exchange_btn}
+                    onClick={onClickExchangeBtn}
+                  />
+                </>
+              )}
             </div>
             <div className={styles.information}>
               <LocationIcon />
