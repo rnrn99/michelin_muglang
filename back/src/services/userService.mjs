@@ -111,9 +111,9 @@ class userAuthService {
       return { errorMessage };
     }
 
-    delete user.password;
+    const { password, ...rest } = user;
 
-    return user;
+    return rest;
   }
 
   static async getUserByEmail({ email }) {
@@ -128,9 +128,9 @@ class userAuthService {
       throw error;
     }
 
-    delete user.password;
+    const { password, ...rest } = user;
 
-    return user;
+    return rest;
   }
 
   //추후에 북마크 리뷰 기능도 있으면 해당 데이터도 같이 지워주기
