@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { restaurantService } from "../services/restaurantService.mjs";
+import { RestaurantService } from "../services/RestaurantService.mjs";
 
 const restaurantRouter = Router();
 
@@ -23,7 +23,7 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
           // URI로부터 country(query)를 추출함
           const country = req.query.country;
           const { restaurants, lastPage, len } =
-            await restaurantService.getRestaurantsByCountryPaging({
+            await RestaurantService.getRestaurantsByCountryPaging({
               page,
               pageSize,
               country,
@@ -47,7 +47,7 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
           // URI로부터 cuisine(query)를 추출함
           const cuisine = req.query.cuisine;
           const { restaurants, lastPage, len } =
-            await restaurantService.getRestaurantsByCuisinePaging({
+            await RestaurantService.getRestaurantsByCuisinePaging({
               page,
               pageSize,
               cuisine,
@@ -69,7 +69,7 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
 
       // 전체 식당 중 일부를 paging하여 얻음
       const { restaurants, lastPage, len } =
-        await restaurantService.getRestaurantsPaging({
+        await RestaurantService.getRestaurantsPaging({
           page,
           pageSize,
         });
@@ -111,7 +111,7 @@ restaurantRouter.get("/restaurants/search", async function (req, res, next) {
     if (Object.keys(req.query).length == 2) {
       try {
         const { restaurants, lastPage, len } =
-          await restaurantService.getRestaurantsPaging({
+          await RestaurantService.getRestaurantsPaging({
             page,
             pageSize,
           });
@@ -135,7 +135,7 @@ restaurantRouter.get("/restaurants/search", async function (req, res, next) {
         req.query;
 
       const { restaurants, lastPage, len } =
-        await restaurantService.getRestaruantsByQuery({
+        await RestaurantService.getRestaruantsByQuery({
           page,
           pageSize,
           name,
@@ -178,7 +178,7 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
       const currencyCode = req.query.currency;
 
       // currency exchange된 minPrice와 maxPrice를 얻음
-      const prices = await restaurantService.getConvertedPrice({
+      const prices = await RestaurantService.getConvertedPrice({
         id,
         currencyCode,
       });
@@ -199,7 +199,7 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
   try {
     // URI로부터 restaurant_id를 추출함
     const id = req.params.id;
-    const restaurant = await restaurantService.getRestaurantInfo({ id });
+    const restaurant = await RestaurantService.getRestaurantInfo({ id });
 
     const response = {
       code: 200,
@@ -218,7 +218,7 @@ restaurantRouter.get("/restaurants/:id/near", async function (req, res, next) {
   try {
     // URI로부터 id를 추출함
     const id = req.params.id;
-    const restaurantsNear = await restaurantService.getRestaurantsNear({ id });
+    const restaurantsNear = await RestaurantService.getRestaurantsNear({ id });
 
     const response = {
       code: 200,

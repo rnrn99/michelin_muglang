@@ -1,6 +1,6 @@
 import { Restaurant, Currency } from "../db/index.mjs";
 
-class restaurantService {
+class RestaurantService {
   static async getRestaurants() {
     const restaurants = await Restaurant.findAll();
 
@@ -198,4 +198,4 @@ class restaurantService {
   }
 }
 
-export { restaurantService };
+export { RestaurantService };
