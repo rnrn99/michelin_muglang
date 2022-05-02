@@ -53,7 +53,14 @@ function Information() {
   };
 
   useEffect(() => {
-    if (restaurantInfo._id) {
+    if (restaurantInfo._id && restaurantInfo.currency === "KRW") {
+      get("restaurants", restaurantInfo._id, { currency: "USD" }).then(
+        (res) => {
+          setExchangePrice(res.data.data);
+          setCurrency("USD");
+        },
+      );
+    } else if (restaurantInfo._id) {
       get("restaurants", restaurantInfo._id, { currency: "KRW" }).then(
         (res) => {
           setExchangePrice(res.data.data);
