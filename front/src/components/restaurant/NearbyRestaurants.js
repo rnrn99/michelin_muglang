@@ -2,8 +2,12 @@ import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "../../css/restaurant/NearbyRestaurants.module.css";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import {
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon,
+  InfoOutlined as InfoIcon,
+} from "@mui/icons-material/";
+import { Tooltip } from "@mui/material";
 
 function NearbyRestaurants() {
   const { restaurantNearby } = useSelector((state) => state.restaurant);
@@ -14,7 +18,18 @@ function NearbyRestaurants() {
 
   return (
     <div className={styles.container}>
-      <span className={styles.title}>Nearby Restaurants</span>
+      <div className={styles.title}>
+        <span className={styles.title_text}>Nearby Restaurants</span>
+        <span className={styles.title_info}>
+          <Tooltip
+            title="반경 30km 이내에 위치한 미슐랭 레스토랑 목록입니다."
+            arrow
+            placement="right"
+          >
+            <InfoIcon />
+          </Tooltip>
+        </span>
+      </div>
       <div className={styles.slider}>
         <button
           onClick={() => setFlag((cur) => (cur -= 1))}

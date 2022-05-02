@@ -3,9 +3,19 @@
 }
 
 .title {
+  display: flex;
+  align-items: flex-end;
+}
+
+.title_text {
   font-size: 34px;
   color: #ff9f1c;
   font-weight: bold;
+}
+
+.title_info {
+  margin-left: 10px;
+  color: #969696;
 }
 
 .slider {
