@@ -53,6 +53,12 @@
   height: 235px;
   border-radius: 10px;
   background-size: 235px;
+  background-position: center;
+  transition: all 0.4s;
+}
+
+.restaurant:hover {
+  background-size: 250px;
 }
 
 .restaurant + .restaurant {
