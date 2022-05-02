@@ -1,17 +1,17 @@
 import { ReviewModel } from "../schemas/review.mjs";
 
 class Review {
-  static createReview = async ({ newReview }) => {
+  static create = async ({ newReview }) => {
     const createdNewReview = await ReviewModel.create(newReview);
     return createdNewReview;
   };
 
-  static findByReviewId = async ({ id }) => {
+  static findById = async ({ id }) => {
     const reviewInfo = await ReviewModel.findOne({ id });
     return reviewInfo;
   };
 
-  static updateReview = async ({ id, toUpdate }) => {
+  static update = async ({ id, toUpdate }) => {
     const filter = { id };
     const option = { returnOriginal: false };
     const updatedReview = await ReviewModel.findOneAndUpdate(
@@ -22,10 +22,10 @@ class Review {
     return updatedReview;
   };
 
-  static deleteReview = async ({ id }) => {
-    const deleteResult = await ReviewModel.deleteOne({ id });
+  static delete = async ({ id }) => {
+    const result = await ReviewModel.deleteOne({ id });
     // returns: { "acknowledged" : true, "deletedCount" : 1 }
-    const isDataDeleted = deleteResult.deletedCount === 1;
+    const isDataDeleted = result.deletedCount === 1;
     return isDataDeleted;
   };
 
@@ -37,6 +37,22 @@ class Review {
   static findByRestaurantId = async ({ restaurantId }) => {
     const reviewlist = await ReviewModel.find({ restaurantId });
     return reviewlist;
+  };
+
+  // 유저 이름 수정 시, 리뷰 데이터도 업데이트
+  static updateUserName = async ({ userId, userName }) => {
+    const filter = { userId };
+    const update = { userName };
+    const option = { returnOriginal: false };
+
+    const updatedReviews = await ReviewModel.updateMany(filter, update, option);
+    return updatedReviews;
+  };
+
+  // 회원 탈퇴 시, 리뷰 데이터 삭제
+  static deleteByUserId = async ({ userId }) => {
+    const result = await ReviewModel.deleteMany({ userId });
+    return result;
   };
 }
 

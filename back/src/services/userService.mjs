@@ -1,4 +1,4 @@
-import { User } from "../db/index.mjs"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
+import { User, Restaurant, Review } from "../db/index.mjs"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
@@ -98,6 +98,17 @@ class userAuthService {
 
     user = await User.update({ id, toUpdate });
 
+    if (toUpdate.name) {
+      let reviewInfo = Review.findByUserId({ userId: id });
+      if (reviewInfo) {
+        let updatedReview = await Review.updateUserName({
+          userId: id,
+          userName: toUpdate.name,
+        });
+        return [user, updatedReview];
+      }
+    }
+
     return user;
   }
 
@@ -135,13 +146,23 @@ class userAuthService {
 
   //추후에 북마크 리뷰 기능도 있으면 해당 데이터도 같이 지워주기
   static async deleteUser({ id }) {
-    const user = await User.delete({ id });
+    const userInfo = await User.findById({ id });
+    const user = await Promise.all([
+      Restaurant.unbookmarkByList({ bookmarkList: userInfo.bookmarks }),
+      Review.deleteByUserId({ userId: id }),
+      User.delete({ id }),
+    ]);
+    // const user = await User.delete({ id });
     return user;
   }
 
   // 북마크
   static updateBookmark = async ({ id, restaurantId }) => {
-    const bookmarks = await User.updateBookmark({ id, restaurantId });
+    const bookmarks = await Promise.all([
+      Restaurant.bookmark({ id: restaurantId }),
+      User.updateBookmark({ id, restaurantId }),
+    ]);
+    // const bookmarks = await User.updateBookmark({ id, restaurantId });
     return bookmarks;
   };
 
@@ -158,7 +179,11 @@ class userAuthService {
   };
 
   static deleteBookmark = async ({ id, restaurantId }) => {
-    const bookmarks = await User.deleteBookmark({ id, restaurantId });
+    const bookmarks = await Promise.all([
+      Restaurant.unbookmark({ id: restaurantId }),
+      User.deleteBookmark({ id, restaurantId }),
+    ]);
+    // const bookmarks = await User.deleteBookmark({ id, restaurantId });
     return bookmarks;
   };
 }

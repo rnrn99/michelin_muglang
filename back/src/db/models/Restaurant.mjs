@@ -167,6 +167,52 @@ class Restaurant {
 
     return restaurantsNear;
   }
+
+  static bookmark = async ({ id }) => {
+    const filter = { _id: id };
+    const update = { $inc: { bookmarkCount: 1 } };
+    const option = { returnOriginal: false };
+
+    const bookmark = await RestaurantModel.findOneAndUpdate(
+      filter,
+      update,
+      option,
+    );
+
+    return bookmark;
+  };
+
+  static unbookmark = async ({ id }) => {
+    const filter = { _id: id };
+    const update = { $inc: { bookmarkCount: -1 } };
+    const option = { returnOriginal: false };
+
+    const bookmark = await RestaurantModel.findOneAndUpdate(
+      filter,
+      update,
+      option,
+    );
+    return bookmark;
+  };
+
+  static unbookmarkByList = async ({ bookmarkList }) => {
+    // for (let i = 0; i < userInfo.bookmarks.length; i++) {
+    //   restaurantId = userInfo.bookmarks[i];
+    //   const unbookmark = await RestaurantModel.findOneAndUpdate(
+    //     { _id: restaurantId },
+    //     { $inc: { bookmarkCount: -1 } },
+    //     { returnOriginal: false },
+    //   );
+    // }
+
+    const filter = { _id: { $in: bookmarkList } };
+    const update = { $inc: { bookmarkCount: -1 } };
+    const option = { returnOriginal: false };
+
+    const unbookmark = await RestaurantModel.updateMany(filter, update, option);
+
+    return unbookmark;
+  };
 }
 
 export { Restaurant };

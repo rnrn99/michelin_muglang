@@ -1,7 +1,7 @@
 import { Review, Restaurant, User } from "../db/index.mjs";
 import { v4 as uuidv4 } from "uuid";
 
-class reviewService {
+class ReviewService {
   static createReview = async ({ restaurantId, userId, text }) => {
     // id 는 유니크 값 부여
     const id = uuidv4();
@@ -26,21 +26,21 @@ class reviewService {
     };
 
     // db에 저장
-    const createdNewReview = await Review.createReview({ newReview });
+    const createdNewReview = await Review.create({ newReview });
     createdNewReview.errorMessage = null; // 문제 없이 db 저장 완료되었으므로 에러가 없음.
 
     return createdNewReview;
   };
 
   static updateReview = async ({ id, toUpdate }) => {
-    let reviewInfo = await Review.findByReviewId({ id });
+    let reviewInfo = await Review.findById({ id });
     if (!reviewInfo) {
       const error = new Error("해당 id를 가진 리뷰 데이터를 찾을 수 없습니다.");
       error.statusCode = 400;
       throw error;
     }
 
-    const updatedReview = await Review.updateReview({
+    const updatedReview = await Review.update({
       id,
       toUpdate,
     });
@@ -48,7 +48,7 @@ class reviewService {
   };
 
   static deleteReview = async ({ id }) => {
-    const isDataDeleted = await Review.deleteReview({ id });
+    const isDataDeleted = await Review.delete({ id });
     if (!isDataDeleted) {
       const error = new Error("해당 id를 가진 리뷰 데이터를 찾을 수 없습니다.");
       error.statusCode = 400;
@@ -81,4 +81,4 @@ class reviewService {
   };
 }
 
-export { reviewService };
+export { ReviewService };
