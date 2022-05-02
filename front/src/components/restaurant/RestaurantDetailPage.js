@@ -6,6 +6,7 @@ import {
   setupReviews,
   addBookmark,
   subBookmark,
+  setupNearby,
 } from "../../redux/restaurantSlice";
 import { get, patch } from "../../api";
 import styles from "../../css/restaurant/RestaurantDetailPage.module.css";
@@ -51,21 +52,28 @@ function RestaurantDetailPage() {
   const getRestaurantDetail = async () => {
     const getRestaurantInfo = get("restaurants", restaurantId);
     const getRestaurantReviews = get("reviewlist/restaurant", restaurantId);
+    const getNearbyRestaurants = get("restaurants", `${restaurantId}/near`);
     const getUserBookmarks = user ? get("bookmarks", user.id) : null;
 
     try {
-      const [restaurantInformation, restaurantReviews, userBookmarks] =
-        await Promise.all([
-          getRestaurantInfo,
-          getRestaurantReviews,
-          getUserBookmarks,
-        ]);
+      const [
+        restaurantInformation,
+        restaurantReviews,
+        nearbyRestaurants,
+        userBookmarks,
+      ] = await Promise.all([
+        getRestaurantInfo,
+        getRestaurantReviews,
+        getNearbyRestaurants,
+        getUserBookmarks,
+      ]);
 
       dispatch(setupInfo(restaurantInformation.data.data));
       dispatch(setupReviews(restaurantReviews.data));
       const isBookmarked = userBookmarks?.data.some(
         (restaurant) => restaurant._id === restaurantId,
       );
+      dispatch(setupNearby(nearbyRestaurants.data.data));
       setBookmark(isBookmarked);
       setBgImageUrl(restaurantInformation.data.data.imageUrl[0]);
     } catch (e) {
