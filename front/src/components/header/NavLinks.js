@@ -1,9 +1,11 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 import { Link } from "@mui/material";
 import styles from "../../css/header/Header.module.css";
 
-function NavLinks({ isLogin, logout }) {
+function NavLinks({ isLogin, logout, pathname }) {
+  const navigate = useNavigate();
+
   return (
     <>
       <Link className={styles.menu__link} href="/map">
@@ -29,7 +31,12 @@ function NavLinks({ isLogin, logout }) {
       </Link>
 
       {!isLogin ? (
-        <Link className={styles.menu__link} href="/login">
+        <Link
+          className={styles.menu__link}
+          onClick={() => {
+            navigate("/login", { state: { pathname } });
+          }}
+        >
           <span className={styles.menu__title}>
             <span className={styles.menu__first_word} data-hover="LOG">
               LOG

@@ -4,7 +4,7 @@ const backendPortNumber = "5000";
 const serverUrl =
   "http://" + window.location.hostname + ":" + backendPortNumber + "/";
 
-async function get(endpoint, params = "") {
+async function get(endpoint, params = "", queryParams = {}) {
   console.log(
     `%cGET 요청 ${serverUrl + endpoint + "/" + params}`,
     "color: #a25cd1;",
@@ -15,6 +15,7 @@ async function get(endpoint, params = "") {
     headers: {
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
     },
+    params: queryParams,
   });
 }
 

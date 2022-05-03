@@ -48,7 +48,10 @@ const MyPage = () => {
         <div className={styles.main}>
           <div className={styles.title}>
             <div className={styles.image}>
-              <img src="mypageImg.svg" alt="img" />
+              <img
+                src={`${process.env.PUBLIC_URL}/images/mypageImg.svg`}
+                alt="img"
+              />
             </div>
             <div className={styles.text}>
               <div className={styles.user}>
