@@ -19,7 +19,7 @@
 }
 
 .nonearby {
-  width: 90%;
+  margin-top: 40px;
   height: 300px;
   display: flex;
   flex-direction: column;

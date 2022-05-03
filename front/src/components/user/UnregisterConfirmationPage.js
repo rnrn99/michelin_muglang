@@ -7,7 +7,10 @@ const UnregisterConfirmationPage = () => {
 
   return (
     <div className={styles.container}>
-      <img src="unregister.svg" alt="회원탈퇴" />
+      <img
+        src={`${process.env.PUBLIC_URL}/images/unregister.svg`}
+        alt="회원탈퇴"
+      />
       <div>회원탈퇴가 완료되었습니다.</div>
       <div>그동한 미슐랭 먹을랭 서비스를 이용해 주셔서 감사합니다.</div>
       <button
