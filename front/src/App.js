@@ -15,6 +15,7 @@ import TeamPage from "./components/team/TeamPage";
 import MyPage from "./components/user/mypage/MyPage";
 import RestaurantDetailPage from "./components/restaurant/RestaurantDetailPage";
 import UnregisterConfirmationPage from "./components/user/UnregisterConfirmationPage";
+import KakaoRedirectHandler from "./components/user/KakaoRedirectHandler";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ function App() {
         <Route path="/map" exact element={<MapMainPage />} />
         <Route path="/detail" exact element={<DetailPage />} />
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/login/kakao" element={<KakaoRedirectHandler />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/team-craft" element={<TeamPage />} />
         <Route path="/mypage" element={<MyPage />} />
