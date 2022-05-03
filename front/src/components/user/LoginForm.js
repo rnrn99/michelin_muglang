@@ -154,13 +154,23 @@ function LoginForm() {
             </a>
           </div>
 
-          <Button
-            variant="text"
-            onClick={handleGoToRegister}
-            sx={{ color: "#FF9F1C" }}
-          >
-            회원가입하기
-          </Button>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Button
+              variant="text"
+              onClick={handleGoToRegister}
+              sx={{ color: "#FF9F1C" }}
+            >
+              회원가입하기
+            </Button>
+
+            <Button
+              variant="text"
+              sx={{ color: "#FF9F1C" }}
+              onClick={() => navigate("/reset")}
+            >
+              임시 비밀번호 발급
+            </Button>
+          </div>
         </Box>
       </Card>
     </div>
