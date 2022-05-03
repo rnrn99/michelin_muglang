@@ -157,16 +157,16 @@ class userAuthService {
   }
 
   // 북마크
-  static updateBookmark = async ({ id, restaurantId }) => {
+  static async updateBookmark({ id, restaurantId }) {
     const bookmarks = await Promise.all([
       Restaurant.bookmark({ id: restaurantId }),
       User.updateBookmark({ id, restaurantId }),
     ]);
     // const bookmarks = await User.updateBookmark({ id, restaurantId });
     return bookmarks;
-  };
+  }
 
-  static getBookmarks = async ({ id }) => {
+  static async getBookmarks({ id }) {
     const bookmarkInfo = await User.findById({ id });
     if (!bookmarkInfo) {
       const error = new Error("해당 id를 가진 사용자를 찾을 수 없습니다.");
@@ -176,16 +176,16 @@ class userAuthService {
 
     const bookmarks = await User.findBookmarks({ id });
     return bookmarks;
-  };
+  }
 
-  static deleteBookmark = async ({ id, restaurantId }) => {
+  static async deleteBookmark({ id, restaurantId }) {
     const bookmarks = await Promise.all([
       Restaurant.unbookmark({ id: restaurantId }),
       User.deleteBookmark({ id, restaurantId }),
     ]);
     // const bookmarks = await User.deleteBookmark({ id, restaurantId });
     return bookmarks;
-  };
+  }
 }
 
 export { userAuthService };

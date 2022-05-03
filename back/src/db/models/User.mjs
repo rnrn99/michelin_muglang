@@ -41,28 +41,28 @@ class User {
   }
 
   // 북마크 관련 모델
-  static updateBookmark = async ({ id, restaurantId }) => {
+  static async updateBookmark({ id, restaurantId }) {
     const filter = { id };
     const update = { $push: { bookmarks: restaurantId } };
     const option = { returnOriginal: false };
 
     const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
     return bookmarks;
-  };
+  }
 
-  static findBookmarks = async ({ id }) => {
+  static async findBookmarks({ id }) {
     const userInfo = await UserModel.findOne({ id }).populate("bookmarks");
     return userInfo.bookmarks;
-  };
+  }
 
-  static deleteBookmark = async ({ id, restaurantId }) => {
+  static async deleteBookmark({ id, restaurantId }) {
     const filter = { id };
     const update = { $pull: { bookmarks: restaurantId } };
     const option = { returnOriginal: false };
 
     const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
     return bookmarks;
-  };
+  }
 }
 
 export { User };

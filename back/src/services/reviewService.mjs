@@ -2,7 +2,7 @@ import { Review, Restaurant, User } from "../db/index.mjs";
 import { v4 as uuidv4 } from "uuid";
 
 class ReviewService {
-  static createReview = async ({ restaurantId, userId, text }) => {
+  static async createReview({ restaurantId, userId, text }) {
     // id 는 유니크 값 부여
     const id = uuidv4();
     const restaurant = await Restaurant.findById({
@@ -30,9 +30,9 @@ class ReviewService {
     createdNewReview.errorMessage = null; // 문제 없이 db 저장 완료되었으므로 에러가 없음.
 
     return createdNewReview;
-  };
+  }
 
-  static updateReview = async ({ id, toUpdate }) => {
+  static async updateReview({ id, toUpdate }) {
     let reviewInfo = await Review.findById({ id });
     if (!reviewInfo) {
       const error = new Error("해당 id를 가진 리뷰 데이터를 찾을 수 없습니다.");
@@ -45,9 +45,9 @@ class ReviewService {
       toUpdate,
     });
     return updatedReview;
-  };
+  }
 
-  static deleteReview = async ({ id }) => {
+  static async deleteReview({ id }) {
     const isDataDeleted = await Review.delete({ id });
     if (!isDataDeleted) {
       const error = new Error("해당 id를 가진 리뷰 데이터를 찾을 수 없습니다.");
@@ -56,9 +56,9 @@ class ReviewService {
     }
 
     return { status: "ok" };
-  };
+  }
 
-  static findByUserId = async ({ userId }) => {
+  static async findByUserId({ userId }) {
     const reviewlist = await Review.findByUserId({ userId });
     if (!reviewlist) {
       const error = new Error("해당 id를 가진 사용자를 찾을 수 없습니다.");
@@ -67,9 +67,9 @@ class ReviewService {
     }
 
     return reviewlist;
-  };
+  }
 
-  static findByRestaurantId = async ({ restaurantId }) => {
+  static async findByRestaurantId({ restaurantId }) {
     const reviewlist = await Review.findByRestaurantId({ restaurantId });
     if (!reviewlist) {
       const error = new Error("해당 id를 가진 음식점을 찾을 수 없습니다.");
@@ -78,7 +78,7 @@ class ReviewService {
     }
 
     return reviewlist;
-  };
+  }
 }
 
 export { ReviewService };
