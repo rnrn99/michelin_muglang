@@ -122,10 +122,7 @@ class Restaurant {
       maxPrice: { $lte: parseInt(maxPrice) },
       cuisine: { $regex: cuisine, $options: "i" },
       award: { $regex: award, $options: "i" },
-<<<<<<< HEAD
-=======
       country: { $regex: country, $options: "i" },
->>>>>>> restaurant-back
     });
 
     const lastPage = Math.ceil(len / pageSize);
