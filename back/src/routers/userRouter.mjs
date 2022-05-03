@@ -61,7 +61,7 @@ userAuthRouter.get("/users/login/kakao", async (req, res, next) => {
   try {
     const code = req.query.code;
 
-    const user = await userAuthService.upsertKakaoUser({ code });
+    const user = await UserAuthService.upsertKakaoUser({ code });
 
     const redirect_uri = `http://localhost:3000/login/kakao?token=${user.token}`;
     res.status(200).redirect(redirect_uri);
