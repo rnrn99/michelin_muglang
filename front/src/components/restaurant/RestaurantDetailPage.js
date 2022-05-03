@@ -77,7 +77,6 @@ function RestaurantDetailPage() {
       setBookmark(isBookmarked);
       setBgImageUrl(restaurantInformation.data.data.imageUrl[0]);
     } catch (e) {
-      // 에러처리 어떻게 해야할까
       console.log(e);
     }
   };
