@@ -8,6 +8,7 @@ function MainPage() {
   const pointRef = useRef(null);
   const [section, setSection] = useState([]); // section을 저장할 상태
   const [activeBtn, setActiveBtn] = useState(0); // 활성화된 nav btn 저장할 상태
+  const headerHeight = 32;
 
   // nav 버튼 클릭 핸들러
   const clickPointBtn = (e) => {
@@ -15,7 +16,7 @@ function MainPage() {
       const pageNum = e.target.id;
 
       window.scrollTo({
-        top: section[pageNum].offsetTop - 32,
+        top: section[pageNum].offsetTop - headerHeight,
         behavior: "smooth",
       });
 
