@@ -28,6 +28,7 @@ function RestaurantDetailPage() {
   const [bookmark, setBookmark] = useState(false);
   const [bgImageUrl, setBgImageUrl] = useState("");
   const [loginRequestModal, setLoginRequestModal] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   const restaurantId = useParams().id;
   const dispatch = useDispatch();
@@ -77,7 +78,7 @@ function RestaurantDetailPage() {
       setBookmark(isBookmarked);
       setBgImageUrl(restaurantInformation.data.data.imageUrl[0]);
     } catch (e) {
-      console.log(e);
+      setNotFound(true);
     }
   };
 
@@ -87,32 +88,46 @@ function RestaurantDetailPage() {
 
   return (
     <>
-      <div className={styles.container}>
-        <div
-          className={styles.restaurant_image}
-          style={{
-            backgroundImage: `linear-gradient( rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7) ), url(${bgImageUrl})`,
-          }}
-        >
-          {restaurantInfo.imageUrl?.map((url) => (
-            <img src={url} key={url} alt="img" />
-          ))}
+      {notFound ? (
+        <div className={styles.not_found}>
+          <img
+            src={`${process.env.PUBLIC_URL}/images/notFound.svg`}
+            alt="Not Found"
+          />
+          <span>Restaurant not found</span>
         </div>
-        <div className={styles.main}>
-          <span className={styles.restaurant_name}>{restaurantInfo.name}</span>
-          <div className={styles.bookmark} onClick={handleBookmarkClick}>
-            {bookmark ? <BookmarkIcon /> : <BookmarkOutlineIcon />}{" "}
-            {restaurantInfo.bookmarkCount}번 북마크됨
+      ) : (
+        <>
+          <div className={styles.container}>
+            <div
+              className={styles.restaurant_image}
+              style={{
+                backgroundImage: `linear-gradient( rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7) ), url(${bgImageUrl})`,
+              }}
+            >
+              {restaurantInfo.imageUrl?.map((url) => (
+                <img src={url} key={url} alt="img" />
+              ))}
+            </div>
+            <div className={styles.main}>
+              <span className={styles.restaurant_name}>
+                {restaurantInfo.name}
+              </span>
+              <div className={styles.bookmark} onClick={handleBookmarkClick}>
+                {bookmark ? <BookmarkIcon /> : <BookmarkOutlineIcon />}{" "}
+                {restaurantInfo.bookmarkCount}번 북마크됨
+              </div>
+              <Information />
+              <Reviews setLoginRequestModal={setLoginRequestModal} />
+              <NearbyRestaurants />
+            </div>
           </div>
-          <Information />
-          <Reviews setLoginRequestModal={setLoginRequestModal} />
-          <NearbyRestaurants />
-        </div>
-      </div>
-      {loginRequestModal && (
-        <LoginRequestModal setLoginRequestModal={setLoginRequestModal} />
+          {loginRequestModal && (
+            <LoginRequestModal setLoginRequestModal={setLoginRequestModal} />
+          )}
+          <Footer />
+        </>
       )}
-      <Footer />
     </>
   );
 }
