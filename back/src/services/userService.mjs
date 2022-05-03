@@ -2,6 +2,8 @@ import { User, Restaurant, Review } from "../db/index.mjs"; // from을 폴더(db
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
+import axios from "axios";
+import "dotenv/config";
 
 class UserAuthService {
   static async addUser({ name, email, password }) {
@@ -25,6 +27,52 @@ class UserAuthService {
     createdNewUser.errorMessage = null; // 문제 없이 db 저장 완료되었으므로 에러가 없음.
 
     return createdNewUser;
+  }
+
+  static async upsertKakaoUser({ code }) {
+    const KAKAO_CLIENT_id = process.env.KAKAO_CLIENT_id;
+    const KAKAO_REDIRECT_URL = "http://localhost:5000/users/login/kakao";
+    //카카오 토큰 받기
+    const ret = await axios.post(
+      `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${KAKAO_CLIENT_id}&redirect_uri=${KAKAO_REDIRECT_URL}&code=${code}`,
+    );
+
+    const kakaoToken = ret.data.access_token;
+
+    //카카오 유저정보 받기
+    const kakaoData = await axios.get(`https://kapi.kakao.com/v2/user/me`, {
+      headers: { Authorization: `Bearer ${kakaoToken}` },
+    });
+
+    const userData = {
+      id: kakaoData.data.id,
+      email: kakaoData.data.kakao_account.email || "이메일 동의 안함",
+      name: kakaoData.data.kakao_account.profile.nickname,
+      password: "kakao",
+    };
+    let user;
+    const isUserExist = await User.findById({ id: userData.id });
+    if (isUserExist) {
+      //최초 로그인 아님, 디비 기존 정보 업데이트
+      user = await User.update({ id: userData.id, toUpdate: userData });
+    } else {
+      //최초 로그인, 디비에 새로 생성
+      user = await User.create({ newUser: userData });
+    }
+
+    // 로그인 성공 -> JWT 웹 토큰 생성
+    const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
+    const token = jwt.sign({ id: user.id }, secretKey);
+
+    const loginUser = {
+      token,
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      errorMessage: null,
+    };
+
+    return loginUser;
   }
 
   static async getUser({ email, password }) {
