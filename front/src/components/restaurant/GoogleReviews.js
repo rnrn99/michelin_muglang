@@ -18,7 +18,7 @@ const GoogleReviews = () => {
   // useEffect(() => {
   //   let config = {
   //     method: "get",
-  //     url: `/maps/api/place/details/json?place_id=${placeId}&key=${GOOGLE_API_KEY}`,
+  //     url: `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=${GOOGLE_API_KEY}`,
   //     headers: {},
   //   };
 
