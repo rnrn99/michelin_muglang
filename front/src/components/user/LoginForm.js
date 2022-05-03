@@ -17,8 +17,6 @@ function LoginForm() {
   const [email, setEmail] = useState(""); // email 저장할 상태
   const [password, setPassword] = useState(""); // password 저장할 상태
 
-  const kakaLogin = () => {};
-
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email) => {
     return email
