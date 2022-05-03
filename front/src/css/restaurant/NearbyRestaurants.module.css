@@ -18,6 +18,24 @@
   color: #969696;
 }
 
+.nonearby {
+  width: 90%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nonearby img {
+  width: 250px;
+}
+
+.nonearby span {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
 .slider {
   width: 100%;
   margin-top: 40px;

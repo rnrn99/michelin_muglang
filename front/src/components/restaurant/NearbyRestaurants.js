@@ -30,69 +30,82 @@ function NearbyRestaurants() {
           </Tooltip>
         </span>
       </div>
-      <div className={styles.slider}>
-        <button
-          onClick={() => setFlag((cur) => (cur -= 1))}
-          disabled={!leftChevronValid}
-          style={
-            showChevron
-              ? {
-                  color: leftChevronValid && "#ff9f1c",
-                  cursor: leftChevronValid && "pointer",
-                }
-              : { color: "white" }
-          }
-        >
-          <ChevronLeftIcon fontSize="large" />
-        </button>
 
-        <div className={styles.slider_contents}>
-          <div
-            className={styles.restaurants}
-            style={{
-              width:
-                restaurantNearby.length * 235 +
-                (restaurantNearby.length - 1) * 20,
-              transform: `translateX(${-flag * 255}px)`,
-            }}
-          >
-            {restaurantNearby.map((nearby) => (
-              <div
-                className={styles.restaurant}
-                key={nearby._id}
-                style={{
-                  backgroundImage: `linear-gradient( rgba(100, 100, 100, 0.3), rgba(100, 100, 100, 0.3) ), url(${nearby.imageUrl[0]})`,
-                }}
-              >
-                <a
-                  href={`/restaurants/${nearby._id}`}
-                  className={styles.restaurant_link}
-                >
-                  <span className={styles.restaurant_name}>{nearby.name}</span>
-                  <span className={styles.restaurant_country}>
-                    {nearby.country}
-                  </span>
-                </a>
-              </div>
-            ))}
-          </div>
+      {restaurantNearby.length === 0 ? (
+        <div className={styles.nonearby}>
+          <img
+            src={`${process.env.PUBLIC_URL}/images/noNearby.svg`}
+            alt="no nearby"
+          />
+          <span>근처에 다른 미슐랭 레스토랑이 없습니다 :(</span>
         </div>
+      ) : (
+        <div className={styles.slider}>
+          <button
+            onClick={() => setFlag((cur) => (cur -= 1))}
+            disabled={!leftChevronValid}
+            style={
+              showChevron
+                ? {
+                    color: leftChevronValid && "#ff9f1c",
+                    cursor: leftChevronValid && "pointer",
+                  }
+                : { color: "white" }
+            }
+          >
+            <ChevronLeftIcon fontSize="large" />
+          </button>
 
-        <button
-          onClick={() => setFlag((cur) => cur + 1)}
-          disabled={!rightCehvronValid}
-          style={
-            showChevron
-              ? {
-                  color: rightCehvronValid && "#ff9f1c",
-                  cursor: rightCehvronValid && "pointer",
-                }
-              : { color: "white" }
-          }
-        >
-          <ChevronRightIcon fontSize="large" />
-        </button>
-      </div>
+          <div className={styles.slider_contents}>
+            <div
+              className={styles.restaurants}
+              style={{
+                width:
+                  restaurantNearby.length * 235 +
+                  (restaurantNearby.length - 1) * 20,
+                transform: `translateX(${-flag * 255}px)`,
+              }}
+            >
+              {restaurantNearby.map((nearby) => (
+                <div
+                  className={styles.restaurant}
+                  key={nearby._id}
+                  style={{
+                    backgroundImage: `linear-gradient( rgba(100, 100, 100, 0.3), rgba(100, 100, 100, 0.3) ), url(${nearby.imageUrl[0]})`,
+                  }}
+                >
+                  <a
+                    href={`/restaurants/${nearby._id}`}
+                    className={styles.restaurant_link}
+                  >
+                    <span className={styles.restaurant_name}>
+                      {nearby.name}
+                    </span>
+                    <span className={styles.restaurant_country}>
+                      {nearby.country}
+                    </span>
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <button
+            onClick={() => setFlag((cur) => cur + 1)}
+            disabled={!rightCehvronValid}
+            style={
+              showChevron
+                ? {
+                    color: rightCehvronValid && "#ff9f1c",
+                    cursor: rightCehvronValid && "pointer",
+                  }
+                : { color: "white" }
+            }
+          >
+            <ChevronRightIcon fontSize="large" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
