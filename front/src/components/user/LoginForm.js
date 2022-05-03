@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/userSlice";
 import * as Api from "../../api";
@@ -11,13 +11,12 @@ const KAKAO_AUTH_URL =
   "https://kauth.kakao.com/oauth/authorize?client_id=917b9ed78684b8588577e8aced2a84d2&redirect_uri=http://localhost:5000/users/login/kakao&response_type=code";
 
 function LoginForm() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState(""); // email 저장할 상태
   const [password, setPassword] = useState(""); // password 저장할 상태
 
-  const kakaLogin = () => {};
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email) => {
@@ -50,9 +49,24 @@ function LoginForm() {
       sessionStorage.setItem("userToken", jwtToken);
 
       dispatch(login(user));
-      navigate("/", { replace: true });
+
+      if (location.state) {
+        navigate(location.state.pathname);
+      } else {
+        navigate("/", { replace: true });
+      }
     } catch (err) {
       console.log("로그인 실패\n", err);
+    }
+  };
+
+  const handleGoToRegister = () => {
+    if (location.state) {
+      navigate("/register", {
+        state: { pathname: location.state.pathname },
+      });
+    } else {
+      navigate("/register");
     }
   };
 
@@ -140,13 +154,23 @@ function LoginForm() {
             </a>
           </div>
 
-          <Button
-            variant="text"
-            onClick={() => navigate("/register")}
-            sx={{ color: "#FF9F1C" }}
-          >
-            회원가입하기
-          </Button>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Button
+              variant="text"
+              onClick={handleGoToRegister}
+              sx={{ color: "#FF9F1C" }}
+            >
+              회원가입하기
+            </Button>
+
+            <Button
+              variant="text"
+              sx={{ color: "#FF9F1C" }}
+              onClick={() => navigate("/reset")}
+            >
+              임시 비밀번호 발급
+            </Button>
+          </div>
         </Box>
       </Card>
     </div>

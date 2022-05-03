@@ -21,6 +21,7 @@ data = pd.read_csv(file)
 currencyExchange = data.copy()
 
 # 불필요한 column들 제거 // ["Unnamed: 0", "Country/Currency"]
+currencyExchange["name"] = currencyExchange["Country/Currency"]
 currencyExchange = currencyExchange.drop(columns=["Unnamed: 0", "Country/Currency"])
 
 # 가장 최신 데이터만 남기고 나머지 제거

@@ -35,13 +35,14 @@
 .information {
   margin: 10px 0;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   font-size: 18px;
   color: #797979;
   line-height: 28px;
 }
 
 .information:nth-child(4) {
+  align-items: flex-start;
   padding-top: 20px;
   border-top: #b1b1b1 solid 1px;
   width: 520px;
@@ -52,6 +53,11 @@
   margin-top: -3px;
 }
 
+.information svg:nth-child(3),
+.information svg:nth-child(5) {
+  margin-left: 10px;
+}
+
 .information:last-child span a {
   text-decoration: none;
   color: #797979;
@@ -60,4 +66,27 @@
 
 .information:last-child span a:hover {
   color: #ff9f1c;
+}
+
+.exchange_btn,
+.check_btn {
+  cursor: pointer;
+  color: #2ec4b6;
+}
+
+.information select {
+  width: 160px;
+  height: 26px;
+  padding-left: 3px;
+  margin-top: -1px;
+  margin-left: 10px;
+  font-size: 14px;
+  border: #a1a1a1 1.5px solid;
+  color: #797979;
+  border-radius: 10px;
+  font-family: inherit;
+}
+
+.information select:focus {
+  outline: none;
 }

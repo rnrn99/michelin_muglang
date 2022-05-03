@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {
   setupInfo,
   setupReviews,
   addBookmark,
   subBookmark,
+  setupNearby,
 } from "../../redux/restaurantSlice";
 import { get, patch } from "../../api";
 import styles from "../../css/restaurant/RestaurantDetailPage.module.css";
@@ -51,23 +52,30 @@ function RestaurantDetailPage() {
   const getRestaurantDetail = async () => {
     const getRestaurantInfo = get("restaurants", restaurantId);
     const getRestaurantReviews = get("reviewlist/restaurant", restaurantId);
+    const getNearbyRestaurants = get("restaurants", `${restaurantId}/near`);
     const getUserBookmarks = user ? get("bookmarks", user.id) : null;
 
     try {
-      const [restaurantInfo, restaurantReviews, userBookmarks] =
-        await Promise.all([
-          getRestaurantInfo,
-          getRestaurantReviews,
-          getUserBookmarks,
-        ]);
+      const [
+        restaurantInformation,
+        restaurantReviews,
+        nearbyRestaurants,
+        userBookmarks,
+      ] = await Promise.all([
+        getRestaurantInfo,
+        getRestaurantReviews,
+        getNearbyRestaurants,
+        getUserBookmarks,
+      ]);
 
-      dispatch(setupInfo(restaurantInfo.data));
+      dispatch(setupInfo(restaurantInformation.data.data));
       dispatch(setupReviews(restaurantReviews.data));
       const isBookmarked = userBookmarks?.data.some(
         (restaurant) => restaurant._id === restaurantId,
       );
+      dispatch(setupNearby(nearbyRestaurants.data.data));
       setBookmark(isBookmarked);
-      setBgImageUrl(restaurantInfo.data.imageUrl[0]);
+      setBgImageUrl(restaurantInformation.data.data.imageUrl[0]);
     } catch (e) {
       // 에러처리 어떻게 해야할까
       console.log(e);

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   restaurantInfo: {},
   restaurantReviews: [],
+  restaurantNearby: [],
 };
 
 export const restaurantSlice = createSlice({
@@ -54,6 +55,12 @@ export const restaurantSlice = createSlice({
       });
       return { ...state, restaurantReviews: newReviews };
     },
+    setupNearby: (state, action) => {
+      const nearby = action.payload.filter(
+        (restaurant) => state.restaurantInfo._id !== restaurant._id,
+      );
+      return { ...state, restaurantNearby: nearby };
+    },
   },
 });
 
@@ -65,6 +72,7 @@ export const {
   addReview,
   deleteReview,
   editReview,
+  setupNearby,
 } = restaurantSlice.actions;
 
 export default restaurantSlice.reducer;
