@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import * as Api from "../../api";
 import { Button, TextField, Card, Typography, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -7,6 +7,7 @@ import styles from "../../css/account/Account.module.css";
 
 function RegisterForm() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [email, setEmail] = useState(""); // email 저장할 상태
   const [password, setPassword] = useState(""); // password 저장할 상태
@@ -46,8 +47,11 @@ function RegisterForm() {
         name,
       });
 
-      // 로그인 페이지로 이동함.
-      navigate("/login");
+      if (location.state) {
+        navigate("/login", { state: { pathname: location.state.pathname } });
+      } else {
+        navigate("/login");
+      }
     } catch (err) {
       console.log("회원가입에 실패하였습니다.", err);
     }

@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../../css/modal/LoginRequestModal.module.css";
 
 const LoginRequestModal = ({ setLoginRequestModal }) => {
   const [effect, setEffect] = useState(styles.mount);
 
-  const handleClick = () => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const handleCancel = () => {
     setEffect(styles.unmount);
     setTimeout(() => {
       setLoginRequestModal(false);
@@ -35,17 +39,25 @@ const LoginRequestModal = ({ setLoginRequestModal }) => {
         </div>
         <div className={styles.buttons}>
           <div className={styles.left_btn}>
-            <button>
-              <a href="/login">로그인</a>
+            <button
+              onClick={() => {
+                navigate("/login", { state: { pathname } });
+              }}
+            >
+              로그인
             </button>
-            <button>
-              <a href="/register">회원가입</a>
+            <button
+              onClick={() => {
+                navigate("/register", { state: { pathname } });
+              }}
+            >
+              회원가입
             </button>
           </div>
           <div className={styles.right_btn}>
             <button
               onClick={() => {
-                handleClick();
+                handleCancel();
               }}
             >
               닫기

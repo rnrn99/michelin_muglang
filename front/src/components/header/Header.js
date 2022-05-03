@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/userSlice";
 
@@ -11,6 +11,7 @@ import NavLinks from "./NavLinks";
 import Menu from "./Menu";
 
 function Header() {
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userState = useSelector((state) => state.user);
@@ -42,9 +43,13 @@ function Header() {
         </Typography>
 
         {!menuVisible ? (
-          <NavLinks isLogin={isLogin} logout={logoutHandler} />
+          <NavLinks
+            isLogin={isLogin}
+            logout={logoutHandler}
+            pathname={pathname}
+          />
         ) : (
-          <Menu isLogin={isLogin} logout={logoutHandler} />
+          <Menu isLogin={isLogin} logout={logoutHandler} pathname={pathname} />
         )}
       </Toolbar>
     </AppBar>
