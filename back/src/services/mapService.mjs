@@ -1,5 +1,5 @@
 import GeoJSON from "geojson";
-import { restaurantService } from "./restaurantService.mjs";
+import { RestaurantService } from "./restaurantService.mjs";
 import { Country } from "../db/index.mjs";
 import fs from "fs";
 
@@ -14,7 +14,7 @@ class MapService {
       for (let j = 0; j < 10; j++) {
         if (i + j < ret.length) {
           arr.push(
-            restaurantService.countRestaurantByCountry(ret[i + j].nation),
+            RestaurantService.countRestaurantByCountry(ret[i + j].nation),
           );
         }
       }
@@ -37,7 +37,7 @@ class MapService {
       for (let j = 0; j < 10; j++) {
         if (i + j < ret.length) {
           arr.push(
-            restaurantService.countRestaurantByCountry(ret[i + j].nation),
+            RestaurantService.countRestaurantByCountry(ret[i + j].nation),
           );
         }
       }
@@ -54,7 +54,7 @@ class MapService {
 
   //특정 국가 마커 geojson으로 반환
   static async getCountryMarker(country) {
-    let ret = await restaurantService.getRestaurantsByCountry({
+    let ret = await RestaurantService.getRestaurantsByCountry({
       country,
     });
     console.log(ret);
@@ -63,7 +63,7 @@ class MapService {
 
   //특정 국가 마커 페이지네이션
   static async getCountryMarkerPage({ country, page, pageSize }) {
-    let ret = await restaurantService.getRestaurantsByCountryPaging({
+    let ret = await RestaurantService.getRestaurantsByCountryPaging({
       country,
       page,
       pageSize,

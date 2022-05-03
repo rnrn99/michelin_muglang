@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { restaurantService } from "../services/restaurantService.mjs";
+import { RestaurantService } from "../services/restaurantService.mjs";
 import axios from "axios";
 
 const restaurantRouter = Router();
@@ -24,7 +24,7 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
           // URI로부터 country(query)를 추출함
           const country = req.query.country;
           const { restaurants, lastPage, len } =
-            await restaurantService.getRestaurantsByCountryPaging({
+            await RestaurantService.getRestaurantsByCountryPaging({
               page,
               pageSize,
               country,
@@ -48,7 +48,7 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
           // URI로부터 cuisine(query)를 추출함
           const cuisine = req.query.cuisine;
           const { restaurants, lastPage, len } =
-            await restaurantService.getRestaurantsByCuisinePaging({
+            await RestaurantService.getRestaurantsByCuisinePaging({
               page,
               pageSize,
               cuisine,
@@ -70,7 +70,7 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
 
       // 전체 식당 중 일부를 paging하여 얻음
       const { restaurants, lastPage, len } =
-        await restaurantService.getRestaurantsPaging({
+        await RestaurantService.getRestaurantsPaging({
           page,
           pageSize,
         });
@@ -112,7 +112,7 @@ restaurantRouter.get("/restaurants/search", async function (req, res, next) {
     if (Object.keys(req.query).length == 2) {
       try {
         const { restaurants, lastPage, len } =
-          await restaurantService.getRestaurantsPaging({
+          await RestaurantService.getRestaurantsPaging({
             page,
             pageSize,
           });
@@ -249,7 +249,7 @@ restaurantRouter.get(
       // URI로부터 restaurant_id를 추출함
       const id = req.params.id;
 
-      const restaurant = await restaurantService.getRestaurantInfo({ id });
+      const restaurant = await RestaurantService.getRestaurantInfo({ id });
 
       const q = restaurant.name + " " + restaurant.address;
       const googleApiKey = process.env.GOOGLE_API_KEY;
