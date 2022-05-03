@@ -40,6 +40,11 @@ const SideBar = ({
         serverUrl +
           `restaurants/search?page=1&pageSize=${perPage}&country=${countryName}&${selectedCategory}=${inputRef.current.value}`,
       );
+      console.log(
+        "get:" +
+          serverUrl +
+          `restaurants/search?page=1&pageSize=${perPage}&country=${countryName}&${selectedCategory}=${inputRef.current.value}`,
+      );
       const { data, last } = res.data;
       setSearchKeyword(inputRef.current.value);
       setRestaurants(data);
@@ -87,11 +92,19 @@ const SideBar = ({
           serverUrl +
             `restaurants/search?page=${searchPage}&pageSize=${perPage}&country=${countryName}&${selectedCategory}=${searchKeyword}`,
         );
+        console.log(
+          serverUrl +
+            `restaurants/search?page=${searchPage}&pageSize=${perPage}&country=${countryName}&${selectedCategory}=${searchKeyword}`,
+        );
         const { data, last } = res.data;
         setRestaurants(data);
         setSearchTotalPage(last);
       } else {
         const res = await axios.get(
+          serverUrl +
+            `restaurants?country=${countryName}&page=${page}&pageSize=${perPage}`,
+        );
+        console.log(
           serverUrl +
             `restaurants?country=${countryName}&page=${page}&pageSize=${perPage}`,
         );

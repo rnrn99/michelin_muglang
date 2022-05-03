@@ -14,8 +14,8 @@ const DetailPage = () => {
   const [content, setContent] = useState("");
   const [clicked, setClicked] = useState(false);
 
-  const handleClick = (id) => {
-    const restaurant = restaurants.filter((r) => r._id === id);
+  const handleClick = (restaurantId) => {
+    const restaurant = restaurants.filter((r) => r._id === restaurantId);
     setRestaurants(restaurant);
     setClicked(true);
   };
