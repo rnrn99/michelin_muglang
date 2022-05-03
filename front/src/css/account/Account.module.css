@@ -17,3 +17,7 @@
 .container.register {
   background-image: url("../../../public/images/registerbg.jpg");
 }
+
+.container.reset {
+  background-image: url("../../../public/images/resetbg.jpg");
+}

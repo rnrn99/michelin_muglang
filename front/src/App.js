@@ -16,6 +16,7 @@ import MyPage from "./components/user/mypage/MyPage";
 import RestaurantDetailPage from "./components/restaurant/RestaurantDetailPage";
 import UnregisterConfirmationPage from "./components/user/UnregisterConfirmationPage";
 import KakaoRedirectHandler from "./components/user/KakaoRedirectHandler";
+import PasswordResetPage from "./components/user/PasswordResetPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/unregister" element={<UnregisterConfirmationPage />} />
         <Route path="/restaurants/:id" element={<RestaurantDetailPage />} />
+        <Route path="/reset" element={<PasswordResetPage />} />
       </Routes>
     </Router>
   );
