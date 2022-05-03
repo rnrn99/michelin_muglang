@@ -7,12 +7,17 @@ import { Button, TextField, Card, Typography, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import styles from "../../css/account/Account.module.css";
 
+const KAKAO_AUTH_URL =
+  "https://kauth.kakao.com/oauth/authorize?client_id=917b9ed78684b8588577e8aced2a84d2&redirect_uri=http://localhost:5000/users/login/kakao&response_type=code";
+
 function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState(""); // email 저장할 상태
   const [password, setPassword] = useState(""); // password 저장할 상태
+
+  const kakaLogin = () => {};
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email) => {
@@ -106,17 +111,34 @@ function LoginForm() {
             <p style={{ color: "#FF9F1C" }}>비밀번호는 4글자 이상입니다.</p>
           )}
 
-          <StyledButton
-            type="submit"
-            name="LOGIN"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 1 }}
-            disabled={!isFormValid}
-            onClick={handleSubmit}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
           >
-            로그인
-          </StyledButton>
+            <StyledButton
+              type="submit"
+              name="LOGIN"
+              variant="contained"
+              sx={{ mt: 3, mb: 1 }}
+              disabled={!isFormValid}
+              onClick={handleSubmit}
+            >
+              로그인
+            </StyledButton>
+
+            <a
+              href={KAKAO_AUTH_URL}
+              style={{ marginTop: "24px", marginBottom: "8px" }}
+            >
+              <img
+                src="images/kakao_login_button.png"
+                alt="카카오 로그인"
+                width="200px"
+              />
+            </a>
+          </div>
 
           <Button
             variant="text"
@@ -149,6 +171,9 @@ const StyledTextField = styled(TextField)({
 
 const StyledButton = styled(Button)({
   backgroundColor: "#FF9F1C",
+  width: "200px",
+  height: "49.17px",
+  borderRadius: "6px",
   "&:hover": {
     backgroundColor: "#FFBF69",
   },
