@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
 
-class userAuthService {
+class UserAuthService {
   static async addUser({ name, email, password }) {
     // 이메일 중복 확인
     const user = await User.findByEmail({ email });
@@ -122,9 +122,9 @@ class userAuthService {
       return { errorMessage };
     }
 
-    delete user.password;
+    const { password, ...rest } = user;
 
-    return user;
+    return rest;
   }
 
   static async getUserByEmail({ email }) {
@@ -139,9 +139,9 @@ class userAuthService {
       throw error;
     }
 
-    delete user.password;
+    const { password, ...rest } = user;
 
-    return user;
+    return rest;
   }
 
   //추후에 북마크 리뷰 기능도 있으면 해당 데이터도 같이 지워주기
@@ -188,4 +188,4 @@ class userAuthService {
   }
 }
 
-export { userAuthService };
+export { UserAuthService };
