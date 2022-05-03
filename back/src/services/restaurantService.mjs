@@ -164,9 +164,11 @@ class RestaurantService {
       throw error;
     }
 
+    const name = targetCurrency.name;
+    const date = targetCurrency.date;
     // 현재 통화와 타켓 통화가 일치할 경우 기존 값을 반환
     if (currentCurrency.code === targetCurrency.code) {
-      return { minPrice, maxPrice };
+      return { name, date, minPrice, maxPrice };
     }
 
     let convertedMinPrice, convertedMaxPrice;
@@ -182,7 +184,12 @@ class RestaurantService {
       convertedMaxPrice = maxPrice * ratio;
     }
 
-    return { minPrice: convertedMinPrice, maxPrice: convertedMaxPrice };
+    return {
+      name,
+      date,
+      minPrice: convertedMinPrice,
+      maxPrice: convertedMaxPrice,
+    };
   }
 
   static async getRestaurantsNear({ id }) {

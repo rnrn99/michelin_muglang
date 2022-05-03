@@ -186,7 +186,7 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
       const id = req.params.id;
       const currencyCode = req.query.currency;
 
-      // currency exchange된 minPrice와 maxPrice를 얻음
+      // currency exchange된 minPrice와 maxPrice와 targetCurrency에 대한 정보를 얻음
       const prices = await RestaurantService.getConvertedPrice({
         id,
         currencyCode,
