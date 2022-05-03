@@ -76,7 +76,11 @@ function RestaurantDetailPage() {
       );
       dispatch(setupNearby(nearbyRestaurants.data.data));
       setBookmark(isBookmarked);
-      setBgImageUrl(restaurantInformation.data.data.imageUrl[0]);
+      if (restaurantInformation.data.data.imageUrl.length > 0) {
+        setBgImageUrl(restaurantInformation.data.data.imageUrl[0]);
+      } else {
+        setBgImageUrl(`${process.env.PUBLIC_URL}/images/defaultFoodImg.jpeg`);
+      }
     } catch (e) {
       setNotFound(true);
     }
@@ -91,7 +95,7 @@ function RestaurantDetailPage() {
       {notFound ? (
         <div className={styles.not_found}>
           <img
-            src={`${process.env.PUBLIC_URL}/images/notFound.svg`}
+            src={`${process.env.PUBLIC_URL}/images/notFound.jpeg`}
             alt="Not Found"
           />
           <span>Restaurant not found</span>
@@ -105,9 +109,19 @@ function RestaurantDetailPage() {
                 backgroundImage: `linear-gradient( rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7) ), url(${bgImageUrl})`,
               }}
             >
-              {restaurantInfo.imageUrl?.map((url) => (
+              {/* {restaurantInfo.imageUrl?.map((url) => (
                 <img src={url} key={url} alt="img" />
-              ))}
+              ))} */}
+              {restaurantInfo.imageUrl?.length === 0 ? (
+                <img
+                  src={`${process.env.PUBLIC_URL}/images/defaultFoodImg.jpeg`}
+                  alt="img"
+                />
+              ) : (
+                restaurantInfo.imageUrl?.map((url) => (
+                  <img src={url} key={url} alt="img" />
+                ))
+              )}
             </div>
             <div className={styles.main}>
               <span className={styles.restaurant_name}>
