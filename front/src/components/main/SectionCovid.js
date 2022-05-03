@@ -15,16 +15,23 @@ function SectionCovid({ active }) {
   const [labelVisible, setLabelVisible] = useState(false);
   const COLORS = ["#8884d8", "#E8B754"];
 
+  const handleResizeEvent = () => {
+    const visible = window.innerWidth <= 800;
+    setLabelVisible(visible);
+  };
+
   useEffect(() => {
     Api.get("graphs/covid-weekly").then((res) => setGraph(res.data));
-    const visible = window.innerWidth <= 800;
-    setLabelVisible(visible);
+    handleResizeEvent();
   }, []);
 
-  window.addEventListener("resize", () => {
-    const visible = window.innerWidth <= 800;
-    setLabelVisible(visible);
-  });
+  useEffect(() => {
+    window.addEventListener("resize", handleResizeEvent);
+
+    return () => {
+      window.removeEventListener("resize", handleResizeEvent);
+    };
+  }, []);
 
   return (
     <div className={styles.container}>
