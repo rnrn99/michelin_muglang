@@ -14,7 +14,6 @@ function LoginForm() {
   const [email, setEmail] = useState(""); // email 저장할 상태
   const [password, setPassword] = useState(""); // password 저장할 상태
 
-  const kakaLogin = () => {};
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -155,13 +154,23 @@ function LoginForm() {
             </a>
           </div>
 
-          <Button
-            variant="text"
-            onClick={handleGoToRegister}
-            sx={{ color: "#FF9F1C" }}
-          >
-            회원가입하기
-          </Button>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Button
+              variant="text"
+              onClick={handleGoToRegister}
+              sx={{ color: "#FF9F1C" }}
+            >
+              회원가입하기
+            </Button>
+
+            <Button
+              variant="text"
+              sx={{ color: "#FF9F1C" }}
+              onClick={() => navigate("/reset")}
+            >
+              임시 비밀번호 발급
+            </Button>
+          </div>
         </Box>
       </Card>
     </div>

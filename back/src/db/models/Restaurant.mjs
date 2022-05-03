@@ -52,7 +52,12 @@ class Restaurant {
   }
 
   static async findAll() {
-    const restaurants = await RestaurantModel.find({}).lean();
+    const restaurants = await RestaurantModel.find({})
+      .update(
+        { bookmarkCount: { $exists: false } },
+        { $set: { bookmarkCount: 0 } },
+      )
+      .lean();
     return restaurants;
   }
 
