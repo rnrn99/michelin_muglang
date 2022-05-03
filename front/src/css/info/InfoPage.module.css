@@ -1,0 +1,58 @@
+/* nav btn */
+.pointWrap {
+  position: fixed;
+  top: 45%;
+  right: 3vw;
+  z-index: 100;
+}
+
+.pointWrap li {
+  list-style: none;
+  width: 12px;
+  height: 12px;
+  margin-top: 15px;
+  cursor: pointer;
+  background-color: #999;
+  border-radius: 50%;
+  transition: background-color 0.3s ease-out;
+}
+
+.pointWrap li.active {
+  background-color: #000;
+}
+
+/* section */
+section {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  place-items: center;
+}
+
+section:nth-child(2) {
+  height: calc(100vh - 64px);
+}
+section:nth-child(5) {
+  height: calc(100vh - 64px);
+}
+
+/* animation */
+@keyframes delay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes changeMovement {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
