@@ -107,6 +107,7 @@ class Restaurant {
     maxPrice = Number.MAX_SAFE_INTEGER,
     cuisine = "",
     award = "",
+    country = "",
   }) {
     const len = await RestaurantModel.countDocuments({
       name: { $regex: name, $options: "i" },
@@ -116,6 +117,7 @@ class Restaurant {
       maxPrice: { $lte: parseInt(maxPrice) },
       cuisine: { $regex: cuisine, $options: "i" },
       award: { $regex: award, $options: "i" },
+      country: { $regex: country, $options: "i" },
     });
 
     const lastPage = Math.ceil(len / pageSize);
@@ -128,6 +130,7 @@ class Restaurant {
       maxPrice: { $lte: parseInt(maxPrice) },
       cuisine: { $regex: cuisine, $options: "i" },
       award: { $regex: award, $options: "i" },
+      country: { $regex: country, $options: "i" },
     })
       .sort({ _id: 1 })
       .skip((page - 1) * pageSize)

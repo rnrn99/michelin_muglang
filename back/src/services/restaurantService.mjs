@@ -101,6 +101,7 @@ class RestaurantService {
     maxPrice,
     cuisine,
     award,
+    country,
   }) {
     const restaurants = await Restaurant.findAllByQuery({
       page,
@@ -112,6 +113,7 @@ class RestaurantService {
       maxPrice,
       cuisine,
       award,
+      country,
     });
 
     // db에서 해당 검색어를 포함하는 식당을 찾지 못한 경우, 에러 메시지 반환

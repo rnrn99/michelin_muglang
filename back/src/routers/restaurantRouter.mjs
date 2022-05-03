@@ -131,8 +131,16 @@ restaurantRouter.get("/restaurants/search", async function (req, res, next) {
     }
 
     try {
-      const { name, address, location, minPrice, maxPrice, cuisine, award } =
-        req.query;
+      const {
+        name,
+        address,
+        location,
+        minPrice,
+        maxPrice,
+        cuisine,
+        award,
+        country,
+      } = req.query;
 
       const { restaurants, lastPage, len } =
         await RestaurantService.getRestaruantsByQuery({
@@ -145,6 +153,7 @@ restaurantRouter.get("/restaurants/search", async function (req, res, next) {
           maxPrice,
           cuisine,
           award,
+          country,
         });
 
       const response = {
