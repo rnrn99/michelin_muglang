@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
 
-class userAuthService {
+class UserAuthService {
   static async addUser({ name, email, password }) {
     // 이메일 중복 확인
     const user = await User.findByEmail({ email });
@@ -188,4 +188,4 @@ class userAuthService {
   };
 }
 
-export { userAuthService };
+export { UserAuthService };
