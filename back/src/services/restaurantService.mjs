@@ -1,6 +1,6 @@
 import { Restaurant, Currency } from "../db/index.mjs";
 
-class restaurantService {
+class RestaurantService {
   static async getRestaurants() {
     const restaurants = await Restaurant.findAll();
 
@@ -101,6 +101,7 @@ class restaurantService {
     maxPrice,
     cuisine,
     award,
+    country,
   }) {
     const restaurants = await Restaurant.findAllByQuery({
       page,
@@ -112,6 +113,7 @@ class restaurantService {
       maxPrice,
       cuisine,
       award,
+      country,
     });
 
     // db에서 해당 검색어를 포함하는 식당을 찾지 못한 경우, 에러 메시지 반환
@@ -203,4 +205,4 @@ class restaurantService {
   }
 }
 
-export { restaurantService };
+export { RestaurantService };

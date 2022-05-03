@@ -23,15 +23,12 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
         try {
           // URI로부터 country(query)를 추출함
           const country = req.query.country;
-          const {
-            restaurants,
-            lastPage,
-            len,
-          } = await restaurantService.getRestaurantsByCountryPaging({
-            page,
-            pageSize,
-            country,
-          });
+          const { restaurants, lastPage, len } =
+            await restaurantService.getRestaurantsByCountryPaging({
+              page,
+              pageSize,
+              country,
+            });
 
           const response = {
             code: 200,
@@ -50,15 +47,12 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
         try {
           // URI로부터 cuisine(query)를 추출함
           const cuisine = req.query.cuisine;
-          const {
-            restaurants,
-            lastPage,
-            len,
-          } = await restaurantService.getRestaurantsByCuisinePaging({
-            page,
-            pageSize,
-            cuisine,
-          });
+          const { restaurants, lastPage, len } =
+            await restaurantService.getRestaurantsByCuisinePaging({
+              page,
+              pageSize,
+              cuisine,
+            });
 
           const response = {
             code: 200,
@@ -75,14 +69,11 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
       }
 
       // 전체 식당 중 일부를 paging하여 얻음
-      const {
-        restaurants,
-        lastPage,
-        len,
-      } = await restaurantService.getRestaurantsPaging({
-        page,
-        pageSize,
-      });
+      const { restaurants, lastPage, len } =
+        await restaurantService.getRestaurantsPaging({
+          page,
+          pageSize,
+        });
 
       const response = {
         code: 200,
@@ -120,14 +111,11 @@ restaurantRouter.get("/restaurants/search", async function (req, res, next) {
     // 검색할 내용이 없음 -> 전체 레스토랑 반환(검색하는 필드 입력하지 않았을 때)
     if (Object.keys(req.query).length == 2) {
       try {
-        const {
-          restaurants,
-          lastPage,
-          len,
-        } = await restaurantService.getRestaurantsPaging({
-          page,
-          pageSize,
-        });
+        const { restaurants, lastPage, len } =
+          await restaurantService.getRestaurantsPaging({
+            page,
+            pageSize,
+          });
 
         const response = {
           code: 200,
@@ -152,23 +140,22 @@ restaurantRouter.get("/restaurants/search", async function (req, res, next) {
         maxPrice,
         cuisine,
         award,
+        country,
       } = req.query;
 
-      const {
-        restaurants,
-        lastPage,
-        len,
-      } = await restaurantService.getRestaruantsByQuery({
-        page,
-        pageSize,
-        name,
-        address,
-        location,
-        minPrice,
-        maxPrice,
-        cuisine,
-        award,
-      });
+      const { restaurants, lastPage, len } =
+        await RestaurantService.getRestaruantsByQuery({
+          page,
+          pageSize,
+          name,
+          address,
+          location,
+          minPrice,
+          maxPrice,
+          cuisine,
+          award,
+          country,
+        });
 
       const response = {
         code: 200,
@@ -201,7 +188,7 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
       const currencyCode = req.query.currency;
 
       // currency exchange된 minPrice와 maxPrice를 얻음
-      const prices = await restaurantService.getConvertedPrice({
+      const prices = await RestaurantService.getConvertedPrice({
         id,
         currencyCode,
       });
@@ -222,7 +209,7 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
   try {
     // URI로부터 restaurant_id를 추출함
     const id = req.params.id;
-    const restaurant = await restaurantService.getRestaurantInfo({ id });
+    const restaurant = await RestaurantService.getRestaurantInfo({ id });
 
     const response = {
       code: 200,
@@ -241,7 +228,7 @@ restaurantRouter.get("/restaurants/:id/near", async function (req, res, next) {
   try {
     // URI로부터 id를 추출함
     const id = req.params.id;
-    const restaurantsNear = await restaurantService.getRestaurantsNear({ id });
+    const restaurantsNear = await RestaurantService.getRestaurantsNear({ id });
 
     const response = {
       code: 200,
