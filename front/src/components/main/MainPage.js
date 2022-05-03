@@ -114,12 +114,12 @@ function MainPage() {
         </h1>
         <div className={styles.info_img}>
           <img
-            src="images/window.png"
+            src="images/map.png"
             alt="service_info_1"
             className={activeBtn === 3 ? styles.active : ""}
           />
           <img
-            src="images/window.png"
+            src="images/restaurant.png"
             alt="service_info_2"
             className={activeBtn === 3 ? styles.active : ""}
           />
