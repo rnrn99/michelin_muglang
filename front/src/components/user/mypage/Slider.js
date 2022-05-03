@@ -7,6 +7,9 @@ const Slider = ({ children, contentNum, noContentText }) => {
   const [flag, setFlag] = useState(0);
   const leftChevronValid = contentNum > 4 && flag !== 0;
   const rightCehvronValid = contentNum > 4 && flag < contentNum - 4;
+  const cardWidth = 230;
+  const cardGap = 20;
+  const sliderWidth = 1000;
 
   return (
     <div className={styles.slider}>
@@ -23,7 +26,8 @@ const Slider = ({ children, contentNum, noContentText }) => {
         <div
           className={styles.list}
           style={{
-            width: contentNum * 230 + (contentNum - 1) * 20 + 980,
+            width:
+              contentNum * cardWidth + (contentNum - 1) * cardGap + sliderWidth,
             transform: `translateX(${-flag * 250}px)`,
           }}
         >

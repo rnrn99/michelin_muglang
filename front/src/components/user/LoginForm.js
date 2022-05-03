@@ -57,6 +57,16 @@ function LoginForm() {
     }
   };
 
+  const handleGoToRegister = () => {
+    if (location.state) {
+      navigate("/register", {
+        state: { pathname: location.state.pathname },
+      });
+    } else {
+      navigate("/register");
+    }
+  };
+
   return (
     <div className={`${styles.container} ${styles.login}`}>
       <Card
@@ -126,15 +136,7 @@ function LoginForm() {
 
           <Button
             variant="text"
-            onClick={() => {
-              if (location.state) {
-                navigate("/register", {
-                  state: { pathname: location.state.pathname },
-                });
-              } else {
-                navigate("/register");
-              }
-            }}
+            onClick={handleGoToRegister}
             sx={{ color: "#FF9F1C" }}
           >
             회원가입하기

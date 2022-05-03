@@ -146,7 +146,9 @@ function Information() {
               </span>
             </div>
           </div>
-          <div className={styles.map}>{/* <Googlemap /> */}</div>
+          <div className={styles.map}>
+            <Googlemap />
+          </div>
         </div>
         <div className={styles.right}>
           <GoogleReviews />
