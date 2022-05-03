@@ -11,14 +11,16 @@ class Review {
     return reviewInfo;
   }
 
-  static async update({ id, toUpdate }) {
+  static async update({ id, toUpdate, session }) {
     const filter = { id };
     const option = { returnOriginal: false };
-    const updatedReview = await ReviewModel.findOneAndUpdate(
-      filter,
-      toUpdate,
-      option,
-    );
+    const updatedReview =
+      session === undefined
+        ? await ReviewModel.findOneAndUpdate(filter, toUpdate, option)
+        : await ReviewModel.findOneAndUpdate(filter, toUpdate, option).session(
+            session,
+          );
+
     return updatedReview;
   }
 
@@ -40,18 +42,22 @@ class Review {
   }
 
   // 유저 이름 수정 시, 리뷰 데이터도 업데이트
-  static async updateUserName({ userId, userName }) {
+  static async updateUserName({ userId, userName, session }) {
     const filter = { userId };
     const update = { userName };
     const option = { returnOriginal: false };
 
-    const updatedReviews = await ReviewModel.updateMany(filter, update, option);
+    const updatedReviews = await ReviewModel.updateMany(
+      filter,
+      update,
+      option,
+    ).session(session);
     return updatedReviews;
   }
 
   // 회원 탈퇴 시, 리뷰 데이터 삭제
-  static async deleteByUserId({ userId }) {
-    const result = await ReviewModel.deleteMany({ userId });
+  static async deleteByUserId({ userId, session }) {
+    const result = await ReviewModel.deleteMany({ userId }).session(session);
     return result;
   }
 }

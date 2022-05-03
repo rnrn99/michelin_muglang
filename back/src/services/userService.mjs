@@ -1,4 +1,4 @@
-import { User, Restaurant, Review } from "../db/index.mjs"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
+import { User, Restaurant, Review, mongodb } from "../db/index.mjs";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
@@ -144,20 +144,31 @@ class UserAuthService {
       }
     }
 
-    user = await User.update({ id, toUpdate });
-
     if (toUpdate.name) {
-      let reviewInfo = Review.findByUserId({ userId: id });
-      if (reviewInfo) {
-        let updatedReview = await Review.updateUserName({
-          userId: id,
-          userName: toUpdate.name,
-        });
-        return [user, updatedReview];
+      let session = await mongodb.startSession();
+      try {
+        session.startTransaction();
+        const user = [
+          await User.update({ id, toUpdate, session }),
+          await Review.updateUserName({
+            userId: id,
+            userName: toUpdate.name,
+            session,
+          }),
+        ];
+        await session.commitTransaction();
+        return user;
+      } catch (error) {
+        await session.abortTransaction();
+        error.statusCode = 500;
+        throw error;
+      } finally {
+        await session.endSession();
       }
+    } else {
+      user = await User.update({ id, toUpdate });
+      return user;
     }
-
-    return user;
   }
 
   static async getUserInfo({ id }) {
@@ -192,26 +203,67 @@ class UserAuthService {
     return rest;
   }
 
-  //추후에 북마크 리뷰 기능도 있으면 해당 데이터도 같이 지워주기
   static async deleteUser({ id }) {
-    const userInfo = await User.findById({ id });
-    const user = await Promise.all([
-      Restaurant.unbookmarkByList({ bookmarkList: userInfo.bookmarks }),
-      Review.deleteByUserId({ userId: id }),
-      User.delete({ id }),
-    ]);
-    // const user = await User.delete({ id });
-    return user;
+    let session = await mongodb.startSession();
+    try {
+      session.startTransaction();
+      const userInfo = await User.findById({ id });
+      const user = [
+        await Restaurant.unbookmarkByList({
+          bookmarkList: userInfo.bookmarks,
+          session,
+        }),
+        await Review.deleteByUserId({ userId: id, session }),
+        await User.delete({ id, session }),
+      ];
+      await session.commitTransaction();
+      return user;
+    } catch (error) {
+      await session.abortTransaction();
+      error.statusCode = 500;
+      throw error;
+    } finally {
+      await session.endSession();
+    }
   }
 
   // 북마크
   static async updateBookmark({ id, restaurantId }) {
-    const bookmarks = await Promise.all([
-      Restaurant.bookmark({ id: restaurantId }),
-      User.updateBookmark({ id, restaurantId }),
-    ]);
-    // const bookmarks = await User.updateBookmark({ id, restaurantId });
-    return bookmarks;
+    let session = await mongodb.startSession();
+    try {
+      session.startTransaction();
+      const bookmarks = [
+        await Restaurant.bookmark({ id: restaurantId, session }), // 음식점의 북마크 개수 +1
+        await User.updateBookmark({ id, restaurantId, session }), // 유저의 북마크 리스트에 업데이트
+      ];
+      await session.commitTransaction();
+      return bookmarks;
+    } catch (error) {
+      await session.abortTransaction();
+      error.statusCode = 500;
+      throw error;
+    } finally {
+      await session.endSession();
+    }
+  }
+
+  static async deleteBookmark({ id, restaurantId }) {
+    let session = await mongodb.startSession();
+    try {
+      session.startTransaction();
+      const bookmarks = [
+        await Restaurant.unbookmark({ id: restaurantId, session }), // 음식점의 북마크 개수 -1
+        await User.deleteBookmark({ id, restaurantId, session }), // 유저의 북마크 리스트에서 삭제
+      ];
+      await session.commitTransaction();
+      return bookmarks;
+    } catch (error) {
+      await session.abortTransaction();
+      error.statusCode = 500;
+      throw error;
+    } finally {
+      await session.endSession();
+    }
   }
 
   static async getBookmarks({ id }) {
@@ -223,15 +275,6 @@ class UserAuthService {
     }
 
     const bookmarks = await User.findBookmarks({ id });
-    return bookmarks;
-  }
-
-  static async deleteBookmark({ id, restaurantId }) {
-    const bookmarks = await Promise.all([
-      Restaurant.unbookmark({ id: restaurantId }),
-      User.deleteBookmark({ id, restaurantId }),
-    ]);
-    // const bookmarks = await User.deleteBookmark({ id, restaurantId });
     return bookmarks;
   }
 }

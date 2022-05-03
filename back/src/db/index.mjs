@@ -11,7 +11,8 @@ const DB_URL =
 
 mongoose.connect(DB_URL);
 const db = mongoose.connection;
-const graphItems = db.collection("graphItems");
+const mongodb = mongoose.createConnection(DB_URL); // for db transaction
+const graphItems = db.collection("graphItems"); // for graph visualization
 
 db.on("connected", () =>
   console.log("정상적으로 MongoDB 서버에 연결되었습니다.  " + DB_URL),
@@ -20,6 +21,7 @@ db.on("error", (error) =>
   console.error("MongoDB 연결에 실패하였습니다...\n" + DB_URL + "\n" + error),
 );
 
+export { mongodb };
 export { graphItems };
 export { User };
 export { Restaurant };

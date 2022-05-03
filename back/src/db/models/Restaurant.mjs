@@ -171,51 +171,46 @@ class Restaurant {
     return restaurantsNear;
   }
 
-  static bookmark = async ({ id }) => {
+  static async bookmark({ id, session }) {
     const filter = { _id: id };
-    const update = { $inc: { bookmarkCount: 1 } };
+    const update = { $inc: { bookmarkCount: 1 } }; // 음식점의 북마크 개수 +1
     const option = { returnOriginal: false };
 
     const bookmark = await RestaurantModel.findOneAndUpdate(
       filter,
       update,
       option,
-    );
+    ).session(session);
 
     return bookmark;
-  };
+  }
 
-  static unbookmark = async ({ id }) => {
+  static async unbookmark({ id, session }) {
     const filter = { _id: id };
-    const update = { $inc: { bookmarkCount: -1 } };
+    const update = { $inc: { bookmarkCount: -1 } }; // 음식점의 북마크 개수 -1
     const option = { returnOriginal: false };
 
     const bookmark = await RestaurantModel.findOneAndUpdate(
       filter,
       update,
       option,
-    );
+    ).session(session);
     return bookmark;
-  };
+  }
 
-  static unbookmarkByList = async ({ bookmarkList }) => {
-    // for (let i = 0; i < userInfo.bookmarks.length; i++) {
-    //   restaurantId = userInfo.bookmarks[i];
-    //   const unbookmark = await RestaurantModel.findOneAndUpdate(
-    //     { _id: restaurantId },
-    //     { $inc: { bookmarkCount: -1 } },
-    //     { returnOriginal: false },
-    //   );
-    // }
-
+  static async unbookmarkByList({ bookmarkList, session }) {
     const filter = { _id: { $in: bookmarkList } };
-    const update = { $inc: { bookmarkCount: -1 } };
+    const update = { $inc: { bookmarkCount: -1 } }; // 유저 탈퇴시, 유저가 북마크한 음식점의 북마크 개수 -1
     const option = { returnOriginal: false };
 
-    const unbookmark = await RestaurantModel.updateMany(filter, update, option);
+    const unbookmark = await RestaurantModel.updateMany(
+      filter,
+      update,
+      option,
+    ).session(session);
 
     return unbookmark;
-  };
+  }
 }
 
 export { Restaurant };
