@@ -15,6 +15,7 @@ import TeamPage from "./components/team/TeamPage";
 import MyPage from "./components/user/mypage/MyPage";
 import RestaurantDetailPage from "./components/restaurant/RestaurantDetailPage";
 import UnregisterConfirmationPage from "./components/user/UnregisterConfirmationPage";
+import InfoPage from "./components/info/InfoPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/unregister" element={<UnregisterConfirmationPage />} />
         <Route path="/restaurants/:id" element={<RestaurantDetailPage />} />
+        <Route path="/service-info" element={<InfoPage />} />
       </Routes>
     </Router>
   );

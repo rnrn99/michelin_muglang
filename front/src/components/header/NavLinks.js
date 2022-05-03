@@ -19,6 +19,17 @@ function NavLinks({ isLogin, logout, pathname }) {
         </span>
       </Link>
 
+      <Link className={styles.menu__link} href="/service-info">
+        <span className={styles.menu__title}>
+          <span className={styles.menu__first_word} data-hover="서비스">
+            서비스
+          </span>
+          <span className={styles.menu__second_word} data-hover="소개">
+            소개
+          </span>
+        </span>
+      </Link>
+
       <Link className={styles.menu__link} href="/team-craft">
         <span className={styles.menu__title}>
           <span className={styles.menu__first_word} data-hover="팀">

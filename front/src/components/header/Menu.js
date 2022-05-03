@@ -19,6 +19,9 @@ function Menu({ isLogin, logout, pathname }) {
             <ListItem button onClick={() => navigate("/map")}>
               미슐랭 찾아보기
             </ListItem>
+            <ListItem button onClick={() => navigate("/service-info")}>
+              서비스 소개
+            </ListItem>
             <ListItem button onClick={() => navigate("/team-craft")}>
               팀 소개
             </ListItem>
