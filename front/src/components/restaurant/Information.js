@@ -160,7 +160,7 @@ function Information() {
             <Googlemap />
           </div>
         </div>
-        <div className={styles.right}>{/* <GoogleReviews /> */}</div>
+        {/* <div className={styles.right}><GoogleReviews /></div> */}
       </div>
     </div>
   );
