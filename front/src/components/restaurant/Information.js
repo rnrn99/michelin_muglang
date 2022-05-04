@@ -16,6 +16,7 @@ import {
   CurrencyExchangeOutlined as ExchangeIcon,
   CheckCircleOutlineOutlined as CheckIcon,
 } from "@mui/icons-material";
+import { Tooltip } from "@mui/material";
 
 function Information() {
   const { restaurantInfo } = useSelector((state) => state.restaurant);
@@ -24,7 +25,10 @@ function Information() {
   const [exchangePrice, setExchangePrice] = useState({
     minPrice: 0,
     maxPrice: 0,
+    date: "",
+    name: "",
   });
+  const exchangeDate = exchangePrice.date.split("/");
 
   const onClickExchangeBtn = () => {
     setShowSelectBox((cur) => !cur);
@@ -113,10 +117,16 @@ function Information() {
                         )}`}{" "}
                     ({currency})
                   </span>
-                  <ExchangeIcon
-                    className={styles.exchange_btn}
-                    onClick={onClickExchangeBtn}
-                  />
+                  <Tooltip
+                    title={`${exchangeDate[2]}년 ${exchangeDate[1]}월 ${exchangeDate[0]}일 환율 기준으로 환전합니다.`}
+                    arrow
+                    placement="top"
+                  >
+                    <ExchangeIcon
+                      className={styles.exchange_btn}
+                      onClick={onClickExchangeBtn}
+                    />
+                  </Tooltip>
                 </>
               )}
             </div>

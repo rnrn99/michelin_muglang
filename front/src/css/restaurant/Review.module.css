@@ -18,18 +18,28 @@
   color: #a7a7a7;
 }
 
-.review .icon_edit {
+.review .icon_comment {
   margin-left: 10px;
-}
-
-.review .icon_edit,
-.review .icon_delete {
+  margin-bottom: -3px;
   color: #a7a7a7;
   transition: color 0.3s;
 }
 
-.review .icon_edit:hover,
-.review .icon_delete:hover {
+.review .icon_comment:hover {
+  cursor: pointer;
+  color: #2ec4b6;
+}
+
+.review .edit_btn,
+.review .delete_btn {
+  color: #a7a7a7;
+  margin-left: 5px;
+  margin-bottom: -3px;
+  transition: color 0.3s;
+}
+
+.review .edit_btn:hover,
+.review .delete_btn:hover {
   cursor: pointer;
   color: #ff9f1c;
 }
@@ -40,19 +50,36 @@
   line-height: 24px;
 }
 
-.edit_form {
+.edit_form,
+.comment_form {
   position: relative;
   margin-top: 10px;
 }
 
-.edit_form textarea {
+.edit_form textarea,
+.comment_form textarea {
+  box-sizing: border-box;
   resize: none;
   width: 99%;
   height: 80px;
+  padding: 5px 8px;
+  border-color: #a7a7a7;
+  border-radius: 5px;
   font-size: 16px;
+  font-family: inherit;
 }
 
-.edit_form button {
+.comment_form textarea {
+  height: 40px;
+}
+
+.edit_form textarea:focus,
+.comment_form textarea:focus {
+  outline: none;
+}
+
+.edit_form button,
+.comment_form button {
   position: absolute;
   font-size: 14px;
   width: 45px;
@@ -63,16 +90,23 @@
   transition: background-color 0.2s;
 }
 
-.edit_form button:hover {
+.comment_form button {
+  top: 0px;
+}
+
+.edit_form button:hover,
+.comment_form button:hover {
   cursor: pointer;
-  background-color: #ff9f1c;
+  background-color: #ffca81;
   color: whitesmoke;
 }
 
-.edit_form button:nth-child(2) {
+.edit_form button:nth-child(2),
+.comment_form button:nth-child(2) {
   right: -50px;
 }
 
-.edit_form button:nth-child(3) {
+.edit_form button:nth-child(3),
+.comment_form button:nth-child(3) {
   right: -100px;
 }
