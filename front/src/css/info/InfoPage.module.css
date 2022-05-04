@@ -44,32 +44,41 @@ section:nth-child(5) {
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .graphWrapper {
-  position: absolute;
-}
-
-/* section 1 - covid monthly graph */
-.graphWrapper.covidMonthly {
-  top: 35%;
-  right: 0;
   width: 40%;
   height: 40%;
 }
 
-.graphWrapper.review {
-  top: 30%;
-  right: 0;
-  width: 40%;
-  height: 40%;
+.textWrapper {
+  width: 55%;
+  height: 55%;
+  margin-right: 2rem;
 }
 
-.graphWrapper.michelin {
-  top: 30%;
-  right: 0;
-  width: 40%;
-  height: 40%;
+.textWrapper h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.textWrapper p {
+  font-size: 1.3rem;
+  line-height: 2rem;
+  word-break: break-word;
+  margin-bottom: 1rem;
+}
+
+.textWrapper .description {
+  color: #999;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+
+.textWrapper span {
+  color: #ff9f1c;
 }
 
 /* animation */
