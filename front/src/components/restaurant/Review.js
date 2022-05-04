@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteReview, editReview } from "../../redux/restaurantSlice";
 import { patch } from "../../api";
+import ReviewComment from "./ReviewComment";
 import DeleteConfirmationModal from "../modal/DeleteConfirmationModal";
 import styles from "../../css/restaurant/Review.module.css";
 import {
@@ -9,6 +10,25 @@ import {
   Delete as DeleteIcon,
   Chat as CommentIcon,
 } from "@mui/icons-material";
+
+const comments = [
+  {
+    _id: "626bc3e11bc0e614cc355cac",
+    reviewId: "b165370e-b70a-4cf9-a5ee-6f2b625fd4ef",
+    userId: "825a2001-f7ec-4637-b923-702886fc26c2",
+    userName: "엘리스",
+    text: "맛있나요?",
+    createdAt: "2022-04-29T10:54:25.691Z",
+  },
+  {
+    _id: "626bc3e11bc0e614cc355caa",
+    reviewId: "b165370e-b70a-4cf9-a5ee-6f2b625fd4ef",
+    userId: "3b6aebe0-ca55-47e7-9cda-523f28b3aafc",
+    userName: "토끼",
+    text: "깨끗한가요?",
+    createdAt: "2022-04-29T10:54:25.691Z",
+  },
+];
 
 const Review = ({ review }) => {
   const [reviewText, setReviewText] = useState(review.text);
@@ -44,7 +64,7 @@ const Review = ({ review }) => {
           <span className={styles.username}>{review.userName}</span>
           <span className={styles.date}>{review.createdAt.slice(0, 10)}</span>
           <span
-            className={styles.icon_comment}
+            className={styles.comment_btn}
             onClick={() => {
               setIsCommenting((cur) => !cur);
             }}
@@ -73,6 +93,7 @@ const Review = ({ review }) => {
             </>
           )}
         </div>
+
         {isEditing ? (
           <form onSubmit={handleEdit} className={styles.edit_form}>
             <textarea
@@ -94,6 +115,7 @@ const Review = ({ review }) => {
         ) : (
           <div className={styles.content}>{review.text}</div>
         )}
+
         {isCommenting && (
           <form onSubmit={handleComment} className={styles.comment_form}>
             <textarea
@@ -114,6 +136,10 @@ const Review = ({ review }) => {
             </button>
           </form>
         )}
+
+        {comments.map((comment) => (
+          <ReviewComment comment={comment} key={comment._id} />
+        ))}
       </div>
       {deleteConfirmModal && (
         <DeleteConfirmationModal

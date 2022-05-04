@@ -45,7 +45,7 @@ const UserUpdateModal = ({ setIsModalOpen }) => {
 
     try {
       const updatedUser = await Api.put("users", { name, email, password });
-      dispatch(update(updatedUser.data[0]));
+      dispatch(update(updatedUser.data));
       handleCancelClick();
     } catch (e) {
       setErrorMessage(e.response.data.msg);

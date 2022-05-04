@@ -8,24 +8,24 @@
   align-items: flex-end;
 }
 
-.review .username {
+.review_title .username {
   font-size: 20px;
 }
 
-.review .date {
+.review_title .date {
   margin-left: 11px;
   font-size: 15px;
   color: #a7a7a7;
 }
 
-.review .icon_comment {
+.review .comment_btn {
   margin-left: 10px;
   margin-bottom: -3px;
   color: #a7a7a7;
   transition: color 0.3s;
 }
 
-.review .icon_comment:hover {
+.review .comment_btn:hover {
   cursor: pointer;
   color: #2ec4b6;
 }
