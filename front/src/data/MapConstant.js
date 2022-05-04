@@ -3,7 +3,7 @@ export const countries = [
   "United Kingdom",
   "Austria",
   "China",
-  "Macao",
+  "Macau",
   "Hong Kong",
   "Spain",
   "Japan",
