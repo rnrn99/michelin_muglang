@@ -8,6 +8,7 @@ import { mapRouter } from "./routers/mapRouter.mjs";
 import { graphRouter } from "./routers/graphRouter.mjs";
 import { reviewRouter } from "./routers/reviewRouter.mjs";
 import { googleRouter } from "./routers/googleRouter.mjs";
+import { commentRouter } from "./routers/commentRouter.mjs";
 
 const app = express();
 const pinoLogger = logger({
@@ -56,6 +57,7 @@ app.use(restaurantRouter);
 app.use(graphRouter);
 app.use(reviewRouter);
 app.use(googleRouter);
+app.use(commentRouter);
 
 // 순서 중요 (router 에서 next() 시 아래의 에러 핸들링  middleware로 전달됨)
 app.use(errorMiddleware);

@@ -1,4 +1,4 @@
-import { User, Restaurant, Review, mongodb } from "../db/index.mjs";
+import { User, Restaurant, Review, Comment, mongodb } from "../db/index.mjs";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
@@ -144,33 +144,36 @@ class UserAuthService {
       }
     }
 
-    if (toUpdate.name) {
-      if (toUpdate.name && user.name !== toUpdate.name) {
-        let session = await mongodb.startSession();
-        try {
-          session.startTransaction();
-          const result = [
-            await User.update({ id, toUpdate, session }),
-            await Review.updateUserName({
-              userId: id,
-              userName: toUpdate.name,
-              session,
-            }),
-          ];
-          user = result[0];
-          await session.commitTransaction();
-          return user;
-        } catch (error) {
-          await session.abortTransaction();
-          error.statusCode = 500;
-          throw error;
-        } finally {
-          await session.endSession();
-        }
-      } else {
-        user = await User.update({ id, toUpdate });
+    if (toUpdate.name && user.name !== toUpdate.name) {
+      let session = await mongodb.startSession();
+      try {
+        session.startTransaction();
+        const result = [
+          await User.update({ id, toUpdate, session }),
+          await Review.updateUserName({
+            userId: id,
+            userName: toUpdate.name,
+            session,
+          }),
+          await Comment.updateUserName({
+            userId: id,
+            userName: toUpdate.name,
+            session,
+          }),
+        ];
+        user = result[0];
+        await session.commitTransaction();
         return user;
+      } catch (error) {
+        await session.abortTransaction();
+        error.statusCode = 500;
+        throw error;
+      } finally {
+        await session.endSession();
       }
+    } else {
+      user = await User.update({ id, toUpdate });
+      return user;
     }
   }
 
@@ -217,6 +220,7 @@ class UserAuthService {
           session,
         }),
         await Review.deleteByUserId({ userId: id, session }),
+        await Comment.deleteByUserId({ userId: id, session }),
         await User.delete({ id, session }),
       ];
       await session.commitTransaction();

@@ -1,4 +1,4 @@
-import { Review, Restaurant, User } from "../db/index.mjs";
+import { Review, Restaurant, User, mongodb } from "../db/index.mjs";
 import { v4 as uuidv4 } from "uuid";
 
 class ReviewService {
@@ -48,14 +48,28 @@ class ReviewService {
   }
 
   static async deleteReview({ id }) {
-    const isDataDeleted = await Review.delete({ id });
-    if (!isDataDeleted) {
-      const error = new Error("해당 id를 가진 리뷰 데이터를 찾을 수 없습니다.");
-      error.statusCode = 400;
-      throw error;
-    }
+    let session = await mongodb.startSession();
+    try {
+      session.startTransaction();
+      const isReviewDeleted = await Review.delete({ id, session });
+      if (!isReviewDeleted) {
+        const error = new Error(
+          "해당 id를 가진 리뷰 데이터를 찾을 수 없습니다.",
+        );
+        error.statusCode = 400;
+        throw error;
+      }
 
-    return { status: "ok" };
+      await Comment.deleteByReviewId({ reviewId: id, session });
+      await session.commitTransaction();
+      return { status: "ok" };
+    } catch (error) {
+      await session.abortTransaction();
+      error.statusCode = 500;
+      throw error;
+    } finally {
+      await session.endSession();
+    }
   }
 
   static async findByUserId({ userId }) {

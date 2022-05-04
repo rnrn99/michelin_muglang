@@ -11,21 +11,20 @@ class Review {
     return reviewInfo;
   }
 
-  static async update({ id, toUpdate, session }) {
+  static async update({ id, toUpdate }) {
     const filter = { id };
     const option = { returnOriginal: false };
-    const updatedReview =
-      session === undefined
-        ? await ReviewModel.findOneAndUpdate(filter, toUpdate, option)
-        : await ReviewModel.findOneAndUpdate(filter, toUpdate, option).session(
-            session,
-          );
+    const updatedReview = ReviewModel.findOneAndUpdate(
+      filter,
+      toUpdate,
+      option,
+    );
 
     return updatedReview;
   }
 
-  static async delete({ id }) {
-    const result = await ReviewModel.deleteOne({ id });
+  static async delete({ id, session }) {
+    const result = await ReviewModel.deleteOne({ id }).session(session);
     // returns: { "acknowledged" : true, "deletedCount" : 1 }
     const isDataDeleted = result.deletedCount === 1;
     return isDataDeleted;
@@ -36,10 +35,12 @@ class Review {
     return reviewlist;
   }
 
-  static async findByRestaurantId({ restaurantId }) {
-    const reviewlist = await ReviewModel.find({ restaurantId });
+  static findByRestaurantId = async ({ restaurantId }) => {
+    const reviewlist = await ReviewModel.find({ restaurantId }).populate(
+      "comments",
+    );
     return reviewlist;
-  }
+  };
 
   // 유저 이름 수정 시, 리뷰 데이터도 업데이트
   static async updateUserName({ userId, userName, session }) {
@@ -59,6 +60,32 @@ class Review {
   static async deleteByUserId({ userId, session }) {
     const result = await ReviewModel.deleteMany({ userId }).session(session);
     return result;
+  }
+
+  static async addComment({ id, commentId }) {
+    const filter = { id };
+    const update = { $push: { comments: commentId } };
+    const option = { returnOriginal: false };
+
+    const updatedReview = await ReviewModel.findOneAndUpdate(
+      filter,
+      update,
+      option,
+    );
+    return updatedReview;
+  }
+
+  static async deleteComment({ id, commentId, session }) {
+    const filter = { id };
+    const update = { $pull: { comments: commentId } };
+    const option = { returnOriginal: false };
+
+    const updatedReview = await ReviewModel.findOneAndUpdate(
+      filter,
+      update,
+      option,
+    ).session(session);
+    return updatedReview;
   }
 }
 

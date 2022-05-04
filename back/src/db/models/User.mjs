@@ -21,16 +21,17 @@ class User {
     return users;
   }
 
-  static async update({ id, toUpdate }) {
+  static async update({ id, toUpdate, session }) {
     const filter = { id };
     const update = toUpdate;
     const option = { returnOriginal: false };
 
-    const updatedUser = await UserModel.findOneAndUpdate(
-      filter,
-      update,
-      option,
-    );
+    const updatedUser =
+      session === undefined
+        ? await UserModel.findOneAndUpdate(filter, update, option)
+        : await UserModel.findOneAndUpdate(filter, update, option).session(
+            session,
+          );
 
     return updatedUser;
   }
