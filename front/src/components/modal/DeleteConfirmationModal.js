@@ -18,7 +18,7 @@ const DeleteConfirmationModal = ({
     setEffect(styles.unmount);
     setTimeout(() => {
       setIsModalOpen(false);
-    }, 200);
+    }, 300);
   };
 
   const handleDelete = () => {
