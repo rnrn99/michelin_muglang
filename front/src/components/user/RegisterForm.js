@@ -23,6 +23,16 @@ function RegisterForm() {
       );
   };
 
+  const handleGoToLogin = () => {
+    if (location.state) {
+      navigate("/login", {
+        state: { pathname: location.state.pathname },
+      });
+    } else {
+      navigate("/login");
+    }
+  };
+
   //위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
   const isEmailValid = validateEmail(email);
   // 비밀번호가 4글자 이상인지 여부를 확인함.
@@ -157,7 +167,7 @@ function RegisterForm() {
 
           <Button
             variant="text"
-            onClick={() => navigate("/login")}
+            onClick={handleGoToLogin}
             sx={{ color: "#FF9F1C" }}
           >
             로그인하기
