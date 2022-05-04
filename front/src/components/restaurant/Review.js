@@ -49,17 +49,17 @@ const Review = ({ review, setLoginRequestModal }) => {
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
 
-    const newComment = post("comments", {
+    const newComment = await post("comments", {
       reviewId: review.id,
       text: commentText,
     });
 
-    // dispatch(
-    //   addComment({
-    //     reviewId: review.id,
-    //     comment: newComment.data,
-    //   }),
-    // );
+    dispatch(
+      addComment({
+        reviewId: review.id,
+        comment: newComment.data,
+      }),
+    );
     setCommentText("");
     setIsCommenting(false);
   };
@@ -141,7 +141,11 @@ const Review = ({ review, setLoginRequestModal }) => {
         )}
 
         {review.comments.map((comment) => (
-          <ReviewComment comment={comment} key={comment._id} />
+          <ReviewComment
+            reviewId={review.id}
+            comment={comment}
+            key={comment._id}
+          />
         ))}
       </div>
       {deleteConfirmModal && (

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { deleteComment } from "../../redux/restaurantSlice";
 import DeleteConfirmationModal from "../modal/DeleteConfirmationModal";
 import styles from "../../css/restaurant/ReviewComment.module.css";
 import {
@@ -8,12 +9,11 @@ import {
   SubdirectoryArrowRight as ArrowIcon,
 } from "@mui/icons-material";
 
-const ReviewComment = ({ comment }) => {
+const ReviewComment = ({ reviewId, comment }) => {
   const [{ user }] = useSelector((state) => [state.user]);
   const [commentText, setCommentText] = useState(comment.text);
   const [isEditing, setIsEditing] = useState(false);
   const [deleteConfirmModal, setDeleteConfirmModal] = useState(false);
-  const [commentId, setCommentId] = useState("");
 
   const handleEdit = async (e) => {
     e.preventDefault();
@@ -44,7 +44,6 @@ const ReviewComment = ({ comment }) => {
                 className={styles.delete_btn}
                 onClick={() => {
                   setDeleteConfirmModal(true);
-                  setCommentId(comment._id);
                 }}
               >
                 <DeleteIcon fontSize="small" />
@@ -80,8 +79,8 @@ const ReviewComment = ({ comment }) => {
         <DeleteConfirmationModal
           setIsModalOpen={setDeleteConfirmModal}
           modalContent={"댓글을"}
-          //   api={{ method: "del", endpoint: "comments", params: comment._id }}
-          //   action={deleteReview(commentId)}
+          api={{ method: "del", endpoint: "comments", params: comment._id }}
+          action={deleteComment({ reviewId, commentId: comment._id })}
         />
       )}
     </>

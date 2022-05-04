@@ -67,7 +67,17 @@ export const restaurantSlice = createSlice({
           review.comments.push(action.payload.comment);
         }
       });
-
+      return state;
+    },
+    deleteComment: (state, action) => {
+      state.restaurantReviews.forEach((review) => {
+        if (review.id === action.payload.reviewId) {
+          const newComments = review.comments.filter(
+            (comment) => comment._id !== action.payload.commentId,
+          );
+          review.comments = newComments;
+        }
+      });
       return state;
     },
   },
@@ -83,6 +93,7 @@ export const {
   editReview,
   setupNearby,
   addComment,
+  deleteComment,
 } = restaurantSlice.actions;
 
 export default restaurantSlice.reducer;
