@@ -21,46 +21,57 @@ class User {
     return users;
   }
 
-  static async update({ id, toUpdate }) {
+  static async update({ id, toUpdate, session }) {
     const filter = { id };
     const update = toUpdate;
     const option = { returnOriginal: false };
 
-    const updatedUser = await UserModel.findOneAndUpdate(
-      filter,
-      update,
-      option,
-    );
+    const updatedUser =
+      session === undefined
+        ? await UserModel.findOneAndUpdate(filter, update, option)
+        : await UserModel.findOneAndUpdate(filter, update, option).session(
+            session,
+          );
 
     return updatedUser;
   }
 
-  static async delete({ id }) {
-    const ret = await UserModel.findOneAndDelete({ id });
+  static async delete({ id, session }) {
+    const ret = await UserModel.findOneAndDelete({ id }).session(session);
     return ret;
   }
 
-  // 북마크 관련 모델
-  static async updateBookmark({ id, restaurantId }) {
+  // 북마크: 유저의 북마크 리스트에 업데이트
+  static async updateBookmark({ id, restaurantId, session }) {
     const filter = { id };
     const update = { $push: { bookmarks: restaurantId } };
     const option = { returnOriginal: false };
 
-    const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
+    const bookmarks = await UserModel.findOneAndUpdate(
+      filter,
+      update,
+      option,
+    ).session(session);
     return bookmarks;
   }
 
+  // 유저의 북마크 리스트 가져오기
   static async findBookmarks({ id }) {
     const userInfo = await UserModel.findOne({ id }).populate("bookmarks");
     return userInfo.bookmarks;
   }
 
-  static async deleteBookmark({ id, restaurantId }) {
+  // 북마크 취소: 유저의 북마크 리스트에서 삭제
+  static async deleteBookmark({ id, restaurantId, session }) {
     const filter = { id };
     const update = { $pull: { bookmarks: restaurantId } };
     const option = { returnOriginal: false };
 
-    const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
+    const bookmarks = await UserModel.findOneAndUpdate(
+      filter,
+      update,
+      option,
+    ).session(session);
     return bookmarks;
   }
 }
