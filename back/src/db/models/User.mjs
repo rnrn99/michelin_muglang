@@ -4,7 +4,7 @@ import { ReviewModel } from "../schemas/review.mjs";
 
 class User {
   static async create({ newUser }) {
-    const createdNewUser = await UserModel.create(newUser);
+    const createdNewUser = await UserModel.create(newUser).lean();
     return createdNewUser;
   }
 
@@ -32,7 +32,7 @@ class User {
       filter,
       update,
       option,
-    );
+    ).lean();
     return updatedUser;
   }
 
@@ -64,18 +64,24 @@ class User {
     const update = { $push: { bookmarks: restaurantId } };
     const option = { returnOriginal: false };
 
-    const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
+    const bookmarks = await UserModel.findOneAndUpdate(
+      filter,
+      update,
+      option,
+    ).lean();
     const bookmark = await RestaurantModel.findOneAndUpdate(
       { _id: restaurantId },
       { $inc: { bookmarkCount: 1 } },
       option,
-    );
+    ).lean();
     // console.log(bookmark); // 레스토랑 다큐먼트 확인용
     return bookmarks;
   };
 
   static findBookmarks = async ({ id }) => {
-    const bookmarks = await UserModel.findOne({ id }).populate("bookmarks");
+    const bookmarks = await UserModel.findOne({ id })
+      .populate("bookmarks")
+      .lean();
     return bookmarks.bookmarks;
   };
 
@@ -84,7 +90,11 @@ class User {
     const update = { $pull: { bookmarks: restaurantId } };
     const option = { returnOriginal: false };
 
-    const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
+    const bookmarks = await UserModel.findOneAndUpdate(
+      filter,
+      update,
+      option,
+    ).lean();
     const unbookmark = await RestaurantModel.findOneAndUpdate(
       { _id: restaurantId },
       { $inc: { bookmarkCount: -1 } },

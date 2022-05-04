@@ -2,12 +2,12 @@ import { ReviewModel } from "../schemas/review.mjs";
 
 class Review {
   static createReview = async ({ newReview }) => {
-    const createdNewReview = await ReviewModel.create(newReview);
+    const createdNewReview = await ReviewModel.create(newReview).lean();
     return createdNewReview;
   };
 
   static findByReviewId = async ({ id }) => {
-    const reviewInfo = await ReviewModel.findOne({ id });
+    const reviewInfo = await ReviewModel.findOne({ id }).lean();
     return reviewInfo;
   };
 
@@ -18,7 +18,7 @@ class Review {
       filter,
       toUpdate,
       option,
-    );
+    ).lean();
     return updatedReview;
   };
 
@@ -30,12 +30,12 @@ class Review {
   };
 
   static findByUserId = async ({ userId }) => {
-    const reviewlist = await ReviewModel.find({ userId });
+    const reviewlist = await ReviewModel.find({ userId }).lean();
     return reviewlist;
   };
 
   static findByRestaurantId = async ({ restaurantId }) => {
-    const reviewlist = await ReviewModel.find({ restaurantId });
+    const reviewlist = await ReviewModel.find({ restaurantId }).lean();
     return reviewlist;
   };
 }
