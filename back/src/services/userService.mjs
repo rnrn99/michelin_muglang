@@ -145,29 +145,32 @@ class UserAuthService {
     }
 
     if (toUpdate.name) {
-      let session = await mongodb.startSession();
-      try {
-        session.startTransaction();
-        const user = [
-          await User.update({ id, toUpdate, session }),
-          await Review.updateUserName({
-            userId: id,
-            userName: toUpdate.name,
-            session,
-          }),
-        ];
-        await session.commitTransaction();
+      if (toUpdate.name && user.name !== toUpdate.name) {
+        let session = await mongodb.startSession();
+        try {
+          session.startTransaction();
+          const result = [
+            await User.update({ id, toUpdate, session }),
+            await Review.updateUserName({
+              userId: id,
+              userName: toUpdate.name,
+              session,
+            }),
+          ];
+          user = result[0];
+          await session.commitTransaction();
+          return user;
+        } catch (error) {
+          await session.abortTransaction();
+          error.statusCode = 500;
+          throw error;
+        } finally {
+          await session.endSession();
+        }
+      } else {
+        user = await User.update({ id, toUpdate });
         return user;
-      } catch (error) {
-        await session.abortTransaction();
-        error.statusCode = 500;
-        throw error;
-      } finally {
-        await session.endSession();
       }
-    } else {
-      user = await User.update({ id, toUpdate });
-      return user;
     }
   }
 
