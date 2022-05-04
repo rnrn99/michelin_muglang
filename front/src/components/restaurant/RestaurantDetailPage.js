@@ -95,7 +95,7 @@ function RestaurantDetailPage() {
       {notFound ? (
         <div className={styles.not_found}>
           <img
-            src={`${process.env.PUBLIC_URL}/images/notFound.jpeg`}
+            src={`${process.env.PUBLIC_URL}/images/notFound.svg`}
             alt="Not Found"
           />
           <span>Restaurant not found</span>
