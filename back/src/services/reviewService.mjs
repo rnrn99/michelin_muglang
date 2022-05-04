@@ -1,4 +1,4 @@
-import { Review, Restaurant, User, mongodb } from "../db/index.mjs";
+import { Review, Restaurant, User, Comment, mongodb } from "../db/index.mjs";
 import { v4 as uuidv4 } from "uuid";
 
 class ReviewService {
