@@ -22,7 +22,6 @@ const Review = ({ review, setLoginRequestModal }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
   const [deleteConfirmModal, setDeleteConfirmModal] = useState(false);
-  const [reviewId, setReviewId] = useState("");
   const [{ user }] = useSelector((state) => [state.user]);
 
   const dispatch = useDispatch();
@@ -88,7 +87,6 @@ const Review = ({ review, setLoginRequestModal }) => {
                 className={styles.delete_btn}
                 onClick={() => {
                   setDeleteConfirmModal(true);
-                  setReviewId(review.id);
                 }}
               >
                 <DeleteIcon fontSize="small" />
@@ -153,8 +151,8 @@ const Review = ({ review, setLoginRequestModal }) => {
         <DeleteConfirmationModal
           setIsModalOpen={setDeleteConfirmModal}
           modalContent={"리뷰를"}
-          api={{ method: "del", endpoint: "reviews", params: reviewId }}
-          action={deleteReview(reviewId)}
+          api={{ method: "del", endpoint: "reviews", params: review.id }}
+          action={deleteReview(review.id)}
         />
       )}
     </>
