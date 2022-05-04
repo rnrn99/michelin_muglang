@@ -1,8 +1,8 @@
-import { Review, Restaurant, User } from "../db/index.mjs";
+import { Review, Restaurant, User, mongodb } from "../db/index.mjs";
 import { v4 as uuidv4 } from "uuid";
 
 class ReviewService {
-  static createReview = async ({ restaurantId, userId, text }) => {
+  static async createReview({ restaurantId, userId, text }) {
     // id 는 유니크 값 부여
     const id = uuidv4();
     const restaurant = await Restaurant.findById({
@@ -26,39 +26,54 @@ class ReviewService {
     };
 
     // db에 저장
-    const createdNewReview = await Review.createReview({ newReview });
+    const createdNewReview = await Review.create({ newReview });
     createdNewReview.errorMessage = null; // 문제 없이 db 저장 완료되었으므로 에러가 없음.
 
     return createdNewReview;
-  };
+  }
 
-  static updateReview = async ({ id, toUpdate }) => {
-    let reviewInfo = await Review.findByReviewId({ id });
+  static async updateReview({ id, toUpdate }) {
+    let reviewInfo = await Review.findById({ id });
     if (!reviewInfo) {
       const error = new Error("해당 id를 가진 리뷰 데이터를 찾을 수 없습니다.");
       error.statusCode = 400;
       throw error;
     }
 
-    const updatedReview = await Review.updateReview({
+    const updatedReview = await Review.update({
       id,
       toUpdate,
     });
     return updatedReview;
-  };
+  }
 
-  static deleteReview = async ({ id }) => {
-    const isDataDeleted = await Review.deleteReview({ id });
-    if (!isDataDeleted) {
-      const error = new Error("해당 id를 가진 리뷰 데이터를 찾을 수 없습니다.");
-      error.statusCode = 400;
+  static async deleteReview({ id }) {
+    // const isDataDeleted = await Review.delete({ id });
+    // if (!isDataDeleted) {
+    //   const error = new Error("해당 id를 가진 리뷰 데이터를 찾을 수 없습니다.");
+    //   error.statusCode = 400;
+    //   throw error;
+    // }
+
+    // return { status: "ok" };
+
+    let session = await mongodb.startSession();
+    try {
+      session.startTransaction();
+      await Review.delete({ id, session });
+      await Comment.deleteByReviewId({ reviewId: id, session });
+      await session.commitTransaction();
+      return { status: "ok" };
+    } catch (error) {
+      await session.abortTransaction();
+      error.statusCode = 500;
       throw error;
+    } finally {
+      await session.endSession();
     }
+  }
 
-    return { status: "ok" };
-  };
-
-  static findByUserId = async ({ userId }) => {
+  static async findByUserId({ userId }) {
     const reviewlist = await Review.findByUserId({ userId });
     if (!reviewlist) {
       const error = new Error("해당 id를 가진 사용자를 찾을 수 없습니다.");
@@ -67,9 +82,9 @@ class ReviewService {
     }
 
     return reviewlist;
-  };
+  }
 
-  static findByRestaurantId = async ({ restaurantId }) => {
+  static async findByRestaurantId({ restaurantId }) {
     const reviewlist = await Review.findByRestaurantId({ restaurantId });
     if (!reviewlist) {
       const error = new Error("해당 id를 가진 음식점을 찾을 수 없습니다.");
@@ -78,7 +93,7 @@ class ReviewService {
     }
 
     return reviewlist;
-  };
+  }
 }
 
 export { ReviewService };
