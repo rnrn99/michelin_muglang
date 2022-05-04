@@ -71,6 +71,7 @@
 
 .comment_form textarea {
   height: 40px;
+  width: 89%;
 }
 
 .edit_form textarea:focus,
@@ -92,6 +93,7 @@
 
 .comment_form button {
   top: 0px;
+  height: 40px;
 }
 
 .edit_form button:hover,

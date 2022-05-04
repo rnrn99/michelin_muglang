@@ -30,7 +30,7 @@ const comments = [
   },
 ];
 
-const Review = ({ review }) => {
+const Review = ({ review, setLoginRequestModal }) => {
   const [reviewText, setReviewText] = useState(review.text);
   const [commentText, setCommentText] = useState("");
   const [isEditing, setIsEditing] = useState(false);
@@ -41,7 +41,15 @@ const Review = ({ review }) => {
 
   const dispatch = useDispatch();
 
-  const handleEdit = async (e) => {
+  const handleCommentBtnClick = () => {
+    if (!user) {
+      setLoginRequestModal(true);
+    } else {
+      setIsCommenting((cur) => !cur);
+    }
+  };
+
+  const handleEditSubmit = async (e) => {
     e.preventDefault();
 
     if (!reviewText) return;
@@ -53,7 +61,7 @@ const Review = ({ review }) => {
     setIsEditing(false);
   };
 
-  const handleComment = (e) => {
+  const handleCommentSubmit = (e) => {
     e.preventDefault();
   };
 
@@ -63,12 +71,7 @@ const Review = ({ review }) => {
         <div className={styles.review_title}>
           <span className={styles.username}>{review.userName}</span>
           <span className={styles.date}>{review.createdAt.slice(0, 10)}</span>
-          <span
-            className={styles.comment_btn}
-            onClick={() => {
-              setIsCommenting((cur) => !cur);
-            }}
-          >
+          <span className={styles.comment_btn} onClick={handleCommentBtnClick}>
             <CommentIcon fontSize="small" />
           </span>
           {user?.id === review.userId && (
@@ -95,7 +98,7 @@ const Review = ({ review }) => {
         </div>
 
         {isEditing ? (
-          <form onSubmit={handleEdit} className={styles.edit_form}>
+          <form onSubmit={handleEditSubmit} className={styles.edit_form}>
             <textarea
               value={reviewText}
               onChange={(e) => {
@@ -117,7 +120,7 @@ const Review = ({ review }) => {
         )}
 
         {isCommenting && (
-          <form onSubmit={handleComment} className={styles.comment_form}>
+          <form onSubmit={handleCommentSubmit} className={styles.comment_form}>
             <textarea
               placeholder="comment를 작성해주세요."
               value={commentText}

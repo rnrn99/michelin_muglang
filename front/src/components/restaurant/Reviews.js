@@ -56,7 +56,13 @@ function Reviews({ setLoginRequestModal }) {
       </div>
       <div className={styles.review_list}>
         {restaurantReviews.map((review) => {
-          return <Review review={review} key={review._id} />;
+          return (
+            <Review
+              key={review._id}
+              review={review}
+              setLoginRequestModal={setLoginRequestModal}
+            />
+          );
         })}
       </div>
       {restaurantReviews.length === 0 && (
