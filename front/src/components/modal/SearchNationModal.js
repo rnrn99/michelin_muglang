@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../../css/modal/SearchNationModal.module.css";
@@ -7,22 +8,21 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const SearchNationModal = ({ setIsModalOpen }) => {
   const navigate = useNavigate();
-  const [searchedList, setSearchedList] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const updateChange = (e) => {
-    //setKeyword(e.target.value);
-    const keyword = e.target.value.toLowerCase();
-    let filteredList = countries.filter((c) =>
-      c.toLowerCase().includes(keyword),
-    );
-    if (keyword.length === 0) {
-      filteredList = [];
+
+  const searchedList = React.useMemo(() => {
+    if (keyword !== "") {
+      return countries.filter((c) => c.toLowerCase().includes(keyword));
     }
-    setSearchedList(filteredList);
+    return [];
+  }, [keyword]);
+
+  const updateChange = (e) => {
+    const target = e.target;
+    setKeyword(target.value);
   };
 
   const handleClick = (nation) => {
-    setSearchedList([]);
     navigate(`/detail?country=${nation}`);
   };
 
@@ -45,7 +45,7 @@ const SearchNationModal = ({ setIsModalOpen }) => {
             type="text"
             value={keyword}
             placeholder="국가를 입력해주세요..."
-            onChange={(e) => updateChange(e)}
+            onChange={updateChange}
           />
         </div>
         <div className={styles.result}>
