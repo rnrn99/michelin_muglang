@@ -80,6 +80,18 @@ export const restaurantSlice = createSlice({
       });
       return state;
     },
+    editComment: (state, action) => {
+      state.restaurantReviews.forEach((review) => {
+        if (review.id === action.payload.reviewId) {
+          review.comments.forEach((comment) => {
+            if (comment._id === action.payload.comment._id) {
+              comment.text = action.payload.comment.text;
+            }
+          });
+        }
+      });
+      return state;
+    },
   },
 });
 
@@ -94,6 +106,7 @@ export const {
   setupNearby,
   addComment,
   deleteComment,
+  editComment,
 } = restaurantSlice.actions;
 
 export default restaurantSlice.reducer;

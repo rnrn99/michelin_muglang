@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { deleteComment } from "../../redux/restaurantSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteComment, editComment } from "../../redux/restaurantSlice";
+import { patch } from "../../api";
 import DeleteConfirmationModal from "../modal/DeleteConfirmationModal";
 import styles from "../../css/restaurant/ReviewComment.module.css";
 import {
@@ -15,10 +16,17 @@ const ReviewComment = ({ reviewId, comment }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [deleteConfirmModal, setDeleteConfirmModal] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleEdit = async (e) => {
     e.preventDefault();
 
     if (!commentText) return;
+
+    const updatedComment = await patch("comments", comment._id, {
+      text: commentText,
+    });
+    dispatch(editComment({ reviewId, comment: updatedComment.data }));
 
     setIsEditing(false);
   };
