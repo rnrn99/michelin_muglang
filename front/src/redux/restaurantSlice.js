@@ -47,13 +47,13 @@ export const restaurantSlice = createSlice({
       return { ...state, restaurantReviews: newReviews };
     },
     editReview: (state, action) => {
-      const newReviews = state.restaurantReviews.map((review) => {
+      state.restaurantReviews.forEach((review) => {
         if (review.id === action.payload.id) {
-          return action.payload;
+          review.text = action.payload.text;
         }
-        return review;
       });
-      return { ...state, restaurantReviews: newReviews };
+
+      return state;
     },
     setupNearby: (state, action) => {
       const nearby = action.payload.filter(
