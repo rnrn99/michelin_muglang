@@ -109,9 +109,6 @@ function RestaurantDetailPage() {
                 backgroundImage: `linear-gradient( rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7) ), url(${bgImageUrl})`,
               }}
             >
-              {/* {restaurantInfo.imageUrl?.map((url) => (
-                <img src={url} key={url} alt="img" />
-              ))} */}
               {restaurantInfo.imageUrl?.length === 0 ? (
                 <img
                   src={`${process.env.PUBLIC_URL}/images/defaultFoodImg.jpeg`}
