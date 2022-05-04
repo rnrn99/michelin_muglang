@@ -37,6 +37,7 @@ section {
 
 section:nth-child(2) {
   height: calc(100vh - 64px);
+  margin-top: 64px;
 }
 section:nth-child(5) {
   height: calc(100vh - 64px);
@@ -45,7 +46,7 @@ section:nth-child(5) {
 /* section 1 greeting page */
 .greeting {
   position: absolute;
-  top: 35vh;
+  top: 30vh;
   left: 10vh;
   z-index: 4;
 }
@@ -168,7 +169,7 @@ section:nth-child(5) {
 
 .greeting_img {
   position: absolute;
-  top: 10%;
+  top: 5%;
   right: 0;
 }
 
@@ -241,7 +242,7 @@ section:nth-child(5) {
   animation: delay 0.5s, changeMovement 1s 0.5s ease-in-out;
 }
 
-@media screen and (min-width: 820px) and (max-width: 1050px) {
+@media screen and (min-width: 820px) and (max-width: 1400px) {
   .greeting {
     left: 5vh;
     width: 55%;

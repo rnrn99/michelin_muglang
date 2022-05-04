@@ -21,6 +21,7 @@
   align-content: center;
   margin: auto;
   margin-left: 0;
+  width: 50%;
 }
 
 .textWrapper h1 {
@@ -30,8 +31,10 @@
 }
 
 .textWrapper p {
+  width: 80%;
   font-size: 1.5rem;
   line-height: 2rem;
+  word-break: break-word;
 }
 
 .underline {
@@ -63,6 +66,9 @@
     flex-direction: column;
     text-align: center;
     margin: 0;
+  }
+  .textWrapper p {
+    margin: 0 auto;
   }
 }
 
