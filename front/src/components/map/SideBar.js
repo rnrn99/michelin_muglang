@@ -68,9 +68,9 @@ const SideBar = ({
 
   // 이전 페이지로 넘기는 함수
   const goToPrevPage = () => {
-    if (onSearch && searchPage >= 1) {
+    if (onSearch && searchPage > 1) {
       setSearchPage((prev) => prev - 1);
-    } else if (!onSearch && page >= 1) {
+    } else if (!onSearch && page > 1) {
       setPage((prev) => prev - 1);
     }
   };
