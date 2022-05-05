@@ -3,7 +3,10 @@ import { useSelector } from "react-redux";
 import { get } from "../../api";
 import GoogleReview from "./GoogleReview";
 import styles from "../../css/restaurant/GoogleReviews.module.css";
-import { Star as StarIcon } from "@mui/icons-material";
+import {
+  Star as StarIcon,
+  InfoOutlined as InfoIcon,
+} from "@mui/icons-material";
 
 const GoogleReviews = () => {
   const { placeId } = useSelector((state) => state.restaurant.restaurantInfo);
@@ -51,6 +54,10 @@ const GoogleReviews = () => {
             {reviews.map((review) => {
               return <GoogleReview review={review} key={review.time} />;
             })}
+          </div>
+          <div className={styles.info}>
+            <InfoIcon fontSize="small" />
+            호텔 내의 레스토랑의 경우 호텔의 정보가 나올 수 있습니다.
           </div>
         </div>
       )}

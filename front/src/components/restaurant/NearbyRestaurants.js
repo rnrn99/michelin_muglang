@@ -1,16 +1,20 @@
 import React from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 import styles from "../../css/restaurant/NearbyRestaurants.module.css";
 import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
   InfoOutlined as InfoIcon,
 } from "@mui/icons-material/";
-import { Tooltip } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 
 function NearbyRestaurants() {
-  const { restaurantNearby } = useSelector((state) => state.restaurant);
+  const [{ restaurantNearby }, { name }] = useSelector(
+    (state) => [state.restaurant, state.restaurant.restaurantInfo],
+    shallowEqual,
+  );
   const [flag, setFlag] = useState(0);
   const showChevron = restaurantNearby.length > 4;
   const leftChevronValid = showChevron && flag !== 0;
@@ -21,13 +25,13 @@ function NearbyRestaurants() {
       <div className={styles.title}>
         <span className={styles.title_text}>Nearby Restaurants</span>
         <span className={styles.title_info}>
-          <Tooltip
-            title="반경 30km 이내에 위치한 미슐랭 레스토랑 목록입니다."
+          <NoMaxWidthTooltip
+            title={`${name}으로부터 30km 이내에 위치한 미슐랭 레스토랑 목록입니다.`}
             arrow
             placement="right"
           >
             <InfoIcon />
-          </Tooltip>
+          </NoMaxWidthTooltip>
         </span>
       </div>
 
@@ -111,3 +115,11 @@ function NearbyRestaurants() {
 }
 
 export default NearbyRestaurants;
+
+const NoMaxWidthTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: "none",
+  },
+});
