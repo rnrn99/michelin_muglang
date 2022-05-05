@@ -5,7 +5,7 @@ const restaurantRouter = Router();
 
 // Path: /restaurants
 restaurantRouter.get("/restaurants", async function (req, res, next) {
-  // pagenation 시도! (/restaurants?page=${페이지 시작 위치}&pageSize=${페이지 크기})
+  // (/restaurants?page=${페이지 시작 위치}&pageSize=${페이지 크기})
   if (req.query.page && req.query.pageSize) {
     try {
       const { page, pageSize } = req.query;
@@ -17,7 +17,6 @@ restaurantRouter.get("/restaurants", async function (req, res, next) {
       }
 
       // 특정 국가에 있는 식당들의 정보를 얻음 (/restaurants?country=${검색할 국가 이름})
-      // 국가별 레스토랑 정보도 pagination 시도!
       if (req.query.country) {
         try {
           // URI로부터 country(query)를 추출함
@@ -226,7 +225,7 @@ restaurantRouter.get("/restaurants/:id", async function (req, res, next) {
   }
 });
 
-// Path: /restaurants/:id/near (RESTful하지 않은 것 같은데 마땅한 게 생각나지 않음..)
+// Path: /restaurants/:id/near
 restaurantRouter.get("/restaurants/:id/near", async function (req, res, next) {
   // 특정 식당과 가까운 식당 목록을 얻음
   try {
