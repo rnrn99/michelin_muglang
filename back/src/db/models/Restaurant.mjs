@@ -32,7 +32,7 @@ class Restaurant {
       websiteUrl,
       award,
       country,
-    });
+    }).lean();
     return createdNewRestaurant;
   }
 
@@ -69,6 +69,7 @@ class Restaurant {
   static async findAllByCountryPaging({ page, pageSize, country }) {
     const len = await RestaurantModel.countDocuments({ country });
     const lastPage = Math.ceil(len / pageSize);
+    const offset = (page - 1) * pageSize + 1;
 
     const restaurants = await RestaurantModel.find({ country })
       .sort({ _id: 1 })
@@ -76,12 +77,13 @@ class Restaurant {
       .limit(pageSize)
       .lean();
 
-    return { restaurants, lastPage, len };
+    return { restaurants, lastPage, len, offset };
   }
 
   static async findAllPaging({ page, pageSize }) {
     const len = await RestaurantModel.countDocuments({});
     const lastPage = Math.ceil(len / pageSize);
+    const offset = (page - 1) * pageSize + 1;
 
     const restaurants = await RestaurantModel.find({})
       .sort({ _id: 1 })
@@ -89,12 +91,13 @@ class Restaurant {
       .limit(pageSize)
       .lean();
 
-    return { restaurants, lastPage, len };
+    return { restaurants, lastPage, len, offset };
   }
 
   static async findAllByCuisinePaging({ page, pageSize, cuisine }) {
     const len = await RestaurantModel.countDocuments({ cuisine });
     const lastPage = Math.ceil(len / pageSize);
+    const offset = (page - 1) * pageSize + 1;
 
     const restaurants = await RestaurantModel.find({
       cuisine,
@@ -104,7 +107,7 @@ class Restaurant {
       .limit(pageSize)
       .lean();
 
-    return { restaurants, lastPage, len };
+    return { restaurants, lastPage, len, offset };
   }
 
   static async findAllByQuery({
@@ -131,6 +134,7 @@ class Restaurant {
     });
 
     const lastPage = Math.ceil(len / pageSize);
+    const offset = (page - 1) * pageSize + 1;
 
     const restaurants = await RestaurantModel.find({
       name: { $regex: name, $options: "i" },
@@ -147,7 +151,7 @@ class Restaurant {
       .limit(pageSize)
       .lean();
 
-    return { restaurants, lastPage, len };
+    return { restaurants, lastPage, len, offset };
   }
 
   static async findRestaurantsNearById({ id }) {
@@ -157,7 +161,6 @@ class Restaurant {
       {
         $geoNear: {
           spherical: true,
-          $limit: 5, // 효과는 없는듯하다..(기본값으로 100개 받음)
           near: {
             type: "Point",
             coordinates: [
