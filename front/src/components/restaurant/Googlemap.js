@@ -10,7 +10,7 @@ const Googlemap = () => {
   const [src, setSrc] = useState("");
 
   useEffect(() => {
-    if (placeId !== "a") {
+    if (placeId) {
       setSrc(
         "https://www.google.com/maps/embed/v1/place?key=" +
           GOOGLE_API_KEY +
