@@ -54,7 +54,7 @@
   margin-top: 20px;
   padding: 20px 10px 0 10px;
   border-top: #c7c7c7 1px solid;
-  height: 650px;
+  height: 625px;
   overflow: scroll;
 }
 
@@ -69,4 +69,16 @@
 }
 .reviews::-webkit-scrollbar-track {
   background: none;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 11px;
+  color: #9b9b9b;
+}
+
+.info svg {
+  margin-right: 5px;
 }
