@@ -22,7 +22,7 @@ const GoogleReviews = () => {
 
   return (
     <>
-      {reviews.length > 0 && (
+      {reviews?.length > 0 && (
         <div className={styles.container}>
           <span className={styles.title}>Google Review</span>
           <div className={styles.rating}>
