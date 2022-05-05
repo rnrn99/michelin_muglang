@@ -19,10 +19,8 @@ class RestaurantService {
 
     // 페이징 과정 중 실패한 경우, 에러 메시지 반환
     if (Object.keys(restaurants).length === 0) {
-      const error = new Error(
-        "해당 페이지는 조회할 수 있는 페이지 수보다 큽니다.",
-      );
-      error.statusCode = 400;
+      const error = new Error("레스토랑 데이터를 가져오는 데 실패하였습니다.");
+      error.statusCode = 500;
       throw error;
     }
 
