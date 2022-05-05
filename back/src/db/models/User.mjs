@@ -2,7 +2,7 @@ import { UserModel } from "../schemas/user.mjs";
 
 class User {
   static async create({ newUser }) {
-    const createdNewUser = await UserModel.create(newUser);
+    const createdNewUser = await UserModel.create(newUser).lean();
     return createdNewUser;
   }
 
