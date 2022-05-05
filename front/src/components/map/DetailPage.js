@@ -8,7 +8,9 @@ import CountryMap from "./CountryMap";
 
 const DetailPage = () => {
   const location = useLocation();
-  const { countryName } = location.state;
+
+  const params = new URLSearchParams(location.search);
+  const countryName = params.get("country");
 
   const [restaurants, setRestaurants] = useState([]);
   const [content, setContent] = useState("");

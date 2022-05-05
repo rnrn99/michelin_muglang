@@ -58,9 +58,7 @@ const WorldMap = ({ setTooltipContent }) => {
             coordinates={coordinates}
             onMouseEnter={() => setTooltipContent(`${nation}:${count}`)}
             onMouseLeave={() => setTooltipContent("")}
-            onClick={() =>
-              navigate(`/detail`, { state: { countryName: nation } })
-            }
+            onClick={() => navigate(`/detail?country=${nation}`)}
           >
             <g
               fill="#2EC4B6"
