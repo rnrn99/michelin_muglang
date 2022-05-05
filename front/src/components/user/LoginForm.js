@@ -13,6 +13,7 @@ const KAKAO_AUTH_URL =
 function LoginForm() {
   const [email, setEmail] = useState(""); // email 저장할 상태
   const [password, setPassword] = useState(""); // password 저장할 상태
+  const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -56,7 +57,10 @@ function LoginForm() {
         navigate("/", { replace: true });
       }
     } catch (err) {
-      console.log("로그인 실패\n", err);
+      setErrorMessage(err.response.data.msg);
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 4800);
     }
   };
 
@@ -72,6 +76,9 @@ function LoginForm() {
 
   return (
     <div className={`${styles.container} ${styles.login}`}>
+      {errorMessage && (
+        <div className={styles.error_message}>{errorMessage}</div>
+      )}
       <Card
         sx={{
           display: "flex",
