@@ -16,7 +16,6 @@ import {
 } from "@mui/icons-material";
 
 const Review = ({ review, setLoginRequestModal }) => {
-  console.log(review);
   const [reviewText, setReviewText] = useState(review.text);
   const [commentText, setCommentText] = useState("");
   const [isEditing, setIsEditing] = useState(false);
