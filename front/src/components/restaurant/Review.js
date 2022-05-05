@@ -119,13 +119,14 @@ const Review = ({ review, setLoginRequestModal }) => {
 
         {isCommenting && (
           <form onSubmit={handleCommentSubmit} className={styles.comment_form}>
-            <textarea
+            <input
+              type="text"
               placeholder="comment를 작성해주세요."
               value={commentText}
               onChange={(e) => {
                 setCommentText(e.target.value);
               }}
-            ></textarea>
+            ></input>
             <button type="submit">등록</button>
             <button
               type="button"
