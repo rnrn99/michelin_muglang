@@ -7,7 +7,7 @@ class RestaurantService {
     // 레스토랑 정보를 가져오는 데 실패한 경우, 에러 메시지 반환
     if (Object.keys(restaurants).length === 0) {
       const error = new Error("레스토랑 데이터를 가져오는 데 실패하였습니다.");
-      error.statusCode = 400;
+      error.statusCode = 500;
       throw error;
     }
 
