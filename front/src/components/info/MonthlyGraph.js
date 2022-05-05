@@ -21,7 +21,11 @@ function MonthlyGraph({ active }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.textWrapper}>
+      <div
+        className={
+          active ? `${styles.textWrapper} ${styles.active}` : styles.textWrapper
+        }
+      >
         <h1>
           <span>코로나</span>와 <span>여행</span>
         </h1>
@@ -47,7 +51,7 @@ function MonthlyGraph({ active }) {
           입국 조건 총정리)
         </p>
       </div>
-      <div className={`${styles.graphWrapper} ${styles.covidMonthly}`}>
+      <div className={styles.graphWrapper}>
         <ResponsiveContainer>
           <LineChart
             data={graph}

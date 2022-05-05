@@ -9,11 +9,24 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Cell,
 } from "recharts";
 import styles from "../../css/info/InfoPage.module.css";
 
 function ReviewGraph({ active }) {
   const [graph, setGraph] = useState([]);
+  const COLORS = [
+    "#E5CB9F",
+    "#E5CB9F",
+    "#E5CB9F",
+    "#E5CB9F",
+    "#E5CB9F",
+    "#E5CB9F",
+    "#E5CB9F",
+    "#E5CB9F",
+    "#E5CB9F",
+    "#E8B754",
+  ];
 
   useEffect(() => {
     Api.get("graphs/tour-review").then((res) => {
@@ -25,7 +38,11 @@ function ReviewGraph({ active }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.textWrapper}>
+      <div
+        className={
+          active ? `${styles.textWrapper} ${styles.active}` : styles.textWrapper
+        }
+      >
         <h1>
           <span>여행</span>과 <span>맛집</span>
         </h1>
@@ -50,7 +67,7 @@ function ReviewGraph({ active }) {
           을 도와주는 서비스를 제공하고자 합니다.
         </p>
       </div>
-      <div className={`${styles.graphWrapper} ${styles.review}`}>
+      <div className={styles.graphWrapper}>
         <ResponsiveContainer>
           <ComposedChart
             layout="vertical"
@@ -76,7 +93,11 @@ function ReviewGraph({ active }) {
               fill="#E5CB9F"
               isAnimationActive={active}
               animationDuration={2000}
-            />
+            >
+              {graph.map((e, i) => (
+                <Cell key={`cell-${i}`} fill={COLORS[i % COLORS.length]} />
+              ))}
+            </Bar>
           </ComposedChart>
         </ResponsiveContainer>
       </div>

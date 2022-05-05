@@ -21,7 +21,11 @@ function MichelinGraph({ active }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.textWrapper}>
+      <div
+        className={
+          active ? `${styles.textWrapper} ${styles.active}` : styles.textWrapper
+        }
+      >
         <h1>
           검증받은 <span>음식점</span>을 고르는 방법
         </h1>
@@ -55,7 +59,7 @@ function MichelinGraph({ active }) {
           <br />
         </p>
       </div>
-      <div className={`${styles.graphWrapper} ${styles.michelin}`}>
+      <div className={styles.graphWrapper}>
         <ResponsiveContainer>
           <BarChart data={graph}>
             <CartesianGrid strokeDasharray="3 3" />

@@ -54,6 +54,7 @@ section:nth-child(5) {
 }
 
 .textWrapper {
+  opacity: 0;
   width: 55%;
   height: 55%;
   margin-right: 2rem;
@@ -94,10 +95,34 @@ section:nth-child(5) {
 @keyframes changeMovement {
   from {
     opacity: 0;
-    transform: translateY(2rem);
+    transform: translateY(1rem);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.textWrapper.active {
+  opacity: 1;
+}
+
+.textWrapper.active h1 {
+  animation: changeMovement 1s ease-in-out;
+}
+
+.textWrapper.active p:nth-child(2) {
+  animation: delay 0.5s, changeMovement 1s 0.5s ease-in-out;
+}
+
+.textWrapper.active p:nth-child(3) {
+  animation: delay 0.6s, changeMovement 1s 0.6s ease-in-out;
+}
+
+.textWrapper.active p:nth-child(4) {
+  animation: delay 0.7s, changeMovement 1s 0.7s ease-in-out;
+}
+
+.textWrapper.active p:nth-child(5) {
+  animation: delay 0.8s, changeMovement 1s 0.8s ease-in-out;
 }
