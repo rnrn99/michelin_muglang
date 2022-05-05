@@ -31,7 +31,7 @@ function MonthlyGraph({ active }) {
         </h1>
         <p>
           미슐랭 가이드에 기재된 레스토랑을 보유하고 있는 국가 36국을 대상으로
-          최근 3달 간의 코로나 확진자 수를 조사한 결과{" "}
+          최근 3달 간의 <strong>코로나 확진자 수</strong>를 조사한 결과{" "}
           <span>
             <strong>5만명</strong>
           </span>{" "}
@@ -39,7 +39,7 @@ function MonthlyGraph({ active }) {
           <span>
             <strong>3만명</strong>
           </span>{" "}
-          대까지 꾸준히 확진자 수가 감소하는 추세를 보였습니다.
+          대까지 꾸준히 확진자 수가 <strong>감소</strong>하는 추세를 보였습니다.
         </p>
         <p>
           이에 따라 세계 각국은 해외입국자에 대한 자가격리 의무를 폐지하거나
