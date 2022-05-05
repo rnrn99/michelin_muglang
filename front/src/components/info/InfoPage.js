@@ -3,6 +3,7 @@ import styles from "../../css/info/InfoPage.module.css";
 import MonthlyGraph from "./MonthlyGraph";
 import ReviewGraph from "./ReviewGraph";
 import MichelinGraph from "./MichelinGraph";
+import Footer from "../Footer";
 
 function InfoPage() {
   const sectionRef = useRef(null);
@@ -66,29 +67,32 @@ function InfoPage() {
   }, [activeBtn]);
 
   return (
-    <div ref={sectionRef}>
-      {/* nav btn */}
-      <ul className={styles.pointWrap} onClick={clickPointBtn} ref={pointRef}>
-        <li id="0"></li>
-        <li id="1"></li>
-        <li id="2"></li>
-      </ul>
+    <>
+      <div ref={sectionRef}>
+        {/* nav btn */}
+        <ul className={styles.pointWrap} onClick={clickPointBtn} ref={pointRef}>
+          <li id="0"></li>
+          <li id="1"></li>
+          <li id="2"></li>
+        </ul>
 
-      {/* Covid Monthly Graph */}
-      <section>
-        <MonthlyGraph active={activeBtn === 0} />
-      </section>
+        {/* Covid Monthly Graph */}
+        <section>
+          <MonthlyGraph active={activeBtn === 0} />
+        </section>
 
-      {/* Google Review Graph */}
-      <section>
-        <ReviewGraph active={activeBtn === 1} />
-      </section>
+        {/* Google Review Graph */}
+        <section>
+          <ReviewGraph active={activeBtn === 1} />
+        </section>
 
-      {/* Michelin Restaurant Graph */}
-      <section>
-        <MichelinGraph active={activeBtn === 2} />
-      </section>
-    </div>
+        {/* Michelin Restaurant Graph */}
+        <section>
+          <MichelinGraph active={activeBtn === 2} />
+        </section>
+      </div>
+      <Footer />
+    </>
   );
 }
 
