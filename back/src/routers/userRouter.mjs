@@ -162,7 +162,6 @@ userAuthRouter.delete("/users", login_required, async (req, res, next) => {
   }
 });
 
-// 북마크 추가(do)/취소(undo)
 userAuthRouter.patch(
   "/bookmarks/:behavior",
   login_required,
@@ -176,9 +175,10 @@ userAuthRouter.patch(
         throw error;
       }
 
-      const id = req.currentUserId;
+      const id = req.currentUserId; // 현재 로그인된 사용자 id를 추출함.
       const { restaurantId } = req.body;
 
+      // 해당 레스토랑 아이디에 대하여 북마크 추가(do)/취소(undo)함.
       if (req.params.behavior == "do") {
         const bookmarks = await UserAuthService.updateBookmark({
           id,
@@ -200,13 +200,14 @@ userAuthRouter.patch(
   },
 );
 
-// 유저의 북마크 리스트를 가져옴.
 userAuthRouter.get(
   "/bookmarks/:id",
   login_required,
   async function (req, res, next) {
     try {
       const id = req.params.id;
+
+      // 해당 유저 아이디의 북마크 리스트를 가져옴.
       const bookmarks = await UserAuthService.getBookmarks({ id });
 
       res.status(200).send(bookmarks);

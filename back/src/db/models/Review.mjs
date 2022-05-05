@@ -42,7 +42,6 @@ class Review {
     return reviewlist;
   };
 
-  // 유저 이름 수정 시, 리뷰 데이터도 업데이트
   static async updateUserName({ userId, userName, session }) {
     const filter = { userId };
     const update = { userName };
@@ -56,7 +55,6 @@ class Review {
     return updatedReviews;
   }
 
-  // 회원 탈퇴 시, 리뷰 데이터 삭제
   static async deleteByUserId({ userId, commentList, session }) {
     await ReviewModel.deleteMany({ userId }).session(session);
 
@@ -93,19 +91,6 @@ class Review {
       option,
     ).session(session);
     return updatedReview;
-  }
-
-  static async deleteCommentByUserId({ commentList, session }) {
-    const filter = { comments: { $in: commentList } };
-    const update = { $pull: { comments: { $in: commentList } } };
-    const option = { returnOriginal: false };
-
-    const updatedReviews = await ReviewModel.updateMany(
-      filter,
-      update,
-      option,
-    ).session(session);
-    return updatedReviews;
   }
 }
 

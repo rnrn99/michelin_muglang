@@ -16,9 +16,10 @@ reviewRouter.post("/reviews", login_required, async function (req, res, next) {
       throw error;
     }
 
-    const userId = req.currentUserId;
+    const userId = req.currentUserId; // 현재 로그인된 사용자 id를 추출함.
     const { restaurantId, text } = req.body;
 
+    // 위 데이터를 db에 추가함.
     const createdNewReview = await ReviewService.createReview({
       restaurantId,
       userId,
@@ -47,6 +48,7 @@ reviewRouter.patch(
       const id = req.params.reviewId;
       const toUpdate = { text: req.body.text };
 
+      // 해당 리뷰 아이디로 리뷰 정보를 db에서 찾아 업데이트함.
       const updatedReview = await ReviewService.updateReview({
         id,
         toUpdate,
@@ -65,7 +67,10 @@ reviewRouter.delete(
   async function (req, res, next) {
     try {
       const id = req.params.reviewId;
+
+      // 해당 리뷰 아이디로 리뷰 정보를 db에서 찾아 삭제함.
       const result = await ReviewService.deleteReview({ id });
+
       res.status(200).send(result);
     } catch (error) {
       next(error);
@@ -73,14 +78,16 @@ reviewRouter.delete(
   },
 );
 
-// 마이페이지에서 유저의 리뷰리스트를 가져옴
 reviewRouter.get(
   "/reviewlist/user/:userId",
   login_required,
   async function (req, res, next) {
     try {
       const userId = req.params.userId;
+
+      // 해당 유저 아이디로 유저의 리뷰리스트를 가져옴
       const reviewlist = await ReviewService.findByUserId({ userId });
+
       res.status(200).send(reviewlist);
     } catch (error) {
       next(error);
@@ -88,12 +95,13 @@ reviewRouter.get(
   },
 );
 
-// 음식점 상세페이지에서 음식점의 리뷰리스트를 가져옴
 reviewRouter.get(
   "/reviewlist/restaurant/:restaurantId",
   async function (req, res, next) {
     try {
       const restaurantId = req.params.restaurantId;
+
+      // 해당 레스토랑 아이디로 레스토랑의 리뷰리스트를 가져옴
       const reviewlist = await ReviewService.findByRestaurantId({
         restaurantId,
       });

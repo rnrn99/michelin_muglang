@@ -146,6 +146,7 @@ class UserAuthService {
     }
 
     if (toUpdate.name && user.name !== toUpdate.name) {
+      // 유저 이름 변경 시, 리뷰와 댓글의 작성자 이름도 변경
       async function txnFunc(session) {
         const updatedUser = [
           await User.update({ id, toUpdate, session }),
@@ -160,9 +161,11 @@ class UserAuthService {
             session,
           }),
         ];
+
         return updatedUser[0];
       }
 
+      // 모든 업데이트 성공시 최종적으로 db에 업데이트
       const user = await runTransaction(txnFunc);
       return user;
     } else {
@@ -211,28 +214,31 @@ class UserAuthService {
         await Restaurant.unbookmarkByList({
           bookmarkList: userInfo.bookmarks,
           session,
-        }),
-        await Review.deleteByUserId({ userId: id, commentList, session }),
-        await Comment.deleteByUserId({ userId: id, session }),
+        }), // 유저의 북마크 리스트 삭제 및 레스토랑 북마크 개수 -1
+        await Review.deleteByUserId({ userId: id, commentList, session }), // 유저의 리뷰 내역 삭제
+        await Comment.deleteByUserId({ userId: id, session }), // 유저의 댓글 내역 삭제
         await User.delete({ id, session }),
       ];
+
       return deletedUser[3];
     }
 
+    // 모든 데이터 삭제 성공시 최종적으로 db에서 삭제
     const user = await runTransaction(txnFunc);
     return user;
   }
 
-  // 북마크
   static async updateBookmark({ id, restaurantId }) {
     async function txnFunc(session) {
       const bookmarks = [
         await Restaurant.bookmark({ id: restaurantId, session }), // 음식점의 북마크 개수 +1
         await User.updateBookmark({ id, restaurantId, session }), // 유저의 북마크 리스트에 업데이트
       ];
+
       return bookmarks[0];
     }
 
+    // 모든 업데이트 성공시 최종적으로 db에 업데이트
     const bookmarks = await runTransaction(txnFunc);
     return bookmarks;
   }
@@ -243,21 +249,26 @@ class UserAuthService {
         await Restaurant.unbookmark({ id: restaurantId, session }), // 음식점의 북마크 개수 -1
         await User.deleteBookmark({ id, restaurantId, session }), // 유저의 북마크 리스트에서 삭제
       ];
+
       return bookmarks[0];
     }
 
+    // 모든 업데이트 성공시 최종적으로 db에 업데이트
     const bookmarks = await runTransaction(txnFunc);
     return bookmarks;
   }
 
   static async getBookmarks({ id }) {
     const bookmarkInfo = await User.findById({ id });
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!bookmarkInfo) {
       const error = new Error("해당 id를 가진 사용자를 찾을 수 없습니다.");
       error.statusCode = 400;
       throw error;
     }
 
+    // 유저의 북마크 리스트 반환
     const bookmarks = await User.findBookmarks({ id });
     return bookmarks;
   }

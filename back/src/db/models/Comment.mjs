@@ -53,7 +53,6 @@ class Comment {
     return updatedComments;
   }
 
-  // 리뷰 삭제 시, 댓글 데이터 삭제
   static async deleteByReviewId({ reviewId, session }) {
     const result = await CommentModel.deleteMany({ reviewId }).session(session);
     return result;

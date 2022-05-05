@@ -6,6 +6,8 @@ class CommentService {
     const review = await Review.findById({
       id: reviewId,
     });
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!review) {
       const error = new Error("해당 id와 일치하는 리뷰가 없습니다.");
       error.statusCode = 400;
@@ -25,7 +27,7 @@ class CommentService {
     const createdNewComment = await Comment.create({ newComment });
     createdNewComment.errorMessage = null; // 문제 없이 db 저장 완료되었으므로 에러가 없음.
 
-    // 리뷰 데이터 업데이트
+    // 리뷰 정보에 댓글 정보 업데이트
     await Review.addComment({
       id: reviewId,
       commentId: createdNewComment._id,
@@ -36,6 +38,8 @@ class CommentService {
 
   static async updateComment({ id, toUpdate }) {
     let CommentInfo = await Comment.findById({ id });
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!CommentInfo) {
       const error = new Error("해당 id를 가진 댓글 데이터를 찾을 수 없습니다.");
       error.statusCode = 400;
@@ -51,6 +55,8 @@ class CommentService {
 
   static async deleteComment({ id }) {
     let CommentInfo = await Comment.findById({ id });
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!CommentInfo) {
       const error = new Error("해당 id를 가진 댓글 데이터를 찾을 수 없습니다.");
       error.statusCode = 400;
@@ -62,11 +68,13 @@ class CommentService {
         id: CommentInfo.reviewId,
         commentId: id,
         session,
-      });
+      }); // 리뷰 정보에서 댓글 정보 삭제
       await Comment.delete({ id, session });
+
       return { status: "ok" };
     }
 
+    // 모든 데이터 삭제 성공시 최종적으로 db에서 삭제
     const result = await runTransaction(txnFunc);
     return result;
   }
