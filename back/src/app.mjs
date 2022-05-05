@@ -12,14 +12,13 @@ import { commentRouter } from "./routers/commentRouter.mjs";
 
 const app = express();
 const pinoLogger = logger({
-  // quietReqLogger: true,
+  // quietReqLogger: true, // get request ID
   transport: {
     target: "pino-pretty",
     options: {
       translateTime: true,
       ignore: "req",
-      // hideObject: true,
-      // destination: "./pino-logger.log", // 배포시 사용
+      destination: "./pino-logger.log", // 배포시 사용: 해당 파일에 로그 기록
     },
   },
   autoLogging: false,
@@ -46,8 +45,8 @@ app.use(pinoLogger);
 
 // 기본 페이지
 app.get("/", (req, res) => {
-  // req.log.info("hello world"); // 로거 확인용
-  res.send("안녕하세요, 레이서 프로젝트 API 입니다.");
+  req.log.info("Welcome to michelin muglang"); // 로거 확인용
+  res.send("Welcome to michelin muglang!");
 });
 
 // router, service 구현 (userAuthRouter는 맨 위에 있어야 함.)

@@ -208,13 +208,9 @@ class Restaurant {
     const update = { $inc: { bookmarkCount: -1 } }; // 유저 탈퇴시, 유저가 북마크한 음식점의 북마크 개수 -1
     const option = { returnOriginal: false };
 
-    const unbookmark = await RestaurantModel.updateMany(
-      filter,
-      update,
-      option,
-    ).session(session);
+    await RestaurantModel.updateMany(filter, update, option).session(session);
 
-    return unbookmark;
+    return { status: "ok" };
   }
 }
 

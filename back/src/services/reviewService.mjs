@@ -1,4 +1,5 @@
-import { Review, Restaurant, User, Comment, mongodb } from "../db/index.mjs";
+import { Review, Restaurant, User, Comment } from "../db/index.mjs";
+import { runTransaction } from "../utils/runTransaction.mjs";
 import { v4 as uuidv4 } from "uuid";
 
 class ReviewService {
@@ -48,9 +49,7 @@ class ReviewService {
   }
 
   static async deleteReview({ id }) {
-    let session = await mongodb.startSession();
-    try {
-      session.startTransaction();
+    async function txnFunc(session) {
       const isReviewDeleted = await Review.delete({ id, session });
       if (!isReviewDeleted) {
         const error = new Error(
@@ -61,36 +60,20 @@ class ReviewService {
       }
 
       await Comment.deleteByReviewId({ reviewId: id, session });
-      await session.commitTransaction();
       return { status: "ok" };
-    } catch (error) {
-      await session.abortTransaction();
-      error.statusCode = 500;
-      throw error;
-    } finally {
-      await session.endSession();
     }
+
+    const result = await runTransaction(txnFunc);
+    return result;
   }
 
   static async findByUserId({ userId }) {
     const reviewlist = await Review.findByUserId({ userId });
-    if (!reviewlist) {
-      const error = new Error("해당 id를 가진 사용자를 찾을 수 없습니다.");
-      error.statusCode = 400;
-      throw error;
-    }
-
     return reviewlist;
   }
 
   static async findByRestaurantId({ restaurantId }) {
     const reviewlist = await Review.findByRestaurantId({ restaurantId });
-    if (!reviewlist) {
-      const error = new Error("해당 id를 가진 음식점을 찾을 수 없습니다.");
-      error.statusCode = 400;
-      throw error;
-    }
-
     return reviewlist;
   }
 }

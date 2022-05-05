@@ -57,9 +57,16 @@ class Review {
   }
 
   // 회원 탈퇴 시, 리뷰 데이터 삭제
-  static async deleteByUserId({ userId, session }) {
-    const result = await ReviewModel.deleteMany({ userId }).session(session);
-    return result;
+  static async deleteByUserId({ userId, commentList, session }) {
+    await ReviewModel.deleteMany({ userId }).session(session);
+
+    await ReviewModel.updateMany(
+      { comments: { $in: commentList } },
+      { $pull: { comments: { $in: commentList } } },
+      { returnOriginal: false },
+    ).session(session);
+
+    return { status: "ok" };
   }
 
   static async addComment({ id, commentId }) {
@@ -86,6 +93,19 @@ class Review {
       option,
     ).session(session);
     return updatedReview;
+  }
+
+  static async deleteCommentByUserId({ commentList, session }) {
+    const filter = { comments: { $in: commentList } };
+    const update = { $pull: { comments: { $in: commentList } } };
+    const option = { returnOriginal: false };
+
+    const updatedReviews = await ReviewModel.updateMany(
+      filter,
+      update,
+      option,
+    ).session(session);
+    return updatedReviews;
   }
 }
 

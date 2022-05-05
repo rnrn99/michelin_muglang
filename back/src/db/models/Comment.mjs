@@ -31,6 +31,15 @@ class Comment {
     return isDataDeleted;
   };
 
+  static findByUserId = async ({ userId }) => {
+    const CommentInfo = await CommentModel.find(
+      { userId },
+      { reviewId: 0, userId: 0, userName: 0, text: 0 }, // _id 만 반환
+    );
+
+    return CommentInfo;
+  };
+
   static async updateUserName({ userId, userName, session }) {
     const filter = { userId };
     const update = { userName };
@@ -51,8 +60,8 @@ class Comment {
   }
 
   static async deleteByUserId({ userId, session }) {
-    const result = await CommentModel.deleteMany({ userId }).session(session);
-    return result;
+    await CommentModel.deleteMany({ userId }).session(session);
+    return { status: "ok" };
   }
 }
 

@@ -1,4 +1,5 @@
-import { Comment, Review, User, mongodb } from "../db/index.mjs";
+import { Comment, Review, User } from "../db/index.mjs";
+import { runTransaction } from "../utils/runTransaction.mjs";
 
 class CommentService {
   static async createComment({ reviewId, userId, text }) {
@@ -56,24 +57,18 @@ class CommentService {
       throw error;
     }
 
-    let session = await mongodb.startSession();
-    try {
-      session.startTransaction();
+    async function txnFunc(session) {
       await Review.deleteComment({
         id: CommentInfo.reviewId,
         commentId: id,
         session,
       });
       await Comment.delete({ id, session });
-      await session.commitTransaction();
       return { status: "ok" };
-    } catch (error) {
-      await session.abortTransaction();
-      error.statusCode = 500;
-      throw error;
-    } finally {
-      await session.endSession();
     }
+
+    const result = await runTransaction(txnFunc);
+    return result;
   }
 }
 
