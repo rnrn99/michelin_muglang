@@ -36,6 +36,17 @@
   position: relative;
 }
 
+.restaurant_link {
+  margin-left: 5px;
+  text-decoration: none;
+  color: black;
+  transition: 0.3s;
+}
+
+.restaurant_link:hover {
+  color: #ff9f1c;
+}
+
 .detailPageBtn {
   cursor: pointer;
 }

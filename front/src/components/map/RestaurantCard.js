@@ -72,11 +72,13 @@ const RestaurantCard = ({ restaurant, handleClick, clicked, goToList }) => {
           <div className={styles.restaurant_box}>
             <FontAwesomeIcon icon={faLink} />
             <a
-              style={{ marginLeft: "5px" }}
-              href={restaurant.websiteUrl}
+              className={styles.restaurant_link}
+              href={
+                restaurant.websiteUrl ? restaurant.websiteUrl : restaurant.url
+              }
               target="_blank"
             >
-              {restaurant.websiteUrl}
+              Restaurant Website
             </a>
           </div>
         </>
