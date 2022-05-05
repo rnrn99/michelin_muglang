@@ -156,7 +156,6 @@ class Restaurant {
       {
         $geoNear: {
           spherical: true,
-          $limit: 5, // 효과는 없는듯하다..(기본값으로 100개 받음)
           near: {
             type: "Point",
             coordinates: [
