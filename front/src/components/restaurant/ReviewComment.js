@@ -72,6 +72,7 @@ const ReviewComment = ({ reviewId, comment }) => {
             <button
               type="button"
               onClick={() => {
+                setCommentText(comment.text);
                 setIsEditing(false);
               }}
             >

@@ -106,7 +106,7 @@ const Review = ({ review, setLoginRequestModal }) => {
             <button
               type="button"
               onClick={() => {
-                setCommentText("");
+                setReviewText(review.text);
                 setIsEditing(false);
               }}
             >
@@ -130,6 +130,7 @@ const Review = ({ review, setLoginRequestModal }) => {
             <button
               type="button"
               onClick={() => {
+                setCommentText("");
                 setIsCommenting(false);
               }}
             >
