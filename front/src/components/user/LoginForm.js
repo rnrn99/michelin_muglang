@@ -76,22 +76,22 @@ function LoginForm() {
 
   return (
     <div className={`${styles.container} ${styles.login}`}>
-      {errorMessage && (
-        <div className={styles.error_message}>{errorMessage}</div>
-      )}
       <Card
         sx={{
           display: "flex",
-          position: "absolute",
+          position: "relative",
           width: "420px",
-          top: "25%",
           flexDirection: "column",
           alignItems: "center",
           backgroundColor: "white",
           padding: 4,
           borderRadius: 2,
+          overflow: "visible",
         }}
       >
+        {errorMessage && (
+          <div className={styles.error_message}>{errorMessage}</div>
+        )}
         <Typography sx={{ fontSize: "20px" }}>로그인</Typography>
         <Box
           component="form"

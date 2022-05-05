@@ -13,6 +13,7 @@ function RegisterForm() {
   const [password, setPassword] = useState(""); // password 저장할 상태
   const [confirmPassword, setConfirmPassword] = useState(""); // cofirmPassword 저장할 상태
   const [name, setName] = useState(""); // name 저장할 상태
+  const [errorMessage, setErrorMessage] = useState("");
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email) => {
@@ -63,7 +64,10 @@ function RegisterForm() {
         navigate("/login");
       }
     } catch (err) {
-      console.log("회원가입에 실패하였습니다.", err);
+      setErrorMessage(err.response.data.msg);
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 4800);
     }
   };
 
@@ -72,15 +76,19 @@ function RegisterForm() {
       <Card
         sx={{
           display: "flex",
-          position: "absolute",
+          position: "relative",
           width: "420px",
           flexDirection: "column",
           alignItems: "center",
           backgroundColor: "white",
           padding: 4,
           borderRadius: 2,
+          overflow: "visible",
         }}
       >
+        {errorMessage && (
+          <div className={styles.error_message}>{errorMessage}</div>
+        )}
         <Typography sx={{ fontSize: "20px" }}>회원가입</Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <StyledTextField
