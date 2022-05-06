@@ -52,9 +52,8 @@ function SectionVaccine({ active }) {
           <span className={active ? styles.underline : ""}>
             36개국의 백신 접종률은 평균 75.66%
           </span>
-          에요. <br />
-          국민 과반수가 백신 접종을 끝냈으니 이제 안전하게 여행을 떠나도 되지
-          않을까요?
+          에요. 국민 과반수가 백신 접종을 끝냈으니 이제 안전하게 여행을 떠나도
+          되지 않을까요?
         </p>
       </div>
     </div>

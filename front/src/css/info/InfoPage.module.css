@@ -1,0 +1,159 @@
+/* nav btn */
+.pointWrap {
+  position: fixed;
+  top: 45%;
+  right: 3vw;
+  z-index: 100;
+}
+
+.pointWrap li {
+  list-style: none;
+  width: 12px;
+  height: 12px;
+  margin-top: 15px;
+  cursor: pointer;
+  background-color: #999;
+  border-radius: 50%;
+  transition: background-color 0.3s ease-out;
+}
+
+.pointWrap li.active {
+  background-color: #000;
+}
+
+/* section */
+section {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+section:nth-child(2) {
+  height: calc(100vh - 64px);
+}
+section:nth-child(5) {
+  height: calc(100vh - 64px);
+}
+
+/* graph section container */
+.container {
+  position: relative;
+  width: 60%;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.graphWrapper {
+  width: 40%;
+  height: 40%;
+}
+
+.textWrapper {
+  opacity: 0;
+  width: 55%;
+  height: 55%;
+  margin-right: 2rem;
+}
+
+.textWrapper h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.textWrapper p {
+  font-size: 1.3rem;
+  line-height: 2rem;
+  word-break: break-word;
+  margin-bottom: 1rem;
+}
+
+.textWrapper .description {
+  color: #999;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+
+.textWrapper span {
+  color: #ff9f1c;
+}
+
+/* animation */
+@keyframes delay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes changeMovement {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.textWrapper.active {
+  opacity: 1;
+}
+
+.textWrapper.active h1 {
+  animation: changeMovement 1s ease-in-out;
+}
+
+.textWrapper.active p:nth-child(2) {
+  animation: delay 0.5s, changeMovement 1s 0.5s ease-in-out;
+}
+
+.textWrapper.active p:nth-child(3) {
+  animation: delay 0.6s, changeMovement 1s 0.6s ease-in-out;
+}
+
+.textWrapper.active p:nth-child(4) {
+  animation: delay 0.7s, changeMovement 1s 0.7s ease-in-out;
+}
+
+.textWrapper.active p:nth-child(5) {
+  animation: delay 0.8s, changeMovement 1s 0.8s ease-in-out;
+}
+.textWrapper.active p:nth-child(6) {
+  animation: delay 0.9s, changeMovement 1s 0.9s ease-in-out;
+}
+
+@media screen and (max-width: 1070px) {
+  .graphWrapper {
+    width: 100%;
+    height: 40%;
+  }
+
+  .textWrapper {
+    margin-top: 64px;
+    width: 100%;
+    height: auto;
+  }
+
+  .textWrapper h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .textWrapper p {
+    font-size: 1rem;
+    line-height: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .textWrapper .description {
+    font-size: 0.7rem;
+  }
+}
