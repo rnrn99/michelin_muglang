@@ -8,7 +8,7 @@ import {
   InfoOutlined as InfoIcon,
 } from "@mui/icons-material/";
 import { styled } from "@mui/material/styles";
-import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 
 function NearbyRestaurants() {
   const [{ restaurantNearby }, { name }] = useSelector(
@@ -19,6 +19,8 @@ function NearbyRestaurants() {
   const showChevron = restaurantNearby.length > 4;
   const leftChevronValid = showChevron && flag !== 0;
   const rightCehvronValid = showChevron && flag < restaurantNearby.length - 4;
+  const cardWidth = 235;
+  const cardGap = 20;
 
   return (
     <div className={styles.container}>
@@ -65,9 +67,9 @@ function NearbyRestaurants() {
               className={styles.restaurants}
               style={{
                 width:
-                  restaurantNearby.length * 235 +
-                  (restaurantNearby.length - 1) * 20,
-                transform: `translateX(${-flag * 255}px)`,
+                  restaurantNearby.length * cardWidth +
+                  (restaurantNearby.length - 1) * cardGap,
+                transform: `translateX(${-flag * (cardWidth + cardGap)}px)`,
               }}
             >
               {restaurantNearby.map((nearby) => (
