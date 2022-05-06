@@ -38,16 +38,19 @@ function ReviewGraph({ active }) {
 
   return (
     <div className={styles.container}>
+      <h1
+        className={active ? `${styles.title} ${styles.active}` : styles.title}
+      >
+        <span>여행</span>과 <span>맛집</span>
+      </h1>
       <div
         className={
           active ? `${styles.textWrapper} ${styles.active}` : styles.textWrapper
         }
       >
-        <h1>
-          <span>여행</span>과 <span>맛집</span>
-        </h1>
         <p>
-          구글 리뷰를 기반으로 한 <strong>장소별 여행 선호도 조사</strong>에서
+          구글 리뷰를 기반으로 한 <strong>장소별 여행 선호도 조사</strong>
+          <span className={styles.description}>{"(5점 만점)"}</span>에서
           음식점이{" "}
           <span>
             <strong>2위</strong>
