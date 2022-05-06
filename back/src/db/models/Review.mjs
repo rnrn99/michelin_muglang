@@ -2,7 +2,7 @@ import { ReviewModel } from "../schemas/review.mjs";
 
 class Review {
   static createReview = async ({ newReview }) => {
-    const createdNewReview = await ReviewModel.create(newReview).lean();
+    const createdNewReview = await ReviewModel.create(newReview);
     return createdNewReview;
   };
 

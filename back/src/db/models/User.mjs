@@ -4,7 +4,7 @@ import { ReviewModel } from "../schemas/review.mjs";
 
 class User {
   static async create({ newUser }) {
-    const createdNewUser = await UserModel.create(newUser).lean();
+    const createdNewUser = await UserModel.create(newUser);
     return createdNewUser;
   }
 
