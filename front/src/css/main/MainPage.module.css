@@ -242,9 +242,10 @@ section:nth-child(5) {
   animation: delay 0.5s, changeMovement 1s 0.5s ease-in-out;
 }
 
-@media screen and (min-width: 820px) and (max-width: 1500px) {
+@media screen and (min-width: 820px) and (max-width: 1400px) {
   .greeting {
-    width: 45%;
+    left: 5vh;
+    width: 55%;
   }
   .greeting_img {
     top: 25%;

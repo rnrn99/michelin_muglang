@@ -40,7 +40,7 @@ section:nth-child(5) {
 /* graph section container */
 .container {
   position: relative;
-  width: 90%;
+  width: 70%;
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
@@ -53,7 +53,7 @@ section:nth-child(5) {
 
 .graphWrapper {
   width: 50%;
-  height: 60%;
+  height: 50%;
 }
 
 .textWrapper {
