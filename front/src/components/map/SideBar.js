@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import {
   faMagnifyingGlass,
@@ -31,30 +31,31 @@ const SideBar = ({
   const [selectedCategory, setSelectedCategory] = useState("name"); //검색 필터링 조건 state
   const [onSearch, setOnSearch] = useState(false); //검색 결과를 보고 있는지 여부를 나타내는 state
   const [searchKeyword, setSearchKeyword] = useState(""); //검색 키워드 저장 state
-
-  const inputRef = useRef(null);
+  const [noResult, setNoResult] = useState(false); //검색 결과가 있는지 여부를 확인할 수 있는 state
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.get(
         serverUrl +
-          `restaurants/search?page=1&pageSize=${perPage}&country=${countryName}&${selectedCategory}=${inputRef.current.value}`,
+          `restaurants/search?page=1&pageSize=${perPage}&country=${countryName}&${selectedCategory}=${searchKeyword}`,
       );
       console.log(
         "get:" +
           serverUrl +
-          `restaurants/search?page=1&pageSize=${perPage}&country=${countryName}&${selectedCategory}=${inputRef.current.value}`,
+          `restaurants/search?page=1&pageSize=${perPage}&country=${countryName}&${selectedCategory}=${searchKeyword}`,
       );
       const { data, last } = res.data;
-      setSearchKeyword(inputRef.current.value);
+      if (data.length == 0) {
+        setNoResult(true);
+      }
       setRestaurants(data);
       setSearchTotalPage(last);
     } catch (err) {
       console.log(err.message);
     }
     setOnSearch(true);
-    inputRef.current.value = "";
+    setSearchKeyword("");
   };
 
   //국가의 전체 리스트로 돌아가기 위한 함수
@@ -65,6 +66,7 @@ const SideBar = ({
     setSearchKeyword("");
     setPage(1);
     setSearchPage(1);
+    setNoResult(false);
   };
 
   // 이전 페이지로 넘기는 함수
@@ -121,7 +123,7 @@ const SideBar = ({
   return (
     <>
       {/* prev button & next button */}
-      {!clicked && (
+      {!clicked && !noResult && (
         <>
           <button className={styles.prevBtn} onClick={goToPrevPage}>
             <FontAwesomeIcon icon={faChevronLeft} />
@@ -150,7 +152,8 @@ const SideBar = ({
               </select>
               <input
                 type="text"
-                ref={inputRef}
+                value={searchKeyword}
+                onChange={(e) => setSearchKeyword(e.target.value)}
                 placeholder="다양한 키워드로 검색해보세요"
                 className={styles.searchForm_container_input}
               />
@@ -171,6 +174,9 @@ const SideBar = ({
               <FontAwesomeIcon icon={faRotateLeft} />
             </button>
           </div>
+        )}
+        {noResult && (
+          <div className={styles.message_noResult}>검색 결과가 없습니다.</div>
         )}
         {/* 레스토랑 리스트 */}
         {restaurants.map((restaurant) =>

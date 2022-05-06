@@ -119,3 +119,7 @@
   background-color: #2fc4b6;
   color: white;
 }
+
+.message_noResult {
+  margin: 20px;
+}
