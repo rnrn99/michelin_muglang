@@ -21,14 +21,16 @@ function MonthlyGraph({ active }) {
 
   return (
     <div className={styles.container}>
+      <h1
+        className={active ? `${styles.title} ${styles.active}` : styles.title}
+      >
+        <span>코로나</span>와 <span>여행</span>
+      </h1>
       <div
         className={
           active ? `${styles.textWrapper} ${styles.active}` : styles.textWrapper
         }
       >
-        <h1>
-          <span>코로나</span>와 <span>여행</span>
-        </h1>
         <p>
           미슐랭 가이드에 기재된 레스토랑을 보유하고 있는 국가 36국을 대상으로
           최근 3달 간의 <strong>코로나 확진자 수</strong>를 조사한 결과{" "}

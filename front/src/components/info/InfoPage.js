@@ -45,6 +45,7 @@ function InfoPage() {
   useEffect(() => {
     const s = sectionRef.current.getElementsByTagName("section");
     setSection([...s]);
+    handleScrollEvent();
   }, []);
 
   useEffect(() => {

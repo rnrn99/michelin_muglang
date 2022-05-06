@@ -45,7 +45,10 @@ section:nth-child(5) {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+}
+
+.container span {
+  color: #ff9f1c;
 }
 
 .graphWrapper {
@@ -56,12 +59,14 @@ section:nth-child(5) {
 .textWrapper {
   opacity: 0;
   width: 55%;
-  height: 55%;
+  height: 45%;
   margin-right: 2rem;
 }
 
-.textWrapper h1 {
+.title {
   font-size: 2.5rem;
+  width: 100%;
+  align-self: end;
   margin-bottom: 2rem;
 }
 
@@ -72,14 +77,23 @@ section:nth-child(5) {
   margin-bottom: 1rem;
 }
 
-.textWrapper .description {
+.description {
   color: #999;
+}
+
+span.description {
+  color: #999;
+}
+
+.textWrapper .description {
   font-size: 1rem;
   line-height: 1rem;
 }
 
-.textWrapper span {
-  color: #ff9f1c;
+.graphWrapper .description {
+  float: right;
+  width: 90%;
+  margin-top: 1rem;
 }
 
 /* animation */
@@ -107,26 +121,26 @@ section:nth-child(5) {
   opacity: 1;
 }
 
-.textWrapper.active h1 {
+.title.active {
   animation: changeMovement 1s ease-in-out;
 }
 
-.textWrapper.active p:nth-child(2) {
+.textWrapper.active p:nth-child(1) {
   animation: delay 0.5s, changeMovement 1s 0.5s ease-in-out;
 }
 
-.textWrapper.active p:nth-child(3) {
+.textWrapper.active p:nth-child(2) {
   animation: delay 0.6s, changeMovement 1s 0.6s ease-in-out;
 }
 
-.textWrapper.active p:nth-child(4) {
+.textWrapper.active p:nth-child(3) {
   animation: delay 0.7s, changeMovement 1s 0.7s ease-in-out;
 }
 
-.textWrapper.active p:nth-child(5) {
+.textWrapper.active p:nth-child(4) {
   animation: delay 0.8s, changeMovement 1s 0.8s ease-in-out;
 }
-.textWrapper.active p:nth-child(6) {
+.textWrapper.active p:nth-child(5) {
   animation: delay 0.9s, changeMovement 1s 0.9s ease-in-out;
 }
 
@@ -137,14 +151,13 @@ section:nth-child(5) {
   }
 
   .textWrapper {
-    margin-top: 64px;
     width: 100%;
     height: auto;
   }
 
-  .textWrapper h1 {
+  .title {
+    margin-top: 64px;
     font-size: 1.5rem;
-    margin-bottom: 1rem;
   }
 
   .textWrapper p {

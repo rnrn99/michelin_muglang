@@ -21,14 +21,16 @@ function MichelinGraph({ active }) {
 
   return (
     <div className={styles.container}>
+      <h1
+        className={active ? `${styles.title} ${styles.active}` : styles.title}
+      >
+        검증받은 <span>음식점</span>을 고르는 방법
+      </h1>
       <div
         className={
           active ? `${styles.textWrapper} ${styles.active}` : styles.textWrapper
         }
       >
-        <h1>
-          검증받은 <span>음식점</span>을 고르는 방법
-        </h1>
         <p>
           미슐랭 가이드는 프랑스의 타이어 제조회사가 운전자에게 도로 여행에 대한
           정보를 제공하기 위해 만든 가이드북에서 시작되었습니다.
@@ -100,6 +102,10 @@ function MichelinGraph({ active }) {
             />
           </BarChart>
         </ResponsiveContainer>
+        <p className={styles.description}>
+          위 그래프는 대륙별 미슐랭 음식점 수를 상용로그로 변환하여 나타냄.
+          {"(ex. 100 -> 2)"}
+        </p>
       </div>
     </div>
   );
