@@ -35,12 +35,12 @@ class Review {
     return reviewlist;
   }
 
-  static async findByRestaurantId({ restaurantId }) => {
+  static async findByRestaurantId({ restaurantId }) {
     const reviewlist = await ReviewModel.find({ restaurantId })
       .lean()
       .populate("comments");
     return reviewlist;
-  };
+  }
 
   static async updateUserName({ userId, userName, session }) {
     const filter = { userId };
