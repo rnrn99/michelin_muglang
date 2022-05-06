@@ -6,6 +6,7 @@ import {
   faMoneyBill1Wave,
   faLink,
   faUtensils,
+  faBookmark,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../css/map/RestaurantCard.module.css";
 import { useNavigate } from "react-router-dom";
@@ -24,8 +25,14 @@ const RestaurantDetailCard = ({ restaurant, goToList }) => {
         </button>
       </div>
       <div className={styles.restaurant_box}>
+        <FontAwesomeIcon icon={faBookmark} />
+        <span style={{ marginLeft: "10px" }}>
+          {restaurant.bookmarkCount}회 북마크됨
+        </span>
+      </div>
+      <div className={styles.restaurant_box}>
         <FontAwesomeIcon icon={faUtensils} />
-        <span style={{ marginLeft: "5px" }}>
+        <span style={{ marginLeft: "10px" }}>
           {restaurant.cuisine.map((cuisineName) => (
             <span key={cuisineName}>{cuisineName}</span>
           ))}
@@ -33,21 +40,21 @@ const RestaurantDetailCard = ({ restaurant, goToList }) => {
       </div>
       <div className={styles.restaurant_box}>
         <FontAwesomeIcon icon={faStar} />
-        <span style={{ marginLeft: "5px" }}>{restaurant.award}</span>
+        <span style={{ marginLeft: "10px" }}>{restaurant.award}</span>
       </div>
       <div className={styles.restaurant_box}>
         <FontAwesomeIcon icon={faMoneyBill1Wave} />
         <span
-          style={{ marginLeft: "5px" }}
+          style={{ marginLeft: "10px" }}
         >{`${restaurant.minPrice} ~ ${restaurant.maxPrice} ${restaurant.currency}`}</span>
       </div>
       <div className={`${styles.restaurant_box} ${styles.seperate}`}>
         <FontAwesomeIcon icon={faLocationArrow} />
-        <span style={{ marginLeft: "5px" }}>{restaurant.address}</span>
+        <span style={{ marginLeft: "10px" }}>{restaurant.address}</span>
       </div>
       <div className={styles.restaurant_box}>
         <FontAwesomeIcon icon={faPhone} />
-        <span style={{ marginLeft: "5px" }}>{restaurant.phoneNumber}</span>
+        <span style={{ marginLeft: "10px" }}>{restaurant.phoneNumber}</span>
       </div>
       <div className={styles.restaurant_box}>
         <FontAwesomeIcon icon={faLink} />
@@ -55,6 +62,7 @@ const RestaurantDetailCard = ({ restaurant, goToList }) => {
           className={styles.restaurant_link}
           href={restaurant.websiteUrl ? restaurant.websiteUrl : restaurant.url}
           target="_blank"
+          style={{ marginLeft: "10px" }}
         >
           Restaurant Website
         </a>
