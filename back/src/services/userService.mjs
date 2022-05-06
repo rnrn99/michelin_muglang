@@ -35,7 +35,7 @@ class UserAuthService {
     // const KAKAO_REDIRECT_URL = "http://localhost:5000/users/login/kakao";
     // 배포용으로 수정
     const KAKAO_REDIRECT_URL =
-      "http://elice-kdt-ai-4th-team03.elicecoding.com/:5000/users/login/kakao";
+      "http://elice-kdt-ai-4th-team03.elicecoding.com:5000/users/login/kakao";
     //카카오 토큰 받기
     const ret = await axios.post(
       `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${KAKAO_CLIENT_id}&redirect_uri=${KAKAO_REDIRECT_URL}&code=${code}`,
