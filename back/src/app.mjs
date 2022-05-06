@@ -45,7 +45,6 @@ app.use(pinoLogger);
 
 // 기본 페이지
 app.get("/", (req, res) => {
-  req.log.info("Welcome to michelin muglang"); // 로거 확인용
   res.send("Welcome to michelin muglang!");
 });
 

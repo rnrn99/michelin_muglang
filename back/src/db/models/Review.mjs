@@ -1,15 +1,15 @@
 import { ReviewModel } from "../schemas/review.mjs";
 
 class Review {
-  static createReview = async ({ newReview }) => {
-    const createdNewReview = await ReviewModel.create(newReview).lean();
+  static async create({ newReview }) {
+    const createdNewReview = await ReviewModel.create(newReview);
     return createdNewReview;
-  };
+  }
 
-  static findByReviewId = async ({ id }) => {
+  static async findById({ id }) {
     const reviewInfo = await ReviewModel.findOne({ id }).lean();
     return reviewInfo;
-  };
+  }
 
   static async update({ id, toUpdate }) {
     const filter = { id };
@@ -18,7 +18,8 @@ class Review {
       filter,
       toUpdate,
       option,
-    ).lean();
+    );
+
     return updatedReview;
   }
 
@@ -29,10 +30,10 @@ class Review {
     return isDataDeleted;
   }
 
-  static findByUserId = async ({ userId }) => {
+  static async findByUserId({ userId }) {
     const reviewlist = await ReviewModel.find({ userId }).lean();
     return reviewlist;
-  };
+  }
 
   static findByRestaurantId = async ({ restaurantId }) => {
     const reviewlist = await ReviewModel.find({ restaurantId })
