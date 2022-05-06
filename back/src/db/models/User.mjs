@@ -2,7 +2,7 @@ import { UserModel } from "../schemas/user.mjs";
 
 class User {
   static async create({ newUser }) {
-    const createdNewUser = await UserModel.create(newUser).lean();
+    const createdNewUser = await UserModel.create(newUser);
     return createdNewUser;
   }
 
@@ -55,7 +55,9 @@ class User {
   }
 
   static async findBookmarks({ id }) {
-    const userInfo = await UserModel.findOne({ id }).populate("bookmarks");
+    const userInfo = await UserModel.findOne({ id })
+      .lean()
+      .populate("bookmarks");
     return userInfo.bookmarks;
   }
 
