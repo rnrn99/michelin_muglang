@@ -13,6 +13,7 @@ import RestaurantCard from "./RestaurantCard";
 import styles from "../../css/map/SideBar.module.css";
 
 import { serverUrl, perPage } from "../../data/MapConstant";
+import RestaurantDetailCard from "./RestaurantDetailCard";
 
 const SideBar = ({
   countryName,
@@ -172,15 +173,21 @@ const SideBar = ({
           </div>
         )}
         {/* 레스토랑 리스트 */}
-        {restaurants.map((restaurant) => (
-          <RestaurantCard
-            key={restaurant._id}
-            restaurant={restaurant}
-            handleClick={handleClick}
-            clicked={clicked}
-            goToList={goToList}
-          />
-        ))}
+        {restaurants.map((restaurant) =>
+          !clicked ? (
+            <RestaurantCard
+              key={restaurant._id}
+              restaurant={restaurant}
+              handleClick={handleClick}
+            />
+          ) : (
+            <RestaurantDetailCard
+              key={restaurant._id}
+              restaurant={restaurant}
+              goToList={goToList}
+            />
+          ),
+        )}
       </div>
     </>
   );
