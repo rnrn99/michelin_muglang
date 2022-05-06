@@ -8,7 +8,7 @@ import {
   subBookmark,
   setupNearby,
 } from "../../redux/restaurantSlice";
-import { get, patch } from "../../api";
+import { get, patch, getNoCache } from "../../api";
 import styles from "../../css/restaurant/RestaurantDetailPage.module.css";
 import Information from "./Information";
 import Reviews from "./Reviews";
@@ -54,7 +54,7 @@ function RestaurantDetailPage() {
     const getRestaurantInfo = get("restaurants", restaurantId);
     const getRestaurantReviews = get("reviewlist/restaurant", restaurantId);
     const getNearbyRestaurants = get("restaurants", `${restaurantId}/near`);
-    const getUserBookmarks = user ? get("bookmarks", user.id) : null;
+    const getUserBookmarks = user ? getNoCache("bookmarks", user.id) : null;
 
     try {
       const [
@@ -71,11 +71,13 @@ function RestaurantDetailPage() {
 
       dispatch(setupInfo(restaurantInformation.data.data));
       dispatch(setupReviews(restaurantReviews.data));
+      dispatch(setupNearby(nearbyRestaurants.data.data));
+
       const isBookmarked = userBookmarks?.data.some(
         (restaurant) => restaurant._id === restaurantId,
       );
-      dispatch(setupNearby(nearbyRestaurants.data.data));
       setBookmark(isBookmarked);
+
       if (restaurantInformation.data.data.imageUrl.length > 0) {
         setBgImageUrl(restaurantInformation.data.data.imageUrl[0]);
       } else {
