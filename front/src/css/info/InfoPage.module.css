@@ -126,3 +126,6 @@ section:nth-child(5) {
 .textWrapper.active p:nth-child(5) {
   animation: delay 0.8s, changeMovement 1s 0.8s ease-in-out;
 }
+.textWrapper.active p:nth-child(6) {
+  animation: delay 0.9s, changeMovement 1s 0.9s ease-in-out;
+}
