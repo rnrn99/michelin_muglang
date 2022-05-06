@@ -17,11 +17,13 @@ const RestaurantCard = ({ restaurant, handleClick }) => {
       </div>
       <div className={styles.restaurant_box}>
         <h3 className={styles.name}>{restaurant.name}</h3>
-        <span className={styles.cuisine}>
+        <div className={styles.cuisine_container}>
           {restaurant.cuisine.map((cuisineName) => (
-            <span key={cuisineName}>{cuisineName}</span>
+            <span key={cuisineName} className={styles.cuisine}>
+              {cuisineName}
+            </span>
           ))}
-        </span>
+        </div>
       </div>
       <div className={styles.restaurant_box}>
         <FontAwesomeIcon icon={faLocationArrow} />

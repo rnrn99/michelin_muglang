@@ -32,7 +32,7 @@
 }
 
 .restaurant_box {
-  width: 90%;
+  width: 88%;
   margin-bottom: 10px;
   position: relative;
 }
@@ -52,10 +52,14 @@
   display: inline;
   font-size: 20px;
   font-weight: bold;
+  margin-right: 5px;
 }
 
+.cuisine_container {
+  display: inline-block;
+}
 .cuisine {
-  margin-left: 5px;
+  margin-right: 5px;
   color: #ff9f1c;
 }
 .container_returnBtn {
