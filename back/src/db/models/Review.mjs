@@ -35,7 +35,7 @@ class Review {
     return reviewlist;
   }
 
-  static findByRestaurantId = async ({ restaurantId }) => {
+  static async findByRestaurantId({ restaurantId }) => {
     const reviewlist = await ReviewModel.find({ restaurantId })
       .lean()
       .populate("comments");
