@@ -13,6 +13,7 @@ function RegisterForm() {
   const [password, setPassword] = useState(""); // password 저장할 상태
   const [confirmPassword, setConfirmPassword] = useState(""); // cofirmPassword 저장할 상태
   const [name, setName] = useState(""); // name 저장할 상태
+  const [errorMessage, setErrorMessage] = useState("");
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email) => {
@@ -21,6 +22,16 @@ function RegisterForm() {
       .match(
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       );
+  };
+
+  const handleGoToLogin = () => {
+    if (location.state) {
+      navigate("/login", {
+        state: { pathname: location.state.pathname },
+      });
+    } else {
+      navigate("/login");
+    }
   };
 
   //위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
@@ -53,7 +64,10 @@ function RegisterForm() {
         navigate("/login");
       }
     } catch (err) {
-      console.log("회원가입에 실패하였습니다.", err);
+      setErrorMessage(err.response.data.msg);
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 4800);
     }
   };
 
@@ -62,15 +76,19 @@ function RegisterForm() {
       <Card
         sx={{
           display: "flex",
-          position: "absolute",
+          position: "relative",
           width: "420px",
           flexDirection: "column",
           alignItems: "center",
           backgroundColor: "white",
           padding: 4,
           borderRadius: 2,
+          overflow: "visible",
         }}
       >
+        {errorMessage && (
+          <div className={styles.error_message}>{errorMessage}</div>
+        )}
         <Typography sx={{ fontSize: "20px" }}>회원가입</Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <StyledTextField
@@ -157,7 +175,7 @@ function RegisterForm() {
 
           <Button
             variant="text"
-            onClick={() => navigate("/login")}
+            onClick={handleGoToLogin}
             sx={{ color: "#FF9F1C" }}
           >
             로그인하기

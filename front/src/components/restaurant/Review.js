@@ -1,21 +1,39 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteReview, editReview } from "../../redux/restaurantSlice";
-import { patch } from "../../api";
+import {
+  deleteReview,
+  editReview,
+  addComment,
+} from "../../redux/restaurantSlice";
+import { post, patch } from "../../api";
+import ReviewComment from "./ReviewComment";
 import DeleteConfirmationModal from "../modal/DeleteConfirmationModal";
 import styles from "../../css/restaurant/Review.module.css";
-import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
+import {
+  Edit as EditIcon,
+  Delete as DeleteIcon,
+  Chat as CommentIcon,
+} from "@mui/icons-material";
 
-const Review = ({ review }) => {
+const Review = ({ review, setLoginRequestModal }) => {
   const [reviewText, setReviewText] = useState(review.text);
+  const [commentText, setCommentText] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [isCommenting, setIsCommenting] = useState(false);
   const [deleteConfirmModal, setDeleteConfirmModal] = useState(false);
-  const [reviewId, setReviewId] = useState("");
   const [{ user }] = useSelector((state) => [state.user]);
 
   const dispatch = useDispatch();
 
-  const handleEdit = async (e) => {
+  const handleCommentBtnClick = () => {
+    if (!user) {
+      setLoginRequestModal(true);
+    } else {
+      setIsCommenting((cur) => !cur);
+    }
+  };
+
+  const handleEditSubmit = async (e) => {
     e.preventDefault();
 
     if (!reviewText) return;
@@ -27,16 +45,37 @@ const Review = ({ review }) => {
     setIsEditing(false);
   };
 
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+
+    const newComment = await post("comments", {
+      reviewId: review.id,
+      text: commentText,
+    });
+
+    dispatch(
+      addComment({
+        reviewId: review.id,
+        comment: newComment.data,
+      }),
+    );
+    setCommentText("");
+    setIsCommenting(false);
+  };
+
   return (
     <>
       <div className={styles.review}>
         <div className={styles.review_title}>
           <span className={styles.username}>{review.userName}</span>
           <span className={styles.date}>{review.createdAt.slice(0, 10)}</span>
+          <span className={styles.comment_btn} onClick={handleCommentBtnClick}>
+            <CommentIcon fontSize="small" />
+          </span>
           {user?.id === review.userId && (
             <>
               <span
-                className={styles.icon_edit}
+                className={styles.edit_btn}
                 onClick={() => {
                   setIsEditing(true);
                 }}
@@ -44,10 +83,9 @@ const Review = ({ review }) => {
                 <EditIcon fontSize="small" />
               </span>
               <span
-                className={styles.icon_delete}
+                className={styles.delete_btn}
                 onClick={() => {
                   setDeleteConfirmModal(true);
-                  setReviewId(review.id);
                 }}
               >
                 <DeleteIcon fontSize="small" />
@@ -55,8 +93,9 @@ const Review = ({ review }) => {
             </>
           )}
         </div>
+
         {isEditing ? (
-          <form onSubmit={handleEdit} className={styles.edit_form}>
+          <form onSubmit={handleEditSubmit} className={styles.edit_form}>
             <textarea
               value={reviewText}
               onChange={(e) => {
@@ -67,6 +106,7 @@ const Review = ({ review }) => {
             <button
               type="button"
               onClick={() => {
+                setReviewText(review.text);
                 setIsEditing(false);
               }}
             >
@@ -76,13 +116,44 @@ const Review = ({ review }) => {
         ) : (
           <div className={styles.content}>{review.text}</div>
         )}
+
+        {isCommenting && (
+          <form onSubmit={handleCommentSubmit} className={styles.comment_form}>
+            <input
+              type="text"
+              placeholder="comment를 작성해주세요."
+              value={commentText}
+              onChange={(e) => {
+                setCommentText(e.target.value);
+              }}
+            ></input>
+            <button type="submit">등록</button>
+            <button
+              type="button"
+              onClick={() => {
+                setCommentText("");
+                setIsCommenting(false);
+              }}
+            >
+              닫기
+            </button>
+          </form>
+        )}
+
+        {review.comments.map((comment) => (
+          <ReviewComment
+            reviewId={review.id}
+            comment={comment}
+            key={comment._id}
+          />
+        ))}
       </div>
       {deleteConfirmModal && (
         <DeleteConfirmationModal
           setIsModalOpen={setDeleteConfirmModal}
           modalContent={"리뷰를"}
-          api={{ method: "del", endpoint: "reviews", params: reviewId }}
-          action={deleteReview(reviewId)}
+          api={{ method: "del", endpoint: "reviews", params: review.id }}
+          action={deleteReview(review.id)}
         />
       )}
     </>

@@ -32,7 +32,7 @@ class Restaurant {
       websiteUrl,
       award,
       country,
-    });
+    }).lean();
     return createdNewRestaurant;
   }
 
@@ -52,7 +52,12 @@ class Restaurant {
   }
 
   static async findAll() {
-    const restaurants = await RestaurantModel.find({}).lean();
+    const restaurants = await RestaurantModel.find({})
+      .update(
+        { bookmarkCount: { $exists: false } },
+        { $set: { bookmarkCount: 0 } },
+      )
+      .lean();
     return restaurants;
   }
 
@@ -64,6 +69,7 @@ class Restaurant {
   static async findAllByCountryPaging({ page, pageSize, country }) {
     const len = await RestaurantModel.countDocuments({ country });
     const lastPage = Math.ceil(len / pageSize);
+    const offset = (page - 1) * pageSize + 1;
 
     const restaurants = await RestaurantModel.find({ country })
       .sort({ _id: 1 })
@@ -71,12 +77,13 @@ class Restaurant {
       .limit(pageSize)
       .lean();
 
-    return { restaurants, lastPage, len };
+    return { restaurants, lastPage, len, offset };
   }
 
   static async findAllPaging({ page, pageSize }) {
     const len = await RestaurantModel.countDocuments({});
     const lastPage = Math.ceil(len / pageSize);
+    const offset = (page - 1) * pageSize + 1;
 
     const restaurants = await RestaurantModel.find({})
       .sort({ _id: 1 })
@@ -84,12 +91,13 @@ class Restaurant {
       .limit(pageSize)
       .lean();
 
-    return { restaurants, lastPage, len };
+    return { restaurants, lastPage, len, offset };
   }
 
   static async findAllByCuisinePaging({ page, pageSize, cuisine }) {
     const len = await RestaurantModel.countDocuments({ cuisine });
     const lastPage = Math.ceil(len / pageSize);
+    const offset = (page - 1) * pageSize + 1;
 
     const restaurants = await RestaurantModel.find({
       cuisine,
@@ -99,7 +107,7 @@ class Restaurant {
       .limit(pageSize)
       .lean();
 
-    return { restaurants, lastPage, len };
+    return { restaurants, lastPage, len, offset };
   }
 
   static async findAllByQuery({
@@ -126,6 +134,7 @@ class Restaurant {
     });
 
     const lastPage = Math.ceil(len / pageSize);
+    const offset = (page - 1) * pageSize + 1;
 
     const restaurants = await RestaurantModel.find({
       name: { $regex: name, $options: "i" },
@@ -142,7 +151,7 @@ class Restaurant {
       .limit(pageSize)
       .lean();
 
-    return { restaurants, lastPage, len };
+    return { restaurants, lastPage, len, offset };
   }
 
   static async findRestaurantsNearById({ id }) {
@@ -152,7 +161,6 @@ class Restaurant {
       {
         $geoNear: {
           spherical: true,
-          $limit: 5, // 효과는 없는듯하다..(기본값으로 100개 받음)
           near: {
             type: "Point",
             coordinates: [
@@ -171,51 +179,42 @@ class Restaurant {
     return restaurantsNear;
   }
 
-  static bookmark = async ({ id }) => {
+  static async bookmark({ id, session }) {
     const filter = { _id: id };
-    const update = { $inc: { bookmarkCount: 1 } };
+    const update = { $inc: { bookmarkCount: 1 } }; // 음식점의 북마크 개수 +1
     const option = { returnOriginal: false };
 
     const bookmark = await RestaurantModel.findOneAndUpdate(
       filter,
       update,
       option,
-    );
+    ).session(session);
 
     return bookmark;
-  };
+  }
 
-  static unbookmark = async ({ id }) => {
+  static async unbookmark({ id, session }) {
     const filter = { _id: id };
-    const update = { $inc: { bookmarkCount: -1 } };
+    const update = { $inc: { bookmarkCount: -1 } }; // 음식점의 북마크 개수 -1
     const option = { returnOriginal: false };
 
     const bookmark = await RestaurantModel.findOneAndUpdate(
       filter,
       update,
       option,
-    );
+    ).session(session);
     return bookmark;
-  };
+  }
 
-  static unbookmarkByList = async ({ bookmarkList }) => {
-    // for (let i = 0; i < userInfo.bookmarks.length; i++) {
-    //   restaurantId = userInfo.bookmarks[i];
-    //   const unbookmark = await RestaurantModel.findOneAndUpdate(
-    //     { _id: restaurantId },
-    //     { $inc: { bookmarkCount: -1 } },
-    //     { returnOriginal: false },
-    //   );
-    // }
-
+  static async unbookmarkByList({ bookmarkList, session }) {
     const filter = { _id: { $in: bookmarkList } };
-    const update = { $inc: { bookmarkCount: -1 } };
+    const update = { $inc: { bookmarkCount: -1 } }; // 유저 탈퇴시, 유저가 북마크한 음식점의 북마크 개수 -1
     const option = { returnOriginal: false };
 
-    const unbookmark = await RestaurantModel.updateMany(filter, update, option);
+    await RestaurantModel.updateMany(filter, update, option).session(session);
 
-    return unbookmark;
-  };
+    return { status: "ok" };
+  }
 }
 
 export { Restaurant };

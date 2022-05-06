@@ -8,28 +8,38 @@
   align-items: flex-end;
 }
 
-.review .username {
+.review_title .username {
   font-size: 20px;
 }
 
-.review .date {
+.review_title .date {
   margin-left: 11px;
   font-size: 15px;
   color: #a7a7a7;
 }
 
-.review .icon_edit {
+.review .comment_btn {
   margin-left: 10px;
-}
-
-.review .icon_edit,
-.review .icon_delete {
+  margin-bottom: -3px;
   color: #a7a7a7;
   transition: color 0.3s;
 }
 
-.review .icon_edit:hover,
-.review .icon_delete:hover {
+.review .comment_btn:hover {
+  cursor: pointer;
+  color: #2ec4b6;
+}
+
+.review .edit_btn,
+.review .delete_btn {
+  color: #a7a7a7;
+  margin-left: 5px;
+  margin-bottom: -3px;
+  transition: color 0.3s;
+}
+
+.review .edit_btn:hover,
+.review .delete_btn:hover {
   cursor: pointer;
   color: #ff9f1c;
 }
@@ -40,39 +50,65 @@
   line-height: 24px;
 }
 
-.edit_form {
+.edit_form,
+.comment_form {
   position: relative;
   margin-top: 10px;
 }
 
-.edit_form textarea {
+.edit_form textarea,
+.comment_form input {
+  box-sizing: border-box;
   resize: none;
-  width: 99%;
+  width: 100%;
   height: 80px;
+  padding: 5px 8px;
+  border: #a7a7a7 1px solid;
+  border-color: #a7a7a7;
+  border-radius: 5px;
   font-size: 16px;
+  font-family: inherit;
 }
 
-.edit_form button {
-  position: absolute;
-  font-size: 14px;
-  width: 45px;
+.comment_form input {
   height: 40px;
-  top: 20px;
+  width: 89%;
+}
+
+.edit_form textarea:focus,
+.comment_form input:focus {
+  outline: none;
+}
+
+.edit_form button,
+.comment_form button {
+  position: absolute;
+  font-size: 12px;
+  width: 45px;
+  height: 25px;
+  top: -30px;
   border: none;
   border-radius: 10px;
   transition: background-color 0.2s;
 }
 
-.edit_form button:hover {
+.comment_form button {
+  top: 0px;
+  height: 40px;
+}
+
+.edit_form button:hover,
+.comment_form button:hover {
   cursor: pointer;
-  background-color: #ff9f1c;
-  color: whitesmoke;
+  background-color: #ffca81;
 }
 
-.edit_form button:nth-child(2) {
-  right: -50px;
+.edit_form button:nth-child(2),
+.comment_form button:nth-child(2) {
+  right: 50px;
 }
 
-.edit_form button:nth-child(3) {
-  right: -100px;
+.edit_form button:nth-child(3),
+.comment_form button:nth-child(3) {
+  right: 0px;
 }

@@ -8,7 +8,6 @@ function errorMiddleware(error, req, res, next) {
     error.statusCode = 500;
     req.log.error(error);
   }
-  // console.log("\x1b[33m%s\x1b[0m", error);
 
   res.status(error.statusCode).send({
     msg: error.message,

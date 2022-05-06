@@ -1,21 +1,21 @@
 import pkg from "mongoose";
 const { Schema, model } = pkg;
 
-const CurrencySchema = new Schema(
+const CommentSchema = new Schema(
   {
-    code: {
+    reviewId: {
       type: String,
       required: true,
     },
-    value: {
-      type: Number,
-      required: true,
-    },
-    date: {
+    userId: {
       type: String,
       required: true,
     },
-    name: {
+    userName: {
+      type: String,
+      required: true,
+    },
+    text: {
       type: String,
       required: true,
     },
@@ -25,6 +25,6 @@ const CurrencySchema = new Schema(
   },
 );
 
-const CurrencyModel = model("Currency", CurrencySchema);
+const CommentModel = model("Comment", CommentSchema);
 
-export { CurrencyModel };
+export { CommentModel };

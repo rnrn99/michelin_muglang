@@ -7,17 +7,18 @@ import { restaurantRouter } from "./routers/restaurantRouter.mjs";
 import { mapRouter } from "./routers/mapRouter.mjs";
 import { graphRouter } from "./routers/graphRouter.mjs";
 import { reviewRouter } from "./routers/reviewRouter.mjs";
+import { googleRouter } from "./routers/googleRouter.mjs";
+import { commentRouter } from "./routers/commentRouter.mjs";
 
 const app = express();
 const pinoLogger = logger({
-  // quietReqLogger: true,
+  // quietReqLogger: true, // get request ID
   transport: {
     target: "pino-pretty",
     options: {
       translateTime: true,
       ignore: "req",
-      // hideObject: true,
-      // destination: "./pino-logger.log", // 배포시 사용
+      destination: "./pino-logger.log", // 배포시 사용: 해당 파일에 로그 기록
     },
   },
   autoLogging: false,
@@ -44,8 +45,7 @@ app.use(pinoLogger);
 
 // 기본 페이지
 app.get("/", (req, res) => {
-  // req.log.info("hello world"); // 로거 확인용
-  res.send("안녕하세요, 레이서 프로젝트 API 입니다.");
+  res.send("Welcome to michelin muglang!");
 });
 
 // router, service 구현 (userAuthRouter는 맨 위에 있어야 함.)
@@ -54,6 +54,8 @@ app.use(mapRouter);
 app.use(restaurantRouter);
 app.use(graphRouter);
 app.use(reviewRouter);
+app.use(googleRouter);
+app.use(commentRouter);
 
 // 순서 중요 (router 에서 next() 시 아래의 에러 핸들링  middleware로 전달됨)
 app.use(errorMiddleware);

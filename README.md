@@ -1,68 +1,84 @@
-# (서비스 명)
-- 최종 서비스 명을 위 괄호 부분에 작성하세요.
-- 최종 서비스의 한 줄 소개를 작성하세요.
+# 미슐랭 먹을랭
 
-
-## 프로젝트 구성 안내
-
-* `bullet point 에 적힌 내용을 수정해 주시면 됩니다.`
-
-* `초기 기획은 언제든 수정될 수 있으니 웹서비스 결과를 내는데 초점을 두시기 바랍니다.`
+- 전세계의 미슐랭 맛집을 알려드립니다!
 
 ## 1. 프로젝트 소개
 
-**어떠한 데이터셋와 도구 및 기술을 사용했는지에 대한 설명과 엔드유저에게 보이는 웹서비스에 대한 소개**
+### 프로젝트 간단 설명
 
-  - 사용하려는 데이터(제안된 데이터 중 하나 또는 선택한 다른 데이터 세트)를 명시, 이에 대한 설명
-  - 기술 스택 (python, d3, pandas, jupyter, javascript, MySQL 등)
-  - 사용된 라이브러리 (numpy, matplotlib, wordcloud 등)
-  - 웹서비스에 대한 자세한 개요
+- 해외의 다양한 미슐랭 맛집을 한눈에 찾고 음식점을 북마크 하거나 리뷰를 남길 수 있는 웹프로젝트 입니다.
+
+### 사용한 데이터셋
+
+- 코로나 관련 데이터 (백신 접종률이 올라가고 확진자 수가 줄고 있음을 도출)
+
+  - [COVID-19 World Vaccination Progress](https://www.kaggle.com/datasets/gpreda/covid-world-vaccination-progress)
+  - [Covid-19 Weekly Trends In World - Latest Data](https://www.kaggle.com/datasets/anandhuh/covid19-weekly-trends-in-world-latest-data)
+
+  - [Covid-19 Global Dataset](https://www.kaggle.com/datasets/josephassaker/covid19-global-dataset)
+
+- 여행 관련 데이터 (맛집은 여행에서 중요한 부분이다는 것을 도출)
+
+  - [Trips by US people(from 2019 to Nov 2021)](https://www.kaggle.com/datasets/ramjasmaurya/trips-by-distancefrom-2019-to-nov-2021)
+  - [Travel Review Rating Dataset](https://www.kaggle.com/datasets/wirachleelakiatiwong/travel-review-rating-dataset)
+
+- 미슐랭 가이드 관련 데이터 (미슐랭 식당의 위치와 세부 정보, 환율 통해 환전한 가격 알려줌)
+
+  - [Michelin Guide Restaurants 2021](https://www.kaggle.com/datasets/ngshiheng/michelin-guide-restaurants-2021?select=michelin_my_maps.csv)
+  - [Currency Exchange Rates](https://www.kaggle.com/datasets/ruchi798/currency-exchange-rates)
+
+### 사용한 기술 스택과 라이브러리
+
+| Back-End        | Front-End         | Data-analysis |
+| --------------- | ----------------- | ------------- |
+| Node.js         | Marker Clustering | Numpy         |
+| Express         | React             | Pandas        |
+| Mongo DB        | Redux             | Matplotlib    |
+| Goggle Maps api | MUI               | Seaborn       |
+| nodemailer      | React Simple Maps | pymongo       |
 
 ## 2. 프로젝트 목표
 
-**데이터 분석 결과로 도출되는 인사이트와 웹서비스의 해결과제에 대한 논의 (50자 이상)**
-  - 프로젝트 아이디어 동기
-  - 문제를 해결하기 위한 특정 질문 명시
-  - 데이터를 통해 탐색하려는 문제를 구체적으로 작성
+### 기획 의도 (문제 정의와 가설 설정 방법)
 
+- 인생의 재미와 여행의 묘미 중 하나는 ‘맛있는 음식’을 찾아 먹는 것이다. 하지만 코로나로 인해 자유로운 활동에 제약이 생겼다. 이러한 영향으로 2021년 서울관광재단의 설문조사 결과, 서울에서 코로나19 이후 가장 하고 싶은 활동 1위로 ‘맛집 탐방’이 뽑혔다.
+- 이제는 백신 접종 등으로 코로나 확진자 수가 줄어드는 추세이다. 이에 따라 앞으로는 여행의 기회가 늘어나 여행 수요가 증가할 것으로 보여, ‘해외의 다양한 미슐랭 맛집을 한눈에 소개하는 웹서비스’를 제공하고자 한다.
 
 ## 3. 프로젝트 기능 설명
 
-**웹서비스의 유용성, 편의성 및 시각화의 실용성에 대한 설명**
-  - 주요 기능 (주된 활용성) 및 서브 기능
-  - 프로젝트만의 차별점, 기대 효과
+### 메인 기능
+
+- 국가별, 도시별 미슐랭 음식점 찾기 기능
+  - 세계 지도에 국가별 미슐랭 음식점 수 표기
+  - 국가별 지도에 미슐랭 음식점 위치 표기
+  - 음식점 상세 페이지에 음식점 정보 제공 (식당 이름, 종류, 구글 리뷰 등)
+  - 음식점을 필터링 또는 검색하여 찾아보는 기능
+- 회원 기능
+  - 계정을 만들어 마음에 드는 음식점을 북마크 해두는 기능
+  - 개인 리뷰 작성 및 댓글 기능
+
+### 서브 기능
+
+- 편의 기능
+  - 음식점 상세 페이지 하단에 근처 다른 식당을 추천해주는 기능
+  - 환율을 계산해서 가격 알려주는 기능
+- 회원 기능
+  - SNS 로그인 (카카오)
+  - 임시 비밀번호 발급
 
 ## 4. 프로젝트 구성도
-  - 와이어프레임/스토리보드 추가
+
+- [피그마 사용한 와이어프레임](https://www.figma.com/file/0D7Nak8ICaCEyJGaG0boSr/%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%AC%EC%83%81?node-id=0%3A1)
 
 ## 5. 프로젝트 팀원 역할 분담
-| 이름 | 담당 업무 |
-| ------ | ------ |
-| 멤버1 | 팀장/프론트엔드 개발 |
-| 멤버2 | 백엔드 개발/데이터 분석 |
 
-**멤버별 responsibility**
+### 크래프트 (코드 수제 맛집)
 
-1. 팀장 
-
-- 기획 단계: 구체적인 설계와 지표에 따른 프로젝트 제안서 작성
-- 개발 단계: 팀원간의 일정 등 조율 + 프론트 or 백엔드 개발
-- 수정 단계: 기획, 스크럼 진행, 코치님 피드백 반영해서 수정, 발표 준비
-
-2. 프론트엔드 
-
-- 기획 단계: 큰 주제에서 문제 해결 아이디어 도출, 데이터 수집, 와이어프레임 작성
-- 개발 단계: 와이어프레임을 기반으로 구현, 데이터 처리 및 시각화 담당, UI 디자인 완성
-- 수정 단계: 피드백 반영해서 프론트 디자인 수정
-
- 3. 백엔드 & 데이터 담당  
-
-- 기획 단계: 기획 데이터 분석을 통해 해결하고자 하는 문제를 정의
-- 개발 단계: 웹 서버 사용자가 직접 백엔드에 저장할수 있는 기능 구현, 데이터 베이스 구축 및 API 활용, 데이터 분석 개념 총동원하기
-- 수정 단계: 코치님 피드백 반영해서 분석/ 시각화 방식 수정
-
-## 6. 버전
-  - 프로젝트의 버전 기입
-
-## 7. FAQ
-  - 자주 받는 질문 정리
+| 이름   | 역할         |
+| ------ | ------------ |
+| 이동준 | 팀장, 백엔드 |
+| 임은나 | 백엔드       |
+| 정윤지 | 백엔드       |
+| 배서영 | 프론트엔드   |
+| 선민경 | 프론트엔드   |
+| 백지유 | 프론트엔드   |

@@ -7,7 +7,7 @@ class RestaurantService {
     // 레스토랑 정보를 가져오는 데 실패한 경우, 에러 메시지 반환
     if (Object.keys(restaurants).length === 0) {
       const error = new Error("레스토랑 데이터를 가져오는 데 실패하였습니다.");
-      error.statusCode = 400;
+      error.statusCode = 500;
       throw error;
     }
 
@@ -19,10 +19,8 @@ class RestaurantService {
 
     // 페이징 과정 중 실패한 경우, 에러 메시지 반환
     if (Object.keys(restaurants).length === 0) {
-      const error = new Error(
-        "해당 페이지는 조회할 수 있는 페이지 수보다 큽니다.",
-      );
-      error.statusCode = 400;
+      const error = new Error("레스토랑 데이터를 가져오는 데 실패하였습니다.");
+      error.statusCode = 500;
       throw error;
     }
 
@@ -164,9 +162,11 @@ class RestaurantService {
       throw error;
     }
 
+    const name = targetCurrency.name;
+    const date = targetCurrency.date;
     // 현재 통화와 타켓 통화가 일치할 경우 기존 값을 반환
     if (currentCurrency.code === targetCurrency.code) {
-      return { minPrice, maxPrice };
+      return { name, date, minPrice, maxPrice };
     }
 
     let convertedMinPrice, convertedMaxPrice;
@@ -182,7 +182,12 @@ class RestaurantService {
       convertedMaxPrice = maxPrice * ratio;
     }
 
-    return { minPrice: convertedMinPrice, maxPrice: convertedMaxPrice };
+    return {
+      name,
+      date,
+      minPrice: convertedMinPrice,
+      maxPrice: convertedMaxPrice,
+    };
   }
 
   static async countRestaurantByCountry(country) {

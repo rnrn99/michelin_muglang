@@ -47,19 +47,50 @@ export const restaurantSlice = createSlice({
       return { ...state, restaurantReviews: newReviews };
     },
     editReview: (state, action) => {
-      const newReviews = state.restaurantReviews.map((review) => {
+      state.restaurantReviews.forEach((review) => {
         if (review.id === action.payload.id) {
-          return action.payload;
+          review.text = action.payload.text;
         }
-        return review;
       });
-      return { ...state, restaurantReviews: newReviews };
+
+      return state;
     },
     setupNearby: (state, action) => {
       const nearby = action.payload.filter(
         (restaurant) => state.restaurantInfo._id !== restaurant._id,
       );
       return { ...state, restaurantNearby: nearby };
+    },
+    addComment: (state, action) => {
+      state.restaurantReviews.forEach((review) => {
+        if (review.id === action.payload.reviewId) {
+          review.comments.push(action.payload.comment);
+        }
+      });
+      return state;
+    },
+    deleteComment: (state, action) => {
+      state.restaurantReviews.forEach((review) => {
+        if (review.id === action.payload.reviewId) {
+          const newComments = review.comments.filter(
+            (comment) => comment._id !== action.payload.commentId,
+          );
+          review.comments = newComments;
+        }
+      });
+      return state;
+    },
+    editComment: (state, action) => {
+      state.restaurantReviews.forEach((review) => {
+        if (review.id === action.payload.reviewId) {
+          review.comments.forEach((comment) => {
+            if (comment._id === action.payload.comment._id) {
+              comment.text = action.payload.comment.text;
+            }
+          });
+        }
+      });
+      return state;
     },
   },
 });
@@ -73,6 +104,9 @@ export const {
   deleteReview,
   editReview,
   setupNearby,
+  addComment,
+  deleteComment,
+  editComment,
 } = restaurantSlice.actions;
 
 export default restaurantSlice.reducer;

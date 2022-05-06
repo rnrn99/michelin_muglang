@@ -25,7 +25,7 @@
 }
 
 .unmount {
-  animation: unshow 0.3s;
+  animation: unshow 0.4s;
 }
 
 @keyframes unshow {
