@@ -29,7 +29,7 @@ export const countries = [
   "Malta",
   "Andorra",
   "San Marino",
-  "Czechia",
+  "Czech Republic",
   "Iceland",
   "Finland",
   "Croatia",

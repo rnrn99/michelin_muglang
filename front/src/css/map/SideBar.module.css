@@ -8,13 +8,13 @@
 }
 
 .prevBtn {
-  left: 40px;
-  top: 490px;
+  left: 30px;
+  top: 440px;
 }
 
 .nextBtn {
-  left: 500px;
-  top: 490px;
+  left: 510px;
+  top: 440px;
 }
 
 .prevBtn:hover,
@@ -31,7 +31,7 @@
 .detail_restaurantsList {
   background: transparent;
   width: 400px;
-  height: 100vh;
+  height: 100%;
   position: absolute;
   z-index: 1;
   top: 0;
@@ -40,7 +40,6 @@
   overflow-y: scroll;
   scrollbar-width: none;
   margin-left: 100px;
-  margin-top: 30px;
 }
 
 .detail_restaurantsList::-webkit-scrollbar {
@@ -50,7 +49,6 @@
 .searchForm {
   height: 100px;
   position: relative;
-  margin-top: 30px;
 }
 
 .searchForm_select {
