@@ -48,7 +48,11 @@ function ReviewGraph({ active }) {
         </h1>
         <p>
           구글 리뷰를 기반으로 한 <strong>장소별 여행 선호도 조사</strong>에서
-          음식점이 2위를 차지했습니다.
+          음식점이{" "}
+          <span>
+            <strong>2위</strong>
+          </span>
+          를 차지했습니다.
         </p>
         <p>
           이를 통해 만족스러운 음식을 먹는 것이 여행에서 높은 만족도를 줄 수
