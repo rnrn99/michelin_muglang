@@ -6,6 +6,8 @@ import * as Api from "../../api";
 import { Button, TextField, Card, Typography, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import styles from "../../css/account/Account.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
 
 const KAKAO_AUTH_URL =
   "https://kauth.kakao.com/oauth/authorize?client_id=917b9ed78684b8588577e8aced2a84d2&redirect_uri=http://localhost:5000/users/login/kakao&response_type=code";
@@ -149,15 +151,14 @@ function LoginForm() {
               로그인
             </StyledButton>
 
-            <a
-              href={KAKAO_AUTH_URL}
-              style={{ marginTop: "24px", marginBottom: "8px" }}
-            >
-              <img
-                src="images/kakao_login_button.png"
-                alt="카카오 로그인"
-                width="200px"
-              />
+            <a href={KAKAO_AUTH_URL} className={styles.login_kakao}>
+              <div>
+                <FontAwesomeIcon
+                  icon={faComment}
+                  className={styles.login_kakao_icon}
+                />
+                <span className={styles.login_kakao_label}>카카오 로그인</span>
+              </div>
             </a>
           </div>
 

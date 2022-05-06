@@ -34,7 +34,9 @@ const RestaurantDetailCard = ({ restaurant, goToList }) => {
         <FontAwesomeIcon icon={faUtensils} />
         <span style={{ marginLeft: "10px" }}>
           {restaurant.cuisine.map((cuisineName) => (
-            <span key={cuisineName}>{cuisineName}</span>
+            <span key={cuisineName} style={{ marginRight: "5px" }}>
+              {cuisineName}
+            </span>
           ))}
         </span>
       </div>

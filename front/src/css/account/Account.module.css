@@ -49,3 +49,26 @@
     opacity: 0;
   }
 }
+
+.login_kakao {
+  margin-top: 24px;
+  margin-bottom: 8px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fee500;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.login_kakao_icon {
+  color: #000;
+  opacity: 90%;
+  font-size: 20px;
+}
+
+.login_kakao_label {
+  margin-left: 10px;
+  color: #191919;
+}
