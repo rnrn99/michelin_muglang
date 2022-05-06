@@ -63,7 +63,9 @@ userAuthRouter.get("/users/login/kakao", async (req, res, next) => {
 
     const user = await UserAuthService.upsertKakaoUser({ code });
 
-    const redirect_uri = `http://localhost:3000/login/kakao?token=${user.token}`;
+    // const redirect_uri = `http://localhost:3000/login/kakao?token=${user.token}`;
+    // 배포용으로 수정
+    const redirect_uri = `http://elice-kdt-ai-4th-team03.elicecoding.com/login/kakao?token=${user.token}`;
     res.status(200).redirect(redirect_uri);
   } catch (err) {
     next(err);
@@ -200,22 +202,18 @@ userAuthRouter.patch(
   },
 );
 
-userAuthRouter.get(
-  "/bookmarks/:id",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const id = req.params.id;
+userAuthRouter.get("/bookmarks/:id", async function (req, res, next) {
+  try {
+    const id = req.params.id;
 
-      // 해당 유저 아이디의 북마크 리스트를 가져옴.
-      const bookmarks = await UserAuthService.getBookmarks({ id });
+    // 해당 유저 아이디의 북마크 리스트를 가져옴.
+    const bookmarks = await UserAuthService.getBookmarks({ id });
 
-      res.status(200).send(bookmarks);
-    } catch (error) {
-      next(error);
-    }
-  },
-);
+    res.status(200).send(bookmarks);
+  } catch (error) {
+    next(error);
+  }
+});
 
 userAuthRouter.post(
   "/password-reset",
