@@ -241,6 +241,16 @@ class UserAuthService {
       return bookmarks[0];
     }
 
+    // 이미 북마크한 내역이 있을 경우, 북마크 시도 시 에러 반환
+    const userInfo = await User.findById({ id });
+    if (
+      userInfo.bookmarks.map((val) => val.toString()).includes(restaurantId)
+    ) {
+      const error = new Error("이미 북마크한 내역이 있습니다.");
+      error.statusCode = 400;
+      throw error;
+    }
+
     // 모든 업데이트 성공시 최종적으로 db에 업데이트
     const bookmarks = await runTransaction(txnFunc);
     return bookmarks;
@@ -254,6 +264,16 @@ class UserAuthService {
       ];
 
       return bookmarks[0];
+    }
+
+    // 북마크한 내역이 없을 경우, 언북마크 시도 시 에러 반환
+    const userInfo = await User.findById({ id });
+    if (
+      !userInfo.bookmarks.map((val) => val.toString()).includes(restaurantId)
+    ) {
+      const error = new Error("북마크한 내역이 없습니다.");
+      error.statusCode = 400;
+      throw error;
     }
 
     // 모든 업데이트 성공시 최종적으로 db에 업데이트
