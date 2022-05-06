@@ -1,3 +1,7 @@
+.container {
+  height: 100vh;
+  overflow: hidden;
+}
 .button_search {
   position: fixed;
   right: 20px;

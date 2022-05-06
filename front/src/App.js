@@ -10,7 +10,7 @@ import LoginForm from "./components/user/LoginForm";
 import RegisterForm from "./components/user/RegisterForm";
 import MainPage from "./components/main/MainPage";
 import MapMainPage from "./components/map/MapMainPage";
-import DetailPage from "./components/map/DetailPage";
+import MapDetailPage from "./components/map/MapDetailPage";
 import TeamPage from "./components/team/TeamPage";
 import MyPage from "./components/user/mypage/MyPage";
 import RestaurantDetailPage from "./components/restaurant/RestaurantDetailPage";
@@ -58,7 +58,7 @@ function App() {
       <Routes>
         <Route path="/" exact element={<MainPage />} />
         <Route path="/map" exact element={<MapMainPage />} />
-        <Route path="/detail" exact element={<DetailPage />} />
+        <Route path="/detail" exact element={<MapDetailPage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/login/kakao" element={<KakaoRedirectHandler />} />
         <Route path="/register" element={<RegisterForm />} />

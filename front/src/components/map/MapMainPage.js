@@ -11,7 +11,7 @@ const MapMainPage = () => {
   const [content, setContent] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
-    <div>
+    <div className={styles.container}>
       <WorldMap setTooltipContent={setContent} />
       <ReactTooltip>{content}</ReactTooltip>
       <button

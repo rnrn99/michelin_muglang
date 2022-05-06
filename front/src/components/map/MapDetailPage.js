@@ -5,6 +5,7 @@ import ReactTooltip from "react-tooltip";
 
 import SideBar from "./SideBar";
 import CountryMap from "./CountryMap";
+import styles from "../../css/map/MapDetailPage.module.css";
 
 const DetailPage = () => {
   const location = useLocation();
@@ -23,13 +24,7 @@ const DetailPage = () => {
   };
 
   return (
-    <section
-      style={{
-        backgroundColor: "#f5f5f5",
-        height: "100%",
-        position: "relative",
-      }}
-    >
+    <section className={styles.container}>
       <SideBar
         countryName={countryName}
         restaurants={restaurants}

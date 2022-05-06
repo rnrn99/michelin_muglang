@@ -13,6 +13,7 @@ import RestaurantCard from "./RestaurantCard";
 import styles from "../../css/map/SideBar.module.css";
 
 import { serverUrl, perPage } from "../../data/MapConstant";
+import RestaurantDetailCard from "./RestaurantDetailCard";
 
 const SideBar = ({
   countryName,
@@ -25,8 +26,8 @@ const SideBar = ({
   const [restaurantList, setRestaurantList] = useState([]); //항상 해당 국가의 전체 음식점 리스트를 저장하는 state
   const [page, setPage] = useState(1); //전체 음식점 리스트 pagination을 담당하는 state
   const [searchPage, setSearchPage] = useState(1); //검색 시 나오는 음식점 리스트의 pagination을 담당하는 state
-  const [totalPage, setTotalPage] = useState(1);
-  const [searchTotalPage, setSearchTotalPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1); //전체 음식점 리스트 전체 페이지 state
+  const [searchTotalPage, setSearchTotalPage] = useState(1); //검색 시 나오는 음식점 리스트 전체 페이지 state
   const [selectedCategory, setSelectedCategory] = useState("name"); //검색 필터링 조건 state
   const [onSearch, setOnSearch] = useState(false); //검색 결과를 보고 있는지 여부를 나타내는 state
   const [searchKeyword, setSearchKeyword] = useState(""); //검색 키워드 저장 state
@@ -68,9 +69,9 @@ const SideBar = ({
 
   // 이전 페이지로 넘기는 함수
   const goToPrevPage = () => {
-    if (onSearch && searchPage >= 1) {
+    if (onSearch && searchPage > 1) {
       setSearchPage((prev) => prev - 1);
-    } else if (!onSearch && page >= 1) {
+    } else if (!onSearch && page > 1) {
       setPage((prev) => prev - 1);
     }
   };
@@ -172,15 +173,21 @@ const SideBar = ({
           </div>
         )}
         {/* 레스토랑 리스트 */}
-        {restaurants.map((restaurant) => (
-          <RestaurantCard
-            key={restaurant._id}
-            restaurant={restaurant}
-            handleClick={handleClick}
-            clicked={clicked}
-            goToList={goToList}
-          />
-        ))}
+        {restaurants.map((restaurant) =>
+          !clicked ? (
+            <RestaurantCard
+              key={restaurant._id}
+              restaurant={restaurant}
+              handleClick={handleClick}
+            />
+          ) : (
+            <RestaurantDetailCard
+              key={restaurant._id}
+              restaurant={restaurant}
+              goToList={goToList}
+            />
+          ),
+        )}
       </div>
     </>
   );
