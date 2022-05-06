@@ -7,8 +7,11 @@ import { Button, TextField, Card, Typography, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import styles from "../../css/account/Account.module.css";
 
+// const KAKAO_AUTH_URL =
+//   "https://kauth.kakao.com/oauth/authorize?client_id=917b9ed78684b8588577e8aced2a84d2&redirect_uri=http://localhost:5000/users/login/kakao&response_type=code";
+// 배포용 주소
 const KAKAO_AUTH_URL =
-  "https://kauth.kakao.com/oauth/authorize?client_id=917b9ed78684b8588577e8aced2a84d2&redirect_uri=http://localhost:5000/users/login/kakao&response_type=code";
+  "https://kauth.kakao.com/oauth/authorize?client_id=917b9ed78684b8588577e8aced2a84d2&redirect_uri=http://elice-kdt-ai-4th-team03.elicecoding.com:5000/users/login/kakao&response_type=code";
 
 function LoginForm() {
   const [email, setEmail] = useState(""); // email 저장할 상태
