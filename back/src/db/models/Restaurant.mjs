@@ -32,7 +32,7 @@ class Restaurant {
       websiteUrl,
       award,
       country,
-    }).lean();
+    });
     return createdNewRestaurant;
   }
 
