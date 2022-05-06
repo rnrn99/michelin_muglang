@@ -8,7 +8,7 @@ import {
   InfoOutlined as InfoIcon,
 } from "@mui/icons-material/";
 import { styled } from "@mui/material/styles";
-import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 
 function NearbyRestaurants() {
   const [{ restaurantNearby }, { name }] = useSelector(
