@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 import json
-from pymongo import MongoClient
+from pymongo import MongoClient, GEOSPHERE
 from dotenv import load_dotenv
 
 # 상위 폴더를 base directory로 설정
@@ -48,6 +48,9 @@ michelin["phoneNumber"] = michelin["phoneNumber"].fillna(-1)
 michelin["phoneNumber"] = michelin["phoneNumber"].apply(lambda x:'+'+str(int(x)))
 michelin["phoneNumber"] = michelin["phoneNumber"].replace("+-1", np.nan)
 
+# longitude와 latitude로 coordinate(좌표) 생성
+michelin["coordinate"] = michelin.apply(lambda row: [row["longitude"], row["latitude"]], axis=1)
+
 dataJson = json.loads(michelin.to_json(orient="records"))
 
 if "restaurants" in db.list_collection_names():
@@ -55,3 +58,4 @@ if "restaurants" in db.list_collection_names():
        print("collection has been dropped")
 
 db.restaurants.insert_many(dataJson)
+db.restaurants.create_index([("coordinate", GEOSPHERE)])

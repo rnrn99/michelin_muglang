@@ -1,5 +1,5 @@
 import GeoJSON from "geojson";
-import { restaurantService } from "./restaurantService.mjs";
+import { RestaurantService } from "./restaurantService.mjs";
 import { Country } from "../db/index.mjs";
 import fs from "fs";
 
@@ -8,14 +8,13 @@ class MapService {
   static async getWorldGeoMarker() {
     let ret = await Country.getAllCountry();
 
-    //오 20ms 로 줄어듬 promise all을 잘 써먹자..
     //for문 너무 어지럽게 써서 깔끔하게 줄이고 싶네요
-    for (let i = 0; i + 10 < ret.lengt; i += 10) {
+    for (let i = 0; i < ret.length; i += 10) {
       let arr = [];
       for (let j = 0; j < 10; j++) {
         if (i + j < ret.length) {
           arr.push(
-            restaurantService.countRestaurantByCountry(ret[i + j].nation),
+            RestaurantService.countRestaurantByCountry(ret[i + j].nation),
           );
         }
       }
@@ -26,7 +25,6 @@ class MapService {
         }
       }
     }
-
     return GeoJSON.parse(ret, { Point: ["lat", "lng"] });
   }
 
@@ -34,13 +32,12 @@ class MapService {
   static async getWorldMarker() {
     let ret = await Country.getAllCountry();
 
-    //오 20ms 로 줄어듬 promise all을 잘 써먹자..
-    for (let i = 0; i + 10 < ret.lengt; i += 10) {
+    for (let i = 0; i < ret.length; i += 10) {
       let arr = [];
       for (let j = 0; j < 10; j++) {
         if (i + j < ret.length) {
           arr.push(
-            restaurantService.countRestaurantByCountry(ret[i + j].nation),
+            RestaurantService.countRestaurantByCountry(ret[i + j].nation),
           );
         }
       }
@@ -57,7 +54,7 @@ class MapService {
 
   //특정 국가 마커 geojson으로 반환
   static async getCountryMarker(country) {
-    let ret = await restaurantService.getRestaurantsByCountry({
+    let ret = await RestaurantService.getRestaurantsByCountry({
       country,
     });
     console.log(ret);
@@ -66,13 +63,15 @@ class MapService {
 
   //특정 국가 마커 페이지네이션
   static async getCountryMarkerPage({ country, page, pageSize }) {
-    let ret = await restaurantService.getRestaurantsByCountryPaging({
+    let ret = await RestaurantService.getRestaurantsByCountryPaging({
       country,
       page,
       pageSize,
     });
-    console.log(ret);
-    return GeoJSON.parse(ret, { Point: ["latitude", "longitude"] });
+    const lastPage = ret.lastPage;
+    ret = GeoJSON.parse(ret, { Point: ["latitude", "longitude"] });
+    ret.lastPage = lastPage;
+    return ret;
   }
 
   //국가 국경선

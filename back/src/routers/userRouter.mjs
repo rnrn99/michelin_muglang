@@ -1,8 +1,10 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required.mjs";
-import { userAuthService } from "../services/userService.mjs";
+import { UserAuthService } from "../services/userService.mjs";
 import { body, validationResult } from "express-validator";
+import { setMailOptions, send } from "../utils/mail.mjs";
+import { generatePassword } from "../utils/password.mjs";
 
 const userAuthRouter = Router();
 
@@ -20,7 +22,7 @@ userAuthRouter.post("/users/register", async function (req, res, next) {
     const password = req.body.password;
 
     // 위 데이터를 유저 db에 추가하기
-    const newUser = await userAuthService.addUser({
+    const newUser = await UserAuthService.addUser({
       name,
       email,
       password,
@@ -43,7 +45,7 @@ userAuthRouter.post("/users/login", async function (req, res, next) {
     const password = req.body.password;
 
     // 위 데이터를 이용하여 유저 db에서 유저 찾기
-    const user = await userAuthService.getUser({ email, password });
+    const user = await UserAuthService.getUser({ email, password });
 
     if (user.errorMessage) {
       throw new Error(user.errorMessage);
@@ -55,6 +57,21 @@ userAuthRouter.post("/users/login", async function (req, res, next) {
   }
 });
 
+userAuthRouter.get("/users/login/kakao", async (req, res, next) => {
+  try {
+    const code = req.query.code;
+
+    const user = await UserAuthService.upsertKakaoUser({ code });
+
+    // const redirect_uri = `http://localhost:3000/login/kakao?token=${user.token}`;
+    // 배포용으로 수정
+    const redirect_uri = `http://elice-kdt-ai-4th-team03.elicecoding.com/login/kakao?token=${user.token}`;
+    res.status(200).redirect(redirect_uri);
+  } catch (err) {
+    next(err);
+  }
+});
+
 userAuthRouter.get(
   "/users/current",
   login_required,
@@ -62,7 +79,7 @@ userAuthRouter.get(
     try {
       // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
       const id = req.currentUserId;
-      const currentUserInfo = await userAuthService.getUserInfo({
+      const currentUserInfo = await UserAuthService.getUserInfo({
         id,
       });
 
@@ -98,7 +115,7 @@ userAuthRouter.put("/users", login_required, async function (req, res, next) {
     }
 
     // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함.
-    const updatedUser = await userAuthService.setUser({ id, toUpdate });
+    const updatedUser = await UserAuthService.setUser({ id, toUpdate });
 
     if (updatedUser.errorMessage) {
       throw new Error(updatedUser.errorMessage);
@@ -116,7 +133,7 @@ userAuthRouter.get(
   async function (req, res, next) {
     try {
       const id = req.params.id;
-      const currentUserInfo = await userAuthService.getUserInfo({ id });
+      const currentUserInfo = await UserAuthService.getUserInfo({ id });
 
       if (currentUserInfo.errorMessage) {
         throw new Error(currentUserInfo.errorMessage);
@@ -135,7 +152,7 @@ userAuthRouter.delete("/users", login_required, async (req, res, next) => {
     const id = req.currentUserId;
 
     // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 삭제함.
-    const deletedUser = await userAuthService.deleteUser({ id });
+    const deletedUser = await UserAuthService.deleteUser({ id });
 
     if (deletedUser.errorMessage) {
       throw new Error(deletedUser.errorMessage);
@@ -147,7 +164,6 @@ userAuthRouter.delete("/users", login_required, async (req, res, next) => {
   }
 });
 
-// 북마크 추가(do)/취소(undo)
 userAuthRouter.patch(
   "/bookmarks/:behavior",
   login_required,
@@ -161,18 +177,19 @@ userAuthRouter.patch(
         throw error;
       }
 
-      const id = req.currentUserId;
+      const id = req.currentUserId; // 현재 로그인된 사용자 id를 추출함.
       const { restaurantId } = req.body;
 
+      // 해당 레스토랑 아이디에 대하여 북마크 추가(do)/취소(undo)함.
       if (req.params.behavior == "do") {
-        const bookmarks = await userAuthService.updateBookmark({
+        const bookmarks = await UserAuthService.updateBookmark({
           id,
           restaurantId,
         });
 
         res.status(200).json(bookmarks);
       } else if (req.params.behavior == "undo") {
-        const bookmarks = await userAuthService.deleteBookmark({
+        const bookmarks = await UserAuthService.deleteBookmark({
           id,
           restaurantId,
         });
@@ -185,16 +202,51 @@ userAuthRouter.patch(
   },
 );
 
-// 유저의 북마크 리스트를 가져옴.
-userAuthRouter.get(
-  "/bookmarks/:id",
-  login_required,
+userAuthRouter.get("/bookmarks/:id", async function (req, res, next) {
+  try {
+    const id = req.params.id;
+
+    // 해당 유저 아이디의 북마크 리스트를 가져옴.
+    const bookmarks = await UserAuthService.getBookmarks({ id });
+
+    res.status(200).send(bookmarks);
+  } catch (error) {
+    next(error);
+  }
+});
+
+userAuthRouter.post(
+  "/password-reset",
+  body("email").notEmpty(),
   async function (req, res, next) {
     try {
-      const id = req.params.id;
-      const bookmarks = await userAuthService.getBookmarks({ id });
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        const error = new Error("요청 내용이 비어 있습니다.");
+        error.statusCode = 400;
+        throw error;
+      }
 
-      res.status(200).send(bookmarks);
+      // req (request) 에서 데이터 가져오기
+      const email = req.body.email;
+
+      // 위 데이터를 이용하여 유저 db에서 유저 찾기
+      const user = await UserAuthService.getUserByEmail({ email });
+      const { id, name } = user;
+      const password = generatePassword();
+      const toUpdate = { password };
+
+      const updatedUser = await UserAuthService.setUser({ id, toUpdate });
+      const { to, subject, html } = setMailOptions({ email, name, password });
+
+      const { msg } = send({ to, subject, html });
+
+      const response = {
+        code: 200,
+        data: { msg, updatedUser },
+      };
+
+      res.status(200).send(response);
     } catch (error) {
       next(error);
     }

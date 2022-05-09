@@ -5,10 +5,19 @@ import { useDispatch } from "react-redux";
 import * as Api from "./api";
 import { login } from "./redux/userSlice";
 
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 import LoginForm from "./components/user/LoginForm";
 import RegisterForm from "./components/user/RegisterForm";
 import MainPage from "./components/main/MainPage";
+import MapMainPage from "./components/map/MapMainPage";
+import MapDetailPage from "./components/map/MapDetailPage";
+import TeamPage from "./components/team/TeamPage";
+import MyPage from "./components/user/mypage/MyPage";
+import RestaurantDetailPage from "./components/restaurant/RestaurantDetailPage";
+import UnregisterConfirmationPage from "./components/user/UnregisterConfirmationPage";
+import InfoPage from "./components/info/InfoPage";
+import KakaoRedirectHandler from "./components/user/KakaoRedirectHandler";
+import PasswordResetPage from "./components/user/PasswordResetPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,8 +57,17 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" exact element={<MainPage />} />
+        <Route path="/map" exact element={<MapMainPage />} />
+        <Route path="/detail" exact element={<MapDetailPage />} />
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/login/kakao" element={<KakaoRedirectHandler />} />
         <Route path="/register" element={<RegisterForm />} />
+        <Route path="/team-craft" element={<TeamPage />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/unregister" element={<UnregisterConfirmationPage />} />
+        <Route path="/restaurants/:id" element={<RestaurantDetailPage />} />
+        <Route path="/service-info" element={<InfoPage />} />
+        <Route path="/reset" element={<PasswordResetPage />} />
       </Routes>
     </Router>
   );

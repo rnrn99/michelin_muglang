@@ -64,6 +64,14 @@ const RestaurantSchema = new Schema(
       required: true,
       default: 0,
     },
+    imageUrl: {
+      type: Array,
+      required: false,
+    },
+    placeId: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,

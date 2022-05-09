@@ -1,0 +1,74 @@
+.container {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 64px);
+  margin-top: 64px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container.login {
+  background-image: url("../../../public/images/loginbg.jpg");
+}
+
+.container.register {
+  background-image: url("../../../public/images/registerbg.jpg");
+}
+
+.container.reset {
+  background-image: url("../../../public/images/resetbg.jpg");
+}
+
+.container .error_message {
+  z-index: 10;
+  position: absolute;
+  top: -40px;
+  padding: 6px 8px;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  font-size: 18px;
+  animation: error-message-show 5s;
+}
+
+@keyframes error-message-show {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.login_kakao {
+  margin-top: 24px;
+  margin-bottom: 8px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fee500;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.login_kakao_icon {
+  color: #000;
+  opacity: 90%;
+  font-size: 20px;
+}
+
+.login_kakao_label {
+  margin-left: 10px;
+  color: #191919;
+}

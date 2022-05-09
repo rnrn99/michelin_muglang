@@ -1,0 +1,112 @@
+.container {
+  margin: 150px 0;
+}
+
+.title {
+  display: flex;
+  align-items: flex-end;
+}
+
+.title_text {
+  font-size: 34px;
+  color: #ff9f1c;
+  font-weight: bold;
+}
+
+.title_info {
+  margin-left: 10px;
+  color: #969696;
+}
+
+.nonearby {
+  margin-top: 40px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nonearby img {
+  width: 250px;
+}
+
+.nonearby span {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.slider {
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.slider button {
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.slider_contents {
+  width: 1000px;
+  overflow: hidden;
+}
+
+.restaurants {
+  width: 1000px;
+  display: flex;
+  transition: all 0.4s;
+}
+
+.restaurant {
+  position: relative;
+  cursor: pointer;
+  width: 235px;
+  height: 235px;
+  border-radius: 10px;
+  background-size: 235px;
+  background-position: center;
+  transition: all 0.4s;
+}
+
+.restaurant:hover {
+  background-size: 250px;
+}
+
+.restaurant + .restaurant {
+  margin-left: 20px;
+}
+
+.restaurant_link {
+  box-sizing: border-box;
+  width: 235px;
+  height: 235px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px rgb(60, 60, 60);
+  color: white;
+}
+
+.restaurant_name {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 22px;
+}
+
+.restaurant_country {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 14px;
+}

@@ -1,5 +1,4 @@
 import { UserModel } from "../schemas/user.mjs";
-import { RestaurantModel } from "../schemas/restaurant.mjs";
 
 class User {
   static async create({ newUser }) {
@@ -8,7 +7,7 @@ class User {
   }
 
   static async findByEmail({ email }) {
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email }).lean();
     return user;
   }
 
@@ -18,63 +17,62 @@ class User {
   }
 
   static async findAll() {
-    const users = await UserModel.find({});
+    const users = await UserModel.find({}).lean();
     return users;
   }
 
-  static async update({ id, toUpdate }) {
+  static async update({ id, toUpdate, session }) {
     const filter = { id };
     const update = toUpdate;
     const option = { returnOriginal: false };
 
-    const updatedUser = await UserModel.findOneAndUpdate(
-      filter,
-      update,
-      option,
-    );
+    const updatedUser =
+      session === undefined
+        ? await UserModel.findOneAndUpdate(filter, update, option)
+        : await UserModel.findOneAndUpdate(filter, update, option).session(
+            session,
+          );
+
     return updatedUser;
   }
 
-  static async delete({ id }) {
-    const ret = await UserModel.findOneAndDelete({ id });
+  static async delete({ id, session }) {
+    const ret = await UserModel.findOneAndDelete({ id }).session(session);
     return ret;
   }
 
-  // 북마크 관련 모델
-  static updateBookmark = async ({ id, restaurantId }) => {
+  static async updateBookmark({ id, restaurantId, session }) {
     const filter = { id };
     const update = { $push: { bookmarks: restaurantId } };
     const option = { returnOriginal: false };
 
-    const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
-    const result = await RestaurantModel.findOneAndUpdate(
-      { _id: restaurantId },
-      { $inc: { bookmarkCount: 1 } },
+    const bookmarks = await UserModel.findOneAndUpdate(
+      filter,
+      update,
       option,
-    );
-    // console.log(result); // 레스토랑 다큐먼트 확인용
+    ).session(session);
     return bookmarks;
-  };
+  }
 
-  static findBookmarks = async ({ id }) => {
-    const bookmarks = await UserModel.findOne({ id }).populate("bookmarks");
-    return bookmarks.bookmarks;
-  };
+  static async findBookmarks({ id }) {
+    const userInfo = await UserModel.findOne({ id })
+      .lean()
+      .populate("bookmarks");
+    return userInfo.bookmarks;
+  }
 
-  static deleteBookmark = async ({ id, restaurantId }) => {
+  static async deleteBookmark({ id, restaurantId, session }) {
     const filter = { id };
     const update = { $pull: { bookmarks: restaurantId } };
     const option = { returnOriginal: false };
 
-    const bookmarks = await UserModel.findOneAndUpdate(filter, update, option);
-    const result = await RestaurantModel.findOneAndUpdate(
-      { _id: restaurantId },
-      { $inc: { bookmarkCount: -1 } },
+    const bookmarks = await UserModel.findOneAndUpdate(
+      filter,
+      update,
       option,
-    );
-    // console.log(result); // 레스토랑 다큐먼트 확인용
+    ).session(session);
     return bookmarks;
-  };
+  }
 }
 
 export { User };

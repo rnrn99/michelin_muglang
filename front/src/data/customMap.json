@@ -1,0 +1,322 @@
+[
+  {
+    "name": "China",
+    "center_first": 90,
+    "center_second": 38,
+    "zoom": 6,
+    "size": "10px"
+  },
+  {
+    "name": "Germany",
+    "center_first": 5,
+    "center_second": 51,
+    "zoom": 15,
+    "size": "5px",
+    "tx": -0.6,
+    "ty": -3.3
+  },
+  {
+    "name": "United Kingdom",
+    "center_first": -10,
+    "center_second": 55,
+    "zoom": 13,
+    "size": "5px",
+    "tx": -0.6,
+    "ty": -3.5
+  },
+  {
+    "name": "United States",
+    "center_first": -145,
+    "center_second": 52,
+    "zoom": 3.5,
+    "size": "10px",
+    "tx": 0.3,
+    "ty": -2.3
+  },
+  {
+    "name": "Brazil",
+    "center_first": -65,
+    "center_second": -15,
+    "zoom": 6.5,
+    "size": "10px",
+    "ty": -2
+  },
+  {
+    "name": "Iceland",
+    "center_first": -27,
+    "center_second": 65,
+    "zoom": 15,
+    "size": "5px",
+    "tx": 0.1,
+    "ty": -3.5
+  },
+  {
+    "name": "Ireland",
+    "center_first": -15,
+    "center_second": 53,
+    "zoom": 18,
+    "size": "7px",
+    "ty": -3.5
+  },
+  {
+    "name": "Portugal",
+    "center_first": -22,
+    "center_second": 37,
+    "zoom": 15,
+    "size": "5px",
+    "tx": -0.3,
+    "ty": -3.6
+  },
+  {
+    "name": "Spain",
+    "center_first": -10,
+    "center_second": 40,
+    "zoom": 13,
+    "size": "5px",
+    "tx": -0.5,
+    "ty": -3.6
+  },
+  {
+    "name": "France",
+    "center_first": -4,
+    "center_second": 47,
+    "zoom": 13,
+    "size": "3px",
+    "tx": -0.3,
+    "ty": -4.1
+  },
+  {
+    "name": "Andorra",
+    "center_first": 0,
+    "center_second": 41.5,
+    "zoom": 50,
+    "size": "1px",
+    "tx": -0.2,
+    "ty": -4.6
+  },
+  {
+    "name": "Malta",
+    "center_first": 13.5,
+    "center_second": 36,
+    "zoom": 100,
+    "size": "1px",
+    "tx": -0.1,
+    "ty": -4.6
+  },
+  {
+    "name": "Greece",
+    "center_first": 18,
+    "center_second": 38,
+    "zoom": 15,
+    "size": "5px"
+  },
+  {
+    "name": "Serbia",
+    "center_first": 17,
+    "center_second": 43.5,
+    "zoom": 20,
+    "size": "5px"
+  },
+  {
+    "name": "Italy",
+    "center_first": 5,
+    "center_second": 42,
+    "zoom": 13,
+    "size": "5px"
+  },
+  {
+    "name": "San Marino",
+    "center_first": 12,
+    "center_second": 44,
+    "zoom": 100,
+    "size": "0.5px",
+    "tx": 0.005,
+    "ty": -4.8
+  },
+  {
+    "name": "Slovenia",
+    "center_first": 12,
+    "center_second": 46,
+    "zoom": 30,
+    "size": "3px",
+    "tx": 0.1,
+    "ty": -4
+  },
+  {
+    "name": "Croatia",
+    "center_first": 12,
+    "center_second": 45,
+    "zoom": 18,
+    "size": "3px",
+    "tx": -0.3,
+    "ty": -4.1
+  },
+  {
+    "name": "Hungary",
+    "center_first": 12,
+    "center_second": 47,
+    "zoom": 15,
+    "size": "5px"
+  },
+  {
+    "name": "Poland",
+    "center_first": 13,
+    "center_second": 52,
+    "zoom": 13,
+    "size": "5px",
+    "tx": 0.1,
+    "ty": -4
+  },
+  {
+    "name": "Sweden",
+    "center_first": 8,
+    "center_second": 63,
+    "zoom": 9,
+    "size": "5px",
+    "tx": -0.5,
+    "ty": -3.5
+  },
+  {
+    "name": "Norway",
+    "center_first": 3,
+    "center_second": 65,
+    "zoom": 8,
+    "size": "5px",
+    "tx": -0.8,
+    "ty": -3.6
+  },
+  {
+    "name": "Belgium",
+    "center_first": 0,
+    "center_second": 50,
+    "zoom": 18,
+    "size": "4px",
+    "tx": -0.5,
+    "ty": -3.6
+  },
+  {
+    "name": "Luxembourg",
+    "center_first": 4,
+    "center_second": 50,
+    "zoom": 40,
+    "size": "2px",
+    "tx": -0.4,
+    "ty": -4.3
+  },
+  {
+    "name": "Netherlands",
+    "center_first": 0,
+    "center_second": 52,
+    "zoom": 15,
+    "size": "5px",
+    "tx": -0.7,
+    "ty": -3.5
+  },
+  {
+    "name": "Finland",
+    "center_first": 18,
+    "center_second": 65,
+    "zoom": 9,
+    "size": "5px",
+    "ty": -3
+  },
+  {
+    "name": "Switzerland",
+    "center_first": 4,
+    "center_second": 46.5,
+    "zoom": 20,
+    "size": "3px",
+    "tx": -0.3,
+    "ty": -4
+  },
+  {
+    "name": "Denmark",
+    "center_first": 5,
+    "center_second": 55,
+    "zoom": 13,
+    "size": "5px",
+    "tx": -0.6,
+    "ty": -3.6
+  },
+  {
+    "name": "Czech Republic",
+    "center_first": 8,
+    "center_second": 49,
+    "zoom": 13,
+    "size": "5px",
+    "tx": -0.6,
+    "ty": -3.9
+  },
+  {
+    "name": "Austria",
+    "center_first": 6,
+    "center_second": 47,
+    "zoom": 13,
+    "size": "5px",
+    "tx": -0.6,
+    "ty": -3.6
+  },
+  {
+    "name": "South Korea",
+    "center_first": 124,
+    "center_second": 36,
+    "zoom": 30,
+    "size": "2px",
+    "tx": -0.5,
+    "ty": -4.3
+  },
+  {
+    "name": "Thailand",
+    "center_first": 95,
+    "center_second": 13,
+    "zoom": 13,
+    "size": "5px",
+    "tx": -0.5,
+    "ty": -4.3
+  },
+  {
+    "name": "Singapore",
+    "center_first": 102,
+    "center_second": 1,
+    "zoom": 40,
+    "size": "3px",
+    "tx": -0.5,
+    "ty": -4.3
+  },
+  {
+    "name": "Hong Kong",
+    "center_first": 112,
+    "center_second": 22,
+    "zoom": 40,
+    "size": "3px",
+    "tx": -0.5,
+    "ty": -4.3
+  },
+  {
+    "name": "Macau",
+    "center_first": 112.5,
+    "center_second": 22,
+    "zoom": 100,
+    "size": "1px",
+    "tx": -0.1,
+    "ty": -4.7
+  },
+  {
+    "name": "Taiwan",
+    "center_first": 118,
+    "center_second": 23.5,
+    "zoom": 40,
+    "size": "3px",
+    "tx": -0.4,
+    "ty": -4.3
+  },
+  {
+    "name": "Japan",
+    "center_first": 127,
+    "center_second": 35,
+    "zoom": 10,
+    "size": "5px",
+    "tx": -0.5,
+    "ty": -4.3
+  }
+]

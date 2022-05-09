@@ -1,0 +1,75 @@
+.container {
+  width: 100%;
+  height: 300px;
+  margin-top: 30px;
+}
+
+.title {
+  height: 30px;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.restaurant {
+  cursor: pointer;
+  width: 230px;
+  height: 230px;
+  border-radius: 10px;
+  position: relative;
+  background-size: 230px;
+}
+
+.restaurant + .restaurant {
+  margin-left: 20px;
+}
+
+.restaurant_link {
+  box-sizing: border-box;
+  width: 230px;
+  height: 230px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px rgb(60, 60, 60);
+  color: white;
+}
+
+.restaurant_link > div {
+  width: 230px;
+  height: 230px;
+}
+
+.restaurant_name {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 22px;
+}
+
+.restaurant_country {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 14px;
+}
+
+.icon_delete {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  color: white;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.restaurant:hover .icon_delete {
+  opacity: 1;
+}
+
+.icon_delete:hover {
+  cursor: pointer;
+  color: #ffbf69;
+}

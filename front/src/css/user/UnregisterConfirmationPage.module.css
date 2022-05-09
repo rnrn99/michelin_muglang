@@ -1,0 +1,39 @@
+.container {
+  width: 100vw;
+  height: calc(100vh - 64px);
+  padding-top: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container img {
+  width: 200px;
+}
+
+.container div:nth-child(2) {
+  margin-top: 20px;
+  font-size: 40px;
+}
+
+.container div:nth-child(3) {
+  margin-top: 20px;
+  font-size: 28px;
+}
+
+.container button {
+  margin-top: 40px;
+  background-color: white;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  color: #ff9f1c;
+  transition: all 0.3s;
+}
+
+.container button:hover {
+  cursor: pointer;
+  background-color: #fdf4e5;
+}
