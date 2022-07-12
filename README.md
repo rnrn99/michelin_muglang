@@ -9,9 +9,9 @@
 <br />
 
 
-## Application
-https://michelin-muglang.netlify.app/ 
-
+## 관련 링크
+- [프로젝트 정리](https://velog.io/@rnrn99/Project-%EB%AF%B8%EC%8A%90%EB%9E%AD-%EB%A8%B9%EC%9D%84%EB%9E%AD-%EC%A0%95%EB%A6%AC)  
+- [Application](https://michelin-muglang.netlify.app/)  
 heroku와 netlify를 이용해 배포하였습니다.
 
 
@@ -134,7 +134,107 @@ heroku와 netlify를 이용해 배포하였습니다.
 | nodemailer      | React Simple Maps | pymongo       |
 
 
+### 👀 기술 스택 적용 이유(프론트)
+#### React
+- 컴포넌트 기반으로 이루어져있어 복잡한 UI도 간단하게 만들 수 있고 생산성이 좋습니다.
+- Virtual DOM을 사용하여 변화가 필요한 곳만 렌더링하기 때문에 성능이 좋습니다.
+- 커뮤니티가 활성화되어있어 유지보수가 원활히 이루어지며 활용할 수 있는 라이브러리가 많습니다.
+#### Redux-toolkit
+- 기본 Redux보다 문법이 간단하며 적은 코드로 Redux와 동일한 상태관리가 가능합니다.
+- Redux의 대표적인 장점인 Redux-devtools를 사용할 수 있습니다.
+#### MUI
+- 다양한 디자인된 컴포넌트들을 간단하게 사용할 수 있고 빠르게 UI를 만들 수 있게 되어 생산성을 올려줍니다.
+- ```sx```와 같은 속성을 통해 디자인을 커스텀할 수 있습니다.
+- css 역량을 기르기 위해 로그인, 회원가입 페이지 구현 시에만 사용하고 나머지 페이지에는 사용하지 않았습니다.
+
+
 <br />
+
+
+## 트러블슈팅
+![scroll-animation](https://velog.velcdn.com/images/rnrn99/post/1c50135a-009a-44b9-81ec-3ca250382de0/image.gif)
+### 🙅‍ 어려움
+위 사진처럼 메인페이지를 4개의 section으로 구분했고 그에따라 스크롤 애니메이션을 적용하고 싶었습니다. 
+
+구현하고자 했던 애니메이션의 상세 내용은 다음과 같습니다.
+
+1. 오른쪽의 nav button을 눌러 해당 section으로 이동.
+   (이때 내용이 보기 쉽도록 화면 중앙에 위치할 것.)
+2. 직접 스크롤 또는 nav button 버튼을 클릭해 section 이동 시 해당 section의 애니메이션(그래프, 텍스트 강조 등)이 활성화될 것.
+
+우선 1의 기능을 구현하기 위해 `react-fullpage`와 `react-full-page`라는 라이브러리를 찾았지만 두 라이브러리의 weekly downloads 수는 각각 4,141과 2,465로 적은 편에 속했고 업데이트도 원활히 되지 않아 사용하기에는 적절하지 않은 라이브러리라고 판단했습니다.
+
+### 🙆‍♀️ 해결방법
+적절하지 않은 라이브러리에 대한 의존성을 높이고 원하는 결과를 내는 것보다 직접 구현하여 의존성을 줄이는 것이 옳다고 판단했습니다.
+```js
+  const handleScrollEvent = useCallback(() => {
+    let yOffset = window.scrollY;
+    let height = window.innerHeight / 1.5;
+
+    for (let i = 0; i < section.length; i++) {
+      if (
+        yOffset > section[i].offsetTop - height &&
+        yOffset <= section[i].offsetTop - height + section[i].offsetHeight
+      ) {
+        setActiveBtn(i);
+        break;
+      }
+    }
+  }, [section]);
+```
+먼저 scroll event에 대한 handler 함수인 `handleScrollEvent`를 구현하여 스크롤된 위치에 따라 어느 section이 활성화되었는지 확인했습니다.
+
+```js
+  useEffect(() => {
+    // 스크롤 이벤트 핸들러
+    window.addEventListener("scroll", handleScrollEvent);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollEvent);
+    };
+  }, [handleScrollEvent, section]);
+```
+`useEffect`를 이용해 스크롤 이벤트 핸들러를 등록하였고 컴포넌트가 언마운트될 때 이벤트 핸들러를 제거해 주었습니다.
+
+```js
+// nav 버튼 클릭 핸들러
+  const clickPointBtn = (e) => {
+    if (e.target.id) {
+      const pageNum = e.target.id;
+
+      window.scrollTo({
+        top: section[pageNum].offsetTop - headerHeight,
+        behavior: "smooth",
+      });
+
+      setActiveBtn(pageNum);
+    }
+  };
+// nav btn 활성화
+  useEffect(() => {
+    const pointBtn = pointRef.current.getElementsByTagName("li");
+
+    for (var i = 0; i < pointBtn.length; i++) {
+      pointBtn[i].classList.remove(styles.active);
+    }
+    pointBtn[activeBtn].classList.add(styles.active);
+  }, [activeBtn]);
+```
+이후 활성화된 section에 따라 nav button의 active 여부를 지정하고 className을 추가하거나 삭제했습니다.
+
+```jsx
+{/* Covid Weekly Graph */}
+<section>
+    <SectionCovid active={activeBtn === 1} />
+</section>
+
+{/* Vaccinated Ratio Graph */}
+<section>
+    <SectionVaccine active={activeBtn === 2} />
+</section>
+```
+
+같은 원리를 이용해 section이 활성화되었는지의 여부를 active라는 prop으로 전달해 애니메이션과 관련된 className을 추가하거나 삭제했습니다.
 
 
 
